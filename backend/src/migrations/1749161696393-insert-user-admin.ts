@@ -1,0 +1,46 @@
+import { MigrationInterface, QueryRunner } from "typeorm";
+import { HttpError } from "../utils/httpError";
+import { HttpStatusEnum } from "../enums/HttpStatusEnum";
+import { ERROR_MESSAGES } from "../utils/messages";
+import { createHashedPassword } from "../utils/password";
+import { UserTypeEnum } from "../enums/UserTypeEnum";
+import { generateUuid } from "../utils/generateUuid";
+
+export class InsertUserAdmin1749161696393 implements MigrationInterface {
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    const adminEmail = process.env.ADMIN_EMAIL;
+    const adminPassword = process.env.ADMIN_PASSWORD;
+
+    if (!adminEmail || !adminPassword) {
+      throw new HttpError(
+        HttpStatusEnum.InternalServerError,
+        ERROR_MESSAGES.ENV.MISSING_ADMIN_EMAIL_OR_PASSWORD
+      );
+    }
+
+    const hashedPassword = await createHashedPassword(adminPassword);
+    const id = generateUuid();
+
+    await queryRunner.query(`
+        INSERT INTO public.user (id, name, birthdate, type, email, hashed_password)
+        VALUES ('${id}', 'Admin', '2000-01-01', ${
+      UserTypeEnum.Admin
+    }, '${adminEmail.toLowerCase()}', '${hashedPassword}');
+    `);
+  }
+
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    const adminEmail = process.env.ADMIN_EMAIL;
+
+    if (!adminEmail) {
+      throw new HttpError(
+        HttpStatusEnum.InternalServerError,
+        ERROR_MESSAGES.ENV.MISSING_ADMIN_EMAIL
+      );
+    }
+
+    await queryRunner.query(`
+      DELETE FROM public.user WHERE email = '${adminEmail.toLowerCase()}';
+    `);
+  }
+}
