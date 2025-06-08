@@ -27,6 +27,11 @@ export const ERROR_MESSAGES = {
     INVALID_CREDENTIALS: "E-mail ou senha inválidos",
     ACCESS_DENIED: "Acesso negado",
   },
+  COUNTRY: {
+    SELECT_COUNTRY_ERROR: "Erro ao buscar países",
+    COUNTRY_ID_NOT_FOUND: (countryId: string) =>
+      `O país com id ${countryId} não foi encontrado`,
+  },
   ENV: {
     MISSING_DB_HOST: "DB_HOST não definido no arquivo .env",
     MISSING_DB_USER: "DB_USER não definido no arquivo .env",

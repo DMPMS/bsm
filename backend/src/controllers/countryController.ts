@@ -1,0 +1,34 @@
+import { Request, Response } from "express";
+import { CountryService } from "../services/countryService";
+import { PAGINATION } from "../config/constants";
+import { HttpStatusEnum } from "../enums/HttpStatusEnum";
+import { HttpError } from "../utils/httpError";
+import { ERROR_MESSAGES } from "../utils/messages";
+
+export class CountryController {
+  constructor(private readonly countryService: CountryService) {}
+
+  async getCountries(req: Request, res: Response): Promise<void> {
+    try {
+      const {
+        page = PAGINATION.DEFAULT_PAGE,
+        limit = PAGINATION.DEFAULT_LIMIT,
+      } = req.query;
+
+      const countries = await this.countryService.getCountries(
+        Number(page),
+        Number(limit)
+      );
+
+      res.status(HttpStatusEnum.Ok).json(countries);
+    } catch (error) {
+      if (error instanceof HttpError) {
+        res.status(error.status).json(error.message);
+      } else {
+        res
+          .status(HttpStatusEnum.InternalServerError)
+          .json(ERROR_MESSAGES.COUNTRY.SELECT_COUNTRY_ERROR);
+      }
+    }
+  }
+}

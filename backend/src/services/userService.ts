@@ -13,13 +13,18 @@ import { CreateUserDto } from "../dtos/createUserDto";
 import { generateUuid } from "../utils/generateUuid";
 import { UpdateUserDto } from "../dtos/updateUserDto";
 import { DeleteUserDto } from "../dtos/deleteUserDto";
+import { CountryService } from "./countryService";
 
 export class UserService {
+  private readonly countryService: CountryService;
+
   constructor(
     private readonly userRepository: Repository<UserEntity> = AppDataSource.getRepository(
       UserEntity
     )
-  ) {}
+  ) {
+    this.countryService = new CountryService();
+  }
 
   async getUsers(
     page: number,
@@ -101,6 +106,8 @@ export class UserService {
     userId?: string,
     userType?: UserTypeEnum
   ): Promise<ReturnUserDto> {
+    await this.countryService.getCountryById(createUserDto.countryId);
+
     const existingUser = await this.getUserByEmail(createUserDto.email).catch(
       () => undefined
     );
@@ -160,6 +167,8 @@ export class UserService {
     updateUserDto: UpdateUserDto,
     userId: string
   ): Promise<ReturnUserDto> {
+    await this.countryService.getCountryById(updateUserDto.countryId);
+
     const user = await this.userRepository.findOne({
       where: { id: userId },
     });
