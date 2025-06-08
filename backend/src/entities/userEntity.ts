@@ -2,16 +2,26 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { USER } from "../config/constants";
+import { COUNTRY, USER } from "../config/constants";
 import { UserTypeEnum } from "../enums/UserTypeEnum";
+import { CountryEntity } from "./countryEntity";
 
 @Entity("user")
 export class UserEntity {
-  @PrimaryColumn()
+  @PrimaryColumn({ type: "uuid" })
   id: string;
+
+  @Column({
+    type: "varchar",
+    name: "country_id",
+    nullable: false,
+  })
+  countryId: string;
 
   @Column({
     type: "varchar",
@@ -56,4 +66,8 @@ export class UserEntity {
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
+
+  @ManyToOne(() => CountryEntity, (country) => country.users)
+  @JoinColumn({ name: "country_id", referencedColumnName: "id" })
+  country?: CountryEntity;
 }

@@ -5,6 +5,7 @@ export class CreateUserTable1749157030402 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE public.user (
         id VARCHAR(36) NOT NULL CHECK (LENGTH(id) = 36),
+        country_id VARCHAR(36) NOT NULL CHECK (LENGTH(country_id) = 36),
 
         name VARCHAR(30) NOT NULL CHECK (LENGTH(name) >= 4),
         image_url TEXT,
@@ -16,7 +17,8 @@ export class CreateUserTable1749157030402 implements MigrationInterface {
         created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
         updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
 
-        PRIMARY KEY (id)
+        PRIMARY KEY (id),
+        FOREIGN KEY (country_id) REFERENCES public.country(id) ON DELETE CASCADE ON UPDATE CASCADE
       );
     `);
   }

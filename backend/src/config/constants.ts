@@ -32,3 +32,10 @@ export const USER = {
     MAX: 100,
   },
 };
+
+export const COUNTRY = {
+  NAME: {
+    MIN: 1,
+    MAX: 30,
+  },
+};

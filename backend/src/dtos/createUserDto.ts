@@ -1,4 +1,10 @@
-import { IsOptional, IsString, Length, Validate } from "class-validator";
+import {
+  IsOptional,
+  IsString,
+  IsUUID,
+  Length,
+  Validate,
+} from "class-validator";
 import { Expose } from "class-transformer";
 import { USER } from "../config/constants";
 import { IsCustomEmail } from "../validators/isCustomEmail";
@@ -8,6 +14,10 @@ import { isValidImage } from "../validators/isValidImage";
 
 export class CreateUserDto {
   @Expose()
+  @IsUUID()
+  countryId: string;
+
+  @Expose()
   @IsString()
   @Length(USER.NAME.MIN, USER.NAME.MAX)
   name: string;
@@ -16,7 +26,7 @@ export class CreateUserDto {
   @IsString()
   @Validate(isValidImage)
   @IsOptional()
-  imageUrl: string;
+  imageUrl?: string | null;
 
   @Expose()
   @IsString()

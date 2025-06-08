@@ -33,6 +33,7 @@ export class UserService {
       // take: limit,
       relations: relationsOptions,
       where: { type: UserTypeEnum.User },
+      order: { createdAt: "DESC" },
     });
 
     return users.map((user) => new ReturnUserDto(user));

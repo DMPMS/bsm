@@ -10,6 +10,7 @@ import { CreateUserDto } from "../dtos/createUserDto";
 import { validateDto } from "../utils/validateDto";
 import { UpdateUserDto } from "../dtos/updateUserDto";
 import { DeleteUserDto } from "../dtos/deleteUserDto";
+import { RelationsOptionsType } from "../types/RelationsOptions.type";
 
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -49,7 +50,11 @@ export class UserController {
         return;
       }
 
-      const user = await this.userService.getUserInfo(userId);
+      const relationsOptions: RelationsOptionsType = {
+        country: true,
+      };
+
+      const user = await this.userService.getUserInfo(userId, relationsOptions);
 
       res.status(HttpStatusEnum.Ok).json(user);
     } catch (error) {
