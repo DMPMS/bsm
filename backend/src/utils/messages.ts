@@ -32,6 +32,16 @@ export const ERROR_MESSAGES = {
     COUNTRY_ID_NOT_FOUND: (countryId: string) =>
       `O país com id ${countryId} não foi encontrado`,
   },
+  MANAGERGLOBAL: {
+    CREATE_MANAGERGLOBAL_ERROR: "Erro ao criar managerglobal",
+    UPDATE_MANAGERGLOBAL_ERROR: "Erro ao editar managerglobal",
+    SELECT_MANAGERGLOBAL_ERROR: "Erro ao buscar managerglobals",
+    SELECT_MANAGERGLOBAL_BY_ID_ERROR: "Erro ao buscar managerglobal",
+    DELETE_MANAGERGLOBAL_ERROR: "Erro ao deletar managerglobal",
+    MANAGERGLOBAL_ID_IS_REQUIRED: "O managerglobalId é obrigatório",
+    MANAGERGLOBAL_ID_NOT_FOUND: (managerglobalId: string) =>
+      `O managerglobal com id ${managerglobalId} não foi encontrado`,
+  },
   ENV: {
     MISSING_DB_HOST: "DB_HOST não definido no arquivo .env",
     MISSING_DB_USER: "DB_USER não definido no arquivo .env",
@@ -59,6 +69,9 @@ export const SUCCESS_MESSAGES = {
     USER_DELETED_SUCCESSFULLY: "Usuário deletado",
     ADMIN_DELETED_SUCCESSFULLY: "Administrador deletado",
     MY_USER_DELETED_SUCCESSFULLY: "Usuário deletado. Volte sempre que quiser 🥹",
+  },
+  MANAGERGLOBAL: {
+    MANAGERGLOBAL_DELETED_SUCCESSFULLY: "Managerglobal deletado",
   },
 };
 

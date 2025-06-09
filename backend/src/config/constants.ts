@@ -39,3 +39,14 @@ export const COUNTRY = {
     MAX: 30,
   },
 };
+
+export const MANAGERGLOBAL = {
+  NAME: {
+    MIN: 4,
+    MAX: 30,
+  },
+  AGE: {
+    MIN: 18,
+    MAX: 90,
+  },
+};

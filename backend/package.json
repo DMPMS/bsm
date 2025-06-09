@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx nodemon server.ts",
-    "migration:create": "npx typeorm migration:create"
+    "migration": "npx typeorm migration:create"
   },
   "keywords": [],
   "author": "",

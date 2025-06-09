@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { COUNTRY } from "../config/constants";
 import { UserEntity } from "./userEntity";
+import { ManagerglobalEntity } from "./managerglobalEntity";
 
 @Entity("country")
 export class CountryEntity {
@@ -30,4 +31,10 @@ export class CountryEntity {
 
   @OneToMany(() => UserEntity, (user) => user.country)
   users?: UserEntity[];
+
+  @OneToMany(
+    () => ManagerglobalEntity,
+    (managerglobal) => managerglobal.country
+  )
+  managerglobals?: ManagerglobalEntity[];
 }
