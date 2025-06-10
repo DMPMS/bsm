@@ -50,3 +50,14 @@ export const MANAGERGLOBAL = {
     MAX: 90,
   },
 };
+
+export const POSITION = {
+  NAME: {
+    MIN: 1,
+    MAX: 30,
+  },
+  ABBREVIATION: {
+    MIN: 1,
+    MAX: 3,
+  },
+};

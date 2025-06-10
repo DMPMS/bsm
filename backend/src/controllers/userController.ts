@@ -15,7 +15,7 @@ import { RelationsOptionsType } from "../types/RelationsOptions.type";
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  async getUsers(req: AuthenticatedRequest, res: Response): Promise<void> {
+  async getUsers(req: Request, res: Response): Promise<void> {
     try {
       const {
         page = PAGINATION.DEFAULT_PAGE,
@@ -224,7 +224,7 @@ export class UserController {
     }
   }
 
-  async deleteUser(req: AuthenticatedRequest, res: Response): Promise<void> {
+  async deleteUser(req: Request, res: Response): Promise<void> {
     try {
       const { userDeleteId } = req.params;
 
@@ -251,7 +251,7 @@ export class UserController {
     }
   }
 
-  async deleteAdmin(req: AuthenticatedRequest, res: Response): Promise<void> {
+  async deleteAdmin(req: Request, res: Response): Promise<void> {
     try {
       const { adminDeleteId } = req.params;
 

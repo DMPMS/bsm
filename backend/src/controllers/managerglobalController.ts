@@ -1,7 +1,6 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { PAGINATION } from "../config/constants";
 import { ManagerglobalService } from "../services/managerglobalService";
-import { AuthenticatedRequest } from "../types/AuthenticatedRequestType";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
 import { HttpError } from "../utils/httpError";
 import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../utils/messages";
@@ -14,10 +13,7 @@ import { UpdateManagerglobalDto } from "../dtos/updateManagerglobalDto";
 export class ManagerglobalController {
   constructor(private readonly managerglobalService: ManagerglobalService) {}
 
-  async getManagerglobals(
-    req: AuthenticatedRequest,
-    res: Response
-  ): Promise<void> {
+  async getManagerglobals(req: Request, res: Response): Promise<void> {
     try {
       const {
         page = PAGINATION.DEFAULT_PAGE,
@@ -46,10 +42,7 @@ export class ManagerglobalController {
     }
   }
 
-  async getManagerglobalById(
-    req: AuthenticatedRequest,
-    res: Response
-  ): Promise<void> {
+  async getManagerglobalById(req: Request, res: Response): Promise<void> {
     try {
       const { managerglobalId } = req.params;
 
@@ -82,10 +75,7 @@ export class ManagerglobalController {
     }
   }
 
-  async createManagerglobal(
-    req: AuthenticatedRequest,
-    res: Response
-  ): Promise<void> {
+  async createManagerglobal(req: Request, res: Response): Promise<void> {
     try {
       const createManagerglobalDto = plainToInstance(
         CreateManagerglobalDto,
@@ -120,10 +110,7 @@ export class ManagerglobalController {
     }
   }
 
-  async updateManagerglobal(
-    req: AuthenticatedRequest,
-    res: Response
-  ): Promise<void> {
+  async updateManagerglobal(req: Request, res: Response): Promise<void> {
     try {
       const updateManagerglobalDto = plainToInstance(
         UpdateManagerglobalDto,
@@ -168,10 +155,7 @@ export class ManagerglobalController {
     }
   }
 
-  async deleteManagerglobal(
-    req: AuthenticatedRequest,
-    res: Response
-  ): Promise<void> {
+  async deleteManagerglobal(req: Request, res: Response): Promise<void> {
     try {
       const { managerglobalId } = req.params;
 

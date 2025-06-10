@@ -32,6 +32,11 @@ export const ERROR_MESSAGES = {
     COUNTRY_ID_NOT_FOUND: (countryId: string) =>
       `O país com id ${countryId} não foi encontrado`,
   },
+  POSITION: {
+    SELECT_POSITION_ERROR: "Erro ao buscar posições",
+    POSITION_ID_NOT_FOUND: (positionId: string) =>
+      `A posição com id ${positionId} não foi encontrada`,
+  },
   MANAGERGLOBAL: {
     CREATE_MANAGERGLOBAL_ERROR: "Erro ao criar managerglobal",
     UPDATE_MANAGERGLOBAL_ERROR: "Erro ao editar managerglobal",

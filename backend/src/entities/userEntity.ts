@@ -7,7 +7,7 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { COUNTRY, USER } from "../config/constants";
+import { USER } from "../config/constants";
 import { UserTypeEnum } from "../enums/UserTypeEnum";
 import { CountryEntity } from "./countryEntity";
 
