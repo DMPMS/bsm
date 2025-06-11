@@ -31,8 +31,8 @@ export class ManagerglobalService {
     const skip = (page - PAGINATION.INITIAL_PAGE) * limit;
 
     const managerglobals = await this.managerglobalRepository.find({
-      skip,
-      take: limit,
+      // skip,
+      // take: limit,
       relations: relationsOptions,
       order: { createdAt: "DESC" },
     });

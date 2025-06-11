@@ -1,3 +1,5 @@
+import { PLAYERGLOBAL } from "../config/constants";
+
 export const ERROR_MESSAGES = {
   USER: {
     EMAIL_ALREADY_EXISTS: "E-mail já cadastrado",
@@ -47,6 +49,16 @@ export const ERROR_MESSAGES = {
     MANAGERGLOBAL_ID_NOT_FOUND: (managerglobalId: string) =>
       `O managerglobal com id ${managerglobalId} não foi encontrado`,
   },
+  PLAYERGLOBAL: {
+    CREATE_PLAYERGLOBAL_ERROR: "Erro ao criar playerglobal",
+    UPDATE_PLAYERGLOBAL_ERROR: "Erro ao editar playerglobal",
+    SELECT_PLAYERGLOBAL_ERROR: "Erro ao buscar playerglobals",
+    SELECT_PLAYERGLOBAL_BY_ID_ERROR: "Erro ao buscar playerglobal",
+    DELETE_PLAYERGLOBAL_ERROR: "Erro ao deletar playerglobal",
+    PLAYERGLOBAL_ID_IS_REQUIRED: "O playerglobalId é obrigatório",
+    PLAYERGLOBAL_ID_NOT_FOUND: (playerglobalId: string) =>
+      `O playerglobal com id ${playerglobalId} não foi encontrado`,
+  },
   ENV: {
     MISSING_DB_HOST: "DB_HOST não definido no arquivo .env",
     MISSING_DB_USER: "DB_USER não definido no arquivo .env",
@@ -77,6 +89,9 @@ export const SUCCESS_MESSAGES = {
   },
   MANAGERGLOBAL: {
     MANAGERGLOBAL_DELETED_SUCCESSFULLY: "Managerglobal deletado",
+  },
+  PLAYERGLOBAL: {
+    PLAYERGLOBAL_DELETED_SUCCESSFULLY: "Playerglobal deletado",
   },
 };
 

@@ -9,6 +9,7 @@ import {
 import { COUNTRY } from "../config/constants";
 import { UserEntity } from "./userEntity";
 import { ManagerglobalEntity } from "./managerglobalEntity";
+import { PlayerglobalEntity } from "./playerglobalEntity";
 
 @Entity("country")
 export class CountryEntity {
@@ -37,4 +38,7 @@ export class CountryEntity {
     (managerglobal) => managerglobal.country
   )
   managerglobals?: ManagerglobalEntity[];
+
+  @OneToMany(() => PlayerglobalEntity, (playerglobal) => playerglobal.country)
+  playerglobals?: PlayerglobalEntity[];
 }

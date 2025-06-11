@@ -51,6 +51,21 @@ export const MANAGERGLOBAL = {
   },
 };
 
+export const PLAYERGLOBAL = {
+  NAME: {
+    MIN: 4,
+    MAX: 30,
+  },
+  AGE: {
+    MIN: 16,
+    MAX: 50,
+  },
+  OVERALL: {
+    MIN: 1,
+    MAX: 100,
+  },
+};
+
 export const POSITION = {
   NAME: {
     MIN: 1,
