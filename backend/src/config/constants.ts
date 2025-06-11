@@ -6,6 +6,8 @@ export const PAGINATION = {
 
 export const CURRENT_DATE = new Date();
 
+export const UUID_VERSION = "4";
+
 export const USER = {
   NAME: {
     MIN: 4,
@@ -63,6 +65,14 @@ export const PLAYERGLOBAL = {
   OVERALL: {
     MIN: 1,
     MAX: 100,
+  },
+  PRIMARY_POSITIONS: {
+    MIN: 1,
+    MAX: 3,
+  },
+  SECONDARY_POSITIONS: {
+    MIN: 0,
+    MAX: 5,
   },
 };
 

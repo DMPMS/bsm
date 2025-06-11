@@ -1,5 +1,6 @@
 import { PlayerglobalEntity } from "../entities/playerglobalEntity";
 import { ReturnCountryDto } from "./returnCountryDto";
+import { ReturnPlayerglobalPositionDto } from "./returnPlayerglobalPositionDto";
 
 export class ReturnPlayerglobalDto {
   id: string;
@@ -9,6 +10,7 @@ export class ReturnPlayerglobalDto {
   overall: number;
 
   country?: ReturnCountryDto;
+  playerglobalPositions?: ReturnPlayerglobalPositionDto[];
 
   constructor(playerglobalEntity: PlayerglobalEntity) {
     this.id = playerglobalEntity.id;
@@ -19,6 +21,13 @@ export class ReturnPlayerglobalDto {
 
     this.country = playerglobalEntity.country
       ? new ReturnCountryDto(playerglobalEntity.country)
+      : undefined;
+
+    this.playerglobalPositions = playerglobalEntity.playerglobalPositions
+      ? playerglobalEntity.playerglobalPositions.map(
+          (playerglobalPosition) =>
+            new ReturnPlayerglobalPositionDto(playerglobalPosition)
+        )
       : undefined;
   }
 }

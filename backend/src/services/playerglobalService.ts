@@ -11,9 +11,13 @@ import { PlayerglobalEntity } from "../entities/playerglobalEntity";
 import { ReturnPlayerglobalDto } from "../dtos/returnPlayerglobalDto";
 import { CreatePlayerglobalDto } from "../dtos/createPlayerglobalDto";
 import { UpdatePlayerglobalDto } from "../dtos/updatePlayerglobalDto";
+import { PositionService } from "./positionService";
+import { PlayerglobalPositionService } from "./playerglobalPositionService";
 
 export class PlayerglobalService {
   private readonly countryService: CountryService;
+  private readonly positionService: PositionService;
+  private _playerglobalPositionService?: PlayerglobalPositionService;
 
   constructor(
     private readonly playerglobalRepository: Repository<PlayerglobalEntity> = AppDataSource.getRepository(
@@ -21,6 +25,14 @@ export class PlayerglobalService {
     )
   ) {
     this.countryService = new CountryService();
+    this.positionService = new PositionService();
+  }
+
+  private get playerglobalPositionService(): PlayerglobalPositionService {
+    if (!this._playerglobalPositionService) {
+      this._playerglobalPositionService = new PlayerglobalPositionService();
+    }
+    return this._playerglobalPositionService;
   }
 
   async getPlayerglobals(
@@ -64,7 +76,29 @@ export class PlayerglobalService {
   async createPlayerglobal(
     createPlayerglobalDto: CreatePlayerglobalDto
   ): Promise<ReturnPlayerglobalDto> {
+    const commonPositionIds = [
+      ...createPlayerglobalDto.primaryPositionIds,
+    ].filter((positionId) =>
+      createPlayerglobalDto.secondaryPositionIds.includes(positionId)
+    );
+
+    if (commonPositionIds.length > 0) {
+      throw new HttpError(
+        HttpStatusEnum.UnprocessableEntity,
+        ERROR_MESSAGES.PLAYERGLOBAL.COMMON_POSITION_IDS(commonPositionIds)
+      );
+    }
+
     await this.countryService.getCountryById(createPlayerglobalDto.countryId);
+
+    await Promise.all([
+      ...createPlayerglobalDto.primaryPositionIds.map((positionId) =>
+        this.positionService.getPositionById(positionId)
+      ),
+      ...createPlayerglobalDto.secondaryPositionIds.map((positionId) =>
+        this.positionService.getPositionById(positionId)
+      ),
+    ]);
 
     const savedPlayerglobal = await this.playerglobalRepository.save({
       ...createPlayerglobalDto,
@@ -74,6 +108,23 @@ export class PlayerglobalService {
         : null,
     });
 
+    await Promise.all([
+      ...createPlayerglobalDto.primaryPositionIds.map((positionId) =>
+        this.playerglobalPositionService.createPlayerglobalPosition({
+          playerglobalId: savedPlayerglobal.id,
+          positionId: positionId,
+          isPrimary: true,
+        })
+      ),
+      ...createPlayerglobalDto.secondaryPositionIds.map((positionId) =>
+        this.playerglobalPositionService.createPlayerglobalPosition({
+          playerglobalId: savedPlayerglobal.id,
+          positionId: positionId,
+          isPrimary: false,
+        })
+      ),
+    ]);
+
     return new ReturnPlayerglobalDto(savedPlayerglobal);
   }
 
@@ -81,9 +132,52 @@ export class PlayerglobalService {
     updatePlayerglobalDto: UpdatePlayerglobalDto,
     playerglobalId: string
   ): Promise<ReturnPlayerglobalDto> {
+    const commonPositionIds = [
+      ...updatePlayerglobalDto.primaryPositionIds,
+    ].filter((positionId) =>
+      updatePlayerglobalDto.secondaryPositionIds.includes(positionId)
+    );
+
+    if (commonPositionIds.length > 0) {
+      throw new HttpError(
+        HttpStatusEnum.UnprocessableEntity,
+        ERROR_MESSAGES.PLAYERGLOBAL.COMMON_POSITION_IDS(commonPositionIds)
+      );
+    }
+
     const playerglobal = await this.getPlayerglobalById(playerglobalId);
 
     await this.countryService.getCountryById(updatePlayerglobalDto.countryId);
+
+    await Promise.all([
+      ...updatePlayerglobalDto.primaryPositionIds.map((positionId) =>
+        this.positionService.getPositionById(positionId)
+      ),
+      ...updatePlayerglobalDto.secondaryPositionIds.map((positionId) =>
+        this.positionService.getPositionById(positionId)
+      ),
+    ]);
+
+    await this.playerglobalPositionService.deletePlayerglobalPosition(
+      playerglobal.id
+    );
+
+    await Promise.all([
+      ...updatePlayerglobalDto.primaryPositionIds.map((positionId) =>
+        this.playerglobalPositionService.createPlayerglobalPosition({
+          playerglobalId: playerglobal.id,
+          positionId: positionId,
+          isPrimary: true,
+        })
+      ),
+      ...updatePlayerglobalDto.secondaryPositionIds.map((positionId) =>
+        this.playerglobalPositionService.createPlayerglobalPosition({
+          playerglobalId: playerglobal.id,
+          positionId: positionId,
+          isPrimary: false,
+        })
+      ),
+    ]);
 
     const updatedPlayerglobal = await this.playerglobalRepository.save({
       ...playerglobal,

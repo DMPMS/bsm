@@ -26,6 +26,7 @@ export const ERROR_MESSAGES = {
     ADMIN_DELETE_ID_IS_REQUIRED: "O adminDeleteId é obrigatório",
   },
   AUTH: {
+    SIGN_IN_ERROR: "Erro ao fazer login",
     INVALID_CREDENTIALS: "E-mail ou senha inválidos",
     ACCESS_DENIED: "Acesso negado",
   },
@@ -58,6 +59,10 @@ export const ERROR_MESSAGES = {
     PLAYERGLOBAL_ID_IS_REQUIRED: "O playerglobalId é obrigatório",
     PLAYERGLOBAL_ID_NOT_FOUND: (playerglobalId: string) =>
       `O playerglobal com id ${playerglobalId} não foi encontrado`,
+    COMMON_POSITION_IDS: (commonPositionIds: string[]) =>
+      `Os seguintes positionIds são comuns entre as posições primárias e secundárias: ${commonPositionIds.join(
+        ", "
+      )}`,
   },
   ENV: {
     MISSING_DB_HOST: "DB_HOST não definido no arquivo .env",

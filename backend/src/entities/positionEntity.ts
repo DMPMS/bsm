@@ -2,11 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { POSITION } from "../config/constants";
 import { PositionAreaEnum } from "../enums/PositionAreaEnum";
+import { PlayerglobalPositionEntity } from "./playerglobalPositionEntity";
 
 @Entity("position")
 export class PositionEntity {
@@ -48,4 +50,10 @@ export class PositionEntity {
 
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
+
+  @OneToMany(
+    () => PlayerglobalPositionEntity,
+    (playerglobalPosition) => playerglobalPosition.position
+  )
+  playerglobalPositions?: PlayerglobalPositionEntity[];
 }

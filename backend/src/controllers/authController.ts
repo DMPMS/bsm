@@ -33,7 +33,7 @@ export class AuthController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.AUTH.INVALID_CREDENTIALS);
+          .json(ERROR_MESSAGES.AUTH.SIGN_IN_ERROR);
       }
     }
   }

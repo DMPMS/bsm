@@ -4,11 +4,13 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { CountryEntity } from "./countryEntity";
 import { PLAYERGLOBAL } from "../config/constants";
+import { PlayerglobalPositionEntity } from "./playerglobalPositionEntity";
 
 @Entity("playerglobal")
 export class PlayerglobalEntity {
@@ -52,4 +54,10 @@ export class PlayerglobalEntity {
   @ManyToOne(() => CountryEntity, (country) => country.playerglobals)
   @JoinColumn({ name: "country_id", referencedColumnName: "id" })
   country?: CountryEntity;
+
+  @OneToMany(
+    () => PlayerglobalPositionEntity,
+    (playerglobalPosition) => playerglobalPosition.playerglobal
+  )
+  playerglobalPositions?: PlayerglobalPositionEntity[];
 }

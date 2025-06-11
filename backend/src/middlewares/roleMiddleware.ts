@@ -12,7 +12,7 @@ export const roleMiddleware = (allowedRoles: UserTypeEnum[]) => {
   ): void => {
     if (!req.user || !allowedRoles.includes(req.user.type)) {
       res
-        .status(HttpStatusEnum.Unauthorized)
+        .status(HttpStatusEnum.Forbidden)
         .json(ERROR_MESSAGES.AUTH.ACCESS_DENIED);
       return;
     }

@@ -22,6 +22,9 @@ export class PlayerglobalController {
 
       const relationsOptions: RelationsOptionsType = {
         country: true,
+        playerglobalPositions: {
+          position: true,
+        },
       };
 
       const playerglobals = await this.playerglobalService.getPlayerglobals(
@@ -55,6 +58,9 @@ export class PlayerglobalController {
 
       const relationsOptions: RelationsOptionsType = {
         country: true,
+        playerglobalPositions: {
+          position: true,
+        },
       };
 
       const playerglobal = await this.playerglobalService.getPlayerglobalById(

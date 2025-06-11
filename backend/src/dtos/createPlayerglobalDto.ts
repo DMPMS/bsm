@@ -1,5 +1,8 @@
 import { Expose } from "class-transformer";
 import {
+  ArrayMaxSize,
+  ArrayMinSize,
+  IsArray,
   IsInt,
   IsOptional,
   IsString,
@@ -9,10 +12,11 @@ import {
   Min,
   Validate,
 } from "class-validator";
-import { PLAYERGLOBAL } from "../config/constants";
+import { PLAYERGLOBAL, UUID_VERSION } from "../config/constants";
 import { isValidImage } from "../validators/isValidImage";
 import { IsCustomDate } from "../validators/isCustomDate";
 import { IsDateWithinAgeRange } from "../validators/isDateWithinAgeRange";
+import { UniqueArray } from "../validators/uniqueArray";
 
 export class CreatePlayerglobalDto {
   @Expose()
@@ -41,4 +45,20 @@ export class CreatePlayerglobalDto {
   @Min(PLAYERGLOBAL.OVERALL.MIN)
   @Max(PLAYERGLOBAL.OVERALL.MAX)
   overall: number;
+
+  @Expose()
+  @IsArray()
+  @IsUUID(UUID_VERSION, { each: true })
+  @ArrayMinSize(PLAYERGLOBAL.PRIMARY_POSITIONS.MIN)
+  @ArrayMaxSize(PLAYERGLOBAL.PRIMARY_POSITIONS.MAX)
+  @Validate(UniqueArray)
+  primaryPositionIds: string[];
+
+  @Expose()
+  @IsArray()
+  @IsUUID(UUID_VERSION, { each: true })
+  @ArrayMinSize(PLAYERGLOBAL.SECONDARY_POSITIONS.MIN)
+  @ArrayMaxSize(PLAYERGLOBAL.SECONDARY_POSITIONS.MAX)
+  @Validate(UniqueArray)
+  secondaryPositionIds: string[];
 }
