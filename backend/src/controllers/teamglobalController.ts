@@ -9,6 +9,7 @@ import { validateDto } from "../utils/validateDto";
 import { TeamglobalService } from "../services/teamglobalService";
 import { CreateTeamglobalDto } from "../dtos/createTeamglobalDto";
 import { UpdateTeamglobalDto } from "../dtos/updateTeamglobalDto";
+import { ReturnTeamglobalDto } from "../dtos/returnTeamglobalDto";
 
 export class TeamglobalController {
   constructor(private readonly teamglobalService: TeamglobalService) {}
@@ -31,7 +32,11 @@ export class TeamglobalController {
         relationsOptions
       );
 
-      res.status(HttpStatusEnum.Ok).json(teamglobals);
+      res
+        .status(HttpStatusEnum.Ok)
+        .json(
+          teamglobals.map((teamglobal) => new ReturnTeamglobalDto(teamglobal))
+        );
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
@@ -64,7 +69,7 @@ export class TeamglobalController {
         relationsOptions
       );
 
-      res.status(HttpStatusEnum.Ok).json(teamglobal);
+      res.status(HttpStatusEnum.Ok).json(new ReturnTeamglobalDto(teamglobal));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
@@ -98,7 +103,9 @@ export class TeamglobalController {
         createTeamglobalDto
       );
 
-      res.status(HttpStatusEnum.Created).json(savedTeamglobal);
+      res
+        .status(HttpStatusEnum.Created)
+        .json(new ReturnTeamglobalDto(savedTeamglobal));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
@@ -142,7 +149,9 @@ export class TeamglobalController {
         teamglobalId
       );
 
-      res.status(HttpStatusEnum.Ok).json(updatedTeamglobal);
+      res
+        .status(HttpStatusEnum.Ok)
+        .json(new ReturnTeamglobalDto(updatedTeamglobal));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);

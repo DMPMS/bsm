@@ -1,7 +1,6 @@
 import { Repository } from "typeorm";
 import { CountryEntity } from "../entities/countryEntity";
 import { AppDataSource } from "../config/orm";
-import { ReturnCountryDto } from "../dtos/returnCountryDto";
 import { RelationsOptionsType } from "../types/RelationsOptions.type";
 import { PAGINATION } from "../config/constants";
 import { HttpError } from "../utils/httpError";
@@ -19,7 +18,7 @@ export class CountryService {
     page: number,
     limit: number,
     relationsOptions?: RelationsOptionsType
-  ): Promise<ReturnCountryDto[]> {
+  ): Promise<CountryEntity[]> {
     const skip = (page - PAGINATION.INITIAL_PAGE) * limit;
 
     const countries = await this.countryRepository.find({
@@ -29,13 +28,13 @@ export class CountryService {
       order: { name: "ASC" },
     });
 
-    return countries.map((country) => new ReturnCountryDto(country));
+    return countries;
   }
 
   async getCountryById(
     countryId: string,
     relationsOptions?: RelationsOptionsType
-  ): Promise<ReturnCountryDto> {
+  ): Promise<CountryEntity> {
     const country = await this.countryRepository.findOne({
       where: { id: countryId },
       relations: relationsOptions,
@@ -48,6 +47,6 @@ export class CountryService {
       );
     }
 
-    return new ReturnCountryDto(country);
+    return country;
   }
 }

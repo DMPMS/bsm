@@ -2,7 +2,6 @@ import { Repository } from "typeorm";
 import { PositionEntity } from "../entities/positionEntity";
 import { AppDataSource } from "../config/orm";
 import { RelationsOptionsType } from "../types/RelationsOptions.type";
-import { ReturnPositionDto } from "../dtos/returnPositionDto";
 import { PAGINATION } from "../config/constants";
 import { HttpError } from "../utils/httpError";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
@@ -19,7 +18,7 @@ export class PositionService {
     page: number,
     limit: number,
     relationsOptions?: RelationsOptionsType
-  ): Promise<ReturnPositionDto[]> {
+  ): Promise<PositionEntity[]> {
     const skip = (page - PAGINATION.INITIAL_PAGE) * limit;
 
     const positions = await this.positionRepository.find({
@@ -29,13 +28,13 @@ export class PositionService {
       order: { displayOrder: "ASC" },
     });
 
-    return positions.map((position) => new ReturnPositionDto(position));
+    return positions;
   }
 
   async getPositionById(
     positionId: string,
     relationsOptions?: RelationsOptionsType
-  ): Promise<ReturnPositionDto> {
+  ): Promise<PositionEntity> {
     const position = await this.positionRepository.findOne({
       where: { id: positionId },
       relations: relationsOptions,
@@ -48,6 +47,6 @@ export class PositionService {
       );
     }
 
-    return new ReturnPositionDto(position);
+    return position;
   }
 }

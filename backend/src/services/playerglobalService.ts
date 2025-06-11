@@ -8,7 +8,6 @@ import { ERROR_MESSAGES } from "../utils/messages";
 import { CountryService } from "./countryService";
 import { generateUuid } from "../utils/generateUuid";
 import { PlayerglobalEntity } from "../entities/playerglobalEntity";
-import { ReturnPlayerglobalDto } from "../dtos/returnPlayerglobalDto";
 import { CreatePlayerglobalDto } from "../dtos/createPlayerglobalDto";
 import { UpdatePlayerglobalDto } from "../dtos/updatePlayerglobalDto";
 import { PositionService } from "./positionService";
@@ -39,7 +38,7 @@ export class PlayerglobalService {
     page: number,
     limit: number,
     relationsOptions?: RelationsOptionsType
-  ): Promise<ReturnPlayerglobalDto[]> {
+  ): Promise<PlayerglobalEntity[]> {
     const skip = (page - PAGINATION.INITIAL_PAGE) * limit;
 
     const playerglobals = await this.playerglobalRepository.find({
@@ -49,15 +48,13 @@ export class PlayerglobalService {
       order: { createdAt: "DESC" },
     });
 
-    return playerglobals.map(
-      (playerglobal) => new ReturnPlayerglobalDto(playerglobal)
-    );
+    return playerglobals;
   }
 
   async getPlayerglobalById(
     playerglobalId: string,
     relationsOptions?: RelationsOptionsType
-  ): Promise<ReturnPlayerglobalDto> {
+  ): Promise<PlayerglobalEntity> {
     const playerglobal = await this.playerglobalRepository.findOne({
       where: { id: playerglobalId },
       relations: relationsOptions,
@@ -70,12 +67,12 @@ export class PlayerglobalService {
       );
     }
 
-    return new ReturnPlayerglobalDto(playerglobal);
+    return playerglobal;
   }
 
   async createPlayerglobal(
     createPlayerglobalDto: CreatePlayerglobalDto
-  ): Promise<ReturnPlayerglobalDto> {
+  ): Promise<PlayerglobalEntity> {
     const commonPositionIds = [
       ...createPlayerglobalDto.primaryPositionIds,
     ].filter((positionId) =>
@@ -125,13 +122,13 @@ export class PlayerglobalService {
       ),
     ]);
 
-    return new ReturnPlayerglobalDto(savedPlayerglobal);
+    return savedPlayerglobal;
   }
 
   async updatePlayerglobal(
     updatePlayerglobalDto: UpdatePlayerglobalDto,
     playerglobalId: string
-  ): Promise<ReturnPlayerglobalDto> {
+  ): Promise<PlayerglobalEntity> {
     const commonPositionIds = [
       ...updatePlayerglobalDto.primaryPositionIds,
     ].filter((positionId) =>
@@ -187,7 +184,7 @@ export class PlayerglobalService {
         : null,
     });
 
-    return new ReturnPlayerglobalDto(updatedPlayerglobal);
+    return updatedPlayerglobal;
   }
 
   async deletePlayerglobal(playerglobalId: string): Promise<DeleteResult> {

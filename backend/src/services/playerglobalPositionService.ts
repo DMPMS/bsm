@@ -5,7 +5,6 @@ import { PlayerglobalService } from "./playerglobalService";
 import { PositionService } from "./positionService";
 import { PlayerglobalPositionEntity } from "../entities/playerglobalPositionEntity";
 import { CreatePlayerglobalPositionDto } from "../dtos/createPlayerglobalPositionDto";
-import { ReturnPlayerglobalPositionDto } from "../dtos/returnPlayerglobalPositionDto";
 
 export class PlayerglobalPositionService {
   private readonly playerglobalService: PlayerglobalService;
@@ -22,7 +21,7 @@ export class PlayerglobalPositionService {
 
   async createPlayerglobalPosition(
     createPlayerglobalPositionDto: CreatePlayerglobalPositionDto
-  ): Promise<ReturnPlayerglobalPositionDto> {
+  ): Promise<PlayerglobalPositionEntity> {
     await this.playerglobalService.getPlayerglobalById(
       createPlayerglobalPositionDto.playerglobalId
     );
@@ -36,7 +35,7 @@ export class PlayerglobalPositionService {
         id: generateUuid(),
       });
 
-    return new ReturnPlayerglobalPositionDto(savedPlayerglobalPosition);
+    return savedPlayerglobalPosition;
   }
 
   async deletePlayerglobalPosition(

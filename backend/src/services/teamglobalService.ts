@@ -8,7 +8,6 @@ import { ERROR_MESSAGES } from "../utils/messages";
 import { CountryService } from "./countryService";
 import { generateUuid } from "../utils/generateUuid";
 import { TeamglobalEntity } from "../entities/teamglobalEntity";
-import { ReturnTeamglobalDto } from "../dtos/returnTeamglobalDto";
 import { CreateTeamglobalDto } from "../dtos/createTeamglobalDto";
 import { ManagerglobalService } from "./managerglobalService";
 import { UpdateTeamglobalDto } from "../dtos/updateTeamglobalDto";
@@ -30,7 +29,7 @@ export class TeamglobalService {
     page: number,
     limit: number,
     relationsOptions?: RelationsOptionsType
-  ): Promise<ReturnTeamglobalDto[]> {
+  ): Promise<TeamglobalEntity[]> {
     const skip = (page - PAGINATION.INITIAL_PAGE) * limit;
 
     const teamglobals = await this.teamglobalRepository.find({
@@ -40,13 +39,13 @@ export class TeamglobalService {
       order: { createdAt: "DESC" },
     });
 
-    return teamglobals.map((teamglobal) => new ReturnTeamglobalDto(teamglobal));
+    return teamglobals;
   }
 
   async getTeamglobalById(
     teamglobalId: string,
     relationsOptions?: RelationsOptionsType
-  ): Promise<ReturnTeamglobalDto> {
+  ): Promise<TeamglobalEntity> {
     const teamglobal = await this.teamglobalRepository.findOne({
       where: { id: teamglobalId },
       relations: relationsOptions,
@@ -59,12 +58,12 @@ export class TeamglobalService {
       );
     }
 
-    return new ReturnTeamglobalDto(teamglobal);
+    return teamglobal;
   }
 
   async createTeamglobal(
     createTeamglobalDto: CreateTeamglobalDto
-  ): Promise<ReturnTeamglobalDto> {
+  ): Promise<TeamglobalEntity> {
     await this.countryService.getCountryById(createTeamglobalDto.countryId);
     await this.managerglobalService.getManagerglobalById(
       createTeamglobalDto.managerglobalId,
@@ -81,28 +80,24 @@ export class TeamglobalService {
       abbreviation: createTeamglobalDto.abbreviation.toUpperCase(),
     });
 
-    return new ReturnTeamglobalDto(savedTeamglobal);
+    return savedTeamglobal;
   }
 
   async updateTeamglobal(
     updateTeamglobalDto: UpdateTeamglobalDto,
     teamglobalId: string
-  ): Promise<ReturnTeamglobalDto> {
-    const teamglobal = await this.getTeamglobalById(teamglobalId, {
-      managerglobal: true,
-    });
+  ): Promise<TeamglobalEntity> {
+    const teamglobal = await this.getTeamglobalById(teamglobalId);
 
     await this.countryService.getCountryById(updateTeamglobalDto.countryId);
 
-    if (updateTeamglobalDto.managerglobalId !== teamglobal.managerglobal?.id) {
+    if (updateTeamglobalDto.managerglobalId !== teamglobal.managerglobalId) {
       await this.managerglobalService.getManagerglobalById(
         updateTeamglobalDto.managerglobalId,
         undefined,
         true
       );
     }
-
-    delete teamglobal.managerglobal;
 
     const updatedTeamglobal = await this.teamglobalRepository.save({
       ...teamglobal,
@@ -113,7 +108,7 @@ export class TeamglobalService {
       abbreviation: updateTeamglobalDto.abbreviation.toUpperCase(),
     });
 
-    return new ReturnTeamglobalDto(updatedTeamglobal);
+    return updatedTeamglobal;
   }
 
   async deleteTeamglobal(teamglobalId: string): Promise<DeleteResult> {

@@ -9,6 +9,7 @@ import { plainToInstance } from "class-transformer";
 import { CreateManagerglobalDto } from "../dtos/createManagerglobalDto";
 import { validateDto } from "../utils/validateDto";
 import { UpdateManagerglobalDto } from "../dtos/updateManagerglobalDto";
+import { ReturnManagerglobalDto } from "../dtos/returnManagerglobalDto";
 
 export class ManagerglobalController {
   constructor(private readonly managerglobalService: ManagerglobalService) {}
@@ -31,7 +32,13 @@ export class ManagerglobalController {
         relationsOptions
       );
 
-      res.status(HttpStatusEnum.Ok).json(managerglobals);
+      res
+        .status(HttpStatusEnum.Ok)
+        .json(
+          managerglobals.map(
+            (managerglobal) => new ReturnManagerglobalDto(managerglobal)
+          )
+        );
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
@@ -64,7 +71,9 @@ export class ManagerglobalController {
           relationsOptions
         );
 
-      res.status(HttpStatusEnum.Ok).json(managerglobal);
+      res
+        .status(HttpStatusEnum.Ok)
+        .json(new ReturnManagerglobalDto(managerglobal));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
@@ -99,7 +108,9 @@ export class ManagerglobalController {
           createManagerglobalDto
         );
 
-      res.status(HttpStatusEnum.Created).json(savedManagerglobal);
+      res
+        .status(HttpStatusEnum.Created)
+        .json(new ReturnManagerglobalDto(savedManagerglobal));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
@@ -144,7 +155,9 @@ export class ManagerglobalController {
           managerglobalId
         );
 
-      res.status(HttpStatusEnum.Ok).json(updatedManagerglobal);
+      res
+        .status(HttpStatusEnum.Ok)
+        .json(new ReturnManagerglobalDto(updatedManagerglobal));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);

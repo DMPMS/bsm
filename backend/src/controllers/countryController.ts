@@ -4,6 +4,7 @@ import { PAGINATION } from "../config/constants";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
 import { HttpError } from "../utils/httpError";
 import { ERROR_MESSAGES } from "../utils/messages";
+import { ReturnCountryDto } from "../dtos/returnCountryDto";
 
 export class CountryController {
   constructor(private readonly countryService: CountryService) {}
@@ -20,7 +21,9 @@ export class CountryController {
         Number(limit)
       );
 
-      res.status(HttpStatusEnum.Ok).json(countries);
+      res
+        .status(HttpStatusEnum.Ok)
+        .json(countries.map((country) => new ReturnCountryDto(country)));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);

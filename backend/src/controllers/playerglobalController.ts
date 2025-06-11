@@ -9,6 +9,7 @@ import { validateDto } from "../utils/validateDto";
 import { PlayerglobalService } from "../services/playerglobalService";
 import { CreatePlayerglobalDto } from "../dtos/createPlayerglobalDto";
 import { UpdatePlayerglobalDto } from "../dtos/updatePlayerglobalDto";
+import { ReturnPlayerglobalDto } from "../dtos/returnPlayerglobalDto";
 
 export class PlayerglobalController {
   constructor(private readonly playerglobalService: PlayerglobalService) {}
@@ -33,7 +34,13 @@ export class PlayerglobalController {
         relationsOptions
       );
 
-      res.status(HttpStatusEnum.Ok).json(playerglobals);
+      res
+        .status(HttpStatusEnum.Ok)
+        .json(
+          playerglobals.map(
+            (playerglobal) => new ReturnPlayerglobalDto(playerglobal)
+          )
+        );
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
@@ -68,7 +75,9 @@ export class PlayerglobalController {
         relationsOptions
       );
 
-      res.status(HttpStatusEnum.Ok).json(playerglobal);
+      res
+        .status(HttpStatusEnum.Ok)
+        .json(new ReturnPlayerglobalDto(playerglobal));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
@@ -103,7 +112,9 @@ export class PlayerglobalController {
           createPlayerglobalDto
         );
 
-      res.status(HttpStatusEnum.Created).json(savedPlayerglobal);
+      res
+        .status(HttpStatusEnum.Created)
+        .json(new ReturnPlayerglobalDto(savedPlayerglobal));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
@@ -148,7 +159,9 @@ export class PlayerglobalController {
           playerglobalId
         );
 
-      res.status(HttpStatusEnum.Ok).json(updatedPlayerglobal);
+      res
+        .status(HttpStatusEnum.Ok)
+        .json(new ReturnPlayerglobalDto(updatedPlayerglobal));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);

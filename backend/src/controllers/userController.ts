@@ -11,6 +11,7 @@ import { validateDto } from "../utils/validateDto";
 import { UpdateUserDto } from "../dtos/updateUserDto";
 import { DeleteUserDto } from "../dtos/deleteUserDto";
 import { RelationsOptionsType } from "../types/RelationsOptions.type";
+import { ReturnUserDto } from "../dtos/returnUserDto";
 
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -27,7 +28,9 @@ export class UserController {
         Number(limit)
       );
 
-      res.status(HttpStatusEnum.Ok).json(users);
+      res
+        .status(HttpStatusEnum.Ok)
+        .json(users.map((user) => new ReturnUserDto(user)));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
@@ -56,7 +59,7 @@ export class UserController {
 
       const user = await this.userService.getUserInfo(userId, relationsOptions);
 
-      res.status(HttpStatusEnum.Ok).json(user);
+      res.status(HttpStatusEnum.Ok).json(new ReturnUserDto(user));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
@@ -84,7 +87,7 @@ export class UserController {
 
       const savedUser = await this.userService.createUser(createUserDto);
 
-      res.status(HttpStatusEnum.Created).json(savedUser);
+      res.status(HttpStatusEnum.Created).json(new ReturnUserDto(savedUser));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
@@ -133,7 +136,7 @@ export class UserController {
         userType
       );
 
-      res.status(HttpStatusEnum.Created).json(savedUser);
+      res.status(HttpStatusEnum.Created).json(new ReturnUserDto(savedUser));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
@@ -173,7 +176,7 @@ export class UserController {
         userId
       );
 
-      res.status(HttpStatusEnum.Ok).json(updatedUser);
+      res.status(HttpStatusEnum.Ok).json(new ReturnUserDto(updatedUser));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);

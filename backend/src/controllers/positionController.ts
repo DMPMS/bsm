@@ -4,6 +4,7 @@ import { PAGINATION } from "../config/constants";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
 import { HttpError } from "../utils/httpError";
 import { ERROR_MESSAGES } from "../utils/messages";
+import { ReturnPositionDto } from "../dtos/returnPositionDto";
 
 export class PositionController {
   constructor(private readonly positionService: PositionService) {}
@@ -20,7 +21,9 @@ export class PositionController {
         Number(limit)
       );
 
-      res.status(HttpStatusEnum.Ok).json(positions);
+      res
+        .status(HttpStatusEnum.Ok)
+        .json(positions.map((position) => new ReturnPositionDto(position)));
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);

@@ -1,7 +1,6 @@
 import { DeleteResult, Repository } from "typeorm";
 import { AppDataSource } from "../config/orm";
 import { RelationsOptionsType } from "../types/RelationsOptions.type";
-import { ReturnManagerglobalDto } from "../dtos/returnManagerglobalDto";
 import {
   DEFAULT_ONLY_WITHOUT_TEAMGLOBAL,
   PAGINATION,
@@ -30,7 +29,7 @@ export class ManagerglobalService {
     page: number,
     limit: number,
     relationsOptions?: RelationsOptionsType
-  ): Promise<ReturnManagerglobalDto[]> {
+  ): Promise<ManagerglobalEntity[]> {
     const skip = (page - PAGINATION.INITIAL_PAGE) * limit;
 
     const managerglobals = await this.managerglobalRepository.find({
@@ -40,16 +39,14 @@ export class ManagerglobalService {
       order: { createdAt: "DESC" },
     });
 
-    return managerglobals.map(
-      (managerglobal) => new ReturnManagerglobalDto(managerglobal)
-    );
+    return managerglobals;
   }
 
   async getManagerglobalById(
     managerglobalId: string,
     relationsOptions?: RelationsOptionsType,
     onlyWithoutTeamglobal = DEFAULT_ONLY_WITHOUT_TEAMGLOBAL
-  ): Promise<ReturnManagerglobalDto> {
+  ): Promise<ManagerglobalEntity> {
     if (onlyWithoutTeamglobal) {
       relationsOptions = {
         ...relationsOptions,
@@ -78,12 +75,12 @@ export class ManagerglobalService {
       );
     }
 
-    return new ReturnManagerglobalDto(managerglobal);
+    return managerglobal;
   }
 
   async createManagerglobal(
     createManagerglobalDto: CreateManagerglobalDto
-  ): Promise<ReturnManagerglobalDto> {
+  ): Promise<ManagerglobalEntity> {
     await this.countryService.getCountryById(createManagerglobalDto.countryId);
 
     const savedManagerglobal = await this.managerglobalRepository.save({
@@ -94,13 +91,13 @@ export class ManagerglobalService {
         : null,
     });
 
-    return new ReturnManagerglobalDto(savedManagerglobal);
+    return savedManagerglobal;
   }
 
   async updateManagerglobal(
     updateManagerglobalDto: UpdateManagerglobalDto,
     managerglobalId: string
-  ): Promise<ReturnManagerglobalDto> {
+  ): Promise<ManagerglobalEntity> {
     const managerglobal = await this.getManagerglobalById(managerglobalId);
 
     await this.countryService.getCountryById(updateManagerglobalDto.countryId);
@@ -113,7 +110,7 @@ export class ManagerglobalService {
         : null,
     });
 
-    return new ReturnManagerglobalDto(updatedManagerglobal);
+    return updatedManagerglobal;
   }
 
   async deleteManagerglobal(managerglobalId: string): Promise<DeleteResult> {

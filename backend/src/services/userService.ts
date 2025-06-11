@@ -8,7 +8,6 @@ import { UserTypeEnum } from "../enums/UserTypeEnum";
 import { PAGINATION } from "../config/constants";
 import { HttpError } from "../utils/httpError";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
-import { ReturnUserDto } from "../dtos/returnUserDto";
 import { CreateUserDto } from "../dtos/createUserDto";
 import { generateUuid } from "../utils/generateUuid";
 import { UpdateUserDto } from "../dtos/updateUserDto";
@@ -30,7 +29,7 @@ export class UserService {
     page: number,
     limit: number,
     relationsOptions?: RelationsOptionsType
-  ): Promise<ReturnUserDto[]> {
+  ): Promise<UserEntity[]> {
     const skip = (page - PAGINATION.INITIAL_PAGE) * limit;
 
     const users = await this.userRepository.find({
@@ -41,13 +40,13 @@ export class UserService {
       order: { createdAt: "DESC" },
     });
 
-    return users.map((user) => new ReturnUserDto(user));
+    return users;
   }
 
   async getUserInfo(
     userId: string,
     relationsOptions?: RelationsOptionsType
-  ): Promise<ReturnUserDto> {
+  ): Promise<UserEntity> {
     const user = await this.userRepository.findOne({
       where: { id: userId },
       relations: relationsOptions,
@@ -60,13 +59,13 @@ export class UserService {
       );
     }
 
-    return new ReturnUserDto(user);
+    return user;
   }
 
   async getUserById(
     userId: string,
     relationsOptions?: RelationsOptionsType
-  ): Promise<ReturnUserDto> {
+  ): Promise<UserEntity> {
     const user = await this.userRepository.findOne({
       where: { id: userId, type: UserTypeEnum.User },
       relations: relationsOptions,
@@ -79,13 +78,13 @@ export class UserService {
       );
     }
 
-    return new ReturnUserDto(user);
+    return user;
   }
 
   async getUserByEmail(
     email: string,
     relationsOptions?: RelationsOptionsType
-  ): Promise<ReturnUserDto> {
+  ): Promise<UserEntity> {
     const user = await this.userRepository.findOne({
       where: { email: email.toLowerCase() },
       relations: relationsOptions,
@@ -98,14 +97,14 @@ export class UserService {
       );
     }
 
-    return new ReturnUserDto(user);
+    return user;
   }
 
   async createUser(
     createUserDto: CreateUserDto,
     userId?: string,
     userType?: UserTypeEnum
-  ): Promise<ReturnUserDto> {
+  ): Promise<UserEntity> {
     await this.countryService.getCountryById(createUserDto.countryId);
 
     const existingUser = await this.getUserByEmail(createUserDto.email).catch(
@@ -160,13 +159,13 @@ export class UserService {
       });
     }
 
-    return new ReturnUserDto(savedUser);
+    return savedUser;
   }
 
   async updateUser(
     updateUserDto: UpdateUserDto,
     userId: string
-  ): Promise<ReturnUserDto> {
+  ): Promise<UserEntity> {
     await this.countryService.getCountryById(updateUserDto.countryId);
 
     const user = await this.userRepository.findOne({
@@ -229,7 +228,7 @@ export class UserService {
         : user.hashedPassword,
     });
 
-    return new ReturnUserDto(updatedUser);
+    return updatedUser;
   }
 
   async deleteMyUser(
