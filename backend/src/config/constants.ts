@@ -8,6 +8,8 @@ export const CURRENT_DATE = new Date();
 
 export const UUID_VERSION = "4";
 
+export const DEFAULT_ONLY_WITHOUT_TEAMGLOBAL = false;
+
 export const USER = {
   NAME: {
     MIN: 4,
@@ -77,6 +79,17 @@ export const PLAYERGLOBAL = {
 };
 
 export const POSITION = {
+  NAME: {
+    MIN: 1,
+    MAX: 30,
+  },
+  ABBREVIATION: {
+    MIN: 1,
+    MAX: 3,
+  },
+};
+
+export const TEAMGLOBAL = {
   NAME: {
     MIN: 1,
     MAX: 30,

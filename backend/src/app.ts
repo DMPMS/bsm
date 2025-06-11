@@ -6,6 +6,7 @@ import countryRoutes from "./routes/countryRoutes";
 import managerglobalRoutes from "./routes/managerglobalRoutes";
 import positionRoutes from "./routes/positionRoutes";
 import playerglobalRoutes from "./routes/playerglobalRoutes";
+import teamglobalRoutes from "./routes/teamglobalRoutes";
 
 const app = express();
 
@@ -17,5 +18,6 @@ app.use("/api", countryRoutes);
 app.use("/api", managerglobalRoutes);
 app.use("/api", positionRoutes);
 app.use("/api", playerglobalRoutes);
+app.use("/api", teamglobalRoutes);
 
 export default app;

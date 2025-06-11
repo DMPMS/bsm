@@ -1,5 +1,6 @@
 import { ManagerglobalEntity } from "../entities/managerglobalEntity";
 import { ReturnCountryDto } from "./returnCountryDto";
+import { ReturnTeamglobalDto } from "./returnTeamglobalDto";
 
 export class ReturnManagerglobalDto {
   id: string;
@@ -8,6 +9,7 @@ export class ReturnManagerglobalDto {
   birthdate: string;
 
   country?: ReturnCountryDto;
+  teamglobal?: ReturnTeamglobalDto;
 
   constructor(managerglobalEntity: ManagerglobalEntity) {
     this.id = managerglobalEntity.id;
@@ -17,6 +19,10 @@ export class ReturnManagerglobalDto {
 
     this.country = managerglobalEntity.country
       ? new ReturnCountryDto(managerglobalEntity.country)
+      : undefined;
+
+    this.teamglobal = managerglobalEntity.teamglobal
+      ? new ReturnTeamglobalDto(managerglobalEntity.teamglobal)
       : undefined;
   }
 }

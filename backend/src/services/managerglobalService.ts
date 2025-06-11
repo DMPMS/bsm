@@ -2,7 +2,10 @@ import { DeleteResult, Repository } from "typeorm";
 import { AppDataSource } from "../config/orm";
 import { RelationsOptionsType } from "../types/RelationsOptions.type";
 import { ReturnManagerglobalDto } from "../dtos/returnManagerglobalDto";
-import { PAGINATION } from "../config/constants";
+import {
+  DEFAULT_ONLY_WITHOUT_TEAMGLOBAL,
+  PAGINATION,
+} from "../config/constants";
 import { HttpError } from "../utils/httpError";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
 import { ERROR_MESSAGES } from "../utils/messages";
@@ -44,8 +47,16 @@ export class ManagerglobalService {
 
   async getManagerglobalById(
     managerglobalId: string,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
+    onlyWithoutTeamglobal = DEFAULT_ONLY_WITHOUT_TEAMGLOBAL
   ): Promise<ReturnManagerglobalDto> {
+    if (onlyWithoutTeamglobal) {
+      relationsOptions = {
+        ...relationsOptions,
+        teamglobal: true,
+      };
+    }
+
     const managerglobal = await this.managerglobalRepository.findOne({
       where: { id: managerglobalId },
       relations: relationsOptions,
@@ -55,6 +66,15 @@ export class ManagerglobalService {
       throw new HttpError(
         HttpStatusEnum.NotFound,
         ERROR_MESSAGES.MANAGERGLOBAL.MANAGERGLOBAL_ID_NOT_FOUND(managerglobalId)
+      );
+    }
+
+    if (onlyWithoutTeamglobal && managerglobal.teamglobal) {
+      throw new HttpError(
+        HttpStatusEnum.Conflict,
+        ERROR_MESSAGES.MANAGERGLOBAL.MANAGERGLOBAL_WITH_TEAMGLOBAL(
+          managerglobalId
+        )
       );
     }
 
@@ -97,7 +117,7 @@ export class ManagerglobalService {
   }
 
   async deleteManagerglobal(managerglobalId: string): Promise<DeleteResult> {
-    await this.getManagerglobalById(managerglobalId);
+    await this.getManagerglobalById(managerglobalId, undefined, true);
 
     return this.managerglobalRepository.delete({ id: managerglobalId });
   }

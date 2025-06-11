@@ -1,5 +1,3 @@
-import { PLAYERGLOBAL } from "../config/constants";
-
 export const ERROR_MESSAGES = {
   USER: {
     EMAIL_ALREADY_EXISTS: "E-mail já cadastrado",
@@ -49,6 +47,18 @@ export const ERROR_MESSAGES = {
     MANAGERGLOBAL_ID_IS_REQUIRED: "O managerglobalId é obrigatório",
     MANAGERGLOBAL_ID_NOT_FOUND: (managerglobalId: string) =>
       `O managerglobal com id ${managerglobalId} não foi encontrado`,
+    MANAGERGLOBAL_WITH_TEAMGLOBAL: (managerglobalId: string) =>
+      `O managerglobal com id ${managerglobalId} possui um teamglobal`,
+  },
+  TEAMGLOBAL: {
+    CREATE_TEAMGLOBAL_ERROR: "Erro ao criar teamglobal",
+    UPDATE_TEAMGLOBAL_ERROR: "Erro ao editar teamglobal",
+    SELECT_TEAMGLOBAL_ERROR: "Erro ao buscar teamglobals",
+    SELECT_TEAMGLOBAL_BY_ID_ERROR: "Erro ao buscar teamglobal",
+    DELETE_TEAMGLOBAL_ERROR: "Erro ao deletar teamglobal",
+    TEAMGLOBAL_ID_IS_REQUIRED: "O teamglobalId é obrigatório",
+    TEAMGLOBAL_ID_NOT_FOUND: (teamglobalId: string) =>
+      `O teamglobal com id ${teamglobalId} não foi encontrado`,
   },
   PLAYERGLOBAL: {
     CREATE_PLAYERGLOBAL_ERROR: "Erro ao criar playerglobal",
@@ -97,6 +107,9 @@ export const SUCCESS_MESSAGES = {
   },
   PLAYERGLOBAL: {
     PLAYERGLOBAL_DELETED_SUCCESSFULLY: "Playerglobal deletado",
+  },
+  TEAMGLOBAL: {
+    TEAMGLOBAL_DELETED_SUCCESSFULLY: "Teamglobal deletado",
   },
 };
 

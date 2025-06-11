@@ -8,12 +8,12 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { MANAGERGLOBAL } from "../config/constants";
 import { CountryEntity } from "./countryEntity";
-import { TeamglobalEntity } from "./teamglobalEntity";
+import { TEAMGLOBAL } from "../config/constants";
+import { ManagerglobalEntity } from "./managerglobalEntity";
 
-@Entity("managerglobal")
-export class ManagerglobalEntity {
+@Entity("teamglobal")
+export class TeamglobalEntity {
   @PrimaryColumn({ type: "uuid" })
   id: string;
 
@@ -26,17 +26,29 @@ export class ManagerglobalEntity {
 
   @Column({
     type: "varchar",
+    name: "managerglobal_id",
+    nullable: false,
+  })
+  managerglobalId: string;
+
+  @Column({
+    type: "varchar",
     name: "name",
-    length: MANAGERGLOBAL.NAME.MAX,
+    length: TEAMGLOBAL.NAME.MAX,
     nullable: false,
   })
   name: string;
 
+  @Column({
+    type: "varchar",
+    name: "abbreviation",
+    length: TEAMGLOBAL.ABBREVIATION.MAX,
+    nullable: false,
+  })
+  abbreviation: string;
+
   @Column({ type: "text", name: "image_url", nullable: true })
   imageUrl: string | null;
-
-  @Column({ type: "date", name: "birthdate", nullable: false })
-  birthdate: string;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
@@ -44,10 +56,14 @@ export class ManagerglobalEntity {
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @ManyToOne(() => CountryEntity, (country) => country.managerglobals)
+  @ManyToOne(() => CountryEntity, (country) => country.teamglobals)
   @JoinColumn({ name: "country_id", referencedColumnName: "id" })
   country?: CountryEntity;
 
-  @OneToOne(() => TeamglobalEntity, (teamglobal) => teamglobal.managerglobal)
-  teamglobal?: TeamglobalEntity;
+  @OneToOne(
+    () => ManagerglobalEntity,
+    (managerglobal) => managerglobal.teamglobal
+  )
+  @JoinColumn({ name: "managerglobal_id", referencedColumnName: "id" })
+  managerglobal?: ManagerglobalEntity;
 }

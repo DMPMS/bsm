@@ -22,6 +22,7 @@ export class ManagerglobalController {
 
       const relationsOptions: RelationsOptionsType = {
         country: true,
+        teamglobal: true,
       };
 
       const managerglobals = await this.managerglobalService.getManagerglobals(
