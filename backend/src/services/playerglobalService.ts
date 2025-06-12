@@ -4,9 +4,9 @@ import { RelationsOptionsType } from "../types/RelationsOptions.type";
 import { PAGINATION } from "../config/constants";
 import { HttpError } from "../utils/httpError";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
-import { ERROR_MESSAGES } from "../utils/messages";
+import { PLAYERGLOBAL_MESSAGES } from "../utils/messages";
 import { CountryService } from "./countryService";
-import { generateUuid } from "../utils/generateUuid";
+import { generateUuid } from "../utils/uuid";
 import { PlayerglobalEntity } from "../entities/playerglobalEntity";
 import { CreatePlayerglobalDto } from "../dtos/createPlayerglobalDto";
 import { UpdatePlayerglobalDto } from "../dtos/updatePlayerglobalDto";
@@ -63,7 +63,7 @@ export class PlayerglobalService {
     if (!playerglobal) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        ERROR_MESSAGES.PLAYERGLOBAL.PLAYERGLOBAL_ID_NOT_FOUND(playerglobalId)
+        PLAYERGLOBAL_MESSAGES.ERROR.PLAYERGLOBAL_ID_NOT_FOUND(playerglobalId)
       );
     }
 
@@ -82,7 +82,7 @@ export class PlayerglobalService {
     if (commonPositionIds.length > 0) {
       throw new HttpError(
         HttpStatusEnum.UnprocessableEntity,
-        ERROR_MESSAGES.PLAYERGLOBAL.COMMON_POSITION_IDS(commonPositionIds)
+        PLAYERGLOBAL_MESSAGES.ERROR.COMMON_POSITION_IDS(commonPositionIds)
       );
     }
 
@@ -138,7 +138,7 @@ export class PlayerglobalService {
     if (commonPositionIds.length > 0) {
       throw new HttpError(
         HttpStatusEnum.UnprocessableEntity,
-        ERROR_MESSAGES.PLAYERGLOBAL.COMMON_POSITION_IDS(commonPositionIds)
+        PLAYERGLOBAL_MESSAGES.ERROR.COMMON_POSITION_IDS(commonPositionIds)
       );
     }
 

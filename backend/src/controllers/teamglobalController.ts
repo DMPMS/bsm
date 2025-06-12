@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { PAGINATION } from "../config/constants";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
 import { HttpError } from "../utils/httpError";
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../utils/messages";
+import { DTO_MESSAGES, TEAMGLOBAL_MESSAGES } from "../utils/messages";
 import { RelationsOptionsType } from "../types/RelationsOptions.type";
 import { plainToInstance } from "class-transformer";
 import { validateDto } from "../utils/validateDto";
@@ -10,6 +10,7 @@ import { TeamglobalService } from "../services/teamglobalService";
 import { CreateTeamglobalDto } from "../dtos/createTeamglobalDto";
 import { UpdateTeamglobalDto } from "../dtos/updateTeamglobalDto";
 import { ReturnTeamglobalDto } from "../dtos/returnTeamglobalDto";
+import { isUuid } from "../utils/uuid";
 
 export class TeamglobalController {
   constructor(private readonly teamglobalService: TeamglobalService) {}
@@ -43,7 +44,7 @@ export class TeamglobalController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.TEAMGLOBAL.SELECT_TEAMGLOBAL_ERROR);
+          .json(TEAMGLOBAL_MESSAGES.ERROR.SELECT_TEAMGLOBAL_ERROR);
       }
     }
   }
@@ -52,10 +53,10 @@ export class TeamglobalController {
     try {
       const { teamglobalId } = req.params;
 
-      if (!teamglobalId) {
+      if (!teamglobalId || !isUuid(teamglobalId)) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.TEAMGLOBAL.TEAMGLOBAL_ID_IS_REQUIRED);
+          .json(TEAMGLOBAL_MESSAGES.ERROR.TEAMGLOBAL_ID_IS_INVALID);
         return;
       }
 
@@ -76,7 +77,7 @@ export class TeamglobalController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.TEAMGLOBAL.SELECT_TEAMGLOBAL_BY_ID_ERROR);
+          .json(TEAMGLOBAL_MESSAGES.ERROR.SELECT_TEAMGLOBAL_BY_ID_ERROR);
       }
     }
   }
@@ -95,7 +96,7 @@ export class TeamglobalController {
       if (!isValid) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.DTO.INVALID_DATA);
+          .json(DTO_MESSAGES.ERROR.INVALID_DATA);
         return;
       }
 
@@ -112,7 +113,7 @@ export class TeamglobalController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.TEAMGLOBAL.CREATE_TEAMGLOBAL_ERROR);
+          .json(TEAMGLOBAL_MESSAGES.ERROR.CREATE_TEAMGLOBAL_ERROR);
       }
     }
   }
@@ -133,14 +134,14 @@ export class TeamglobalController {
       if (!isValid) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.DTO.INVALID_DATA);
+          .json(DTO_MESSAGES.ERROR.INVALID_DATA);
         return;
       }
 
-      if (!teamglobalId) {
+      if (!teamglobalId || !isUuid(teamglobalId)) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.TEAMGLOBAL.TEAMGLOBAL_ID_IS_REQUIRED);
+          .json(TEAMGLOBAL_MESSAGES.ERROR.TEAMGLOBAL_ID_IS_INVALID);
         return;
       }
 
@@ -158,7 +159,7 @@ export class TeamglobalController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.TEAMGLOBAL.UPDATE_TEAMGLOBAL_ERROR);
+          .json(TEAMGLOBAL_MESSAGES.ERROR.UPDATE_TEAMGLOBAL_ERROR);
       }
     }
   }
@@ -167,10 +168,10 @@ export class TeamglobalController {
     try {
       const { teamglobalId } = req.params;
 
-      if (!teamglobalId) {
+      if (!teamglobalId || !isUuid(teamglobalId)) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.TEAMGLOBAL.TEAMGLOBAL_ID_IS_REQUIRED);
+          .json(TEAMGLOBAL_MESSAGES.ERROR.TEAMGLOBAL_ID_IS_INVALID);
         return;
       }
 
@@ -178,14 +179,14 @@ export class TeamglobalController {
 
       res
         .status(HttpStatusEnum.Ok)
-        .json(SUCCESS_MESSAGES.TEAMGLOBAL.TEAMGLOBAL_DELETED_SUCCESSFULLY);
+        .json(TEAMGLOBAL_MESSAGES.SUCCESS.TEAMGLOBAL_DELETED_SUCCESSFULLY);
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.TEAMGLOBAL.DELETE_TEAMGLOBAL_ERROR);
+          .json(TEAMGLOBAL_MESSAGES.ERROR.DELETE_TEAMGLOBAL_ERROR);
       }
     }
   }

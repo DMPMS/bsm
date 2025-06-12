@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 import { HttpError } from "../utils/httpError";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
-import { ERROR_MESSAGES } from "../utils/messages";
 import { createHashedPassword } from "../utils/password";
 import { UserTypeEnum } from "../enums/UserTypeEnum";
-import { generateUuid } from "../utils/generateUuid";
+import { generateUuid } from "../utils/uuid";
+import { ENV_MESSAGES } from "../utils/messages";
 
 export class InsertUserAdmin1749161696393 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -14,7 +14,7 @@ export class InsertUserAdmin1749161696393 implements MigrationInterface {
     if (!adminEmail || !adminPassword) {
       throw new HttpError(
         HttpStatusEnum.InternalServerError,
-        ERROR_MESSAGES.ENV.MISSING_ADMIN_EMAIL_OR_PASSWORD
+        ENV_MESSAGES.ERROR.MISSING_ADMIN_EMAIL_OR_PASSWORD
       );
     }
 
@@ -35,7 +35,7 @@ export class InsertUserAdmin1749161696393 implements MigrationInterface {
     if (!adminEmail) {
       throw new HttpError(
         HttpStatusEnum.InternalServerError,
-        ERROR_MESSAGES.ENV.MISSING_ADMIN_EMAIL
+        ENV_MESSAGES.ERROR.MISSING_ADMIN_EMAIL
       );
     }
 

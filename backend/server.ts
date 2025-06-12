@@ -1,14 +1,14 @@
 import app from "./src/app";
 import dotenv from "dotenv";
 import { AppDataSource } from "./src/config/orm";
-import { ERROR_MESSAGES, LOG_MESSAGES } from "./src/utils/messages";
+import { ENV_MESSAGES, LOG_MESSAGES } from "./src/utils/messages";
 
 dotenv.config();
 
 const apiPort = Number(process.env.API_PORT);
 
 if (!apiPort) {
-  console.log(ERROR_MESSAGES.ENV.MISSING_API_PORT);
+  console.log(ENV_MESSAGES.ERROR.MISSING_API_PORT);
   process.exit(1);
 }
 

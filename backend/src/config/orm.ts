@@ -1,31 +1,31 @@
 import { DataSource } from "typeorm";
 import dotenv from "dotenv";
-import { ERROR_MESSAGES } from "../utils/messages";
+import { ENV_MESSAGES } from "../utils/messages";
 
 dotenv.config();
 
 if (!process.env.DB_HOST) {
-  console.error(ERROR_MESSAGES.ENV.MISSING_DB_HOST);
+  console.error(ENV_MESSAGES.ERROR.MISSING_DB_HOST);
   process.exit(1);
 }
 
 if (!process.env.DB_USER) {
-  console.error(ERROR_MESSAGES.ENV.MISSING_DB_USER);
+  console.error(ENV_MESSAGES.ERROR.MISSING_DB_USER);
   process.exit(1);
 }
 
 if (!process.env.DB_PORT) {
-  console.error(ERROR_MESSAGES.ENV.MISSING_DB_PORT);
+  console.error(ENV_MESSAGES.ERROR.MISSING_DB_PORT);
   process.exit(1);
 }
 
 if (!process.env.DB_PASSWORD) {
-  console.error(ERROR_MESSAGES.ENV.MISSING_DB_PASSWORD);
+  console.error(ENV_MESSAGES.ERROR.MISSING_DB_PASSWORD);
   process.exit(1);
 }
 
 if (!process.env.DB_DATABASE) {
-  console.error(ERROR_MESSAGES.ENV.MISSING_DB_DATABASE);
+  console.error(ENV_MESSAGES.ERROR.MISSING_DB_DATABASE);
   process.exit(1);
 }
 

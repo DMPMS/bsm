@@ -7,11 +7,11 @@ import {
 } from "../config/constants";
 import { HttpError } from "../utils/httpError";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
-import { ERROR_MESSAGES } from "../utils/messages";
+import { MANAGERGLOBAL_MESSAGES } from "../utils/messages";
 import { ManagerglobalEntity } from "../entities/managerglobalEntity";
 import { CreateManagerglobalDto } from "../dtos/createManagerglobalDto";
 import { CountryService } from "./countryService";
-import { generateUuid } from "../utils/generateUuid";
+import { generateUuid } from "../utils/uuid";
 import { UpdateManagerglobalDto } from "../dtos/updateManagerglobalDto";
 
 export class ManagerglobalService {
@@ -62,14 +62,14 @@ export class ManagerglobalService {
     if (!managerglobal) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        ERROR_MESSAGES.MANAGERGLOBAL.MANAGERGLOBAL_ID_NOT_FOUND(managerglobalId)
+        MANAGERGLOBAL_MESSAGES.ERROR.MANAGERGLOBAL_ID_NOT_FOUND(managerglobalId)
       );
     }
 
     if (onlyWithoutTeamglobal && managerglobal.teamglobal) {
       throw new HttpError(
         HttpStatusEnum.Conflict,
-        ERROR_MESSAGES.MANAGERGLOBAL.MANAGERGLOBAL_WITH_TEAMGLOBAL(
+        MANAGERGLOBAL_MESSAGES.ERROR.MANAGERGLOBAL_WITH_TEAMGLOBAL(
           managerglobalId
         )
       );

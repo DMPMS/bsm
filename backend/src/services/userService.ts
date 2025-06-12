@@ -1,7 +1,7 @@
 import { DeleteResult, Repository } from "typeorm";
 import { AppDataSource } from "../config/orm";
 import { UserEntity } from "../entities/userEntity";
-import { ERROR_MESSAGES } from "../utils/messages";
+import { USER_MESSAGES } from "../utils/messages";
 import { createHashedPassword, validatePassword } from "../utils/password";
 import { RelationsOptionsType } from "../types/RelationsOptions.type";
 import { UserTypeEnum } from "../enums/UserTypeEnum";
@@ -9,7 +9,7 @@ import { PAGINATION } from "../config/constants";
 import { HttpError } from "../utils/httpError";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
 import { CreateUserDto } from "../dtos/createUserDto";
-import { generateUuid } from "../utils/generateUuid";
+import { generateUuid } from "../utils/uuid";
 import { UpdateUserDto } from "../dtos/updateUserDto";
 import { DeleteUserDto } from "../dtos/deleteUserDto";
 import { CountryService } from "./countryService";
@@ -55,7 +55,7 @@ export class UserService {
     if (!user) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        ERROR_MESSAGES.USER.USER_ID_NOT_FOUND(userId)
+        USER_MESSAGES.ERROR.USER_ID_NOT_FOUND(userId)
       );
     }
 
@@ -74,7 +74,7 @@ export class UserService {
     if (!user) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        ERROR_MESSAGES.USER.USER_ID_NOT_FOUND(userId)
+        USER_MESSAGES.ERROR.USER_ID_NOT_FOUND(userId)
       );
     }
 
@@ -93,7 +93,7 @@ export class UserService {
     if (!user) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        ERROR_MESSAGES.USER.USER_EMAIL_NOT_FOUND(email.toLowerCase())
+        USER_MESSAGES.ERROR.USER_EMAIL_NOT_FOUND(email.toLowerCase())
       );
     }
 
@@ -114,14 +114,14 @@ export class UserService {
     if (existingUser) {
       throw new HttpError(
         HttpStatusEnum.Conflict,
-        ERROR_MESSAGES.USER.EMAIL_ALREADY_EXISTS
+        USER_MESSAGES.ERROR.EMAIL_ALREADY_EXISTS
       );
     }
 
     if (createUserDto.password !== createUserDto.confirmPassword) {
       throw new HttpError(
         HttpStatusEnum.BadRequest,
-        ERROR_MESSAGES.USER.PASSWORDS_DO_NOT_MATCH
+        USER_MESSAGES.ERROR.PASSWORDS_DO_NOT_MATCH
       );
     }
 
@@ -138,7 +138,7 @@ export class UserService {
       if (!userRoot) {
         throw new HttpError(
           HttpStatusEnum.NotFound,
-          ERROR_MESSAGES.USER.USER_ROOT_ID_NOT_FOUND(userId)
+          USER_MESSAGES.ERROR.USER_ROOT_ID_NOT_FOUND(userId)
         );
       } else {
         savedUser = await this.userRepository.save({
@@ -175,7 +175,7 @@ export class UserService {
     if (!user) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        ERROR_MESSAGES.USER.USER_ID_NOT_FOUND(userId)
+        USER_MESSAGES.ERROR.USER_ID_NOT_FOUND(userId)
       );
     }
 
@@ -189,7 +189,7 @@ export class UserService {
       if (existingUser) {
         throw new HttpError(
           HttpStatusEnum.Conflict,
-          ERROR_MESSAGES.USER.EMAIL_ALREADY_EXISTS
+          USER_MESSAGES.ERROR.EMAIL_ALREADY_EXISTS
         );
       }
     }
@@ -198,7 +198,7 @@ export class UserService {
       if (updateUserDto.newPassword !== updateUserDto.confirmNewPassword) {
         throw new HttpError(
           HttpStatusEnum.BadRequest,
-          ERROR_MESSAGES.USER.PASSWORDS_DO_NOT_MATCH
+          USER_MESSAGES.ERROR.PASSWORDS_DO_NOT_MATCH
         );
       }
     }
@@ -215,7 +215,7 @@ export class UserService {
     if (!isMatch) {
       throw new HttpError(
         HttpStatusEnum.BadRequest,
-        ERROR_MESSAGES.USER.INVALID_USER_PASSWORD
+        USER_MESSAGES.ERROR.INVALID_USER_PASSWORD
       );
     }
 
@@ -242,7 +242,7 @@ export class UserService {
     if (!user) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        ERROR_MESSAGES.USER.USER_ID_NOT_FOUND(userId)
+        USER_MESSAGES.ERROR.USER_ID_NOT_FOUND(userId)
       );
     }
 
@@ -254,7 +254,7 @@ export class UserService {
     if (!isMatch) {
       throw new HttpError(
         HttpStatusEnum.BadRequest,
-        ERROR_MESSAGES.USER.INVALID_USER_PASSWORD
+        USER_MESSAGES.ERROR.INVALID_USER_PASSWORD
       );
     }
 
@@ -275,7 +275,7 @@ export class UserService {
     if (!admin) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        ERROR_MESSAGES.USER.USER_ADMIN_ID_NOT_FOUND(adminDeleteId)
+        USER_MESSAGES.ERROR.USER_ADMIN_ID_NOT_FOUND(adminDeleteId)
       );
     }
 

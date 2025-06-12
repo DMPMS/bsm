@@ -4,7 +4,7 @@ import { AppDataSource } from "../config/orm";
 import { RelationsOptionsType } from "../types/RelationsOptions.type";
 import { PAGINATION } from "../config/constants";
 import { HttpError } from "../utils/httpError";
-import { ERROR_MESSAGES } from "../utils/messages";
+import { COUNTRY_MESSAGES } from "../utils/messages";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
 
 export class CountryService {
@@ -43,7 +43,7 @@ export class CountryService {
     if (!country) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        ERROR_MESSAGES.COUNTRY.COUNTRY_ID_NOT_FOUND(countryId)
+        COUNTRY_MESSAGES.ERROR.COUNTRY_ID_NOT_FOUND(countryId)
       );
     }
 

@@ -5,7 +5,7 @@ import { RelationsOptionsType } from "../types/RelationsOptions.type";
 import { PAGINATION } from "../config/constants";
 import { HttpError } from "../utils/httpError";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
-import { ERROR_MESSAGES } from "../utils/messages";
+import { POSITION_MESSAGES } from "../utils/messages";
 
 export class PositionService {
   constructor(
@@ -43,7 +43,7 @@ export class PositionService {
     if (!position) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        ERROR_MESSAGES.POSITION.POSITION_ID_NOT_FOUND(positionId)
+        POSITION_MESSAGES.ERROR.POSITION_ID_NOT_FOUND(positionId)
       );
     }
 

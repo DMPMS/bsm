@@ -1,9 +1,9 @@
 import { Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
-import { ERROR_MESSAGES } from "../utils/messages";
 import { AuthenticatedRequest } from "../types/AuthenticatedRequestType";
 import { UserTypeEnum } from "../enums/UserTypeEnum";
+import { AUTH_MESSAGES, ENV_MESSAGES } from "../utils/messages";
 
 export const authMiddleware = (
   req: AuthenticatedRequest,
@@ -15,7 +15,7 @@ export const authMiddleware = (
   if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
     res
       .status(HttpStatusEnum.Unauthorized)
-      .json(ERROR_MESSAGES.AUTH.ACCESS_DENIED);
+      .json(AUTH_MESSAGES.ERROR.ACCESS_DENIED);
     return;
   }
 
@@ -24,7 +24,7 @@ export const authMiddleware = (
   if (!jwtSecret) {
     res
       .status(HttpStatusEnum.InternalServerError)
-      .json(ERROR_MESSAGES.ENV.MISSING_JWT_SECRET);
+      .json(ENV_MESSAGES.ERROR.MISSING_JWT_SECRET);
     return;
   }
 
@@ -46,6 +46,6 @@ export const authMiddleware = (
   } catch (error) {
     res
       .status(HttpStatusEnum.Unauthorized)
-      .json(ERROR_MESSAGES.AUTH.ACCESS_DENIED);
+      .json(AUTH_MESSAGES.ERROR.ACCESS_DENIED);
   }
 };

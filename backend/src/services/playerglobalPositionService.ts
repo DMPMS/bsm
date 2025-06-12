@@ -1,6 +1,6 @@
 import { DeleteResult, Repository } from "typeorm";
 import { AppDataSource } from "../config/orm";
-import { generateUuid } from "../utils/generateUuid";
+import { generateUuid } from "../utils/uuid";
 import { PlayerglobalService } from "./playerglobalService";
 import { PositionService } from "./positionService";
 import { PlayerglobalPositionEntity } from "../entities/playerglobalPositionEntity";

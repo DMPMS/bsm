@@ -3,9 +3,9 @@ import { AuthService } from "../services/authService";
 import { SignInDto } from "../dtos/signInDto";
 import { Request, Response } from "express";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
-import { ERROR_MESSAGES } from "../utils/messages";
 import { validateDto } from "../utils/validateDto";
 import { HttpError } from "../utils/httpError";
+import { AUTH_MESSAGES, DTO_MESSAGES } from "../utils/messages";
 
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -20,7 +20,7 @@ export class AuthController {
       if (!isValid) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.DTO.INVALID_DATA);
+          .json(DTO_MESSAGES.ERROR.INVALID_DATA);
         return;
       }
 
@@ -33,7 +33,7 @@ export class AuthController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.AUTH.SIGN_IN_ERROR);
+          .json(AUTH_MESSAGES.ERROR.SIGN_IN_ERROR);
       }
     }
   }

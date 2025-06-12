@@ -3,7 +3,7 @@ import { CountryService } from "../services/countryService";
 import { PAGINATION } from "../config/constants";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
 import { HttpError } from "../utils/httpError";
-import { ERROR_MESSAGES } from "../utils/messages";
+import { COUNTRY_MESSAGES } from "../utils/messages";
 import { ReturnCountryDto } from "../dtos/returnCountryDto";
 
 export class CountryController {
@@ -30,7 +30,7 @@ export class CountryController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.COUNTRY.SELECT_COUNTRY_ERROR);
+          .json(COUNTRY_MESSAGES.ERROR.SELECT_COUNTRY_ERROR);
       }
     }
   }

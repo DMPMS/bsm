@@ -4,9 +4,9 @@ import { RelationsOptionsType } from "../types/RelationsOptions.type";
 import { PAGINATION } from "../config/constants";
 import { HttpError } from "../utils/httpError";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
-import { ERROR_MESSAGES } from "../utils/messages";
+import { TEAMGLOBAL_MESSAGES } from "../utils/messages";
 import { CountryService } from "./countryService";
-import { generateUuid } from "../utils/generateUuid";
+import { generateUuid } from "../utils/uuid";
 import { TeamglobalEntity } from "../entities/teamglobalEntity";
 import { CreateTeamglobalDto } from "../dtos/createTeamglobalDto";
 import { ManagerglobalService } from "./managerglobalService";
@@ -54,7 +54,7 @@ export class TeamglobalService {
     if (!teamglobal) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        ERROR_MESSAGES.TEAMGLOBAL.TEAMGLOBAL_ID_NOT_FOUND(teamglobalId)
+        TEAMGLOBAL_MESSAGES.ERROR.TEAMGLOBAL_ID_NOT_FOUND(teamglobalId)
       );
     }
 

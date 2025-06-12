@@ -3,7 +3,7 @@ import { PositionService } from "../services/positionService";
 import { PAGINATION } from "../config/constants";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
 import { HttpError } from "../utils/httpError";
-import { ERROR_MESSAGES } from "../utils/messages";
+import { POSITION_MESSAGES } from "../utils/messages";
 import { ReturnPositionDto } from "../dtos/returnPositionDto";
 
 export class PositionController {
@@ -30,7 +30,7 @@ export class PositionController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.POSITION.SELECT_POSITION_ERROR);
+          .json(POSITION_MESSAGES.ERROR.SELECT_POSITION_ERROR);
       }
     }
   }

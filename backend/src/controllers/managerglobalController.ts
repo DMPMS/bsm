@@ -3,13 +3,14 @@ import { PAGINATION } from "../config/constants";
 import { ManagerglobalService } from "../services/managerglobalService";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
 import { HttpError } from "../utils/httpError";
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../utils/messages";
+import { DTO_MESSAGES, MANAGERGLOBAL_MESSAGES } from "../utils/messages";
 import { RelationsOptionsType } from "../types/RelationsOptions.type";
 import { plainToInstance } from "class-transformer";
 import { CreateManagerglobalDto } from "../dtos/createManagerglobalDto";
 import { validateDto } from "../utils/validateDto";
 import { UpdateManagerglobalDto } from "../dtos/updateManagerglobalDto";
 import { ReturnManagerglobalDto } from "../dtos/returnManagerglobalDto";
+import { isUuid } from "../utils/uuid";
 
 export class ManagerglobalController {
   constructor(private readonly managerglobalService: ManagerglobalService) {}
@@ -45,7 +46,7 @@ export class ManagerglobalController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.MANAGERGLOBAL.SELECT_MANAGERGLOBAL_ERROR);
+          .json(MANAGERGLOBAL_MESSAGES.ERROR.SELECT_MANAGERGLOBAL_ERROR);
       }
     }
   }
@@ -54,10 +55,10 @@ export class ManagerglobalController {
     try {
       const { managerglobalId } = req.params;
 
-      if (!managerglobalId) {
+      if (!managerglobalId || !isUuid(managerglobalId)) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.MANAGERGLOBAL.MANAGERGLOBAL_ID_IS_REQUIRED);
+          .json(MANAGERGLOBAL_MESSAGES.ERROR.MANAGERGLOBAL_ID_IS_INVALID);
         return;
       }
 
@@ -80,7 +81,7 @@ export class ManagerglobalController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.MANAGERGLOBAL.SELECT_MANAGERGLOBAL_BY_ID_ERROR);
+          .json(MANAGERGLOBAL_MESSAGES.ERROR.SELECT_MANAGERGLOBAL_BY_ID_ERROR);
       }
     }
   }
@@ -99,7 +100,7 @@ export class ManagerglobalController {
       if (!isValid) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.DTO.INVALID_DATA);
+          .json(DTO_MESSAGES.ERROR.INVALID_DATA);
         return;
       }
 
@@ -117,7 +118,7 @@ export class ManagerglobalController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.MANAGERGLOBAL.CREATE_MANAGERGLOBAL_ERROR);
+          .json(MANAGERGLOBAL_MESSAGES.ERROR.CREATE_MANAGERGLOBAL_ERROR);
       }
     }
   }
@@ -138,14 +139,14 @@ export class ManagerglobalController {
       if (!isValid) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.DTO.INVALID_DATA);
+          .json(DTO_MESSAGES.ERROR.INVALID_DATA);
         return;
       }
 
-      if (!managerglobalId) {
+      if (!managerglobalId || !isUuid(managerglobalId)) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.MANAGERGLOBAL.MANAGERGLOBAL_ID_IS_REQUIRED);
+          .json(MANAGERGLOBAL_MESSAGES.ERROR.MANAGERGLOBAL_ID_IS_INVALID);
         return;
       }
 
@@ -164,7 +165,7 @@ export class ManagerglobalController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.MANAGERGLOBAL.UPDATE_MANAGERGLOBAL_ERROR);
+          .json(MANAGERGLOBAL_MESSAGES.ERROR.UPDATE_MANAGERGLOBAL_ERROR);
       }
     }
   }
@@ -173,10 +174,10 @@ export class ManagerglobalController {
     try {
       const { managerglobalId } = req.params;
 
-      if (!managerglobalId) {
+      if (!managerglobalId || !isUuid(managerglobalId)) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.MANAGERGLOBAL.MANAGERGLOBAL_ID_IS_REQUIRED);
+          .json(MANAGERGLOBAL_MESSAGES.ERROR.MANAGERGLOBAL_ID_IS_INVALID);
         return;
       }
 
@@ -185,7 +186,7 @@ export class ManagerglobalController {
       res
         .status(HttpStatusEnum.Ok)
         .json(
-          SUCCESS_MESSAGES.MANAGERGLOBAL.MANAGERGLOBAL_DELETED_SUCCESSFULLY
+          MANAGERGLOBAL_MESSAGES.SUCCESS.MANAGERGLOBAL_DELETED_SUCCESSFULLY
         );
     } catch (error) {
       if (error instanceof HttpError) {
@@ -193,7 +194,7 @@ export class ManagerglobalController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.MANAGERGLOBAL.DELETE_MANAGERGLOBAL_ERROR);
+          .json(MANAGERGLOBAL_MESSAGES.ERROR.DELETE_MANAGERGLOBAL_ERROR);
       }
     }
   }

@@ -3,7 +3,7 @@ import { AppDataSource } from "../config/orm";
 import { UserEntity } from "../entities/userEntity";
 import { validatePassword } from "../utils/password";
 import jwt from "jsonwebtoken";
-import { ERROR_MESSAGES } from "../utils/messages";
+import { AUTH_MESSAGES, ENV_MESSAGES } from "../utils/messages";
 import { StringValue } from "ms";
 import { HttpError } from "../utils/httpError";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
@@ -25,7 +25,7 @@ export class AuthService {
     if (!user) {
       throw new HttpError(
         HttpStatusEnum.Unauthorized,
-        ERROR_MESSAGES.AUTH.INVALID_CREDENTIALS
+        AUTH_MESSAGES.ERROR.INVALID_CREDENTIALS
       );
     }
 
@@ -37,7 +37,7 @@ export class AuthService {
     if (!isMatch) {
       throw new HttpError(
         HttpStatusEnum.Unauthorized,
-        ERROR_MESSAGES.AUTH.INVALID_CREDENTIALS
+        AUTH_MESSAGES.ERROR.INVALID_CREDENTIALS
       );
     }
 
@@ -46,7 +46,7 @@ export class AuthService {
     if (!jwtSecret) {
       throw new HttpError(
         HttpStatusEnum.InternalServerError,
-        ERROR_MESSAGES.ENV.MISSING_JWT_SECRET
+        ENV_MESSAGES.ERROR.MISSING_JWT_SECRET
       );
     }
 
@@ -55,7 +55,7 @@ export class AuthService {
     if (!jwtExpiresIn) {
       throw new HttpError(
         HttpStatusEnum.InternalServerError,
-        ERROR_MESSAGES.ENV.MISSING_JWT_EXPIRES_IN
+        ENV_MESSAGES.ERROR.MISSING_JWT_EXPIRES_IN
       );
     }
 

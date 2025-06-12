@@ -2,7 +2,7 @@ import { Response, NextFunction } from "express";
 import { AuthenticatedRequest } from "../types/AuthenticatedRequestType";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
 import { UserTypeEnum } from "../enums/UserTypeEnum";
-import { ERROR_MESSAGES } from "../utils/messages";
+import { AUTH_MESSAGES } from "../utils/messages";
 
 export const roleMiddleware = (allowedRoles: UserTypeEnum[]) => {
   return (
@@ -13,7 +13,7 @@ export const roleMiddleware = (allowedRoles: UserTypeEnum[]) => {
     if (!req.user || !allowedRoles.includes(req.user.type)) {
       res
         .status(HttpStatusEnum.Forbidden)
-        .json(ERROR_MESSAGES.AUTH.ACCESS_DENIED);
+        .json(AUTH_MESSAGES.ERROR.ACCESS_DENIED);
       return;
     }
     next();

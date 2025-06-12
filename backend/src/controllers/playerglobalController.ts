@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { PAGINATION } from "../config/constants";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
 import { HttpError } from "../utils/httpError";
-import { ERROR_MESSAGES, SUCCESS_MESSAGES } from "../utils/messages";
+import { DTO_MESSAGES, PLAYERGLOBAL_MESSAGES } from "../utils/messages";
 import { RelationsOptionsType } from "../types/RelationsOptions.type";
 import { plainToInstance } from "class-transformer";
 import { validateDto } from "../utils/validateDto";
@@ -10,6 +10,7 @@ import { PlayerglobalService } from "../services/playerglobalService";
 import { CreatePlayerglobalDto } from "../dtos/createPlayerglobalDto";
 import { UpdatePlayerglobalDto } from "../dtos/updatePlayerglobalDto";
 import { ReturnPlayerglobalDto } from "../dtos/returnPlayerglobalDto";
+import { isUuid } from "../utils/uuid";
 
 export class PlayerglobalController {
   constructor(private readonly playerglobalService: PlayerglobalService) {}
@@ -47,7 +48,7 @@ export class PlayerglobalController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.PLAYERGLOBAL.SELECT_PLAYERGLOBAL_ERROR);
+          .json(PLAYERGLOBAL_MESSAGES.ERROR.SELECT_PLAYERGLOBAL_ERROR);
       }
     }
   }
@@ -56,10 +57,10 @@ export class PlayerglobalController {
     try {
       const { playerglobalId } = req.params;
 
-      if (!playerglobalId) {
+      if (!playerglobalId || !isUuid(playerglobalId)) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.PLAYERGLOBAL.PLAYERGLOBAL_ID_IS_REQUIRED);
+          .json(PLAYERGLOBAL_MESSAGES.ERROR.PLAYERGLOBAL_ID_IS_INVALID);
         return;
       }
 
@@ -84,7 +85,7 @@ export class PlayerglobalController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.PLAYERGLOBAL.SELECT_PLAYERGLOBAL_BY_ID_ERROR);
+          .json(PLAYERGLOBAL_MESSAGES.ERROR.SELECT_PLAYERGLOBAL_BY_ID_ERROR);
       }
     }
   }
@@ -103,7 +104,7 @@ export class PlayerglobalController {
       if (!isValid) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.DTO.INVALID_DATA);
+          .json(DTO_MESSAGES.ERROR.INVALID_DATA);
         return;
       }
 
@@ -121,7 +122,7 @@ export class PlayerglobalController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.PLAYERGLOBAL.CREATE_PLAYERGLOBAL_ERROR);
+          .json(PLAYERGLOBAL_MESSAGES.ERROR.CREATE_PLAYERGLOBAL_ERROR);
       }
     }
   }
@@ -142,14 +143,14 @@ export class PlayerglobalController {
       if (!isValid) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.DTO.INVALID_DATA);
+          .json(DTO_MESSAGES.ERROR.INVALID_DATA);
         return;
       }
 
-      if (!playerglobalId) {
+      if (!playerglobalId || !isUuid(playerglobalId)) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.PLAYERGLOBAL.PLAYERGLOBAL_ID_IS_REQUIRED);
+          .json(PLAYERGLOBAL_MESSAGES.ERROR.PLAYERGLOBAL_ID_IS_INVALID);
         return;
       }
 
@@ -168,7 +169,7 @@ export class PlayerglobalController {
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.PLAYERGLOBAL.UPDATE_PLAYERGLOBAL_ERROR);
+          .json(PLAYERGLOBAL_MESSAGES.ERROR.UPDATE_PLAYERGLOBAL_ERROR);
       }
     }
   }
@@ -177,10 +178,10 @@ export class PlayerglobalController {
     try {
       const { playerglobalId } = req.params;
 
-      if (!playerglobalId) {
+      if (!playerglobalId || !isUuid(playerglobalId)) {
         res
           .status(HttpStatusEnum.BadRequest)
-          .json(ERROR_MESSAGES.PLAYERGLOBAL.PLAYERGLOBAL_ID_IS_REQUIRED);
+          .json(PLAYERGLOBAL_MESSAGES.ERROR.PLAYERGLOBAL_ID_IS_INVALID);
         return;
       }
 
@@ -188,14 +189,14 @@ export class PlayerglobalController {
 
       res
         .status(HttpStatusEnum.Ok)
-        .json(SUCCESS_MESSAGES.PLAYERGLOBAL.PLAYERGLOBAL_DELETED_SUCCESSFULLY);
+        .json(PLAYERGLOBAL_MESSAGES.SUCCESS.PLAYERGLOBAL_DELETED_SUCCESSFULLY);
     } catch (error) {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
         res
           .status(HttpStatusEnum.InternalServerError)
-          .json(ERROR_MESSAGES.PLAYERGLOBAL.DELETE_PLAYERGLOBAL_ERROR);
+          .json(PLAYERGLOBAL_MESSAGES.ERROR.DELETE_PLAYERGLOBAL_ERROR);
       }
     }
   }
