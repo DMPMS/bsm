@@ -1,0 +1,97 @@
+import { MigrationInterface, QueryRunner } from "typeorm";
+
+export class InsertTableManagerglobal1749744827950
+  implements MigrationInterface
+{
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
+        INSERT INTO public.managerglobal(id, country_id, name, image_url, birthdate) VALUES
+        ('ca2850f6-d191-4ded-874f-14a22b019ab7', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 1', NULL, '1985-01-03'),
+        ('b25a6edd-ba99-4393-bfe5-29b2d14de22b', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 2', NULL, '1984-09-08'),
+        ('3d9009fd-efd9-4d46-822d-283a7e706b71', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 3', NULL, '1965-06-01'),
+        ('1a51a5a4-bfbd-4ec7-bf11-737551296e3d', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 4', NULL, '1972-07-23'),
+        ('f10b386e-4df7-4e15-b523-56de8168205b', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 5', NULL, '1981-11-18'),
+        ('dcf4441e-99d0-4969-b715-5dc370d02104', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 6', NULL, '1965-12-10'),
+        ('f79eb970-07de-410c-a0a4-6ffda27d2305', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 7', NULL, '1975-10-01'),
+        ('b5d4b6bc-0930-45e3-9293-90650adfa418', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 8', NULL, '1967-06-29'),
+        ('51c37326-8523-4535-91cb-793d903c178a', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 9', NULL, '1979-03-14'),
+        ('1d45b9a8-de06-431d-9ec7-ed810149a1c1', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 10', NULL, '1983-02-20'),
+        ('d1d92524-824c-4a71-b5f6-d48bc5ddc904', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 11', NULL, '1969-11-04'),
+        ('5e467ce0-9116-4427-b1f6-e5d44ac88fcb', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 12', NULL, '1971-10-23'),
+        ('b92e2bd3-7100-45ca-b5bf-9d27ffd9e6c0', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 13', NULL, '1985-06-30'),
+        ('e3b5a5e6-379a-4c74-ba19-1401bb0c3146', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 14', NULL, '1980-07-19'),
+        ('19cdcdb8-22a5-4247-828f-e0d815209d53', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 15', NULL, '1985-01-27'),
+        ('ad6bda08-98ed-4b40-a1cd-8a451c70cc44', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 16', NULL, '1984-02-08'),
+        ('6b56dab5-1bc8-4e02-a76c-d930ac216fd0', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 17', NULL, '1965-06-12'),
+        ('c721871f-907a-4b9a-a274-a645dfbdcbe7', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 18', NULL, '1970-05-28'),
+        ('a85a9561-45aa-4dc5-abb5-2cac04c6c9f5', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 19', NULL, '1982-09-14'),
+        ('b55b3b10-d058-4da6-9139-801488814498', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 20', NULL, '1982-12-18'),
+        ('144b16dc-30a3-47c0-b303-b21319df17f9', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 21', NULL, '1965-02-21'),
+        ('fd20ef4c-9eaf-49c8-b280-3a91fddb831b', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 22', NULL, '1973-01-16'),
+        ('3cfca44b-59f5-4a5a-bc95-d945118b0daa', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 23', NULL, '1968-02-01'),
+        ('cc618669-d6a8-4d98-9239-a3ad9c809550', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 24', NULL, '1971-10-24'),
+        ('1e22c1ab-71f9-444f-bf69-cfa8b00b5081', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 25', NULL, '1982-05-19'),
+        ('aaf39488-1fa9-4e58-b42e-92059e86facf', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 26', NULL, '1965-08-15'),
+        ('ab980cc6-ef52-4af0-94d2-9714245d33b1', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 27', NULL, '1974-12-16'),
+        ('1af5787f-8d86-4151-997e-038973752191', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 28', NULL, '1983-10-13'),
+        ('e31cab10-f6de-43df-bc75-cbfe1ec7939e', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 29', NULL, '1976-09-21'),
+        ('bf4d6a16-5e52-4f10-b603-b49bcc3716c6', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 30', NULL, '1966-11-12'),
+        ('c6c6dd8f-7b91-4b18-8af4-32f79002d3f3', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 31', NULL, '1978-04-28'),
+        ('f21b91a8-f446-4593-ae5d-98bcb22bb51d', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 32', NULL, '1981-08-15'),
+        ('3f3fa4da-8598-4742-9948-d0d85e933ebc', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 33', NULL, '1984-04-07'),
+        ('d3d6b3b2-23de-4342-8b80-0294489e3c3e', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 34', NULL, '1983-10-11'),
+        ('01eaf698-f2dc-4426-aed1-36ca93781470', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 35', NULL, '1981-11-26'),
+        ('29d802d2-53cc-499c-9bcc-e6678359cbde', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 36', NULL, '1974-07-22'),
+        ('de446656-3c28-42ab-a1d8-4f60cc714ad1', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 37', NULL, '1967-03-31'),
+        ('8ef97b0d-5543-485c-a2b6-ed40bece10a2', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 38', NULL, '1985-05-28'),
+        ('e0918c23-f9bf-42c5-8e8a-8bdadbfc624b', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 39', NULL, '1982-07-09'),
+        ('b915b59f-0e6b-4725-98ad-bf058054e79f', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 40', NULL, '1984-08-31'),
+        ('63f1f8e9-94f4-451b-9d34-ca0e3c289eaf', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 41', NULL, '1965-01-21'),
+        ('ce4fc50e-ce37-426e-8d2c-6e0c1aa12386', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 42', NULL, '1974-09-26'),
+        ('de07e3f3-e12c-4d1e-976a-0b2817118da5', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 43', NULL, '1985-08-14'),
+        ('6d9a1072-657c-4244-ae31-591b65a5aabe', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 44', NULL, '1982-09-22'),
+        ('f8a38a22-3c64-4c1e-91d8-fa89889f40f5', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 45', NULL, '1969-01-19'),
+        ('b6701e9c-a24e-438f-86fe-ee3713c91ebc', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 46', NULL, '1975-06-16'),
+        ('354bf222-03ae-40cf-b597-d2fae53c80e5', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 47', NULL, '1982-11-15'),
+        ('25014838-9feb-4cd8-a58e-223fe7e39eba', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 48', NULL, '1975-11-07'),
+        ('7088e975-e131-493c-872a-d8a261e00d75', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 49', NULL, '1979-07-09'),
+        ('27f0f7cc-2242-435f-a0ec-e02b777c7e0f', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 50', NULL, '1985-08-19'),
+        ('e66e089b-b3c8-416e-8f6d-8801470186d2', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 51', NULL, '1980-10-20'),
+        ('374b53e4-16a8-4a74-8805-33ea58181194', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 52', NULL, '1967-01-28'),
+        ('f9ee7d14-d00f-4fa7-be17-2590f49e937b', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 53', NULL, '1977-01-27'),
+        ('a1ba1aca-5348-499f-929f-3f167aa341c4', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 54', NULL, '1985-12-22'),
+        ('0f8fc351-edd9-4843-a0b2-65c3a3c1d377', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 55', NULL, '1970-10-07'),
+        ('9fdd7eb6-8f52-41d5-be97-46e3f6d925d0', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 56', NULL, '1976-11-05'),
+        ('8f105698-cfca-4820-ab98-6dba7cea7ed8', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 57', NULL, '1978-03-04'),
+        ('e1248efd-ce02-4c4e-99c3-36d376ce62a4', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 58', NULL, '1967-09-20'),
+        ('f001a338-6741-44e3-9d3f-c2cd35f147e5', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 59', NULL, '1973-03-11'),
+        ('487d9584-902a-4b0d-842f-4c445298202a', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 60', NULL, '1980-05-09'),
+        ('5bbd407d-a1cc-457e-800a-91c8209457e9', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 61', NULL, '1981-08-16'),
+        ('16c189cb-fef0-476d-aefa-847f7d1a8696', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 62', NULL, '1972-12-23'),
+        ('c685c7ab-d7fa-4a88-b9e4-8de3d0236e13', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 63', NULL, '1982-11-27'),
+        ('cb8c50e3-553d-4154-9c85-9387bb7faaf2', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 64', NULL, '1970-07-30'),
+        ('f42fb090-3fac-43c4-9227-8e6df236b623', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 65', NULL, '1966-06-25'),
+        ('e47300c7-8756-45a5-b241-4508044ebcbb', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 66', NULL, '1966-01-05'),
+        ('f4c5042b-a746-4da8-b99d-55f5bac0146c', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 67', NULL, '1972-01-14'),
+        ('a0924812-a8ad-4621-9442-bef1e7b57980', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 68', NULL, '1979-04-21'),
+        ('ecb32871-214e-468b-98e7-eec5cfe2ecc3', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 69', NULL, '1969-06-22'),
+        ('0526ea78-6ca5-4b89-8801-3c56f91ac124', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 70', NULL, '1965-05-06'),
+        ('3b84d7e1-6604-4565-b465-ffd6bdac334b', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 71', NULL, '1970-09-07'),
+        ('4aef3a63-eed0-41d3-8869-2589901fb16e', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 72', NULL, '1971-02-17'),
+        ('f9c715d9-cfbb-4dae-b671-6d1b038552de', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 73', NULL, '1982-11-03'),
+        ('ed9e17f5-6ee0-409b-9737-aa992ecc49b4', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 74', NULL, '1980-02-19'),
+        ('be8832ba-2ed9-4e6f-b2e5-468538657ad3', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 75', NULL, '1978-04-04'),
+        ('8517a763-3a36-4c45-a4af-4785b05c7672', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 76', NULL, '1984-08-03'),
+        ('e8ca3366-a0f7-4dad-9f37-5ea9ee2305d7', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 77', NULL, '1978-10-20'),
+        ('8ad9a791-aa47-4e7c-89ff-ddbe7e450359', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 78', NULL, '1973-08-28'),
+        ('a7422e16-5da3-4666-bfe6-92f2420618d8', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 79', NULL, '1977-05-08'),
+        ('70ea3024-a019-4c84-8209-d5e447325186', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Treinador 80', NULL, '1974-01-27');
+    `);
+  }
+
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
+        DELETE FROM public.managerglobal;
+    `);
+  }
+}

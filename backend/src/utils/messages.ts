@@ -100,6 +100,8 @@ export const PLAYERGLOBAL_MESSAGES = {
       `O playerglobal com id ${playerglobalId} não foi encontrado`,
     PLAYERGLOBAL_ID_IS_INVALID:
       "O playerglobalId é obrigatório e precisa ser um UUID",
+    PLAYERGLOBAL_WITH_TEAMGLOBAL: (playerglobalId: string) =>
+      `O playerglobal com id ${playerglobalId} possui um teamglobal`,
     COMMON_POSITION_IDS: (commonPositionIds: string[]) =>
       `Os seguintes positionIds são comuns entre as posições primárias e secundárias: ${commonPositionIds.join(
         ", "

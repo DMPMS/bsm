@@ -4,6 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
@@ -11,6 +12,7 @@ import {
 import { CountryEntity } from "./countryEntity";
 import { TEAMGLOBAL } from "../config/constants";
 import { ManagerglobalEntity } from "./managerglobalEntity";
+import { PlayerglobalEntity } from "./playerglobalEntity";
 
 @Entity("teamglobal")
 export class TeamglobalEntity {
@@ -66,4 +68,10 @@ export class TeamglobalEntity {
   )
   @JoinColumn({ name: "managerglobal_id", referencedColumnName: "id" })
   managerglobal?: ManagerglobalEntity;
+
+  @OneToMany(
+    () => PlayerglobalEntity,
+    (playerglobal) => playerglobal.teamglobal
+  )
+  playerglobals?: PlayerglobalEntity[];
 }

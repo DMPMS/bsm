@@ -1,6 +1,7 @@
 import { PlayerglobalEntity } from "../entities/playerglobalEntity";
 import { ReturnCountryDto } from "./returnCountryDto";
 import { ReturnPlayerglobalPositionDto } from "./returnPlayerglobalPositionDto";
+import { ReturnTeamglobalDto } from "./returnTeamglobalDto";
 
 export class ReturnPlayerglobalDto {
   id: string;
@@ -11,6 +12,7 @@ export class ReturnPlayerglobalDto {
 
   country?: ReturnCountryDto;
   playerglobalPositions?: ReturnPlayerglobalPositionDto[];
+  teamglobal?: ReturnTeamglobalDto;
 
   constructor(playerglobalEntity: PlayerglobalEntity) {
     this.id = playerglobalEntity.id;
@@ -28,6 +30,10 @@ export class ReturnPlayerglobalDto {
           (playerglobalPosition) =>
             new ReturnPlayerglobalPositionDto(playerglobalPosition)
         )
+      : undefined;
+
+    this.teamglobal = playerglobalEntity.teamglobal
+      ? new ReturnTeamglobalDto(playerglobalEntity.teamglobal)
       : undefined;
   }
 }

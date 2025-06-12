@@ -4,17 +4,19 @@ import { RelationsOptionsType } from "../types/RelationsOptions.type";
 import { PAGINATION } from "../config/constants";
 import { HttpError } from "../utils/httpError";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
-import { TEAMGLOBAL_MESSAGES } from "../utils/messages";
+import { PLAYERGLOBAL_MESSAGES, TEAMGLOBAL_MESSAGES } from "../utils/messages";
 import { CountryService } from "./countryService";
 import { generateUuid } from "../utils/uuid";
 import { TeamglobalEntity } from "../entities/teamglobalEntity";
 import { CreateTeamglobalDto } from "../dtos/createTeamglobalDto";
 import { ManagerglobalService } from "./managerglobalService";
 import { UpdateTeamglobalDto } from "../dtos/updateTeamglobalDto";
+import { PlayerglobalService } from "./playerglobalService";
 
 export class TeamglobalService {
   private readonly countryService: CountryService;
   private readonly managerglobalService: ManagerglobalService;
+  private readonly playerglobalService: PlayerglobalService;
 
   constructor(
     private readonly teamglobalRepository: Repository<TeamglobalEntity> = AppDataSource.getRepository(
@@ -23,6 +25,7 @@ export class TeamglobalService {
   ) {
     this.countryService = new CountryService();
     this.managerglobalService = new ManagerglobalService();
+    this.playerglobalService = new PlayerglobalService();
   }
 
   async getTeamglobals(
@@ -71,6 +74,16 @@ export class TeamglobalService {
       true
     );
 
+    await Promise.all(
+      createTeamglobalDto.playerglobalIds.map((playerglobalId) =>
+        this.playerglobalService.getPlayerglobalById(
+          playerglobalId,
+          undefined,
+          true
+        )
+      )
+    );
+
     const savedTeamglobal = await this.teamglobalRepository.save({
       ...createTeamglobalDto,
       id: generateUuid(),
@@ -79,6 +92,15 @@ export class TeamglobalService {
         : null,
       abbreviation: createTeamglobalDto.abbreviation.toUpperCase(),
     });
+
+    await Promise.all(
+      createTeamglobalDto.playerglobalIds.map((playerglobalId) => {
+        this.playerglobalService.updatePlayerglobalTeamglobalId(
+          savedTeamglobal.id,
+          playerglobalId
+        );
+      })
+    );
 
     return savedTeamglobal;
   }
@@ -98,6 +120,40 @@ export class TeamglobalService {
         true
       );
     }
+
+    await Promise.all(
+      updateTeamglobalDto.playerglobalIds.map(async (playerglobalId) => {
+        const playerglobal = await this.playerglobalService.getPlayerglobalById(
+          playerglobalId
+        );
+
+        if (
+          playerglobal.teamglobalId &&
+          playerglobal.teamglobalId !== teamglobal.id
+        ) {
+          throw new HttpError(
+            HttpStatusEnum.Conflict,
+            PLAYERGLOBAL_MESSAGES.ERROR.PLAYERGLOBAL_WITH_TEAMGLOBAL(
+              playerglobalId
+            )
+          );
+        }
+      })
+    );
+
+    await this.playerglobalService.clearPlayerglobalTeamglobalId(
+      undefined,
+      teamglobal.id
+    );
+
+    await Promise.all(
+      updateTeamglobalDto.playerglobalIds.map((playerglobalId) => {
+        this.playerglobalService.updatePlayerglobalTeamglobalId(
+          teamglobal.id,
+          playerglobalId
+        );
+      })
+    );
 
     const updatedTeamglobal = await this.teamglobalRepository.save({
       ...teamglobal,

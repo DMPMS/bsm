@@ -98,4 +98,8 @@ export const TEAMGLOBAL = {
     MIN: 1,
     MAX: 3,
   },
+  PLAYERGLOBALS: {
+    MIN: 11,
+    MAX: 33,
+  },
 };

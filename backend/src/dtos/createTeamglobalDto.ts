@@ -1,5 +1,8 @@
 import { Expose } from "class-transformer";
 import {
+  ArrayMaxSize,
+  ArrayMinSize,
+  IsArray,
   IsOptional,
   IsString,
   IsUUID,
@@ -7,7 +10,8 @@ import {
   Validate,
 } from "class-validator";
 import { isValidImage } from "../validators/isValidImage";
-import { TEAMGLOBAL } from "../config/constants";
+import { TEAMGLOBAL, UUID_VERSION } from "../config/constants";
+import { UniqueArray } from "../validators/uniqueArray";
 
 export class CreateTeamglobalDto {
   @Expose()
@@ -33,4 +37,12 @@ export class CreateTeamglobalDto {
   @Validate(isValidImage)
   @IsOptional()
   imageUrl?: string | null;
+
+  @Expose()
+  @IsArray()
+  @IsUUID(UUID_VERSION, { each: true })
+  @ArrayMinSize(TEAMGLOBAL.PLAYERGLOBALS.MIN)
+  @ArrayMaxSize(TEAMGLOBAL.PLAYERGLOBALS.MAX)
+  @Validate(UniqueArray)
+  playerglobalIds: string[];
 }
