@@ -21,7 +21,7 @@ export class PlayerglobalPositionService {
 
   async createPlayerglobalPosition(
     createPlayerglobalPositionDto: CreatePlayerglobalPositionDto
-  ): Promise<PlayerglobalPositionEntity> {
+  ): Promise<void> {
     await this.playerglobalService.getPlayerglobalById(
       createPlayerglobalPositionDto.playerglobalId
     );
@@ -29,13 +29,10 @@ export class PlayerglobalPositionService {
       createPlayerglobalPositionDto.positionId
     );
 
-    const savedPlayerglobalPosition =
-      await this.playerglobalPositionRepository.save({
-        ...createPlayerglobalPositionDto,
-        id: generateUuid(),
-      });
-
-    return savedPlayerglobalPosition;
+    await this.playerglobalPositionRepository.save({
+      ...createPlayerglobalPositionDto,
+      id: generateUuid(),
+    });
   }
 
   async deletePlayerglobalPosition(

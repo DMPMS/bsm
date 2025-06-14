@@ -15,11 +15,11 @@ import { UniqueArray } from "../validators/uniqueArray";
 
 export class CreateTeamglobalDto {
   @Expose()
-  @IsUUID()
+  @IsUUID(UUID_VERSION)
   countryId: string;
 
   @Expose()
-  @IsUUID()
+  @IsUUID(UUID_VERSION)
   managerglobalId: string;
 
   @Expose()

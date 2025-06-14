@@ -1,10 +1,7 @@
 import { DeleteResult, Repository } from "typeorm";
 import { AppDataSource } from "../config/orm";
 import { RelationsOptionsType } from "../types/RelationsOptions.type";
-import {
-  DEFAULT_ONLY_WITHOUT_TEAMGLOBAL,
-  PAGINATION,
-} from "../config/constants";
+import { PAGINATION } from "../config/constants";
 import { HttpError } from "../utils/httpError";
 import { HttpStatusEnum } from "../enums/HttpStatusEnum";
 import { PLAYERGLOBAL_MESSAGES, TEAMGLOBAL_MESSAGES } from "../utils/messages";
@@ -66,7 +63,7 @@ export class PlayerglobalService {
   async getPlayerglobalById(
     playerglobalId: string,
     relationsOptions?: RelationsOptionsType,
-    onlyWithoutTeamglobal = DEFAULT_ONLY_WITHOUT_TEAMGLOBAL
+    onlyWithoutTeamglobal = false
   ): Promise<PlayerglobalEntity> {
     if (onlyWithoutTeamglobal) {
       relationsOptions = {

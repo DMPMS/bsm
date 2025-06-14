@@ -8,8 +8,6 @@ export const CURRENT_DATE = new Date();
 
 export const UUID_VERSION = "4";
 
-export const DEFAULT_ONLY_WITHOUT_TEAMGLOBAL = false;
-
 export const USER = {
   NAME: {
     MIN: 4,

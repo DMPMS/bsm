@@ -6,14 +6,14 @@ import {
   Length,
   Validate,
 } from "class-validator";
-import { MANAGERGLOBAL } from "../config/constants";
+import { MANAGERGLOBAL, UUID_VERSION } from "../config/constants";
 import { isValidImage } from "../validators/isValidImage";
 import { IsCustomDate } from "../validators/isCustomDate";
 import { IsDateWithinAgeRange } from "../validators/isDateWithinAgeRange";
 
 export class CreateManagerglobalDto {
   @Expose()
-  @IsUUID()
+  @IsUUID(UUID_VERSION)
   countryId: string;
 
   @Expose()

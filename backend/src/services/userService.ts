@@ -166,11 +166,11 @@ export class UserService {
     updateUserDto: UpdateUserDto,
     userId: string
   ): Promise<UserEntity> {
-    await this.countryService.getCountryById(updateUserDto.countryId);
-
     const user = await this.userRepository.findOne({
       where: { id: userId },
     });
+
+    await this.countryService.getCountryById(updateUserDto.countryId);
 
     if (!user) {
       throw new HttpError(

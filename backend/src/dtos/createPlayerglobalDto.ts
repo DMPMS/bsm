@@ -20,7 +20,7 @@ import { UniqueArray } from "../validators/uniqueArray";
 
 export class CreatePlayerglobalDto {
   @Expose()
-  @IsUUID()
+  @IsUUID(UUID_VERSION)
   countryId: string;
 
   @Expose()

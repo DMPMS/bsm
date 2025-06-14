@@ -6,7 +6,7 @@ import {
   Validate,
 } from "class-validator";
 import { Expose } from "class-transformer";
-import { USER } from "../config/constants";
+import { USER, UUID_VERSION } from "../config/constants";
 import { IsCustomEmail } from "../validators/isCustomEmail";
 import { IsCustomDate } from "../validators/isCustomDate";
 import { IsDateWithinAgeRange } from "../validators/isDateWithinAgeRange";
@@ -14,7 +14,7 @@ import { isValidImage } from "../validators/isValidImage";
 
 export class UpdateUserDto {
   @Expose()
-  @IsUUID()
+  @IsUUID(UUID_VERSION)
   countryId: string;
 
   @Expose()
