@@ -89,7 +89,7 @@ export const POSITION = {
 
 export const TEAMGLOBAL = {
   NAME: {
-    MIN: 1,
+    MIN: 4,
     MAX: 30,
   },
   ABBREVIATION: {
@@ -97,7 +97,7 @@ export const TEAMGLOBAL = {
     MAX: 3,
   },
   PLAYERGLOBALS: {
-    MIN: 11,
+    MIN: 16,
     MAX: 33,
   },
 };

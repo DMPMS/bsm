@@ -63,6 +63,7 @@ export class TeamglobalController {
       const relationsOptions: RelationsOptionsType = {
         country: true,
         managerglobal: true,
+        playerglobals: true,
       };
 
       const teamglobal = await this.teamglobalService.getTeamglobalById(

@@ -24,6 +24,7 @@ export class PlayerglobalController {
 
       const relationsOptions: RelationsOptionsType = {
         country: true,
+        teamglobal: true,
         playerglobalPositions: {
           position: true,
         },
