@@ -10,10 +10,10 @@ export class CreateTablePlayerglobal1749599031456
         country_id VARCHAR(36) NOT NULL CHECK (LENGTH(country_id) = 36),
         teamglobal_id VARCHAR(36) CHECK (LENGTH(teamglobal_id) = 36),
 
-        name VARCHAR(30) NOT NULL CHECK (LENGTH(name) >= 4),
+        name VARCHAR(30) NOT NULL,
         image_url TEXT,
         birthdate DATE NOT NULL,
-        overall INTEGER NOT NULL CHECK (overall BETWEEN 1 AND 100),
+        overall INTEGER NOT NULL,
 
         created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
         updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,

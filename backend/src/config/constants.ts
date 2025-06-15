@@ -42,6 +42,17 @@ export const COUNTRY = {
   },
 };
 
+export const RULE = {
+  NAME: {
+    MIN: 1,
+    MAX: 30,
+  },
+  DEFAULT_COMPETITION_NAME: {
+    MIN: 4,
+    MAX: 30,
+  },
+};
+
 export const MANAGERGLOBAL = {
   NAME: {
     MIN: 4,

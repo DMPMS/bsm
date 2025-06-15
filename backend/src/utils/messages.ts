@@ -55,6 +55,15 @@ export const POSITION_MESSAGES = {
       `A posição com id ${positionId} não foi encontrada`,
   },
 };
+
+export const RULE_MESSAGES = {
+  ERROR: {
+    SELECT_RULE_ERROR: "Erro ao buscar regras",
+    RULE_ID_NOT_FOUND: (ruleId: string) =>
+      `A regra com id ${ruleId} não foi encontrada`,
+  },
+};
+
 export const MANAGERGLOBAL_MESSAGES = {
   ERROR: {
     CREATE_MANAGERGLOBAL_ERROR: "Erro ao criar managerglobal",
@@ -73,6 +82,7 @@ export const MANAGERGLOBAL_MESSAGES = {
     MANAGERGLOBAL_DELETED_SUCCESSFULLY: "Managerglobal deletado",
   },
 };
+
 export const TEAMGLOBAL_MESSAGES = {
   ERROR: {
     CREATE_TEAMGLOBAL_ERROR: "Erro ao criar teamglobal",
@@ -89,6 +99,7 @@ export const TEAMGLOBAL_MESSAGES = {
     TEAMGLOBAL_DELETED_SUCCESSFULLY: "Teamglobal deletado",
   },
 };
+
 export const PLAYERGLOBAL_MESSAGES = {
   ERROR: {
     CREATE_PLAYERGLOBAL_ERROR: "Erro ao criar playerglobal",
@@ -111,6 +122,7 @@ export const PLAYERGLOBAL_MESSAGES = {
     PLAYERGLOBAL_DELETED_SUCCESSFULLY: "Playerglobal deletado",
   },
 };
+
 export const ENV_MESSAGES = {
   ERROR: {
     MISSING_DB_HOST: "DB_HOST não definido no arquivo .env",
@@ -129,6 +141,7 @@ export const ENV_MESSAGES = {
     MISSING_ADMIN_EMAIL: "ADMIN_EMAIL não definido no arquivo .env",
   },
 };
+
 export const DTO_MESSAGES = {
   ERROR: {
     INVALID_DATA:

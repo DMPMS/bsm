@@ -8,7 +8,7 @@ export class CreateTableTeamglobal1749563973393 implements MigrationInterface {
         country_id VARCHAR(36) NOT NULL CHECK (LENGTH(country_id) = 36),
         managerglobal_id VARCHAR(36) NOT NULL CHECK (LENGTH(managerglobal_id) = 36),
 
-        name VARCHAR(30) NOT NULL CHECK (LENGTH(name) >= 4),
+        name VARCHAR(30) NOT NULL,
         abbreviation VARCHAR(3) NOT NULL,
         image_url TEXT,
 

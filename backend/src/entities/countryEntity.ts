@@ -11,6 +11,7 @@ import { UserEntity } from "./userEntity";
 import { ManagerglobalEntity } from "./managerglobalEntity";
 import { PlayerglobalEntity } from "./playerglobalEntity";
 import { TeamglobalEntity } from "./teamglobalEntity";
+import { RuleEntity } from "./ruleEntity";
 
 @Entity("country")
 export class CountryEntity {
@@ -45,4 +46,7 @@ export class CountryEntity {
 
   @OneToMany(() => TeamglobalEntity, (teamglobal) => teamglobal.country)
   teamglobals?: TeamglobalEntity[];
+
+  @OneToMany(() => RuleEntity, (rule) => rule.country)
+  rules?: RuleEntity[];
 }
