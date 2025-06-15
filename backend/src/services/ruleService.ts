@@ -33,8 +33,16 @@ export class RuleService {
 
   async getRuleById(
     ruleId: string,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
+    onlyWithoutCompetitionglobal = false
   ): Promise<RuleEntity> {
+    if (onlyWithoutCompetitionglobal) {
+      relationsOptions = {
+        ...relationsOptions,
+        competitionglobal: true,
+      };
+    }
+
     const rule = await this.ruleRepository.findOne({
       where: { id: ruleId },
       relations: relationsOptions,
@@ -44,6 +52,13 @@ export class RuleService {
       throw new HttpError(
         HttpStatusEnum.NotFound,
         RULE_MESSAGES.ERROR.RULE_ID_NOT_FOUND(ruleId)
+      );
+    }
+
+    if (onlyWithoutCompetitionglobal && rule.competitionglobal) {
+      throw new HttpError(
+        HttpStatusEnum.Conflict,
+        RULE_MESSAGES.ERROR.RULE_WITH_COMPETITIONGLOBAL(ruleId)
       );
     }
 

@@ -61,6 +61,8 @@ export const RULE_MESSAGES = {
     SELECT_RULE_ERROR: "Erro ao buscar regras",
     RULE_ID_NOT_FOUND: (ruleId: string) =>
       `A regra com id ${ruleId} não foi encontrada`,
+    RULE_WITH_COMPETITIONGLOBAL: (ruleId: string) =>
+      `A regra com id ${ruleId} possui uma competitionglobal`,
   },
 };
 
@@ -80,6 +82,23 @@ export const MANAGERGLOBAL_MESSAGES = {
   },
   SUCCESS: {
     MANAGERGLOBAL_DELETED_SUCCESSFULLY: "Managerglobal deletado",
+  },
+};
+
+export const COMPETITIONGLOBAL_MESSAGES = {
+  ERROR: {
+    CREATE_COMPETITIONGLOBAL_ERROR: "Erro ao criar competitionglobal",
+    UPDATE_COMPETITIONGLOBAL_ERROR: "Erro ao editar competitionglobal",
+    SELECT_COMPETITIONGLOBAL_ERROR: "Erro ao buscar competitionglobals",
+    SELECT_COMPETITIONGLOBAL_BY_ID_ERROR: "Erro ao buscar competitionglobal",
+    DELETE_COMPETITIONGLOBAL_ERROR: "Erro ao deletar competitionglobal",
+    COMPETITIONGLOBAL_ID_IS_INVALID:
+      "O competitionglobalId é obrigatório e precisa ser um UUID",
+    COMPETITIONGLOBAL_ID_NOT_FOUND: (competitionglobalId: string) =>
+      `O competitionglobal com id ${competitionglobalId} não foi encontrado`,
+  },
+  SUCCESS: {
+    COMPETITIONGLOBAL_DELETED_SUCCESSFULLY: "Competitionglobal deletada",
   },
 };
 

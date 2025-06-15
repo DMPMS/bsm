@@ -4,11 +4,13 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { RULE } from "../config/constants";
 import { CountryEntity } from "./countryEntity";
+import { CompetitionglobalEntity } from "./competitionglobalEntity";
 
 @Entity("rule")
 export class RuleEntity {
@@ -64,4 +66,10 @@ export class RuleEntity {
   @ManyToOne(() => CountryEntity, (country) => country.rules)
   @JoinColumn({ name: "country_id", referencedColumnName: "id" })
   country?: CountryEntity;
+
+  @OneToOne(
+    () => CompetitionglobalEntity,
+    (competitionglobal) => competitionglobal.rule
+  )
+  competitionglobal: CompetitionglobalEntity;
 }

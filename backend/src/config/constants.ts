@@ -112,3 +112,14 @@ export const TEAMGLOBAL = {
     MAX: 33,
   },
 };
+
+export const COMPETITIONGLOBAL = {
+  NAME: {
+    MIN: 4,
+    MAX: 30,
+  },
+  SEASON: {
+    MIN: 1,
+    MAX: 4,
+  },
+};
