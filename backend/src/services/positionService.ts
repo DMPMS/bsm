@@ -25,7 +25,7 @@ export class PositionService {
       // skip,
       // take: limit,
       relations: relationsOptions,
-      order: { displayOrder: "ASC" },
+      order: { code: "ASC" },
     });
 
     return positions;

@@ -1,5 +1,7 @@
 import { Expose } from "class-transformer";
 import {
+  ArrayNotEmpty,
+  IsArray,
   IsOptional,
   IsString,
   IsUUID,
@@ -8,6 +10,7 @@ import {
 } from "class-validator";
 import { COMPETITIONGLOBAL, UUID_VERSION } from "../config/constants";
 import { isValidImage } from "../validators/isValidImage";
+import { UniqueArray } from "../validators/uniqueArray";
 
 export class CreateCompetitionglobalDto {
   @Expose()
@@ -29,4 +32,11 @@ export class CreateCompetitionglobalDto {
   @IsString()
   @Length(COMPETITIONGLOBAL.SEASON.MIN, COMPETITIONGLOBAL.SEASON.MAX)
   season: string;
+
+  @Expose()
+  @IsArray()
+  @IsUUID(UUID_VERSION, { each: true })
+  @ArrayNotEmpty()
+  @Validate(UniqueArray)
+  teamglobalIds: string[];
 }

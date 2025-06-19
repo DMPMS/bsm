@@ -9,7 +9,7 @@ export class CreateTablePosition1749508636395 implements MigrationInterface {
         name VARCHAR(30) NOT NULL,
         abbreviation VARCHAR(3) NOT NULL,
         area INTEGER NOT NULL,
-        display_order INTEGER NOT NULL,
+        code INTEGER UNIQUE NOT NULL,
 
         created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
         updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,

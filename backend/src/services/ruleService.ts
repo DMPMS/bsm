@@ -25,7 +25,7 @@ export class RuleService {
       // skip,
       // take: limit,
       relations: relationsOptions,
-      order: { displayOrder: "ASC" },
+      order: { code: "ASC" },
     });
 
     return rules;

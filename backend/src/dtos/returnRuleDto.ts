@@ -1,4 +1,5 @@
 import { RuleEntity } from "../entities/ruleEntity";
+import { RuleCodeEnum } from "../enums/RuleCodeEnum";
 import { ReturnCountryDto } from "./returnCountryDto";
 
 export class ReturnRuleDto {
@@ -8,7 +9,7 @@ export class ReturnRuleDto {
   description: string | null;
   defaultCompetitionName: string;
   defaultCompetitionImageUrl: string | null;
-  displayOrder: number;
+  code: RuleCodeEnum;
 
   country?: ReturnCountryDto;
 
@@ -19,7 +20,7 @@ export class ReturnRuleDto {
     this.description = ruleEntity.description;
     this.defaultCompetitionName = ruleEntity.defaultCompetitionName;
     this.defaultCompetitionImageUrl = ruleEntity.defaultCompetitionImageUrl;
-    this.displayOrder = ruleEntity.displayOrder;
+    this.code = ruleEntity.code;
 
     this.country = ruleEntity.country
       ? new ReturnCountryDto(ruleEntity.country)

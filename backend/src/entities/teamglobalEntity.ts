@@ -13,6 +13,7 @@ import { CountryEntity } from "./countryEntity";
 import { TEAMGLOBAL } from "../config/constants";
 import { ManagerglobalEntity } from "./managerglobalEntity";
 import { PlayerglobalEntity } from "./playerglobalEntity";
+import { CompetitionglobalTeamglobalEntity } from "./competitionglobalTeamglobalEntity";
 
 @Entity("teamglobal")
 export class TeamglobalEntity {
@@ -74,4 +75,10 @@ export class TeamglobalEntity {
     (playerglobal) => playerglobal.teamglobal
   )
   playerglobals?: PlayerglobalEntity[];
+
+  @OneToMany(
+    () => CompetitionglobalTeamglobalEntity,
+    (competitionglobalTeamglobal) => competitionglobalTeamglobal.teamglobal
+  )
+  competitionglobalTeamglobals?: CompetitionglobalTeamglobalEntity[];
 }

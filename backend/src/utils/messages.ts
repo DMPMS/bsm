@@ -61,6 +61,8 @@ export const RULE_MESSAGES = {
     SELECT_RULE_ERROR: "Erro ao buscar regras",
     RULE_ID_NOT_FOUND: (ruleId: string) =>
       `A regra com id ${ruleId} não foi encontrada`,
+    RULE_CODE_NOT_FOUND: (ruleCode: number) =>
+      `A regra com código ${ruleCode} não foi encontrada`,
     RULE_WITH_COMPETITIONGLOBAL: (ruleId: string) =>
       `A regra com id ${ruleId} possui uma competitionglobal`,
   },
@@ -96,6 +98,13 @@ export const COMPETITIONGLOBAL_MESSAGES = {
       "O competitionglobalId é obrigatório e precisa ser um UUID",
     COMPETITIONGLOBAL_ID_NOT_FOUND: (competitionglobalId: string) =>
       `O competitionglobal com id ${competitionglobalId} não foi encontrado`,
+    TEAMGLOBALS_COUNT_INVALID: (
+      teamglobalsCount: number,
+      expectedCount: number
+    ) =>
+      `Foram passados ${teamglobalsCount} teamglobals, mas esperava-se ${expectedCount}`,
+    COMPETITION_RULE_CONFLICT_MESSAGE: (teamglobalId: string) =>
+      `O teamglobal com id ${teamglobalId} pertence a outra competição que conflita com as regras da competição em criação`,
   },
   SUCCESS: {
     COMPETITIONGLOBAL_DELETED_SUCCESSFULLY: "Competitionglobal deletada",
@@ -113,6 +122,8 @@ export const TEAMGLOBAL_MESSAGES = {
       "O teamglobalId é obrigatório e precisa ser um UUID",
     TEAMGLOBAL_ID_NOT_FOUND: (teamglobalId: string) =>
       `O teamglobal com id ${teamglobalId} não foi encontrado`,
+    TEAMGLOBAL_WITH_COMPETITIONGLOBAL: (teamglobalId: string) =>
+      `O teamglobal com id ${teamglobalId} possui uma competitionglobal`,
   },
   SUCCESS: {
     TEAMGLOBAL_DELETED_SUCCESSFULLY: "Teamglobal deletado",

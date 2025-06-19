@@ -1,4 +1,4 @@
-import { DeleteResult, Repository } from "typeorm";
+import { DeleteResult, EntityManager, Repository } from "typeorm";
 import { AppDataSource } from "../config/orm";
 import { RelationsOptionsType } from "../types/RelationsOptions.type";
 import { PAGINATION } from "../config/constants";
@@ -47,9 +47,22 @@ export class TeamglobalService {
 
   async getTeamglobalById(
     teamglobalId: string,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
+    onlyWithoutCompetitionglobal = false,
+    entityManager?: EntityManager
   ): Promise<TeamglobalEntity> {
-    const teamglobal = await this.teamglobalRepository.findOne({
+    const repository = entityManager
+      ? entityManager.getRepository(TeamglobalEntity)
+      : this.teamglobalRepository;
+
+    if (onlyWithoutCompetitionglobal) {
+      relationsOptions = {
+        ...relationsOptions,
+        competitionglobalTeamglobals: true,
+      };
+    }
+
+    const teamglobal = await repository.findOne({
       where: { id: teamglobalId },
       relations: relationsOptions,
     });
@@ -58,6 +71,19 @@ export class TeamglobalService {
       throw new HttpError(
         HttpStatusEnum.NotFound,
         TEAMGLOBAL_MESSAGES.ERROR.TEAMGLOBAL_ID_NOT_FOUND(teamglobalId)
+      );
+    }
+
+    if (
+      onlyWithoutCompetitionglobal &&
+      teamglobal.competitionglobalTeamglobals &&
+      teamglobal.competitionglobalTeamglobals?.length > 0
+    ) {
+      throw new HttpError(
+        HttpStatusEnum.Conflict,
+        TEAMGLOBAL_MESSAGES.ERROR.TEAMGLOBAL_WITH_COMPETITIONGLOBAL(
+          teamglobalId
+        )
       );
     }
 
@@ -94,12 +120,12 @@ export class TeamglobalService {
     });
 
     await Promise.all(
-      createTeamglobalDto.playerglobalIds.map((playerglobalId) => {
+      createTeamglobalDto.playerglobalIds.map((playerglobalId) =>
         this.playerglobalService.updatePlayerglobalTeamglobalId(
           savedTeamglobal.id,
           playerglobalId
-        );
-      })
+        )
+      )
     );
 
     return savedTeamglobal;
@@ -147,12 +173,12 @@ export class TeamglobalService {
     );
 
     await Promise.all(
-      updateTeamglobalDto.playerglobalIds.map((playerglobalId) => {
+      updateTeamglobalDto.playerglobalIds.map((playerglobalId) =>
         this.playerglobalService.updatePlayerglobalTeamglobalId(
           teamglobal.id,
           playerglobalId
-        );
-      })
+        )
+      )
     );
 
     const updatedTeamglobal = await this.teamglobalRepository.save({
@@ -168,7 +194,7 @@ export class TeamglobalService {
   }
 
   async deleteTeamglobal(teamglobalId: string): Promise<DeleteResult> {
-    await this.getTeamglobalById(teamglobalId);
+    await this.getTeamglobalById(teamglobalId, undefined, true);
 
     return this.teamglobalRepository.delete({ id: teamglobalId });
   }

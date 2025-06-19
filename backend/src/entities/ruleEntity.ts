@@ -11,6 +11,7 @@ import {
 import { RULE } from "../config/constants";
 import { CountryEntity } from "./countryEntity";
 import { CompetitionglobalEntity } from "./competitionglobalEntity";
+import { RuleCodeEnum } from "../enums/RuleCodeEnum";
 
 @Entity("rule")
 export class RuleEntity {
@@ -52,10 +53,11 @@ export class RuleEntity {
 
   @Column({
     type: "integer",
-    name: "display_order",
+    name: "code",
     nullable: false,
+    unique: true,
   })
-  displayOrder: number;
+  code: RuleCodeEnum;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;

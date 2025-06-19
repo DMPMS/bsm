@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner } from "typeorm";
 export class InsertTablePosition1749508886416 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-        INSERT INTO public.position(id, name, abbreviation, area, display_order) VALUES
+        INSERT INTO public.position(id, name, abbreviation, area, code) VALUES
         ('18764397-9670-43c1-92ae-1e3404ac76a3', 'Goleiro', 'GOL', 1, 1),
         ('691d1eb3-3dfe-4fa5-bac1-31ad59912349', 'Zagueiro', 'ZAG', 2, 2),
         ('e1f5e721-3138-4b45-a466-a85852be6155', 'Lateral Esquerdo', 'LE', 2, 3),

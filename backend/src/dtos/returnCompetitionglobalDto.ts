@@ -1,4 +1,5 @@
 import { CompetitionglobalEntity } from "../entities/competitionglobalEntity";
+import { ReturnCompetitionglobalTeamglobalDto } from "./returnCompetitionglobalTeamglobal";
 import { ReturnRuleDto } from "./returnRuleDto";
 
 export class ReturnCompetitionglobalDto {
@@ -8,6 +9,7 @@ export class ReturnCompetitionglobalDto {
   season: string;
 
   rule?: ReturnRuleDto;
+  competitionglobalTeamglobals?: ReturnCompetitionglobalTeamglobalDto[];
 
   constructor(competitionglobalEntity: CompetitionglobalEntity) {
     this.id = competitionglobalEntity.id;
@@ -18,5 +20,15 @@ export class ReturnCompetitionglobalDto {
     this.rule = competitionglobalEntity.rule
       ? new ReturnRuleDto(competitionglobalEntity.rule)
       : undefined;
+
+    this.competitionglobalTeamglobals =
+      competitionglobalEntity.competitionglobalTeamglobals
+        ? competitionglobalEntity.competitionglobalTeamglobals.map(
+            (competitionglobalTeamglobal) =>
+              new ReturnCompetitionglobalTeamglobalDto(
+                competitionglobalTeamglobal
+              )
+          )
+        : undefined;
   }
 }

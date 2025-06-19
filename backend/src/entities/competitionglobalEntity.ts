@@ -3,12 +3,14 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { COMPETITIONGLOBAL } from "../config/constants";
 import { RuleEntity } from "./ruleEntity";
+import { CompetitionglobalTeamglobalEntity } from "./competitionglobalTeamglobalEntity";
 
 @Entity("competitionglobal")
 export class CompetitionglobalEntity {
@@ -50,4 +52,11 @@ export class CompetitionglobalEntity {
   @OneToOne(() => RuleEntity, (rule) => rule.competitionglobal)
   @JoinColumn({ name: "rule_id", referencedColumnName: "id" })
   rule?: RuleEntity;
+
+  @OneToMany(
+    () => CompetitionglobalTeamglobalEntity,
+    (competitionglobalTeamglobal) =>
+      competitionglobalTeamglobal.competitionglobal
+  )
+  competitionglobalTeamglobals?: CompetitionglobalTeamglobalEntity[];
 }

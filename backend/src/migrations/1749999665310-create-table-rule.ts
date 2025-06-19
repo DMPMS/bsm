@@ -12,7 +12,7 @@ export class CreateTableRule1749999665310 implements MigrationInterface {
         description TEXT NOT NULL,
         default_competition_name VARCHAR(30) NOT NULL,
         default_competition_image_url TEXT,
-        display_order INTEGER NOT NULL,
+        code INTEGER UNIQUE NOT NULL,
 
         created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
         updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,

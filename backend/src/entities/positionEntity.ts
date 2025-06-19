@@ -40,10 +40,11 @@ export class PositionEntity {
 
   @Column({
     type: "integer",
-    name: "display_order",
+    name: "code",
     nullable: false,
+    unique: true,
   })
-  displayOrder: number;
+  code: number;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;

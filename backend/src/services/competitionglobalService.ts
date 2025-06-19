@@ -1,4 +1,4 @@
-import { DeleteResult, Repository } from "typeorm";
+import { DeleteResult, EntityManager, Repository } from "typeorm";
 import { AppDataSource } from "../config/orm";
 import { RelationsOptionsType } from "../types/RelationsOptions.type";
 import { PAGINATION } from "../config/constants";
@@ -10,9 +10,13 @@ import { CompetitionglobalEntity } from "../entities/competitionglobalEntity";
 import { COMPETITIONGLOBAL_MESSAGES } from "../utils/messages";
 import { CreateCompetitionglobalDto } from "../dtos/createCompetitionglobalDto";
 import { UpdateCompetitionglobalDto } from "../dtos/updateCompetitionglobalDto";
+import { TeamglobalService } from "./teamglobalService";
+import { CompetitionglobalTeamglobalService } from "./competitionglobalTeamglobalService";
 
 export class CompetitionglobalService {
   private readonly ruleService: RuleService;
+  private readonly teamglobalService: TeamglobalService;
+  private _competitionglobalTeamglobalService?: CompetitionglobalTeamglobalService;
 
   constructor(
     private readonly competitionglobalRepository: Repository<CompetitionglobalEntity> = AppDataSource.getRepository(
@@ -20,6 +24,15 @@ export class CompetitionglobalService {
     )
   ) {
     this.ruleService = new RuleService();
+    this.teamglobalService = new TeamglobalService();
+  }
+
+  private get competitionglobalTeamglobalService(): CompetitionglobalTeamglobalService {
+    if (!this._competitionglobalTeamglobalService) {
+      this._competitionglobalTeamglobalService =
+        new CompetitionglobalTeamglobalService();
+    }
+    return this._competitionglobalTeamglobalService;
   }
 
   async getCompetitionglobals(
@@ -38,7 +51,7 @@ export class CompetitionglobalService {
           country: {
             name: "ASC",
           },
-          displayOrder: "ASC",
+          code: "ASC",
         },
       },
     });
@@ -48,9 +61,14 @@ export class CompetitionglobalService {
 
   async getCompetitionglobalById(
     competitionglobalId: string,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
+    entityManager?: EntityManager
   ): Promise<CompetitionglobalEntity> {
-    const competitionglobal = await this.competitionglobalRepository.findOne({
+    const repository = entityManager
+      ? entityManager.getRepository(CompetitionglobalEntity)
+      : this.competitionglobalRepository;
+
+    const competitionglobal = await repository.findOne({
       where: { id: competitionglobalId },
       relations: relationsOptions,
     });
@@ -70,21 +88,56 @@ export class CompetitionglobalService {
   async createCompetitionglobal(
     createCompetitionglobalDto: CreateCompetitionglobalDto
   ): Promise<CompetitionglobalEntity> {
-    await this.ruleService.getRuleById(
+    const rule = await this.ruleService.getRuleById(
       createCompetitionglobalDto.ruleId,
       undefined,
       true
     );
 
-    const savedCompetitionglobal = await this.competitionglobalRepository.save({
-      ...createCompetitionglobalDto,
-      id: generateUuid(),
-      imageUrl: createCompetitionglobalDto.imageUrl
-        ? createCompetitionglobalDto.imageUrl
-        : null,
-    });
+    if (
+      createCompetitionglobalDto.teamglobalIds.length !== rule.numberOfTeams
+    ) {
+      throw new HttpError(
+        HttpStatusEnum.BadRequest,
+        COMPETITIONGLOBAL_MESSAGES.ERROR.TEAMGLOBALS_COUNT_INVALID(
+          createCompetitionglobalDto.teamglobalIds.length,
+          rule.numberOfTeams
+        )
+      );
+    }
 
-    return savedCompetitionglobal;
+    await Promise.all(
+      createCompetitionglobalDto.teamglobalIds.map((teamglobalId) =>
+        this.teamglobalService.getTeamglobalById(teamglobalId)
+      )
+    );
+
+    return await AppDataSource.transaction(
+      async (entityManager: EntityManager) => {
+        const repository = entityManager.getRepository(CompetitionglobalEntity);
+
+        const savedCompetitionglobal = await repository.save({
+          ...createCompetitionglobalDto,
+          id: generateUuid(),
+          imageUrl: createCompetitionglobalDto.imageUrl
+            ? createCompetitionglobalDto.imageUrl
+            : null,
+        });
+
+        for (const teamglobalId of createCompetitionglobalDto.teamglobalIds) {
+          await this.competitionglobalTeamglobalService.createCompetitionglobalTeamglobal(
+            {
+              competitionglobalId: savedCompetitionglobal.id,
+              teamglobalId: teamglobalId,
+              ruleCode: rule.code,
+            },
+            entityManager
+          );
+        }
+
+        return savedCompetitionglobal;
+      }
+    );
   }
 
   async updateCompetitionglobal(
@@ -95,24 +148,63 @@ export class CompetitionglobalService {
       competitionglobalId
     );
 
-    if (updateCompetitionglobalDto.ruleId !== competitionglobal.ruleId) {
-      await this.ruleService.getRuleById(
-        updateCompetitionglobalDto.ruleId,
-        undefined,
-        true
+    const rule = await this.ruleService.getRuleById(
+      updateCompetitionglobalDto.ruleId,
+      undefined,
+      updateCompetitionglobalDto.ruleId !== competitionglobal.ruleId
+        ? true
+        : false
+    );
+
+    if (
+      updateCompetitionglobalDto.teamglobalIds.length !== rule.numberOfTeams
+    ) {
+      throw new HttpError(
+        HttpStatusEnum.BadRequest,
+        COMPETITIONGLOBAL_MESSAGES.ERROR.TEAMGLOBALS_COUNT_INVALID(
+          updateCompetitionglobalDto.teamglobalIds.length,
+          rule.numberOfTeams
+        )
       );
     }
 
-    const updatedCompetitionglobal =
-      await this.competitionglobalRepository.save({
-        ...competitionglobal,
-        ...updateCompetitionglobalDto,
-        imageUrl: updateCompetitionglobalDto.imageUrl
-          ? updateCompetitionglobalDto.imageUrl
-          : null,
-      });
+    await Promise.all(
+      updateCompetitionglobalDto.teamglobalIds.map((teamglobalId) =>
+        this.teamglobalService.getTeamglobalById(teamglobalId)
+      )
+    );
 
-    return updatedCompetitionglobal;
+    return await AppDataSource.transaction(
+      async (entityManager: EntityManager) => {
+        const repository = entityManager.getRepository(CompetitionglobalEntity);
+
+        const updatedCompetitionglobal = await repository.save({
+          ...competitionglobal,
+          ...updateCompetitionglobalDto,
+          imageUrl: updateCompetitionglobalDto.imageUrl
+            ? updateCompetitionglobalDto.imageUrl
+            : null,
+        });
+
+        await this.competitionglobalTeamglobalService.deleteCompetitionglobalTeamglobal(
+          updatedCompetitionglobal.id,
+          entityManager
+        );
+
+        for (const teamglobalId of updateCompetitionglobalDto.teamglobalIds) {
+          await this.competitionglobalTeamglobalService.createCompetitionglobalTeamglobal(
+            {
+              competitionglobalId: updatedCompetitionglobal.id,
+              teamglobalId: teamglobalId,
+              ruleCode: rule.code,
+            },
+            entityManager
+          );
+        }
+
+        return updatedCompetitionglobal;
+      }
+    );
   }
 
   async deleteCompetitionglobal(

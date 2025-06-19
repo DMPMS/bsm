@@ -71,6 +71,9 @@ export class CompetitionglobalController {
 
       const relationsOptions: RelationsOptionsType = {
         rule: { country: true },
+        competitionglobalTeamglobals: {
+          teamglobal: true,
+        },
       };
 
       const competitionglobal =
