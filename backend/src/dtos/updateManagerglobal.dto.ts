@@ -1,4 +1,4 @@
-import { Expose } from "class-transformer";
+import { Expose, Transform } from "class-transformer";
 import {
   IsOptional,
   IsString,
@@ -19,11 +19,13 @@ export class UpdateManagerglobalDto {
   @Expose()
   @IsString()
   @Length(MANAGERGLOBAL.NAME.MIN, MANAGERGLOBAL.NAME.MAX)
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   name: string;
 
   @Expose()
   @IsString()
   @Validate(isValidImage)
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   @IsOptional()
   imageUrl?: string | null;
 
@@ -34,5 +36,6 @@ export class UpdateManagerglobalDto {
     MANAGERGLOBAL.AGE.MIN,
     MANAGERGLOBAL.AGE.MAX,
   ])
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   birthdate: string;
 }

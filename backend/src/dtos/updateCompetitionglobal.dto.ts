@@ -1,4 +1,4 @@
-import { Expose } from "class-transformer";
+import { Expose, Transform } from "class-transformer";
 import {
   ArrayNotEmpty,
   IsArray,
@@ -20,17 +20,20 @@ export class UpdateCompetitionglobalDto {
   @Expose()
   @IsString()
   @Length(COMPETITIONGLOBAL.NAME.MIN, COMPETITIONGLOBAL.NAME.MAX)
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   name: string;
 
   @Expose()
   @IsString()
   @Validate(isValidImage)
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   @IsOptional()
   imageUrl?: string | null;
 
   @Expose()
   @IsString()
   @Length(COMPETITIONGLOBAL.SEASON.MIN, COMPETITIONGLOBAL.SEASON.MAX)
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   season: string;
 
   @Expose()

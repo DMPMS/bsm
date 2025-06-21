@@ -1,4 +1,4 @@
-import { Expose } from "class-transformer";
+import { Expose, Transform } from "class-transformer";
 import {
   ArrayMaxSize,
   ArrayMinSize,
@@ -25,16 +25,19 @@ export class CreateTeamglobalDto {
   @Expose()
   @IsString()
   @Length(TEAMGLOBAL.NAME.MIN, TEAMGLOBAL.NAME.MAX)
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   name: string;
 
   @Expose()
   @IsString()
   @Length(TEAMGLOBAL.ABBREVIATION.MIN, TEAMGLOBAL.ABBREVIATION.MAX)
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   abbreviation: string;
 
   @Expose()
   @IsString()
   @Validate(isValidImage)
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   @IsOptional()
   imageUrl?: string | null;
 

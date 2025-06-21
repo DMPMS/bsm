@@ -1,4 +1,4 @@
-import { Expose } from "class-transformer";
+import { Expose, Transform } from "class-transformer";
 import {
   ArrayMaxSize,
   ArrayMinSize,
@@ -26,11 +26,13 @@ export class CreatePlayerglobalDto {
   @Expose()
   @IsString()
   @Length(PLAYERGLOBAL.NAME.MIN, PLAYERGLOBAL.NAME.MAX)
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   name: string;
 
   @Expose()
   @IsString()
   @Validate(isValidImage)
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   @IsOptional()
   imageUrl?: string | null;
 
@@ -38,6 +40,7 @@ export class CreatePlayerglobalDto {
   @IsString()
   @Validate(IsCustomDate)
   @Validate(IsDateWithinAgeRange, [PLAYERGLOBAL.AGE.MIN, PLAYERGLOBAL.AGE.MAX])
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   birthdate: string;
 
   @Expose()
