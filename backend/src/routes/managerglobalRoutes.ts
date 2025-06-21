@@ -15,7 +15,7 @@ const managerglobalController = new ManagerglobalController(
 managerglobalRoutes.get(
   "/managerglobal",
   authMiddleware,
-  roleMiddleware([UserTypeEnum.Admin]),
+  roleMiddleware([UserTypeEnum.Admin, UserTypeEnum.User]),
   (req, res) => managerglobalController.getManagerglobals(req, res)
 );
 

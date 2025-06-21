@@ -1,4 +1,4 @@
-import { DeleteResult, Repository } from "typeorm";
+import { DeleteResult, EntityManager, Repository } from "typeorm";
 import { AppDataSource } from "../config/orm";
 import { generateUuid } from "../utils/uuid";
 import { PlayerglobalService } from "./playerglobalService";
@@ -20,27 +20,46 @@ export class PlayerglobalPositionService {
   }
 
   async createPlayerglobalPosition(
-    createPlayerglobalPositionDto: CreatePlayerglobalPositionDto
+    createPlayerglobalPositionDto: CreatePlayerglobalPositionDto,
+    entityManager?: EntityManager
   ): Promise<void> {
+    const repository = entityManager
+      ? entityManager.getRepository(PlayerglobalPositionEntity)
+      : this.playerglobalPositionRepository;
+
     await this.playerglobalService.getPlayerglobalById(
-      createPlayerglobalPositionDto.playerglobalId
+      createPlayerglobalPositionDto.playerglobalId,
+      undefined,
+      undefined,
+      entityManager
     );
+
     await this.positionService.getPositionById(
       createPlayerglobalPositionDto.positionId
     );
 
-    await this.playerglobalPositionRepository.save({
+    await repository.save({
       ...createPlayerglobalPositionDto,
       id: generateUuid(),
     });
   }
 
   async deletePlayerglobalPosition(
-    playerglobalId: string
+    playerglobalId: string,
+    entityManager?: EntityManager
   ): Promise<DeleteResult> {
-    await this.playerglobalService.getPlayerglobalById(playerglobalId);
+    const repository = entityManager
+      ? entityManager.getRepository(PlayerglobalPositionEntity)
+      : this.playerglobalPositionRepository;
 
-    return this.playerglobalPositionRepository.delete({
+    await this.playerglobalService.getPlayerglobalById(
+      playerglobalId,
+      undefined,
+      undefined,
+      entityManager
+    );
+
+    return await repository.delete({
       playerglobalId: playerglobalId,
     });
   }

@@ -34,7 +34,7 @@ export class RuleService {
   async getRuleById(
     ruleId: string,
     relationsOptions?: RelationsOptionsType,
-    onlyWithoutCompetitionglobal = false
+    onlyWithoutCompetitionglobal?: boolean
   ): Promise<RuleEntity> {
     if (onlyWithoutCompetitionglobal) {
       relationsOptions = {

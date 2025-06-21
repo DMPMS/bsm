@@ -13,7 +13,7 @@ const teamglobalController = new TeamglobalController(teamglobalService);
 teamglobalRoutes.get(
   "/teamglobal",
   authMiddleware,
-  roleMiddleware([UserTypeEnum.Admin]),
+  roleMiddleware([UserTypeEnum.Admin, UserTypeEnum.User]),
   (req, res) => teamglobalController.getTeamglobals(req, res)
 );
 

@@ -15,7 +15,7 @@ const competitionglobalController = new CompetitionglobalController(
 competitionglobalRoutes.get(
   "/competitionglobal",
   authMiddleware,
-  roleMiddleware([UserTypeEnum.Admin]),
+  roleMiddleware([UserTypeEnum.Admin, UserTypeEnum.User]),
   (req, res) => competitionglobalController.getCompetitionglobals(req, res)
 );
 

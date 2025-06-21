@@ -48,7 +48,7 @@ export class TeamglobalService {
   async getTeamglobalById(
     teamglobalId: string,
     relationsOptions?: RelationsOptionsType,
-    onlyWithoutCompetitionglobal = false,
+    onlyWithoutCompetitionglobal?: boolean,
     entityManager?: EntityManager
   ): Promise<TeamglobalEntity> {
     const repository = entityManager
@@ -77,7 +77,7 @@ export class TeamglobalService {
     if (
       onlyWithoutCompetitionglobal &&
       teamglobal.competitionglobalTeamglobals &&
-      teamglobal.competitionglobalTeamglobals?.length > 0
+      teamglobal.competitionglobalTeamglobals.length > 0
     ) {
       throw new HttpError(
         HttpStatusEnum.Conflict,
@@ -110,25 +110,30 @@ export class TeamglobalService {
       )
     );
 
-    const savedTeamglobal = await this.teamglobalRepository.save({
-      ...createTeamglobalDto,
-      id: generateUuid(),
-      imageUrl: createTeamglobalDto.imageUrl
-        ? createTeamglobalDto.imageUrl
-        : null,
-      abbreviation: createTeamglobalDto.abbreviation.toUpperCase(),
-    });
+    return await AppDataSource.transaction(
+      async (entityManager: EntityManager) => {
+        const repository = entityManager.getRepository(TeamglobalEntity);
 
-    await Promise.all(
-      createTeamglobalDto.playerglobalIds.map((playerglobalId) =>
-        this.playerglobalService.updatePlayerglobalTeamglobalId(
-          savedTeamglobal.id,
-          playerglobalId
-        )
-      )
+        const savedTeamglobal = await repository.save({
+          ...createTeamglobalDto,
+          id: generateUuid(),
+          imageUrl: createTeamglobalDto.imageUrl
+            ? createTeamglobalDto.imageUrl
+            : null,
+          abbreviation: createTeamglobalDto.abbreviation.toUpperCase(),
+        });
+
+        for (const playerglobalId of createTeamglobalDto.playerglobalIds) {
+          await this.playerglobalService.updatePlayerglobalTeamglobalId(
+            savedTeamglobal.id,
+            playerglobalId,
+            entityManager
+          );
+        }
+
+        return savedTeamglobal;
+      }
     );
-
-    return savedTeamglobal;
   }
 
   async updateTeamglobal(
@@ -167,35 +172,41 @@ export class TeamglobalService {
       })
     );
 
-    await this.playerglobalService.clearPlayerglobalTeamglobalId(
-      undefined,
-      teamglobal.id
+    return await AppDataSource.transaction(
+      async (entityManager: EntityManager) => {
+        const repository = entityManager.getRepository(TeamglobalEntity);
+
+        const updatedTeamglobal = await repository.save({
+          ...teamglobal,
+          ...updateTeamglobalDto,
+          imageUrl: updateTeamglobalDto.imageUrl
+            ? updateTeamglobalDto.imageUrl
+            : null,
+          abbreviation: updateTeamglobalDto.abbreviation.toUpperCase(),
+        });
+
+        await this.playerglobalService.clearPlayerglobalTeamglobalId(
+          undefined,
+          updatedTeamglobal.id,
+          entityManager
+        );
+
+        for (const playerglobalId of updateTeamglobalDto.playerglobalIds) {
+          await this.playerglobalService.updatePlayerglobalTeamglobalId(
+            updatedTeamglobal.id,
+            playerglobalId,
+            entityManager
+          );
+        }
+
+        return updatedTeamglobal;
+      }
     );
-
-    await Promise.all(
-      updateTeamglobalDto.playerglobalIds.map((playerglobalId) =>
-        this.playerglobalService.updatePlayerglobalTeamglobalId(
-          teamglobal.id,
-          playerglobalId
-        )
-      )
-    );
-
-    const updatedTeamglobal = await this.teamglobalRepository.save({
-      ...teamglobal,
-      ...updateTeamglobalDto,
-      imageUrl: updateTeamglobalDto.imageUrl
-        ? updateTeamglobalDto.imageUrl
-        : null,
-      abbreviation: updateTeamglobalDto.abbreviation.toUpperCase(),
-    });
-
-    return updatedTeamglobal;
   }
 
   async deleteTeamglobal(teamglobalId: string): Promise<DeleteResult> {
     await this.getTeamglobalById(teamglobalId, undefined, true);
 
-    return this.teamglobalRepository.delete({ id: teamglobalId });
+    return await this.teamglobalRepository.delete({ id: teamglobalId });
   }
 }

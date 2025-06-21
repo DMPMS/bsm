@@ -212,6 +212,8 @@ export class CompetitionglobalService {
   ): Promise<DeleteResult> {
     await this.getCompetitionglobalById(competitionglobalId);
 
-    return this.competitionglobalRepository.delete({ id: competitionglobalId });
+    return await this.competitionglobalRepository.delete({
+      id: competitionglobalId,
+    });
   }
 }

@@ -42,7 +42,7 @@ export class ManagerglobalService {
   async getManagerglobalById(
     managerglobalId: string,
     relationsOptions?: RelationsOptionsType,
-    onlyWithoutTeamglobal = false
+    onlyWithoutTeamglobal?: boolean
   ): Promise<ManagerglobalEntity> {
     if (onlyWithoutTeamglobal) {
       relationsOptions = {
@@ -113,6 +113,6 @@ export class ManagerglobalService {
   async deleteManagerglobal(managerglobalId: string): Promise<DeleteResult> {
     await this.getManagerglobalById(managerglobalId, undefined, true);
 
-    return this.managerglobalRepository.delete({ id: managerglobalId });
+    return await this.managerglobalRepository.delete({ id: managerglobalId });
   }
 }

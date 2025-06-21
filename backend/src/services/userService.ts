@@ -258,13 +258,13 @@ export class UserService {
       );
     }
 
-    return this.userRepository.delete({ id: userId });
+    return await this.userRepository.delete({ id: userId });
   }
 
   async deleteUser(userDeleteId: string): Promise<DeleteResult> {
     await this.getUserById(userDeleteId);
 
-    return this.userRepository.delete({ id: userDeleteId });
+    return await this.userRepository.delete({ id: userDeleteId });
   }
 
   async deleteAdmin(adminDeleteId: string): Promise<DeleteResult> {
@@ -279,6 +279,6 @@ export class UserService {
       );
     }
 
-    return this.userRepository.delete({ id: adminDeleteId });
+    return await this.userRepository.delete({ id: adminDeleteId });
   }
 }

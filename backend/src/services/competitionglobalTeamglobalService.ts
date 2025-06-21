@@ -38,7 +38,7 @@ export class CompetitionglobalTeamglobalService {
       await this.teamglobalService.getTeamglobalById(
         createCompetitionglobalTeamglobalDto.teamglobalId,
         { competitionglobalTeamglobals: { competitionglobal: { rule: true } } },
-        false,
+        undefined,
         entityManager
       );
 

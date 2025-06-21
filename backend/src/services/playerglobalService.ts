@@ -1,4 +1,4 @@
-import { DeleteResult, Repository } from "typeorm";
+import { DeleteResult, EntityManager, Repository } from "typeorm";
 import { AppDataSource } from "../config/orm";
 import { RelationsOptionsType } from "../types/RelationsOptions.type";
 import { PAGINATION } from "../config/constants";
@@ -63,8 +63,13 @@ export class PlayerglobalService {
   async getPlayerglobalById(
     playerglobalId: string,
     relationsOptions?: RelationsOptionsType,
-    onlyWithoutTeamglobal = false
+    onlyWithoutTeamglobal?: boolean,
+    entityManager?: EntityManager
   ): Promise<PlayerglobalEntity> {
+    const repository = entityManager
+      ? entityManager.getRepository(PlayerglobalEntity)
+      : this.playerglobalRepository;
+
     if (onlyWithoutTeamglobal) {
       relationsOptions = {
         ...relationsOptions,
@@ -72,7 +77,7 @@ export class PlayerglobalService {
       };
     }
 
-    const playerglobal = await this.playerglobalRepository.findOne({
+    const playerglobal = await repository.findOne({
       where: { id: playerglobalId },
       relations: relationsOptions,
     });
@@ -121,32 +126,43 @@ export class PlayerglobalService {
       ),
     ]);
 
-    const savedPlayerglobal = await this.playerglobalRepository.save({
-      ...createPlayerglobalDto,
-      id: generateUuid(),
-      imageUrl: createPlayerglobalDto.imageUrl
-        ? createPlayerglobalDto.imageUrl
-        : null,
-    });
+    return await AppDataSource.transaction(
+      async (entityManager: EntityManager) => {
+        const repository = entityManager.getRepository(PlayerglobalEntity);
 
-    await Promise.all([
-      ...createPlayerglobalDto.primaryPositionIds.map((positionId) =>
-        this.playerglobalPositionService.createPlayerglobalPosition({
-          playerglobalId: savedPlayerglobal.id,
-          positionId: positionId,
-          isPrimary: true,
-        })
-      ),
-      ...createPlayerglobalDto.secondaryPositionIds.map((positionId) =>
-        this.playerglobalPositionService.createPlayerglobalPosition({
-          playerglobalId: savedPlayerglobal.id,
-          positionId: positionId,
-          isPrimary: false,
-        })
-      ),
-    ]);
+        const savedPlayerglobal = await repository.save({
+          ...createPlayerglobalDto,
+          id: generateUuid(),
+          imageUrl: createPlayerglobalDto.imageUrl
+            ? createPlayerglobalDto.imageUrl
+            : null,
+        });
 
-    return savedPlayerglobal;
+        for (const positionId of createPlayerglobalDto.primaryPositionIds) {
+          await this.playerglobalPositionService.createPlayerglobalPosition(
+            {
+              playerglobalId: savedPlayerglobal.id,
+              positionId: positionId,
+              isPrimary: true,
+            },
+            entityManager
+          );
+        }
+
+        for (const positionId of createPlayerglobalDto.secondaryPositionIds) {
+          await this.playerglobalPositionService.createPlayerglobalPosition(
+            {
+              playerglobalId: savedPlayerglobal.id,
+              positionId: positionId,
+              isPrimary: false,
+            },
+            entityManager
+          );
+        }
+
+        return savedPlayerglobal;
+      }
+    );
   }
 
   async updatePlayerglobal(
@@ -179,54 +195,78 @@ export class PlayerglobalService {
       ),
     ]);
 
-    await this.playerglobalPositionService.deletePlayerglobalPosition(
-      playerglobal.id
+    return await AppDataSource.transaction(
+      async (entityManager: EntityManager) => {
+        const repository = entityManager.getRepository(PlayerglobalEntity);
+
+        const updatedPlayerglobal = await repository.save({
+          ...playerglobal,
+          ...updatePlayerglobalDto,
+          imageUrl: updatePlayerglobalDto.imageUrl
+            ? updatePlayerglobalDto.imageUrl
+            : null,
+        });
+
+        await this.playerglobalPositionService.deletePlayerglobalPosition(
+          updatedPlayerglobal.id,
+          entityManager
+        );
+
+        for (const positionId of updatePlayerglobalDto.primaryPositionIds) {
+          await this.playerglobalPositionService.createPlayerglobalPosition(
+            {
+              playerglobalId: updatedPlayerglobal.id,
+              positionId: positionId,
+              isPrimary: true,
+            },
+            entityManager
+          );
+        }
+
+        for (const positionId of updatePlayerglobalDto.secondaryPositionIds) {
+          await this.playerglobalPositionService.createPlayerglobalPosition(
+            {
+              playerglobalId: updatedPlayerglobal.id,
+              positionId: positionId,
+              isPrimary: false,
+            },
+            entityManager
+          );
+        }
+
+        return updatedPlayerglobal;
+      }
     );
-
-    await Promise.all([
-      ...updatePlayerglobalDto.primaryPositionIds.map((positionId) =>
-        this.playerglobalPositionService.createPlayerglobalPosition({
-          playerglobalId: playerglobal.id,
-          positionId: positionId,
-          isPrimary: true,
-        })
-      ),
-      ...updatePlayerglobalDto.secondaryPositionIds.map((positionId) =>
-        this.playerglobalPositionService.createPlayerglobalPosition({
-          playerglobalId: playerglobal.id,
-          positionId: positionId,
-          isPrimary: false,
-        })
-      ),
-    ]);
-
-    const updatedPlayerglobal = await this.playerglobalRepository.save({
-      ...playerglobal,
-      ...updatePlayerglobalDto,
-      imageUrl: updatePlayerglobalDto.imageUrl
-        ? updatePlayerglobalDto.imageUrl
-        : null,
-    });
-
-    return updatedPlayerglobal;
   }
 
   async clearPlayerglobalTeamglobalId(
     playerglobalId?: string,
-    allWithThisTeamglobalId?: string
+    allWithThisTeamglobalId?: string,
+    entityManager?: EntityManager
   ): Promise<void> {
-    if (allWithThisTeamglobalId) {
-      await this.teamglobalService.getTeamglobalById(allWithThisTeamglobalId);
+    const repository = entityManager
+      ? entityManager.getRepository(PlayerglobalEntity)
+      : this.playerglobalRepository;
 
-      const playerglobals = await this.playerglobalRepository.find({
+    if (allWithThisTeamglobalId) {
+      await this.teamglobalService.getTeamglobalById(
+        allWithThisTeamglobalId,
+        undefined,
+        undefined,
+        entityManager
+      );
+
+      const playerglobals = await repository.find({
         where: { teamglobalId: allWithThisTeamglobalId },
       });
 
-      await Promise.all(
-        playerglobals.map((playerglobal) =>
-          this.updatePlayerglobalTeamglobalId(null, playerglobal.id)
-        )
-      );
+      for (const playerglobal of playerglobals) {
+        await this.updatePlayerglobalTeamglobalId(
+          null,
+          playerglobal.id,
+          entityManager
+        );
+      }
     } else {
       if (!playerglobalId) {
         throw new HttpError(
@@ -235,9 +275,14 @@ export class PlayerglobalService {
         );
       }
 
-      const playerglobal = await this.getPlayerglobalById(playerglobalId);
+      const playerglobal = await this.getPlayerglobalById(
+        playerglobalId,
+        undefined,
+        undefined,
+        entityManager
+      );
 
-      await this.playerglobalRepository.save({
+      await repository.save({
         ...playerglobal,
         teamglobalId: null,
       });
@@ -246,15 +291,30 @@ export class PlayerglobalService {
 
   async updatePlayerglobalTeamglobalId(
     teamglobalId: string | null,
-    playerglobalId: string
+    playerglobalId: string,
+    entityManager?: EntityManager
   ): Promise<void> {
-    const playerglobal = await this.getPlayerglobalById(playerglobalId);
+    const repository = entityManager
+      ? entityManager.getRepository(PlayerglobalEntity)
+      : this.playerglobalRepository;
+
+    const playerglobal = await this.getPlayerglobalById(
+      playerglobalId,
+      undefined,
+      undefined,
+      entityManager
+    );
 
     if (teamglobalId) {
-      await this.teamglobalService.getTeamglobalById(teamglobalId);
+      await this.teamglobalService.getTeamglobalById(
+        teamglobalId,
+        undefined,
+        undefined,
+        entityManager
+      );
     }
 
-    await this.playerglobalRepository.save({
+    await repository.save({
       ...playerglobal,
       teamglobalId: teamglobalId,
     });
@@ -263,6 +323,6 @@ export class PlayerglobalService {
   async deletePlayerglobal(playerglobalId: string): Promise<DeleteResult> {
     await this.getPlayerglobalById(playerglobalId, undefined, true);
 
-    return this.playerglobalRepository.delete({ id: playerglobalId });
+    return await this.playerglobalRepository.delete({ id: playerglobalId });
   }
 }
