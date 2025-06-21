@@ -1,14 +1,14 @@
 import express from "express";
 import cors from "cors";
-import userRoutes from "./routes/userRoutes";
-import authRoutes from "./routes/authRoutes";
-import countryRoutes from "./routes/countryRoutes";
-import managerglobalRoutes from "./routes/managerglobalRoutes";
-import positionRoutes from "./routes/positionRoutes";
-import playerglobalRoutes from "./routes/playerglobalRoutes";
-import teamglobalRoutes from "./routes/teamglobalRoutes";
-import ruleRoutes from "./routes/ruleRoutes";
-import competitionglobalRoutes from "./routes/competitionglobalRoutes";
+import userRoutes from "./routes/user.routes";
+import authRoutes from "./routes/auth.routes";
+import countryRoutes from "./routes/country.routes";
+import managerglobalRoutes from "./routes/managerglobal.routes";
+import positionRoutes from "./routes/position.routes";
+import playerglobalRoutes from "./routes/playerglobal.routes";
+import teamglobalRoutes from "./routes/teamglobal.routes";
+import ruleRoutes from "./routes/rule.routes";
+import competitionglobalRoutes from "./routes/competitionglobal.routes";
 
 const app = express();
 

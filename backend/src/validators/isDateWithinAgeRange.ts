@@ -5,7 +5,7 @@ import {
 } from "class-validator";
 import { CURRENT_DATE } from "../config/constants";
 import { formatDate } from "../utils/formatDate";
-import { FormatDateEnum } from "../enums/FormatDateEnum";
+import { FormatDateEnum } from "../enums/FormatDate.enum";
 
 @ValidatorConstraint({ name: "isDateWithinAgeRange", async: false })
 export class IsDateWithinAgeRange implements ValidatorConstraintInterface {

@@ -1,8 +1,8 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 import { HttpError } from "../utils/httpError";
-import { HttpStatusEnum } from "../enums/HttpStatusEnum";
+import { HttpStatusEnum } from "../enums/HttpStatus.enum";
 import { createHashedPassword } from "../utils/password";
-import { UserTypeEnum } from "../enums/UserTypeEnum";
+import { UserTypeEnum } from "../enums/UserType.enum";
 import { generateUuid } from "../utils/uuid";
 import { ENV_MESSAGES } from "../utils/messages";
 

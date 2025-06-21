@@ -1,6 +1,6 @@
-import { TeamglobalEntity } from "../entities/teamglobalEntity";
-import { HttpStatusEnum } from "../enums/HttpStatusEnum";
-import { RuleCodeEnum } from "../enums/RuleCodeEnum";
+import { TeamglobalEntity } from "../entities/teamglobal.entity";
+import { HttpStatusEnum } from "../enums/HttpStatus.enum";
+import { RuleCodeEnum } from "../enums/RuleCode.enum";
 import { HttpError } from "./httpError";
 import { COMPETITIONGLOBAL_MESSAGES, RULE_MESSAGES } from "./messages";
 

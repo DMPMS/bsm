@@ -1,5 +1,5 @@
-import { FormatDateEnum } from "../enums/FormatDateEnum";
-import { HttpStatusEnum } from "../enums/HttpStatusEnum";
+import { FormatDateEnum } from "../enums/FormatDate.enum";
+import { HttpStatusEnum } from "../enums/HttpStatus.enum";
 import { HttpError } from "./httpError";
 
 export function formatDate(date: Date, format: FormatDateEnum): string {

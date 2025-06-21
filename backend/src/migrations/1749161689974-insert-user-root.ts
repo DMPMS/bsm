@@ -1,9 +1,9 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 import { HttpError } from "../utils/httpError";
-import { HttpStatusEnum } from "../enums/HttpStatusEnum";
+import { HttpStatusEnum } from "../enums/HttpStatus.enum";
 import { ENV_MESSAGES } from "../utils/messages";
 import { createHashedPassword } from "../utils/password";
-import { UserTypeEnum } from "../enums/UserTypeEnum";
+import { UserTypeEnum } from "../enums/UserType.enum";
 import { generateUuid } from "../utils/uuid";
 
 export class InsertUserRoot1749161689974 implements MigrationInterface {
