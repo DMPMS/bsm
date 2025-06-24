@@ -4,7 +4,7 @@ export class CreateTableCountry1749141231614 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE public.country (
-        id VARCHAR(36) NOT NULL CHECK (LENGTH(id) = 36),
+        id UUID,
 
         name VARCHAR(30) NOT NULL,
 

@@ -31,16 +31,16 @@ export class CreatePlayerglobalDto {
 
   @Expose()
   @IsString()
-  @Validate(isValidImage)
   @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
+  @Validate(isValidImage)
   @IsOptional()
   imageUrl?: string | null;
 
   @Expose()
   @IsString()
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   @Validate(IsCustomDate)
   @Validate(IsDateWithinAgeRange, [PLAYERGLOBAL.AGE.MIN, PLAYERGLOBAL.AGE.MAX])
-  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   birthdate: string;
 
   @Expose()

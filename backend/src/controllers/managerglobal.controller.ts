@@ -44,6 +44,12 @@ export class ManagerglobalController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(MANAGERGLOBAL_MESSAGES.ERROR.SELECT_MANAGERGLOBAL_ERROR);
@@ -79,6 +85,12 @@ export class ManagerglobalController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(MANAGERGLOBAL_MESSAGES.ERROR.SELECT_MANAGERGLOBAL_BY_ID_ERROR);
@@ -116,6 +128,12 @@ export class ManagerglobalController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(MANAGERGLOBAL_MESSAGES.ERROR.CREATE_MANAGERGLOBAL_ERROR);
@@ -163,6 +181,12 @@ export class ManagerglobalController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(MANAGERGLOBAL_MESSAGES.ERROR.UPDATE_MANAGERGLOBAL_ERROR);
@@ -192,6 +216,12 @@ export class ManagerglobalController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(MANAGERGLOBAL_MESSAGES.ERROR.DELETE_MANAGERGLOBAL_ERROR);

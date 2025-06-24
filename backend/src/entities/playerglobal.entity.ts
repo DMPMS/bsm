@@ -15,18 +15,18 @@ import { TeamglobalEntity } from "./teamglobal.entity";
 
 @Entity("playerglobal")
 export class PlayerglobalEntity {
-  @PrimaryColumn({ type: "uuid" })
+  @PrimaryColumn({ type: "uuid", name: "id" })
   id: string;
 
   @Column({
-    type: "varchar",
+    type: "uuid",
     name: "country_id",
     nullable: false,
   })
   countryId: string;
 
   @Column({
-    type: "varchar",
+    type: "uuid",
     name: "teamglobal_id",
     nullable: true,
   })

@@ -25,8 +25,8 @@ export class CreateCompetitionglobalDto {
 
   @Expose()
   @IsString()
-  @Validate(isValidImage)
   @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
+  @Validate(isValidImage)
   @IsOptional()
   imageUrl?: string | null;
 

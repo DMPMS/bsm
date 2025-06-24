@@ -42,6 +42,12 @@ export class TeamglobalController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(TEAMGLOBAL_MESSAGES.ERROR.SELECT_TEAMGLOBAL_ERROR);
@@ -76,6 +82,12 @@ export class TeamglobalController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(TEAMGLOBAL_MESSAGES.ERROR.SELECT_TEAMGLOBAL_BY_ID_ERROR);
@@ -112,6 +124,12 @@ export class TeamglobalController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(TEAMGLOBAL_MESSAGES.ERROR.CREATE_TEAMGLOBAL_ERROR);
@@ -158,6 +176,12 @@ export class TeamglobalController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(TEAMGLOBAL_MESSAGES.ERROR.UPDATE_TEAMGLOBAL_ERROR);
@@ -185,6 +209,12 @@ export class TeamglobalController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(TEAMGLOBAL_MESSAGES.ERROR.DELETE_TEAMGLOBAL_ERROR);

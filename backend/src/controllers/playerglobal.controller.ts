@@ -47,6 +47,12 @@ export class PlayerglobalController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(PLAYERGLOBAL_MESSAGES.ERROR.SELECT_PLAYERGLOBAL_ERROR);
@@ -84,6 +90,12 @@ export class PlayerglobalController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(PLAYERGLOBAL_MESSAGES.ERROR.SELECT_PLAYERGLOBAL_BY_ID_ERROR);
@@ -121,6 +133,12 @@ export class PlayerglobalController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(PLAYERGLOBAL_MESSAGES.ERROR.CREATE_PLAYERGLOBAL_ERROR);
@@ -168,6 +186,12 @@ export class PlayerglobalController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(PLAYERGLOBAL_MESSAGES.ERROR.UPDATE_PLAYERGLOBAL_ERROR);
@@ -195,6 +219,12 @@ export class PlayerglobalController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(PLAYERGLOBAL_MESSAGES.ERROR.DELETE_PLAYERGLOBAL_ERROR);

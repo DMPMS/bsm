@@ -12,18 +12,18 @@ import { PositionEntity } from "./position.entity";
 
 @Entity("playerglobal_position")
 export class PlayerglobalPositionEntity {
-  @PrimaryColumn({ type: "uuid" })
+  @PrimaryColumn({ type: "uuid", name: "id" })
   id: string;
 
   @Column({
-    type: "varchar",
+    type: "uuid",
     name: "playerglobal_id",
     nullable: false,
   })
   playerglobalId: string;
 
   @Column({
-    type: "varchar",
+    type: "uuid",
     name: "position_id",
     nullable: false,
   })

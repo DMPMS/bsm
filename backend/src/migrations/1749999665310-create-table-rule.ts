@@ -4,12 +4,12 @@ export class CreateTableRule1749999665310 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE public.rule (
-        id VARCHAR(36) NOT NULL CHECK (LENGTH(id) = 36),
-        country_id VARCHAR(36) NOT NULL CHECK (LENGTH(country_id) = 36),
+        id UUID,
+        country_id UUID NOT NULL,
 
         name VARCHAR(30) NOT NULL,
         number_of_teams INTEGER NOT NULL,
-        description TEXT NOT NULL,
+        description TEXT,
         default_competition_name VARCHAR(30) NOT NULL,
         default_competition_image_url TEXT,
         code INTEGER UNIQUE NOT NULL,

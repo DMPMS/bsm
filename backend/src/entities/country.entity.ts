@@ -15,7 +15,7 @@ import { RuleEntity } from "./rule.entity";
 
 @Entity("country")
 export class CountryEntity {
-  @PrimaryColumn({ type: "uuid" })
+  @PrimaryColumn({ type: "uuid", name: "id" })
   id: string;
 
   @Column({

@@ -34,6 +34,12 @@ export class RuleController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(RULE_MESSAGES.ERROR.SELECT_RULE_ERROR);

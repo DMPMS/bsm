@@ -25,23 +25,23 @@ export class UpdateUserDto {
 
   @Expose()
   @IsString()
-  @Validate(isValidImage)
   @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
+  @Validate(isValidImage)
   @IsOptional()
   imageUrl?: string | null;
 
   @Expose()
   @IsString()
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   @Validate(IsCustomDate)
   @Validate(IsDateWithinAgeRange, [USER.AGE.MIN, USER.AGE.MAX])
-  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   birthdate: string;
 
   @Expose()
   @IsString()
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   @Validate(IsCustomEmail)
   @Length(USER.EMAIL.MIN, USER.EMAIL.MAX)
-  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   email: string;
 
   @Expose()

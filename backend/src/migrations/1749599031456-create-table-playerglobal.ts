@@ -6,9 +6,9 @@ export class CreateTablePlayerglobal1749599031456
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE public.playerglobal (
-        id VARCHAR(36) NOT NULL CHECK (LENGTH(id) = 36),
-        country_id VARCHAR(36) NOT NULL CHECK (LENGTH(country_id) = 36),
-        teamglobal_id VARCHAR(36) CHECK (LENGTH(teamglobal_id) = 36),
+        id UUID,
+        country_id UUID NOT NULL,
+        teamglobal_id UUID,
 
         name VARCHAR(30) NOT NULL,
         image_url TEXT,

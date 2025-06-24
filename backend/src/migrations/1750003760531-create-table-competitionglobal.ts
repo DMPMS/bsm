@@ -6,8 +6,8 @@ export class CreateTableCompetitionglobal1750003760531
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE public.competitionglobal (
-        id VARCHAR(36) NOT NULL CHECK (LENGTH(id) = 36),
-        rule_id VARCHAR(36) NOT NULL CHECK (LENGTH(rule_id) = 36),
+        id UUID,
+        rule_id UUID NOT NULL,
 
         name VARCHAR(30) NOT NULL,
         image_url TEXT,

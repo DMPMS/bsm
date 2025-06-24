@@ -4,9 +4,9 @@ export class CreateTableTeamglobal1749563973393 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE public.teamglobal (
-        id VARCHAR(36) NOT NULL CHECK (LENGTH(id) = 36),
-        country_id VARCHAR(36) NOT NULL CHECK (LENGTH(country_id) = 36),
-        managerglobal_id VARCHAR(36) NOT NULL CHECK (LENGTH(managerglobal_id) = 36),
+        id UUID,
+        country_id UUID NOT NULL,
+        managerglobal_id UUID NOT NULL,
 
         name VARCHAR(30) NOT NULL,
         abbreviation VARCHAR(3) NOT NULL,

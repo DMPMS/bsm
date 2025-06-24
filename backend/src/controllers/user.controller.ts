@@ -36,6 +36,12 @@ export class UserController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(USER_MESSAGES.ERROR.SELECT_USER_ERROR);
@@ -65,6 +71,12 @@ export class UserController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(USER_MESSAGES.ERROR.SELECT_USER_INFO_ERROR);
@@ -93,6 +105,12 @@ export class UserController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(USER_MESSAGES.ERROR.CREATE_USER_ERROR);
@@ -142,6 +160,12 @@ export class UserController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(USER_MESSAGES.ERROR.CREATE_USER_ERROR);
@@ -182,6 +206,12 @@ export class UserController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(USER_MESSAGES.ERROR.UPDATE_USER_ERROR);
@@ -221,6 +251,12 @@ export class UserController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(USER_MESSAGES.ERROR.DELETE_MY_USER_ERROR);
@@ -248,6 +284,12 @@ export class UserController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(USER_MESSAGES.ERROR.DELETE_USER_ERROR);
@@ -275,6 +317,12 @@ export class UserController {
       if (error instanceof HttpError) {
         res.status(error.status).json(error.message);
       } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(USER_MESSAGES.ERROR.DELETE_ADMIN_ERROR);

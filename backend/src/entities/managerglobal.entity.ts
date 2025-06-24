@@ -14,11 +14,11 @@ import { TeamglobalEntity } from "./teamglobal.entity";
 
 @Entity("managerglobal")
 export class ManagerglobalEntity {
-  @PrimaryColumn({ type: "uuid" })
+  @PrimaryColumn({ type: "uuid", name: "id" })
   id: string;
 
   @Column({
-    type: "varchar",
+    type: "uuid",
     name: "country_id",
     nullable: false,
   })

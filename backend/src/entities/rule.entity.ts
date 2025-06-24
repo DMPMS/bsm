@@ -15,8 +15,15 @@ import { RuleCodeEnum } from "../enums/RuleCode.enum";
 
 @Entity("rule")
 export class RuleEntity {
-  @PrimaryColumn({ type: "uuid" })
+  @PrimaryColumn({ type: "uuid", name: "id" })
   id: string;
+
+  @Column({
+    type: "uuid",
+    name: "country_id",
+    nullable: false,
+  })
+  countryId: string;
 
   @Column({
     type: "varchar",

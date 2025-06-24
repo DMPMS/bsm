@@ -6,9 +6,9 @@ export class CreateTablePlayerglobalPosition1749604199951
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE public.playerglobal_position (
-        id VARCHAR(36) NOT NULL CHECK (LENGTH(id) = 36),
-        playerglobal_id VARCHAR(36) NOT NULL CHECK (LENGTH(playerglobal_id) = 36),
-        position_id VARCHAR(36) NOT NULL CHECK (LENGTH(position_id) = 36),
+        id UUID,
+        playerglobal_id UUID NOT NULL,
+        position_id UUID NOT NULL,
 
         is_primary BOOLEAN NOT NULL,
 

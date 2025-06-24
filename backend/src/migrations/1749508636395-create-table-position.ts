@@ -4,7 +4,7 @@ export class CreateTablePosition1749508636395 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE public.position (
-        id VARCHAR(36) NOT NULL CHECK (LENGTH(id) = 36),
+        id UUID,
 
         name VARCHAR(30) NOT NULL,
         abbreviation VARCHAR(3) NOT NULL,

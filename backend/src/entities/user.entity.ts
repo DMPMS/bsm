@@ -13,11 +13,11 @@ import { CountryEntity } from "./country.entity";
 
 @Entity("user")
 export class UserEntity {
-  @PrimaryColumn({ type: "uuid" })
+  @PrimaryColumn({ type: "uuid", name: "id" })
   id: string;
 
   @Column({
-    type: "varchar",
+    type: "uuid",
     name: "country_id",
     nullable: false,
   })

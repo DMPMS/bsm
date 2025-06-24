@@ -5,8 +5,8 @@ import { IsCustomEmail } from "../validators/isCustomEmail";
 export class SignInDto {
   @Expose()
   @IsString()
-  @Validate(IsCustomEmail)
   @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
+  @Validate(IsCustomEmail)
   email: string;
 
   @Expose()

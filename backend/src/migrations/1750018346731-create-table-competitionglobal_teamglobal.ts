@@ -6,9 +6,9 @@ export class CreateTableCompetitionglobalTeamglobal1750018346731
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
       CREATE TABLE public.competitionglobal_teamglobal (
-        id VARCHAR(36) NOT NULL CHECK (LENGTH(id) = 36),
-        competitionglobal_id VARCHAR(36) NOT NULL CHECK (LENGTH(competitionglobal_id) = 36),
-        teamglobal_id VARCHAR(36) NOT NULL CHECK (LENGTH(teamglobal_id) = 36),
+        id UUID,
+        competitionglobal_id UUID NOT NULL,
+        teamglobal_id UUID NOT NULL,
 
         created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
         updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,

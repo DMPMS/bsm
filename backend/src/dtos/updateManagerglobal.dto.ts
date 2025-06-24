@@ -24,18 +24,18 @@ export class UpdateManagerglobalDto {
 
   @Expose()
   @IsString()
-  @Validate(isValidImage)
   @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
+  @Validate(isValidImage)
   @IsOptional()
   imageUrl?: string | null;
 
   @Expose()
   @IsString()
+  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   @Validate(IsCustomDate)
   @Validate(IsDateWithinAgeRange, [
     MANAGERGLOBAL.AGE.MIN,
     MANAGERGLOBAL.AGE.MAX,
   ])
-  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
   birthdate: string;
 }
