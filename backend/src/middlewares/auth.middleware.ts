@@ -4,6 +4,7 @@ import { HttpStatusEnum } from "../enums/HttpStatus.enum";
 import { AuthenticatedRequest } from "../types/AuthenticatedRequest.type";
 import { UserTypeEnum } from "../enums/UserType.enum";
 import { AUTH_MESSAGES, ENV_MESSAGES } from "../utils/messages";
+import { ReturnUserDto } from "../dtos/returnUser.dto";
 
 export const authMiddleware = (
   req: AuthenticatedRequest,
@@ -31,16 +32,13 @@ export const authMiddleware = (
   const token = authorizationHeader.split(" ")[1];
 
   try {
-    const decoded = jwt.verify(token, jwtSecret) as {
-      user: {
-        id: string;
-        name: string;
-        email: string;
-        type: UserTypeEnum;
-      };
+    const decodedToken = jwt.verify(token, jwtSecret) as {
+      user: ReturnUserDto;
+      userType: UserTypeEnum;
     };
 
-    req.user = decoded.user;
+    req.user = decodedToken.user;
+    req.userType = decodedToken.userType;
 
     next();
   } catch (error) {

@@ -9,6 +9,7 @@ import { HttpError } from "../utils/httpError";
 import { HttpStatusEnum } from "../enums/HttpStatus.enum";
 import { SignInDto } from "../dtos/signIn.dto";
 import { ReturnAuthDto } from "../dtos/returnAuth.dto";
+import { ReturnUserDto } from "../dtos/returnUser.dto";
 
 export class AuthService {
   constructor(
@@ -20,6 +21,7 @@ export class AuthService {
   async signIn(signInDto: SignInDto): Promise<ReturnAuthDto> {
     const user = await this.userRepository.findOne({
       where: { email: signInDto.email.toLowerCase() },
+      relations: { country: true },
     });
 
     if (!user) {
@@ -61,12 +63,8 @@ export class AuthService {
 
     const token = jwt.sign(
       {
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          type: user.type,
-        },
+        user: new ReturnUserDto(user),
+        userType: user.type,
       },
       jwtSecret,
       {

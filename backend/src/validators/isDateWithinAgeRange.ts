@@ -12,7 +12,8 @@ export class IsDateWithinAgeRange implements ValidatorConstraintInterface {
   validate(birthdate: string, args: ValidationArguments) {
     const [minAge, maxAge] = args.constraints as [number, number];
 
-    const birthDate = new Date(birthdate);
+    const [year, month, day] = birthdate.split("-").map(Number);
+    const ajustedBirthdate = new Date(year, month - 1, day);
 
     const minBirthDate = new Date(
       CURRENT_DATE.getFullYear() - maxAge,
@@ -26,7 +27,7 @@ export class IsDateWithinAgeRange implements ValidatorConstraintInterface {
       CURRENT_DATE.getDate()
     );
 
-    return birthDate >= minBirthDate && birthDate <= maxBirthDate;
+    return ajustedBirthdate >= minBirthDate && ajustedBirthdate <= maxBirthDate;
   }
 
   defaultMessage(args: ValidationArguments) {

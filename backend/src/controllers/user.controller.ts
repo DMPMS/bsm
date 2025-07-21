@@ -125,7 +125,7 @@ export class UserController {
       });
 
       const userId = req.user?.id;
-      const userType = req.user?.type;
+      const userType = req.userType;
 
       const isValid = await validateDto(createUserDto);
       if (!isValid) {

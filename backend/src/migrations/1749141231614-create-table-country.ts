@@ -7,6 +7,7 @@ export class CreateTableCountry1749141231614 implements MigrationInterface {
         id UUID,
 
         name VARCHAR(30) NOT NULL,
+        code INTEGER UNIQUE NOT NULL,
 
         created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
         updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,

@@ -12,6 +12,7 @@ import { ManagerglobalEntity } from "./managerglobal.entity";
 import { PlayerglobalEntity } from "./playerglobal.entity";
 import { TeamglobalEntity } from "./teamglobal.entity";
 import { RuleEntity } from "./rule.entity";
+import { CountryCodeEnum } from "../enums/CountryCode.enum";
 
 @Entity("country")
 export class CountryEntity {
@@ -25,6 +26,14 @@ export class CountryEntity {
     nullable: false,
   })
   name: string;
+
+  @Column({
+    type: "integer",
+    name: "code",
+    nullable: false,
+    unique: true,
+  })
+  code: CountryCodeEnum;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
