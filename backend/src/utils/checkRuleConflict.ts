@@ -45,7 +45,7 @@ export function checkRuleConflict(
       const ruleCode =
         competitionglobalTeamglobal?.competitionglobal?.rule?.code;
 
-      return ruleCode !== undefined && conflictingRuleCodes.includes(ruleCode);
+      return ruleCode && conflictingRuleCodes.includes(ruleCode);
     }
   );
 

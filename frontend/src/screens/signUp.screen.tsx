@@ -3,6 +3,7 @@ import { useSignUp } from "../hooks/useSignUp";
 import CustomSelect from "../components/select/select";
 import Country from "../components/country/country";
 import { FieldStateEnum } from "../enums/FieldState.enum";
+import Spinner from "../components/spinner/spinner";
 
 const SignUpScreen = () => {
   const {
@@ -23,9 +24,7 @@ const SignUpScreen = () => {
 
   return loadingCountries ? (
     <div className={styles.container}>
-      <span
-        className={`${styles.spinner} ${styles.spinnerLoadingScreen}`}
-      ></span>
+      <Spinner size={50} />
     </div>
   ) : (
     <div className={styles.container}>
@@ -182,7 +181,9 @@ const SignUpScreen = () => {
                 }`}
               >
                 <span>Criar Conta</span>
-                {loadingRequest && <span className={styles.spinner}></span>}
+                {loadingRequest && (
+                  <Spinner size={12} classname={styles.spinner} />
+                )}
               </span>
             </button>
           </div>

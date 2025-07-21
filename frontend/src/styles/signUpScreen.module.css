@@ -37,6 +37,7 @@
 }
 
 .field {
+  height: 18px;
   margin: 0px 0px 10px 0px;
   padding: 8px;
   border: 1px solid var(--color-white-3);
@@ -132,28 +133,5 @@
 }
 
 .spinner {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  margin-left: 1px;
-  border: 2px solid var(--color-white-1);
-  border-top: 2px solid var(--color-blue-1);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-.spinnerLoadingScreen {
-  position: unset;
-  right: unset;
-  width: 50px;
-  height: 50px;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  margin: 0px 0px 0px 1px;
 }

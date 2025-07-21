@@ -3,6 +3,7 @@ import styles from "./select.module.css";
 import TriangleDownIcon from "../icons/triangleDown.icon";
 import CloseIcon from "../icons/close.icon";
 import { FieldStateEnum } from "../../enums/FieldState.enum";
+import { KeyboardKeyEnum } from "../../enums/KeyboardKey.enum";
 
 interface Option {
   value: string | number;
@@ -178,7 +179,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     setIsKeyboardNavigation(true);
 
     switch (e.key) {
-      case "ArrowDown":
+      case KeyboardKeyEnum.ArrowDown:
         e.preventDefault();
 
         if (!isOpen) {
@@ -194,7 +195,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         }
 
         break;
-      case "ArrowUp":
+      case KeyboardKeyEnum.ArrowUp:
         e.preventDefault();
 
         if (!isOpen) {
@@ -212,7 +213,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         }
 
         break;
-      case "Enter":
+      case KeyboardKeyEnum.Enter:
         e.preventDefault();
 
         if (!isOpen) {
@@ -230,7 +231,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         }
 
         break;
-      case "Escape":
+      case KeyboardKeyEnum.Escape:
         e.preventDefault();
 
         if (isOpen) {
@@ -238,15 +239,15 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         }
 
         break;
-      case "Tab":
+      case KeyboardKeyEnum.Tab:
         if (isOpen) {
           closeSelect();
         }
 
         break;
 
-      case "Delete":
-      case "Backspace":
+      case KeyboardKeyEnum.Delete:
+      case KeyboardKeyEnum.Backspace:
         if (selectedOption && allowClear && !isOpen) {
           e.preventDefault();
           onChange("");
@@ -283,9 +284,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
           onChange={handleOnChangeInput}
           onFocus={handleOnFocusInput}
           onKeyDown={handleKeyDown}
-          className={`${styles.input} ${
-            !selectedOption && !isOpen ? styles.placeholder : ""
-          }`}
+          className={styles.input}
           disabled={disabled}
           role="combobox"
           aria-expanded={isOpen}
@@ -312,13 +311,13 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         )}
       </div>
 
-      {!displayValue && (
+      {!displayValue && selectedOption && (
         <div
           className={`${styles.displayNode} ${
             isOpen ? styles.displayNodeOpen : ""
           }`}
         >
-          {selectedOption?.display}
+          {selectedOption.display}
         </div>
       )}
 

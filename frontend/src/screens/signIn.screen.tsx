@@ -1,3 +1,4 @@
+import Spinner from "../components/spinner/spinner";
 import { useSignIn } from "../hooks/useSignIn";
 import styles from "../styles/signInScreen.module.css";
 
@@ -63,7 +64,9 @@ const SignInScreen = () => {
               }`}
             >
               <span>Entrar</span>
-              {loadingRequest && <span className={styles.spinner}></span>}
+              {loadingRequest && (
+                <Spinner size={12} classname={styles.spinner} />
+              )}
             </span>
           </button>
         </form>

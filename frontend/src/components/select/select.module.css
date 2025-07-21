@@ -8,6 +8,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 18px;
   padding: 8px 8px 8px 6px;
   border: 1px solid var(--color-white-3);
   border-radius: 8px;
@@ -57,7 +58,7 @@
 }
 
 .displayNodeOpen span {
-  color: #757575;
+  color: var(--color-gray-placeholder);
 }
 
 .input {
@@ -71,10 +72,6 @@
 
 .input:disabled {
   cursor: not-allowed;
-}
-
-.placeholder {
-  color: #757575;
 }
 
 .dropdown {
@@ -129,7 +126,7 @@
 
 .noOptions {
   padding: 8px;
-  color: #757575;
+  color: var(--color-gray-placeholder);
   text-align: center;
   font-style: italic;
 }

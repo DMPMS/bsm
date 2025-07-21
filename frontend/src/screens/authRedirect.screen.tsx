@@ -14,6 +14,7 @@ import { UserTypeEnum } from "../enums/UserType.enum";
 import { NotificationEnum } from "../enums/Notification.enum";
 import { UserRoutesEnum } from "../routes/user.routes";
 import { SIGN_IN_MESSAGES } from "../utils/messages";
+import Spinner from "../components/spinner/spinner";
 
 const AuthRedirectScreen = () => {
   const { user, setNotification } = useGlobalReducer();
@@ -50,9 +51,7 @@ const AuthRedirectScreen = () => {
 
   return (
     <div className={styles.container}>
-      <span
-        className={`${styles.spinner} ${styles.spinnerLoadingScreen}`}
-      ></span>
+      <Spinner size={50} />
     </div>
   );
 };
