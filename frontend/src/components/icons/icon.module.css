@@ -1,0 +1,20 @@
+.svg {
+  overflow: visible;
+  cursor: pointer;
+}
+
+.svgDisabled {
+  cursor: not-allowed;
+}
+
+.path {
+  fill: var(--color);
+}
+
+.svg:hover:not(.svgDisabled) .path {
+  fill: var(--color-hover);
+}
+
+.svgDisabled .path {
+  fill: var(--color-disabled);
+}

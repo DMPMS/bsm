@@ -1,0 +1,35 @@
+.container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  margin: 16px;
+}
+
+.notification {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid var(--color-white-3);
+  border-radius: 8px;
+  color: var(--color-white-1);
+}
+
+.success {
+  background-color: var(--color-green-2);
+}
+
+.error {
+  background-color: var(--color-red-2);
+}
+
+.info {
+  background-color: var(--color-blue-2);
+}
+
+.warning {
+  background-color: var(--color-yellow-2);
+}
+
+.default {
+  background-color: var(--color-gray-2);
+}

@@ -1,0 +1,135 @@
+.select {
+  position: relative;
+  margin: 0px 0px 10px 0px;
+  font-size: smaller;
+}
+
+.selectHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 8px 8px 6px;
+  border: 1px solid var(--color-white-3);
+  border-radius: 8px;
+  cursor: text;
+  transition: border-color 0.3s;
+}
+
+.selectHeaderInvalid {
+  border-color: var(--color-red-1);
+}
+
+.selectHeaderWarning {
+  border-color: var(--color-yellow-1);
+}
+
+.selectHeader:has(.input:focus),
+.selectHeaderOpen {
+  border-color: var(--color-blue-1);
+}
+
+.selectHeaderInvalidOpen:has(.input:focus),
+.selectHeaderInvalidOpen {
+  border-color: var(--color-red-1);
+}
+
+.selectHeaderWarningOpen:has(.input:focus),
+.selectHeaderWarningOpen {
+  border-color: var(--color-yellow-1);
+}
+
+.selectHeaderDisabled {
+  background-color: var(--color-white-2);
+  cursor: not-allowed;
+}
+
+.displayNode {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  padding: 0px 0px 0px 8.75px;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.displayNodeOpen > div *:not(span) {
+  opacity: 0.7;
+}
+
+.displayNodeOpen span {
+  color: #757575;
+}
+
+.input {
+  z-index: 2;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: text;
+}
+
+.input:disabled {
+  cursor: not-allowed;
+}
+
+.placeholder {
+  color: #757575;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 3px;
+  background-color: var(--color-white-1);
+  border: 1px solid var(--color-white-3);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.optionsList {
+  display: flex;
+  flex-direction: column;
+  max-height: 200px;
+  gap: 3px;
+  overflow-y: auto;
+}
+
+.option {
+  padding: 8px 5px 8px 5px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background-color: var(--color-white-2);
+}
+
+.selectedOption,
+.selectedOption:hover {
+  background-color: var(--color-blue-1);
+  outline: none;
+  color: var(--color-white-1);
+}
+
+.focusedOption {
+  background-color: var(--color-white-2);
+  outline: 2px solid var(--color-white-3);
+  outline-offset: -2px;
+}
+
+.focusedSelectedOption,
+.focusedSelectedOption:hover {
+  outline: 2px solid var(--color-blue-2);
+  outline-offset: -2px;
+}
+
+.noOptions {
+  padding: 8px;
+  color: #757575;
+  text-align: center;
+  font-style: italic;
+}

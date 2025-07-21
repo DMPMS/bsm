@@ -1,0 +1,130 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.cardSignIn {
+  width: 400px;
+  padding: 16px;
+  margin: 16px;
+  background-color: var(--color-white-1);
+  border-radius: 8px;
+}
+
+.logo {
+  display: block;
+  width: 150px;
+  margin: 0px auto 20px auto;
+}
+
+.h2 {
+  margin: 0px 0px 20px 0px;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin: 0px 0px 5px 5px;
+}
+
+.field {
+  margin: 0px 0px 10px 0px;
+  padding: 8px;
+  border: 1px solid var(--color-white-3);
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.field:disabled {
+  background-color: var(--color-white-2);
+  cursor: not-allowed;
+}
+
+.field:focus {
+  border-color: var(--color-blue-1);
+  outline: none;
+}
+
+.invalidField,
+.invalidField:focus {
+  border-color: var(--color-red-1);
+}
+
+.warningField,
+.warningField:focus {
+  border-color: var(--color-yellow-1);
+}
+
+.containerSignUp {
+  margin: 10px 0px 0px 0px;
+  text-align: center;
+}
+
+.signUp {
+  text-align: center;
+  text-decoration: none;
+}
+
+.button {
+  min-width: 150px;
+  margin: 20px 0px 0px 0px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--color-blue-1);
+  color: var(--color-white-1);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: var(--color-blue-2);
+}
+
+.button:disabled {
+  background-color: var(--color-blue-3);
+  cursor: not-allowed;
+}
+
+.buttonContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
+  transition: 0.3s;
+}
+
+.buttonContentLoading {
+  gap: 10px;
+}
+
+.spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-left: 1px;
+  border: 2px solid var(--color-white-1);
+  border-top: 2px solid var(--color-blue-1);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

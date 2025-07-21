@@ -1,0 +1,5 @@
+.container {
+  display: flex;
+  gap: 8px;
+  line-height: calc(var(--size) * 1px);
+}
