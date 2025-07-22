@@ -1,20 +1,24 @@
 .svg {
   overflow: visible;
+}
+
+.svgEnabled {
   cursor: pointer;
+}
+
+.svgEnabled:hover .path {
+  fill: var(--color-hover);
 }
 
 .svgDisabled {
   cursor: not-allowed;
 }
 
-.path {
-  fill: var(--color);
-}
-
-.svg:hover:not(.svgDisabled) .path {
-  fill: var(--color-hover);
-}
-
 .svgDisabled .path {
   fill: var(--color-disabled);
+}
+
+.path {
+  fill: var(--color);
+  transition: fill 0.3s;
 }

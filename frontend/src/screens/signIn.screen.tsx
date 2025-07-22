@@ -8,9 +8,9 @@ const SignInScreen = () => {
     disabledButton,
     warningFields,
     invalidFields,
-    handleOnChangeInput,
-    handleOnSignIn,
-    handleOnSignUp,
+    handleChangeInput,
+    handleSignIn,
+    handleSignUp,
   } = useSignIn();
 
   return (
@@ -18,13 +18,13 @@ const SignInScreen = () => {
       <div className={styles.cardSignIn}>
         <img className={styles.logo} src="/logo.png" />
         <h2 className={styles.h2}>Entrar</h2>
-        <form onSubmit={handleOnSignIn} className={styles.form}>
+        <form onSubmit={handleSignIn} className={styles.form}>
           <div className={styles.formGroup}>
             <label className={styles.label}>E-mail</label>
             <input
               type="email"
               placeholder="seuemail@email.com"
-              onChange={(e) => handleOnChangeInput(e, "email")}
+              onChange={(e) => handleChangeInput(e, "email")}
               className={`${styles.field} ${
                 warningFields.includes("email") ? styles.warningField : ""
               } ${invalidFields.includes("email") ? styles.invalidField : ""}`}
@@ -37,7 +37,7 @@ const SignInScreen = () => {
             <input
               type="password"
               placeholder="••••••••"
-              onChange={(e) => handleOnChangeInput(e, "password")}
+              onChange={(e) => handleChangeInput(e, "password")}
               className={`${styles.field} ${
                 warningFields.includes("password") ? styles.warningField : ""
               } ${
@@ -48,14 +48,14 @@ const SignInScreen = () => {
           </div>
 
           <div className={styles.containerSignUp}>
-            <a href="" onClick={handleOnSignUp} className={styles.signUp}>
+            <a href="" onClick={handleSignUp} className={styles.signUp}>
               Novo por aqui? Criar conta.
             </a>
           </div>
 
           <button
             type="submit"
-            className={`${styles.button} ${styles.submitButton}`}
+            className={styles.button}
             disabled={disabledButton || loadingRequest}
           >
             <span

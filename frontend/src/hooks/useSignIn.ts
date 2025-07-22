@@ -77,7 +77,7 @@ export const useSignIn = () => {
     input.reportValidity();
   };
 
-  const handleOnChangeInput = (
+  const handleChangeInput = (
     e: React.ChangeEvent<HTMLInputElement>,
     name: string
   ) => {
@@ -92,7 +92,7 @@ export const useSignIn = () => {
     validateInputField(name, value, input);
   };
 
-  const handleOnSignIn = async (e: React.FormEvent) => {
+  const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
 
     await request<AuthType>({
@@ -130,7 +130,7 @@ export const useSignIn = () => {
       });
   };
 
-  const handleOnSignUp = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleSignUp = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     navigate(SignUpRoutesEnum.SignUp);
   };
@@ -140,8 +140,8 @@ export const useSignIn = () => {
     disabledButton,
     invalidFields,
     warningFields,
-    handleOnChangeInput,
-    handleOnSignIn,
-    handleOnSignUp,
+    handleChangeInput,
+    handleSignIn,
+    handleSignUp,
   };
 };

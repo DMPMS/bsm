@@ -71,15 +71,14 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   }, [focusedIndex, filteredOptions.length]);
 
   useEffect(() => {
-    const handleOnClickOutside = (e: MouseEvent) => {
+    const handleClickOutside = (e: MouseEvent) => {
       if (selectRef.current && !selectRef.current.contains(e.target as Node)) {
         closeSelect();
       }
     };
 
-    document.addEventListener("mousedown", handleOnClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleOnClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   useEffect(() => {
@@ -98,7 +97,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     setIsKeyboardNavigation(false);
   };
 
-  const handleOnClickSelect = () => {
+  const handleClickSelect = () => {
     if (!disabled) {
       setIsKeyboardNavigation(false);
 
@@ -114,7 +113,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     }
   };
 
-  const handleOnClickIcon = (e: React.MouseEvent) => {
+  const handleClickIcon = (e: React.MouseEvent) => {
     e.stopPropagation();
 
     if (!disabled) {
@@ -141,7 +140,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     }
   };
 
-  const handleOnFocusInput = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocusInput = (e: React.FocusEvent<HTMLInputElement>) => {
     if (!disabled) {
       const isMouseFocus = e.relatedTarget === null;
       setIsKeyboardNavigation(!isMouseFocus);
@@ -160,7 +159,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     e.preventDefault();
   };
 
-  const handleOnChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
 
     if (!isOpen) {
@@ -168,9 +167,12 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     }
   };
 
-  const handleOnClickOption = (value: string | number) => {
+  const handleClickOption = (value: string | number) => {
     onChange(value);
-    closeSelect();
+
+    setTimeout(() => {
+      closeSelect();
+    }, 200);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -227,7 +229,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
           focusedIndex >= 0 &&
           filteredOptions[focusedIndex]
         ) {
-          handleOnClickOption(filteredOptions[focusedIndex].value);
+          handleClickOption(filteredOptions[focusedIndex].value);
         }
 
         break;
@@ -261,7 +263,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   return (
     <div ref={selectRef} className={styles.select}>
       <div
-        onClick={handleOnClickSelect}
+        onClick={handleClickSelect}
         className={`${styles.selectHeader} ${
           fieldState === FieldStateEnum.Invalid
             ? styles.selectHeaderInvalid
@@ -281,8 +283,8 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
           type="text"
           placeholder={selectedOption ? "" : placeholder}
           value={displayValue}
-          onChange={handleOnChangeInput}
-          onFocus={handleOnFocusInput}
+          onChange={handleChangeInput}
+          onFocus={handleFocusInput}
           onKeyDown={handleKeyDown}
           className={styles.input}
           disabled={disabled}
@@ -297,14 +299,10 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
           }
         />
         {selectedOption && allowClear ? (
-          <CloseIcon
-            onClick={handleOnClickIcon}
-            size={15}
-            disabled={disabled}
-          />
+          <CloseIcon onClick={handleClickIcon} size={15} disabled={disabled} />
         ) : (
           <TriangleDownIcon
-            onClick={handleOnClickIcon}
+            onClick={handleClickIcon}
             size={15}
             disabled={disabled}
           />
@@ -321,9 +319,11 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         </div>
       )}
 
-      {isOpen && !disabled && (
+      {!disabled && (
         <div
-          className={styles.dropdown}
+          className={`${styles.dropdown} ${
+            isOpen ? styles.dropdownVisible : ""
+          }`}
           onMouseDown={handlePreventInputBlur}
           role="listbox"
         >
@@ -333,7 +333,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
                 <div
                   id={`option-${option.value}`}
                   key={option.value}
-                  onClick={() => handleOnClickOption(option.value)}
+                  onClick={() => handleClickOption(option.value)}
                   className={`${styles.option} ${
                     option.value === value ? styles.selectedOption : ""
                   } ${

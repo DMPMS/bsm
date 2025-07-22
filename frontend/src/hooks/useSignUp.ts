@@ -227,7 +227,7 @@ export const useSignUp = () => {
     input.reportValidity();
   };
 
-  const handleOnChangeInput = (
+  const handleChangeInput = (
     e: React.ChangeEvent<HTMLInputElement>,
     name: string
   ) => {
@@ -242,7 +242,7 @@ export const useSignUp = () => {
     validateInputField(name, value, input);
   };
 
-  const handleOnChangeCountrySelect = (value: string) => {
+  const handleChangeCountrySelect = (value: string) => {
     const newValue = value ? value : undefined;
 
     setSignUp({
@@ -262,7 +262,7 @@ export const useSignUp = () => {
     }
   };
 
-  const handleOnSignUp = async (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
 
     await request<UserType>({
@@ -320,13 +320,13 @@ export const useSignUp = () => {
       });
   };
 
-  const handleOnReset = () => {
+  const handleReset = () => {
     setSignUp(INITIAL_SIGN_UP_DTO);
     setInvalidFields([]);
     setWarningFields([]);
   };
 
-  const handleOnSignIn = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleSignIn = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     navigate(SignInRoutesEnum.SignIn);
   };
@@ -340,10 +340,10 @@ export const useSignUp = () => {
     countrySelectValidationMessage,
     loadingCountries,
     countries,
-    handleOnChangeInput,
-    handleOnChangeCountrySelect,
-    handleOnSignUp,
-    handleOnSignIn,
-    handleOnReset,
+    handleChangeInput,
+    handleChangeCountrySelect,
+    handleSignUp,
+    handleSignIn,
+    handleReset,
   };
 };

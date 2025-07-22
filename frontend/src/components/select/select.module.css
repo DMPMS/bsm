@@ -53,6 +53,7 @@
   transform: translateY(-50%);
 }
 
+/* May not work for all cases. */
 .displayNodeOpen > div *:not(span) {
   opacity: 0.7;
 }
@@ -75,6 +76,7 @@
 }
 
 .dropdown {
+  overflow: hidden;
   position: absolute;
   top: calc(100% + 4px);
   left: 0;
@@ -84,13 +86,20 @@
   background-color: var(--color-white-1);
   border: 1px solid var(--color-white-3);
   border-radius: 8px;
-  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.dropdownVisible {
+  pointer-events: auto;
+  opacity: 1;
 }
 
 .optionsList {
   display: flex;
   flex-direction: column;
-  max-height: 200px;
+  max-height: 150px;
   gap: 3px;
   overflow-y: auto;
 }
@@ -125,7 +134,7 @@
 }
 
 .noOptions {
-  padding: 8px;
+  padding: 8px 5px 8px 5px;
   color: var(--color-gray-placeholder);
   text-align: center;
   font-style: italic;

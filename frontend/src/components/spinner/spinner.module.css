@@ -1,5 +1,4 @@
 .spinner {
-  display: inline-block;
   width: calc(var(--size) * 1px);
   height: calc(var(--size) * 1px);
   border: 2px solid var(--color-white-1);

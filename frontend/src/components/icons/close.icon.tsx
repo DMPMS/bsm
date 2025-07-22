@@ -17,7 +17,7 @@ const CloseIcon = ({
       width={size}
       height={size}
       className={`${styles.svg} ${
-        disabled ? styles.svgDisabled : ""
+        disabled ? styles.svgDisabled : styles.svgEnabled
       } ${className}`}
       style={
         {

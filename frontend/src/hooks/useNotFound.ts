@@ -4,11 +4,11 @@ import { SignInRoutesEnum } from "../routes/signIn.routes";
 export const useNotFound = () => {
   const navigate = useNavigate();
 
-  const handleOnClickButton = () => {
+  const handleClickButton = () => {
     navigate(SignInRoutesEnum.SignIn);
   };
 
   return {
-    handleOnClickButton,
+    handleClickButton,
   };
 };

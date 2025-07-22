@@ -15,11 +15,11 @@ const SignUpScreen = () => {
     countrySelectValidationMessage,
     loadingCountries,
     countries,
-    handleOnChangeInput,
-    handleOnChangeCountrySelect,
-    handleOnSignUp,
-    handleOnSignIn,
-    handleOnReset,
+    handleChangeInput,
+    handleChangeCountrySelect,
+    handleSignUp,
+    handleSignIn,
+    handleReset,
   } = useSignUp();
 
   return loadingCountries ? (
@@ -30,7 +30,7 @@ const SignUpScreen = () => {
     <div className={styles.container}>
       <div className={styles.cardSignUp}>
         <h2 className={styles.h2}>Criar Conta</h2>
-        <form onSubmit={handleOnSignUp} className={styles.form}>
+        <form onSubmit={handleSignUp} className={styles.form}>
           <div className={styles.formGroup}>
             <label className={styles.label}>
               Nome <span className={styles.asterisk}>*</span>
@@ -40,7 +40,7 @@ const SignUpScreen = () => {
               type="text"
               placeholder="Nome"
               value={signUp.name}
-              onChange={(e) => handleOnChangeInput(e, "name")}
+              onChange={(e) => handleChangeInput(e, "name")}
               className={`${styles.field} ${
                 warningFields.includes("name") ? styles.warningField : ""
               } ${invalidFields.includes("name") ? styles.invalidField : ""}`}
@@ -56,7 +56,7 @@ const SignUpScreen = () => {
               id="birthdate"
               type="date"
               value={signUp.birthdate}
-              onChange={(e) => handleOnChangeInput(e, "birthdate")}
+              onChange={(e) => handleChangeInput(e, "birthdate")}
               className={`${styles.field} ${
                 warningFields.includes("birthdate") ? styles.warningField : ""
               } ${
@@ -75,7 +75,7 @@ const SignUpScreen = () => {
               type="email"
               placeholder="seuemail@email.com"
               value={signUp.email}
-              onChange={(e) => handleOnChangeInput(e, "email")}
+              onChange={(e) => handleChangeInput(e, "email")}
               className={`${styles.field} ${
                 warningFields.includes("email") ? styles.warningField : ""
               } ${invalidFields.includes("email") ? styles.invalidField : ""}`}
@@ -91,7 +91,7 @@ const SignUpScreen = () => {
               placeholder="Selecione o país"
               value={signUp.countryId || ""}
               onChange={(value: string | number) =>
-                handleOnChangeCountrySelect(String(value))
+                handleChangeCountrySelect(String(value))
               }
               options={countries.map((country) => ({
                 value: country.id,
@@ -121,7 +121,7 @@ const SignUpScreen = () => {
               type="password"
               placeholder="••••••••"
               value={signUp.password}
-              onChange={(e) => handleOnChangeInput(e, "password")}
+              onChange={(e) => handleChangeInput(e, "password")}
               className={`${styles.field} ${
                 warningFields.includes("password") ? styles.warningField : ""
               } ${
@@ -140,7 +140,7 @@ const SignUpScreen = () => {
               type="password"
               placeholder="••••••••"
               value={signUp.confirmPassword}
-              onChange={(e) => handleOnChangeInput(e, "confirmPassword")}
+              onChange={(e) => handleChangeInput(e, "confirmPassword")}
               className={`${styles.field} ${
                 warningFields.includes("confirmPassword")
                   ? styles.warningField
@@ -155,7 +155,7 @@ const SignUpScreen = () => {
           </div>
 
           <div className={styles.containerSignIn}>
-            <a href="" onClick={handleOnSignIn} className={styles.signIn}>
+            <a href="" onClick={handleSignIn} className={styles.signIn}>
               Já é cadastrado? Entrar.
             </a>
           </div>
@@ -165,7 +165,7 @@ const SignUpScreen = () => {
               type="button"
               className={`${styles.button} ${styles.resetButton}`}
               disabled={loadingRequest}
-              onClick={handleOnReset}
+              onClick={handleReset}
             >
               Resetar
             </button>

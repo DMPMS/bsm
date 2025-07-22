@@ -2,7 +2,7 @@ import { useNotFound } from "../hooks/useNotFound";
 import styles from "../styles/notFoundScreen.module.css";
 
 const NotFoundScreen = () => {
-  const { handleOnClickButton } = useNotFound();
+  const { handleClickButton } = useNotFound();
 
   return (
     <div className={styles.container}>
@@ -11,7 +11,7 @@ const NotFoundScreen = () => {
         <text className={styles.text}>Página não encontrada</text>
         <button
           type="button"
-          onClick={handleOnClickButton}
+          onClick={handleClickButton}
           className={styles.button}
         >
           Página de login
