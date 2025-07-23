@@ -1,4 +1,7 @@
+import FormGroup from "../components/formGroup/formGroup";
+import Input from "../components/input/input";
 import Spinner from "../components/spinner/spinner";
+import { FieldStateEnum } from "../enums/FieldState.enum";
 import { useSignIn } from "../hooks/useSignIn";
 import styles from "../styles/signInScreen.module.css";
 
@@ -6,8 +9,8 @@ const SignInScreen = () => {
   const {
     loadingRequest,
     disabledButton,
-    warningFields,
     invalidFields,
+    warningFields,
     handleChangeInput,
     handleSignIn,
     handleSignUp,
@@ -19,33 +22,37 @@ const SignInScreen = () => {
         <img className={styles.logo} src="/logo.png" />
         <h2 className={styles.h2}>Entrar</h2>
         <form onSubmit={handleSignIn} className={styles.form}>
-          <div className={styles.formGroup}>
-            <label className={styles.label}>E-mail</label>
-            <input
+          <FormGroup label="E-mail">
+            <Input
               type="email"
               placeholder="seuemail@email.com"
               onChange={(e) => handleChangeInput(e, "email")}
-              className={`${styles.field} ${
-                warningFields.includes("email") ? styles.warningField : ""
-              } ${invalidFields.includes("email") ? styles.invalidField : ""}`}
               disabled={loadingRequest}
+              fieldState={
+                invalidFields.includes("email")
+                  ? FieldStateEnum.Invalid
+                  : warningFields.includes("email")
+                  ? FieldStateEnum.Warning
+                  : FieldStateEnum.Default
+              }
             />
-          </div>
+          </FormGroup>
 
-          <div className={styles.formGroup}>
-            <label className={styles.label}>Senha</label>
-            <input
+          <FormGroup label="Senha">
+            <Input
               type="password"
               placeholder="••••••••"
               onChange={(e) => handleChangeInput(e, "password")}
-              className={`${styles.field} ${
-                warningFields.includes("password") ? styles.warningField : ""
-              } ${
-                invalidFields.includes("password") ? styles.invalidField : ""
-              }`}
               disabled={loadingRequest}
+              fieldState={
+                invalidFields.includes("password")
+                  ? FieldStateEnum.Invalid
+                  : warningFields.includes("password")
+                  ? FieldStateEnum.Warning
+                  : FieldStateEnum.Default
+              }
             />
-          </div>
+          </FormGroup>
 
           <div className={styles.containerSignUp}>
             <a href="" onClick={handleSignUp} className={styles.signUp}>

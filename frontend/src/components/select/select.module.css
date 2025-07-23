@@ -102,6 +102,7 @@
   max-height: 150px;
   gap: 3px;
   overflow-y: auto;
+  outline: none;
 }
 
 .option {

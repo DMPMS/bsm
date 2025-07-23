@@ -1,17 +1,19 @@
 import styles from "../styles/signUpScreen.module.css";
 import { useSignUp } from "../hooks/useSignUp";
-import CustomSelect from "../components/select/select";
+import Select from "../components/select/select";
 import Country from "../components/country/country";
 import { FieldStateEnum } from "../enums/FieldState.enum";
 import Spinner from "../components/spinner/spinner";
+import FormGroup from "../components/formGroup/formGroup";
+import Input from "../components/input/input";
 
 const SignUpScreen = () => {
   const {
     signUp,
     loadingRequest,
     disabledButton,
-    warningFields,
     invalidFields,
+    warningFields,
     countrySelectValidationMessage,
     loadingCountries,
     countries,
@@ -31,65 +33,60 @@ const SignUpScreen = () => {
       <div className={styles.cardSignUp}>
         <h2 className={styles.h2}>Criar Conta</h2>
         <form onSubmit={handleSignUp} className={styles.form}>
-          <div className={styles.formGroup}>
-            <label className={styles.label}>
-              Nome <span className={styles.asterisk}>*</span>
-            </label>
-            <input
+          <FormGroup label="Nome" required={true}>
+            <Input
               id="name"
               type="text"
               placeholder="Nome"
-              value={signUp.name}
               onChange={(e) => handleChangeInput(e, "name")}
-              className={`${styles.field} ${
-                warningFields.includes("name") ? styles.warningField : ""
-              } ${invalidFields.includes("name") ? styles.invalidField : ""}`}
               disabled={loadingRequest}
+              fieldState={
+                invalidFields.includes("name")
+                  ? FieldStateEnum.Invalid
+                  : warningFields.includes("name")
+                  ? FieldStateEnum.Warning
+                  : FieldStateEnum.Default
+              }
             />
-          </div>
+          </FormGroup>
 
-          <div className={styles.formGroup}>
-            <label className={styles.label}>
-              Data de nascimento <span className={styles.asterisk}>*</span>
-            </label>
-            <input
+          <FormGroup label="Data de nascimento" required={true}>
+            <Input
               id="birthdate"
               type="date"
-              value={signUp.birthdate}
               onChange={(e) => handleChangeInput(e, "birthdate")}
-              className={`${styles.field} ${
-                warningFields.includes("birthdate") ? styles.warningField : ""
-              } ${
-                invalidFields.includes("birthdate") ? styles.invalidField : ""
-              }`}
               disabled={loadingRequest}
+              fieldState={
+                invalidFields.includes("birthdate")
+                  ? FieldStateEnum.Invalid
+                  : warningFields.includes("birthdate")
+                  ? FieldStateEnum.Warning
+                  : FieldStateEnum.Default
+              }
             />
-          </div>
+          </FormGroup>
 
-          <div className={styles.formGroup}>
-            <label className={styles.label}>
-              E-mail <span className={styles.asterisk}>*</span>
-            </label>
-            <input
+          <FormGroup label="E-mail" required={true}>
+            <Input
               id="email"
               type="email"
               placeholder="seuemail@email.com"
-              value={signUp.email}
               onChange={(e) => handleChangeInput(e, "email")}
-              className={`${styles.field} ${
-                warningFields.includes("email") ? styles.warningField : ""
-              } ${invalidFields.includes("email") ? styles.invalidField : ""}`}
               disabled={loadingRequest}
+              fieldState={
+                invalidFields.includes("email")
+                  ? FieldStateEnum.Invalid
+                  : warningFields.includes("email")
+                  ? FieldStateEnum.Warning
+                  : FieldStateEnum.Default
+              }
             />
-          </div>
+          </FormGroup>
 
-          <div className={styles.formGroup}>
-            <label className={styles.label}>
-              Nacionalidade <span className={styles.asterisk}>*</span>
-            </label>
-            <CustomSelect
+          <FormGroup label="Nacionalidade" required={true}>
+            <Select
               placeholder="Selecione o país"
-              value={signUp.countryId || ""}
+              value={signUp.countryId}
               onChange={(value: string | number) =>
                 handleChangeCountrySelect(String(value))
               }
@@ -102,57 +99,49 @@ const SignUpScreen = () => {
               }))}
               validationMessage={countrySelectValidationMessage}
               fieldState={
-                warningFields.includes("countryId")
-                  ? FieldStateEnum.Warning
-                  : invalidFields.includes("countryId")
+                invalidFields.includes("countryId")
                   ? FieldStateEnum.Invalid
+                  : warningFields.includes("countryId")
+                  ? FieldStateEnum.Warning
                   : FieldStateEnum.Default
               }
               disabled={loadingRequest}
             />
-          </div>
+          </FormGroup>
 
-          <div className={styles.formGroup}>
-            <label className={styles.label}>
-              Senha <span className={styles.asterisk}>*</span>
-            </label>
-            <input
+          <FormGroup label="Senha" required={true}>
+            <Input
               id="password"
               type="password"
               placeholder="••••••••"
-              value={signUp.password}
               onChange={(e) => handleChangeInput(e, "password")}
-              className={`${styles.field} ${
-                warningFields.includes("password") ? styles.warningField : ""
-              } ${
-                invalidFields.includes("password") ? styles.invalidField : ""
-              }`}
               disabled={loadingRequest}
+              fieldState={
+                invalidFields.includes("password")
+                  ? FieldStateEnum.Invalid
+                  : warningFields.includes("password")
+                  ? FieldStateEnum.Warning
+                  : FieldStateEnum.Default
+              }
             />
-          </div>
+          </FormGroup>
 
-          <div className={styles.formGroup}>
-            <label className={styles.label}>
-              Confirmar senha <span className={styles.asterisk}>*</span>
-            </label>
-            <input
+          <FormGroup label="Confirmar senha" required={true}>
+            <Input
               id="confirmPassword"
               type="password"
               placeholder="••••••••"
-              value={signUp.confirmPassword}
               onChange={(e) => handleChangeInput(e, "confirmPassword")}
-              className={`${styles.field} ${
-                warningFields.includes("confirmPassword")
-                  ? styles.warningField
-                  : ""
-              } ${
-                invalidFields.includes("confirmPassword")
-                  ? styles.invalidField
-                  : ""
-              }`}
               disabled={loadingRequest}
+              fieldState={
+                invalidFields.includes("confirmPassword")
+                  ? FieldStateEnum.Invalid
+                  : warningFields.includes("confirmPassword")
+                  ? FieldStateEnum.Warning
+                  : FieldStateEnum.Default
+              }
             />
-          </div>
+          </FormGroup>
 
           <div className={styles.containerSignIn}>
             <a href="" onClick={handleSignIn} className={styles.signIn}>

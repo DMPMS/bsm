@@ -11,9 +11,9 @@ interface Option {
   display: string | React.ReactNode;
 }
 
-interface CustomSelectProps {
+interface SelectProps {
   options: Option[];
-  value: string | number;
+  value?: string | number;
   onChange: (value: string | number) => void;
   placeholder?: string;
   disabled?: boolean;
@@ -22,20 +22,22 @@ interface CustomSelectProps {
   fieldState?: FieldStateEnum;
 }
 
-const CustomSelect: React.FC<CustomSelectProps> = ({
+const Select = ({
   options,
-  value,
+  value = "",
   onChange,
   placeholder = "Selecione uma opção",
   disabled = false,
   allowClear = true,
   validationMessage = "",
   fieldState = FieldStateEnum.Default,
-}) => {
+}: SelectProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>("");
   const [focusedIndex, setFocusedIndex] = useState<number>(-1);
   const [isKeyboardNavigation, setIsKeyboardNavigation] =
+    useState<boolean>(false);
+  const [lastInteractionWasKeyboard, setLastInteractionWasKeyboard] =
     useState<boolean>(false);
 
   const selectRef = useRef<HTMLDivElement>(null);
@@ -79,6 +81,19 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const handleMouseDown = () => setLastInteractionWasKeyboard(false);
+    const handleKeyDown = () => setLastInteractionWasKeyboard(true);
+
+    document.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   useEffect(() => {
@@ -140,12 +155,11 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
     }
   };
 
-  const handleFocusInput = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocusInput = () => {
     if (!disabled) {
-      const isMouseFocus = e.relatedTarget === null;
-      setIsKeyboardNavigation(!isMouseFocus);
+      setIsKeyboardNavigation(lastInteractionWasKeyboard);
 
-      if (!isOpen && !isMouseFocus) {
+      if (!isOpen && lastInteractionWasKeyboard) {
         setIsOpen(true);
         const selectedIndex = filteredOptions.findIndex(
           (option) => option.value === value
@@ -319,7 +333,8 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
         </div>
       )}
 
-      {!disabled && (
+      {/* !isOpen is present temporarily. Remove later */}
+      {!disabled && !isOpen && (
         <div
           className={`${styles.dropdown} ${
             isOpen ? styles.dropdownVisible : ""
@@ -359,4 +374,4 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
   );
 };
 
-export default CustomSelect;
+export default Select;

@@ -1,0 +1,28 @@
+.input {
+  height: 18px;
+  margin: 0px 0px 10px 0px;
+  padding: 8px;
+  border: 1px solid var(--color-white-3);
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.input:disabled {
+  background-color: var(--color-white-2);
+  cursor: not-allowed;
+}
+
+.input:focus {
+  border-color: var(--color-blue-1);
+  outline: none;
+}
+
+.invalidInput,
+.invalidInput:focus {
+  border-color: var(--color-red-1);
+}
+
+.warningInput,
+.warningInput:focus {
+  border-color: var(--color-yellow-1);
+}
