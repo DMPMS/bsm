@@ -1,17 +1,10 @@
 .svg {
   overflow: visible;
-}
-
-.svgEnabled {
-  cursor: pointer;
+  cursor: var(--cursor);
 }
 
 .svgEnabled:hover .path {
   fill: var(--color-hover);
-}
-
-.svgDisabled {
-  cursor: not-allowed;
 }
 
 .svgDisabled .path {

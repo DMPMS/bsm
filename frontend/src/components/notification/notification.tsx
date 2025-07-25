@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useGlobalReducer } from "../../store/reducers/globalReducer/useGlobalReducer";
 import styles from "./notification.module.css";
-import { NOTIFICATION_TIMEOUT } from "../../config/constants";
 import type { NotificationType } from "../../types/Notification.type";
+
+const NOTIFICATION_TIMEOUT = 3000;
 
 const Notification = () => {
   const { notification } = useGlobalReducer();

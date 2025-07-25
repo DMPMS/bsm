@@ -1,6 +1,6 @@
 export const SIGN_IN_MESSAGES = {
   ERROR: {
-    TOKEN_USER_TYPE_ROOT: "E-mail ou senha inválidos.",
+    TOKEN_USER_TYPE_ROOT: "E-mail ou senha inválidos",
   },
   FIELD_VALIDATION: {
     EMAIL_IS_INVALID: "Insira um e-mail válido.",
@@ -31,7 +31,7 @@ export const USER_MESSAGES = {
 
 export const ENV_MESSAGES = {
   ERROR: {
-    MISSING_BACKEND_API_PORT: "BACKEND_API_PORT não definido no arquivo .env.",
+    MISSING_BACKEND_API_PORT: "BACKEND_API_PORT não definido no arquivo .env",
   },
 };
 
@@ -43,5 +43,5 @@ export const GENERAL_FIELD_VALIDATION_MESSAGES = {
 };
 
 export const OTHER_MESSAGES = {
-  DEFAULT_ERROR: "Erro.",
+  DEFAULT_ERROR: "Erro",
 };

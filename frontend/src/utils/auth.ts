@@ -8,7 +8,9 @@ import type { UserTypeEnum } from "../enums/UserType.enum";
 import type { TokenType } from "../types/Token.type";
 import { SignInRoutesEnum } from "../routes/signIn.routes";
 import { getItemStorage, removeItemStorage, setItemStorage } from "./storage";
-import { AUTHORIZATION_KEY } from "../config/constants";
+import { MILLISECONDS_TO_SECONDS } from "../config/constants";
+
+const AUTHORIZATION_KEY = "AUTHORIZATION_KEY";
 
 export const unsetAuthorizationToken = () => {
   removeItemStorage(AUTHORIZATION_KEY);
@@ -56,7 +58,7 @@ export const verifyLoggedIn = (userType?: UserTypeEnum): LoaderFunction => {
       return redirect(SignInRoutesEnum.SignIn);
     }
 
-    const currentTime = Math.floor(Date.now() / 1000);
+    const currentTime = Math.floor(Date.now() / MILLISECONDS_TO_SECONDS);
     if (decodedToken.exp && decodedToken.exp < currentTime) {
       unsetAuthorizationToken();
       return redirect(SignInRoutesEnum.SignIn);

@@ -1,3 +1,4 @@
+import { MouseCursorEnum } from "../../enums/MouseCursor.enum";
 import type { IconPropsType } from "../../types/IconProps.type";
 import styles from "./icon.module.css";
 
@@ -8,6 +9,7 @@ const CloseIcon = ({
   colorHover = "var(--color-gray-2)",
   colorDisabled = "var(--color-gray-1)",
   className = "",
+  cursor = MouseCursorEnum.Pointer,
   ...props
 }: IconPropsType) => {
   return (
@@ -24,6 +26,7 @@ const CloseIcon = ({
           "--color": color,
           "--color-hover": colorHover,
           "--color-disabled": colorDisabled,
+          "--cursor": disabled ? MouseCursorEnum.NotAllowed : cursor,
         } as React.CSSProperties
       }
       {...props}

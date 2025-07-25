@@ -54,7 +54,7 @@ const SignInScreen = () => {
             />
           </FormGroup>
 
-          <div className={styles.containerSignUp}>
+          <div className={styles.signUpContainer}>
             <a href="" onClick={handleSignUp} className={styles.signUp}>
               Novo por aqui? Criar conta.
             </a>

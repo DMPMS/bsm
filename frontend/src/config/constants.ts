@@ -1,6 +1,4 @@
-export const AUTHORIZATION_KEY = "AUTHORIZATION_KEY";
-
-export const NOTIFICATION_TIMEOUT = 3000;
+export const MILLISECONDS_TO_SECONDS = 1000;
 
 export const CURRENT_DATE = new Date();
 

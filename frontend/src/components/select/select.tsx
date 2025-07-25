@@ -186,7 +186,7 @@ const Select = ({
 
     setTimeout(() => {
       closeSelect();
-    }, 200);
+    }, 300);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -333,8 +333,8 @@ const Select = ({
         </div>
       )}
 
-      {/* !isOpen is present temporarily. Remove later */}
-      {!disabled && !isOpen && (
+      {/* isOpen is present temporarily. Remove later */}
+      {!disabled && isOpen && (
         <div
           className={`${styles.dropdown} ${
             isOpen ? styles.dropdownVisible : ""

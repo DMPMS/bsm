@@ -15,6 +15,7 @@ import { NotificationEnum } from "../enums/Notification.enum";
 import { UserRoutesEnum } from "../routes/user.routes";
 import { SIGN_IN_MESSAGES } from "../utils/messages";
 import Spinner from "../components/spinner/spinner";
+import { MILLISECONDS_TO_SECONDS } from "../config/constants";
 
 const AuthRedirectScreen = () => {
   const { user, setNotification } = useGlobalReducer();
@@ -29,7 +30,7 @@ const AuthRedirectScreen = () => {
       navigate(SignInRoutesEnum.SignIn);
     } else {
       const decodedToken = jwtDecode<TokenType>(token.split(" ")[1]);
-      const currentTime = Math.floor(Date.now() / 1000);
+      const currentTime = Math.floor(Date.now() / MILLISECONDS_TO_SECONDS);
 
       if (decodedToken.exp && decodedToken.exp < currentTime) {
         unsetAuthorizationToken();
