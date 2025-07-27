@@ -4,7 +4,7 @@ import {
   ValidationArguments,
 } from "class-validator";
 import { CURRENT_DATE } from "../config/constants";
-import { formatDate } from "../utils/formatDate";
+import { formatDateFromDate } from "../utils/formatDateFromDate";
 import { FormatDateEnum } from "../enums/FormatDate.enum";
 
 @ValidatorConstraint({ name: "isDateWithinAgeRange", async: false })
@@ -34,9 +34,9 @@ export class IsDateWithinAgeRange implements ValidatorConstraintInterface {
     const [minAge, maxAge] = args.constraints as [number, number];
     return `${
       args.property
-    } must result in an age between ${minAge} and ${maxAge} years. The current system date is ${formatDate(
+    } must result in an age between ${minAge} and ${maxAge} years. The current system date is ${formatDateFromDate(
       CURRENT_DATE,
-      FormatDateEnum.YYYY_MM_DD
+      FormatDateEnum.MM_DD_YYYY
     )}`;
   }
 }

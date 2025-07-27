@@ -6,6 +6,9 @@ import { FieldStateEnum } from "../enums/FieldState.enum";
 import Spinner from "../components/spinner/spinner";
 import FormGroup from "../components/formGroup/formGroup";
 import Input from "../components/input/input";
+import { formatDateFromDate } from "../utils/formatDateFromDate";
+import { CURRENT_DATE } from "../config/constants";
+import { FormatDateEnum } from "../enums/FormatDate.enum";
 
 const SignUpScreen = () => {
   const {
@@ -50,7 +53,14 @@ const SignUpScreen = () => {
             />
           </FormGroup>
 
-          <FormGroup label="Data de nascimento" required={true}>
+          <FormGroup
+            label="Data de nascimento"
+            required={true}
+            tooltip={`A data atual no sistema é ${formatDateFromDate(
+              CURRENT_DATE,
+              FormatDateEnum.DD_MM_YYYY
+            )}`}
+          >
             <Input
               id="birthdate"
               type="date"
@@ -143,7 +153,7 @@ const SignUpScreen = () => {
             />
           </FormGroup>
 
-          <div className={styles.containerSignIn}>
+          <div className={styles.signInContainer}>
             <a href="" onClick={handleSignIn} className={styles.signIn}>
               Já é cadastrado? Entrar.
             </a>

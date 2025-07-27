@@ -36,7 +36,6 @@ export const ENV_MESSAGES = {
 };
 
 export const GENERAL_FIELD_VALIDATION_MESSAGES = {
-  NOT_FOUND: (name: string) => `O campo '${name}' não foi encontrado.`,
   REQUIRED: "Preencha este campo.",
   MIN_CHARACTER: (min: number) => `Insira pelo menos ${min} caractere(s).`,
   MAX_CHARACTER: (max: number) => `Insira até ${max} caractere(s).`,

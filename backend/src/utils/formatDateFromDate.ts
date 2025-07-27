@@ -1,8 +1,6 @@
 import { FormatDateEnum } from "../enums/FormatDate.enum";
-import { HttpStatusEnum } from "../enums/HttpStatus.enum";
-import { HttpError } from "./httpError";
 
-export function formatDate(date: Date, format: FormatDateEnum): string {
+export function formatDateFromDate(date: Date, format: FormatDateEnum): string {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
@@ -10,10 +8,11 @@ export function formatDate(date: Date, format: FormatDateEnum): string {
   switch (format) {
     case FormatDateEnum.YYYY_MM_DD:
       return `${year}-${month}-${day}`;
+    case FormatDateEnum.MM_DD_YYYY:
+      return `${month}/${day}/${year}`;
+    case FormatDateEnum.DD_MM_YYYY:
+      return `${day}/${month}/${year}`;
     default:
-      throw new HttpError(
-        HttpStatusEnum.BadRequest,
-        `Unsupported date format: ${format}`
-      );
+      return `${year}-${month}-${day}`;
   }
 }
