@@ -1,0 +1,67 @@
+import { MouseCursorEnum } from "../../enums/MouseCursor.enum";
+import type { IconPropsType } from "../../types/IconProps.type";
+import styles from "./icon.module.css";
+
+const CalendarIcon = ({
+  size,
+  disabled = false,
+  color = "var(--color-gray-1)",
+  colorHover = "var(--color-gray-2)",
+  colorDisabled = "var(--color-gray-1)",
+  cursor = MouseCursorEnum.Pointer,
+  className = "",
+  ...props
+}: IconPropsType) => {
+  return (
+    <svg
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      className={`${styles.svg} ${
+        disabled ? styles.svgDisabled : styles.svgEnabled
+      } ${className}`}
+      style={
+        {
+          "--color": color,
+          "--color-hover": colorHover,
+          "--color-disabled": colorDisabled,
+          "--cursor": disabled ? MouseCursorEnum.NotAllowed : cursor,
+        } as React.CSSProperties
+      }
+      {...props}
+    >
+      <path
+        d="M105,0C88.462,0,75,13.462,75,30v30c0,16.538,13.462,30,30,30s30-13.462,30-30V30C135,13.462,121.538,0,105,0z"
+        className={styles.path}
+      />
+      <path
+        d="M256,0c-16.538,0-30,13.462-30,30v30c0,16.538,13.462,30,30,30c16.538,0,30-13.462,30-30V30C286,13.462,272.538,0,256,0z"
+        className={styles.path}
+      />
+      <path
+        d="M407,0c-16.538,0-30,13.462-30,30v30c0,16.538,13.462,30,30,30c16.538,0,30-13.462,30-30V30C437,13.462,423.538,0,407,0z"
+        className={styles.path}
+      />
+      <path
+        d="M0,181v286c0,24.814,20.186,45,45,45h422c24.814,0,45-20.186,45-45V181H0z M181,421c-33.091,0-60-26.909-60-60
+			c0-8.291,6.709-15,15-15s15,6.709,15,15c0,16.538,13.462,30,30,30c16.538,0,30-13.462,30-30c0-16.538-13.462-30-30-30h-15
+			c-6.064,0-11.543-3.647-13.857-9.258c-2.329-5.61-1.04-12.056,3.252-16.348L189.789,271H136c-8.291,0-15-6.709-15-15
+			c0-8.291,6.709-15,15-15h90c6.064,0,11.543,3.647,13.857,9.258c2.329,5.61,1.04,12.056-3.252,16.348l-37.266,37.266
+			C223.48,311.635,241,334.311,241,361C241,394.091,214.091,421,181,421z M406,420.999H286c-8.291,0-15-6.709-15-15
+			c0-8.291,6.709-15,15-15h45V292.21l-34.395,34.395c-5.859,5.859-15.352,5.859-21.211,0s-5.859-15.352,0-21.211l60-60
+			c4.292-4.307,10.737-5.596,16.348-3.252c5.61,2.314,9.258,7.793,9.258,13.857v135h45c8.291,0,15,6.709,15,15
+			C421,414.29,414.291,420.999,406,420.999z"
+        className={styles.path}
+      />
+      <path
+        d="M467,36.357V60c0,33.091-26.909,60-60,60s-60-26.909-60-60V30h-31v30c0,33.091-26.909,60-60,60s-60-26.909-60-60V30h-31
+			v30c0,33.091-26.909,60-60,60S45,93.091,45,60V36.357C18.56,47.964,0,74.324,0,105v46h512v-46
+			C512,74.324,493.44,47.964,467,36.357z"
+        className={styles.path}
+      />
+    </svg>
+  );
+};
+
+export default CalendarIcon;

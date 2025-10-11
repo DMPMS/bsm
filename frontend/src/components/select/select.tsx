@@ -26,7 +26,7 @@ const Select = ({
   options,
   value = "",
   onChange,
-  placeholder = "Selecione uma opção",
+  placeholder = "Selecione a opção",
   disabled = false,
   allowClear = true,
   validationMessage = "",
@@ -136,8 +136,6 @@ const Select = ({
         onChange("");
         closeSelect();
 
-        inputRef.current?.blur();
-
         return;
       }
 
@@ -184,9 +182,7 @@ const Select = ({
   const handleClickOption = (value: string | number) => {
     onChange(value);
 
-    setTimeout(() => {
-      closeSelect();
-    }, 300);
+    closeSelect();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -271,6 +267,8 @@ const Select = ({
         }
 
         break;
+      default:
+        return;
     }
   };
 
@@ -302,16 +300,8 @@ const Select = ({
           onKeyDown={handleKeyDown}
           className={styles.input}
           disabled={disabled}
-          role="combobox"
-          aria-expanded={isOpen}
-          aria-haspopup="listbox"
-          aria-autocomplete="list"
-          aria-activedescendant={
-            isOpen && focusedIndex >= 0
-              ? `option-${filteredOptions[focusedIndex]?.value}`
-              : undefined
-          }
         />
+
         {selectedOption && allowClear ? (
           <CloseIcon onClick={handleClickIcon} size={15} disabled={disabled} />
         ) : (
@@ -333,17 +323,20 @@ const Select = ({
         </div>
       )}
 
-      {/* isOpen is present temporarily. Remove later */}
-      {!disabled && isOpen && (
+      {/* Fix later the performance issue caused by too many country SVGs. */}
+      {!disabled && (
         <div
           className={`${styles.dropdown} ${
             isOpen ? styles.dropdownVisible : ""
           }`}
           onMouseDown={handlePreventInputBlur}
-          role="listbox"
         >
-          <div ref={optionsListRef} className={styles.optionsList}>
-            {filteredOptions.length > 0 ? (
+          <div
+            ref={optionsListRef}
+            tabIndex={-1}
+            className={styles.optionsList}
+          >
+            {filteredOptions.length > 0 && isOpen ? (
               filteredOptions.map((option, index) => (
                 <div
                   id={`option-${option.value}`}
@@ -358,12 +351,21 @@ const Select = ({
                         : styles.focusedOption
                       : ""
                   }`}
-                  role="option"
-                  aria-selected={option.value === value}
                 >
                   {option.display}
                 </div>
               ))
+            ) : selectedOption ? (
+              <div
+                id={`option-${selectedOption.value}`}
+                key={selectedOption.value}
+                onClick={() => handleClickOption(selectedOption.value)}
+                className={`${styles.option} ${styles.selectedOption} ${
+                  lastInteractionWasKeyboard ? styles.focusedSelectedOption : ""
+                }`}
+              >
+                {selectedOption.display}
+              </div>
             ) : (
               <div className={styles.noOptions}>Nenhuma opção encontrada</div>
             )}

@@ -1,73 +1,55 @@
-.select {
+.datePicker {
   position: relative;
   margin: 0px 0px 10px 0px;
   font-size: smaller;
 }
 
-.selectHeader {
+.datePickerHeader {
   display: flex;
   align-items: center;
   height: 18px;
   padding: 8px 8px 8px 6px;
   border: 1px solid var(--color-white-3);
   border-radius: 8px;
-  cursor: text;
+  cursor: pointer;
   transition: border-color 0.3s;
 }
 
-.selectHeaderInvalid {
+.datePickerHeaderInvalid {
   border-color: var(--color-red-1);
 }
 
-.selectHeaderWarning {
+.datePickerHeaderWarning {
   border-color: var(--color-yellow-1);
 }
 
-.selectHeader:has(.input:focus),
-.selectHeaderOpen {
+.datePickerHeader:has(.input:focus),
+.datePickerHeaderOpen {
   border-color: var(--color-blue-1);
 }
 
-.selectHeaderInvalidOpen:has(.input:focus),
-.selectHeaderInvalidOpen {
+.datePickerHeaderInvalidOpen:has(.input:focus),
+.datePickerHeaderInvalidOpen {
   border-color: var(--color-red-1);
 }
 
-.selectHeaderWarningOpen:has(.input:focus),
-.selectHeaderWarningOpen {
+.datePickerHeaderWarningOpen:has(.input:focus),
+.datePickerHeaderWarningOpen {
   border-color: var(--color-yellow-1);
 }
 
-.selectHeaderDisabled {
+.datePickerHeaderDisabled {
   background-color: var(--color-white-2);
   cursor: not-allowed;
 }
 
-.displayNode {
-  position: absolute;
-  top: 50%;
-  z-index: 1;
-  padding: 0px 0px 0px 8.75px;
-  pointer-events: none;
-  transform: translateY(-50%);
-}
-
-/* May not work for all cases. */
-.displayNodeOpen > div *:not(span) {
-  opacity: 0.7;
-}
-
-.displayNodeOpen span {
-  color: var(--color-gray-placeholder);
-}
-
 .input {
-  z-index: 2;
   width: 100%;
   background-color: transparent;
   border: none;
   outline: none;
-  cursor: text;
+  cursor: pointer;
+  caret-color: transparent;
 }
 
 .input:disabled {
@@ -75,6 +57,7 @@
 }
 
 .dropdown {
+  overflow: hidden;
   position: absolute;
   top: calc(100% + 4px);
   left: 0;
@@ -94,47 +77,81 @@
   opacity: 1;
 }
 
-.optionsList {
+.calendarHeader {
   display: flex;
-  flex-direction: column;
-  max-height: 150px;
-  gap: 3px;
-  overflow-y: auto;
-  outline: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
 }
 
-.option {
-  padding: 8px 5px 8px 5px;
-  border-radius: 3px;
+.calendarPrevButtons,
+.calendarNextButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 50px;
+}
+
+.calendarTitle {
+  text-align: center;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendarWeekdays {
+  margin: 8px 0px 8px 0px;
+}
+
+.cell {
+  text-align: center;
+}
+
+.weekday {
+  font-weight: 600;
+}
+
+.day {
+  border: none;
   cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  background: transparent;
 }
 
-.option:hover {
-  background-color: var(--color-white-2);
+.day:hover {
+  background: var(--color-white-2);
 }
 
-.selectedOption,
-.selectedOption:hover {
+.dayToday {
+  outline: 2px solid var(--color-blue-1);
+  outline-offset: -2px;
+}
+
+.dayAnotherMonth {
+  color: var(--color-white-3);
+}
+
+.selectedDay,
+.selectedDay:hover {
   background-color: var(--color-blue-1);
   outline: none;
   color: var(--color-white-1);
 }
 
-.focusedOption {
+.focusedDay {
   background-color: var(--color-white-2);
   outline: 2px solid var(--color-white-3);
   outline-offset: -2px;
 }
 
-.focusedSelectedOption,
-.focusedSelectedOption:hover {
+.focusedSelectedDay,
+.focusedSelectedDay:hover {
   outline: 2px solid var(--color-blue-2);
   outline-offset: -2px;
-}
-
-.noOptions {
-  padding: 8px 5px 8px 5px;
-  color: var(--color-gray-placeholder);
-  text-align: center;
-  font-style: italic;
 }

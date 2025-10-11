@@ -42,6 +42,8 @@ export const useSignUp = () => {
   const [invalidFields, setInvalidFields] = useState<string[]>([]);
   const [warningFields, setWarningFields] = useState<string[]>([]);
 
+  const [birthdateInputValidationMessage, setBirthdateInputValidationMessage] =
+    useState<string>("");
   const [countrySelectValidationMessage, setCountrySelectValidationMessage] =
     useState<string>("");
 
@@ -72,14 +74,9 @@ export const useSignUp = () => {
     input: HTMLInputElement
   ) => {
     if (
-      ![
-        "name",
-        "imageUrl",
-        "birthdate",
-        "email",
-        "password",
-        "confirmPassword",
-      ].includes(name)
+      !["name", "imageUrl", "email", "password", "confirmPassword"].includes(
+        name
+      )
     ) {
       return;
     }
@@ -124,15 +121,6 @@ export const useSignUp = () => {
       } else if (value.length > USER.NAME.MAX) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(USER.NAME.MAX)
-        );
-        setInvalidFields((prev) => [...prev, name]);
-      } else {
-        isValid();
-      }
-    } else if (name === "birthdate") {
-      if (!isWithinAgeRange(value, USER.AGE.MIN, USER.AGE.MAX)) {
-        input.setCustomValidity(
-          USER_MESSAGES.FIELD_VALIDATION.BIRTHDATE(USER.AGE.MIN, USER.AGE.MAX)
         );
         setInvalidFields((prev) => [...prev, name]);
       } else {
@@ -242,6 +230,29 @@ export const useSignUp = () => {
     validateInputField(name, value, input);
   };
 
+  const handleChangeBirthdateInput = (value: string) => {
+    setSignUp({
+      ...signUp,
+      birthdate: value,
+    });
+
+    if (!value) {
+      setBirthdateInputValidationMessage(
+        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
+      );
+      setInvalidFields((prev) => [...prev, "birthdate"]);
+    } else if (!isWithinAgeRange(value, USER.AGE.MIN, USER.AGE.MAX)) {
+      setBirthdateInputValidationMessage(
+        USER_MESSAGES.FIELD_VALIDATION.BIRTHDATE(USER.AGE.MIN, USER.AGE.MAX)
+      );
+      setInvalidFields((prev) => [...prev, "birthdate"]);
+    } else {
+      setBirthdateInputValidationMessage("");
+      setInvalidFields((prev) => prev.filter((item) => item !== "birthdate"));
+      setWarningFields((prev) => prev.filter((item) => item !== "birthdate"));
+    }
+  };
+
   const handleChangeCountrySelect = (value: string) => {
     const newValue = value ? value : undefined;
 
@@ -337,10 +348,12 @@ export const useSignUp = () => {
     disabledButton,
     invalidFields,
     warningFields,
+    birthdateInputValidationMessage,
     countrySelectValidationMessage,
     loadingCountries,
     countries,
     handleChangeInput,
+    handleChangeBirthdateInput,
     handleChangeCountrySelect,
     handleSignUp,
     handleSignIn,

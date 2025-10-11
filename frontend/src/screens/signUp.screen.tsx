@@ -9,6 +9,7 @@ import Input from "../components/input/input";
 import { formatDateFromDate } from "../utils/formatDateFromDate";
 import { CURRENT_DATE } from "../config/constants";
 import { FormatDateEnum } from "../enums/FormatDate.enum";
+import DatePicker from "../components/datePicker/datePicker";
 
 const SignUpScreen = () => {
   const {
@@ -17,10 +18,12 @@ const SignUpScreen = () => {
     disabledButton,
     invalidFields,
     warningFields,
+    birthdateInputValidationMessage,
     countrySelectValidationMessage,
     loadingCountries,
     countries,
     handleChangeInput,
+    handleChangeBirthdateInput,
     handleChangeCountrySelect,
     handleSignUp,
     handleSignIn,
@@ -61,11 +64,10 @@ const SignUpScreen = () => {
               FormatDateEnum.DD_MM_YYYY
             )}`}
           >
-            <Input
-              id="birthdate"
-              type="date"
-              onChange={(e) => handleChangeInput(e, "birthdate")}
+            <DatePicker
+              onChange={handleChangeBirthdateInput}
               disabled={loadingRequest}
+              validationMessage={birthdateInputValidationMessage}
               fieldState={
                 invalidFields.includes("birthdate")
                   ? FieldStateEnum.Invalid
@@ -107,6 +109,7 @@ const SignUpScreen = () => {
                   <Country countryCode={country.code} name={country.name} />
                 ),
               }))}
+              disabled={loadingRequest}
               validationMessage={countrySelectValidationMessage}
               fieldState={
                 invalidFields.includes("countryId")
@@ -115,7 +118,6 @@ const SignUpScreen = () => {
                   ? FieldStateEnum.Warning
                   : FieldStateEnum.Default
               }
-              disabled={loadingRequest}
             />
           </FormGroup>
 
