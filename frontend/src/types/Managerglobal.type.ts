@@ -1,11 +1,12 @@
 import type { CountryType } from "./Country.type";
+import type { TeamglobalType } from "./Teamglobal.type";
 
-export interface UserType {
+export interface ManagerglobalType {
   id: string;
   name: string;
   imageUrl: string | null;
   birthdate: string;
-  email: string;
 
   country?: CountryType;
+  teamglobal?: TeamglobalType;
 }
