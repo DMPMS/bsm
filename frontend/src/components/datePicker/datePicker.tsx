@@ -222,7 +222,7 @@ const DatePicker = ({
   };
 
   function handleClickDate(date: Date) {
-    onChange(formatDateFromDate(date, FormatDateEnum.YYYY_MM_DD));
+    onChange(formatDateFromDate(date, FormatDateEnum.DASH_YYYY_MM_DD));
 
     setSelectedDate(date);
 
@@ -359,7 +359,10 @@ const DatePicker = ({
           placeholder={placeholder}
           value={
             selectedDate
-              ? formatDateFromDate(selectedDate, FormatDateEnum.DD_MM_YYYY)
+              ? formatDateFromDate(
+                  selectedDate,
+                  FormatDateEnum.SLASH_DD_MM_YYYY
+                )
               : ""
           }
           onFocus={handleFocusInput}

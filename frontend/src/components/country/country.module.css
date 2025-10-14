@@ -3,3 +3,7 @@
   gap: 8px;
   line-height: calc(var(--size) * 1px);
 }
+
+.countryIcon {
+  min-width: calc(var(--size) * 1px);
+}

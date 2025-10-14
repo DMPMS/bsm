@@ -15,7 +15,11 @@ const Country = ({ countryCode, name, size = 20, ...props }: CountryProps) => {
       style={{ "--size": size } as React.CSSProperties}
       {...props}
     >
-      <CountryIcon countryCode={countryCode} size={size} />
+      <CountryIcon
+        className={styles.countryIcon}
+        countryCode={countryCode}
+        size={size}
+      />
       <span>{name}</span>
     </div>
   );

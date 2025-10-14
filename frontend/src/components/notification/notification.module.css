@@ -12,6 +12,12 @@
   border: 1px solid var(--color-white-3);
   border-radius: 8px;
   color: var(--color-white-1);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.notificationVisible {
+  opacity: 1;
 }
 
 .success {

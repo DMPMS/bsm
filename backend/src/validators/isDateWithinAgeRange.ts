@@ -36,7 +36,7 @@ export class IsDateWithinAgeRange implements ValidatorConstraintInterface {
       args.property
     } must result in an age between ${minAge} and ${maxAge} years. The current system date is ${formatDateFromDate(
       CURRENT_DATE,
-      FormatDateEnum.MM_DD_YYYY
+      FormatDateEnum.SLASH_MM_DD_YYYY
     )}`;
   }
 }

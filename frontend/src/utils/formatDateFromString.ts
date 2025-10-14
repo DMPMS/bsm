@@ -12,23 +12,23 @@ export function formatDateFromString(
   const day = String(date.getDate()).padStart(2, "0");
 
   switch (outputFormat) {
-    case FormatDateEnum.YYYY_MM_DD:
+    case FormatDateEnum.DASH_YYYY_MM_DD:
       return `${year}-${month}-${day}`;
-    case FormatDateEnum.MM_DD_YYYY:
+    case FormatDateEnum.SLASH_MM_DD_YYYY:
       return `${month}/${day}/${year}`;
-    case FormatDateEnum.DD_MM_YYYY:
+    case FormatDateEnum.SLASH_DD_MM_YYYY:
       return `${day}/${month}/${year}`;
     default:
       return `${year}-${month}-${day}`;
   }
 }
 
-function parseDate(date: string, format: FormatDateEnum): Date {
+function parseDate(dateString: string, inputFormat: FormatDateEnum): Date {
   let year: number, month: number, day: number;
 
-  switch (format) {
-    case FormatDateEnum.YYYY_MM_DD: {
-      const parts = date.split("-");
+  switch (inputFormat) {
+    case FormatDateEnum.DASH_YYYY_MM_DD: {
+      const parts = dateString.split("-");
 
       year = parseInt(parts[0]);
       month = parseInt(parts[1]) - 1;
@@ -37,8 +37,8 @@ function parseDate(date: string, format: FormatDateEnum): Date {
       break;
     }
 
-    case FormatDateEnum.MM_DD_YYYY: {
-      const parts = date.split("/");
+    case FormatDateEnum.SLASH_MM_DD_YYYY: {
+      const parts = dateString.split("/");
 
       month = parseInt(parts[0]) - 1;
       day = parseInt(parts[1]);
@@ -46,8 +46,8 @@ function parseDate(date: string, format: FormatDateEnum): Date {
       break;
     }
 
-    case FormatDateEnum.DD_MM_YYYY: {
-      const parts = date.split("/");
+    case FormatDateEnum.SLASH_DD_MM_YYYY: {
+      const parts = dateString.split("/");
 
       day = parseInt(parts[0]);
       month = parseInt(parts[1]) - 1;
@@ -56,7 +56,7 @@ function parseDate(date: string, format: FormatDateEnum): Date {
     }
 
     default: {
-      const parts = date.split("-");
+      const parts = dateString.split("-");
 
       year = parseInt(parts[0]);
       month = parseInt(parts[1]) - 1;

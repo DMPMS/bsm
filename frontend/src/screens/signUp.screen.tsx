@@ -61,7 +61,7 @@ const SignUpScreen = () => {
             required={true}
             tooltip={`A data atual no sistema é ${formatDateFromDate(
               CURRENT_DATE,
-              FormatDateEnum.DD_MM_YYYY
+              FormatDateEnum.SLASH_DD_MM_YYYY
             )}`}
           >
             <DatePicker
