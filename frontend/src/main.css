@@ -26,6 +26,7 @@
   --color-white-3: #cccccc;
 
   --color-black: #000000;
+  --color-black-overlay: #00000080;
 }
 
 body {
