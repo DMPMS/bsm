@@ -16,6 +16,13 @@ export const SIGN_UP_MESSAGES = {
   },
 };
 
+export const TEAMGLOBAL_MESSAGES = {
+  SUCCESS: {
+    CREATE: "Time criado com sucesso",
+    DELETE: "Time deletado",
+  },
+};
+
 export const USER_MESSAGES = {
   FIELD_VALIDATION: {
     BIRTHDATE: (minAge: number, maxAge: number) =>

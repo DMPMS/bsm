@@ -12,6 +12,7 @@ import { verifyLoggedIn } from "./utils/auth";
 import Notification from "./components/notification/notification";
 import NotFoundScreen from "./screens/notFound.screen";
 import { saveRoutes } from "./routes/save.routes";
+import { teamglobalRoutes } from "./routes/teamglobal.routes";
 
 const routesNotLoggedIn: RouteObject[] = [...signInRoutes, ...signUpRoutes];
 
@@ -20,7 +21,10 @@ const routesLoggedIn: RouteObject[] = [...authRedirectRoutes].map((route) => ({
   loader: verifyLoggedIn(),
 }));
 
-const routesAdminLoggedIn: RouteObject[] = [...userRoutes].map((route) => ({
+const routesAdminLoggedIn: RouteObject[] = [
+  ...userRoutes,
+  ...teamglobalRoutes,
+].map((route) => ({
   ...route,
   loader: verifyLoggedIn(UserTypeEnum.Admin),
 }));
