@@ -4,8 +4,8 @@ import type { TableHeaderType } from "../../types/TableHeaderType";
 import { PAGINATION } from "../../config/constants";
 import styles from "./table.module.css";
 import { TableHideLevelEnum } from "../../enums/TableHideLevelEnum";
-import NextIcon from "../icons/next.icon";
-import PreviousIcon from "../icons/previous.icon";
+import PencilIcon from "../icons/pencil.icon";
+import TrashIcon from "../icons/trash.icon";
 
 interface TableProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -84,16 +84,22 @@ const Table = ({
           <td>
             <div className={styles.contentTdActions}>
               {actions.includes(TableActionEnum.Update) && (
-                <NextIcon
+                <PencilIcon
                   size={20}
+                  color="var(--color-yellow-1)"
+                  colorHover="var(--color-yellow-2)"
+                  colorDisabled="var(--color-yellow-1)"
                   onClick={() =>
                     handleUpdate ? handleUpdate(row.id) : undefined
                   }
                 />
               )}
               {actions.includes(TableActionEnum.Delete) && (
-                <PreviousIcon
+                <TrashIcon
                   size={20}
+                  color="var(--color-red-1)"
+                  colorHover="var(--color-red-2)"
+                  colorDisabled="var(--color-red-1)"
                   onClick={() =>
                     handleOpenModalDelete
                       ? handleOpenModalDelete(row.id)
