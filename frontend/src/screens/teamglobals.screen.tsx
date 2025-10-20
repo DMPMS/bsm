@@ -89,7 +89,7 @@ const TeamglobalsScreen = () => {
       </div>
 
       <Modal
-        title="Deseja realmente excluir esse time?"
+        title="Deseja realmente excluir este time?"
         description="Esta ação será irreversível."
         isOpen={openModalDelete}
         onConfirm={handleDelete}

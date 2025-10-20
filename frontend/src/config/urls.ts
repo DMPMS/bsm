@@ -9,6 +9,7 @@ if (!BACKEND_API_PORT) {
 export const URL_AUTH = `http://localhost:${BACKEND_API_PORT}/api/auth`;
 
 export const URL_USER = `http://localhost:${BACKEND_API_PORT}/api/user`;
+export const URL_USER_ID = `http://localhost:${BACKEND_API_PORT}/api/user/:userId`;
 
 export const URL_COUNTRY = `http://localhost:${BACKEND_API_PORT}/api/country`;
 

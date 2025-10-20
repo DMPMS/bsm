@@ -34,6 +34,9 @@ export const USER_MESSAGES = {
       PASSWORDS_DO_NOT_MATCH: "As senhas não coincidem.",
     },
   },
+  SUCCESS: {
+    DELETE: "Usuário deletado",
+  },
 };
 
 export const ENV_MESSAGES = {

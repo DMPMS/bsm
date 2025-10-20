@@ -10,6 +10,7 @@ export const PAGINATION = {
 
 export const DEFAULT_TEAMGLOBAL_URL =
   "https://i.ibb.co/HTJXnqSW/default-team.png";
+export const DEFAULT_USER_URL = "https://i.ibb.co/Y4nfzFbB/default-user.png";
 
 export const USER = {
   NAME: {

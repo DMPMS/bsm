@@ -24,9 +24,14 @@ export class UserController {
         limit = PAGINATION.DEFAULT_LIMIT,
       } = req.query;
 
+      const relationsOptions: RelationsOptionsType = {
+        country: true,
+      };
+
       const users = await this.userService.getUsers(
         Number(page),
-        Number(limit)
+        Number(limit),
+        relationsOptions
       );
 
       res

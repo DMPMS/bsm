@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.cardUsers {
+  display: flex;
+  flex-direction: column;
+  width: 1000px;
+  padding: 16px;
+  margin: 16px;
+  border-radius: 8px;
+  background-color: var(--color-white-1);
+}
+
+.h2 {
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.containerSearch {
+  display: flex;
+  margin: 0 0 10px 0;
+}
+
+.input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--color-white-3);
+  transition: border-color 0.3s;
+}
+
+.input:focus {
+  border-color: var(--color-blue-1);
+  outline: none;
+}
+
+.imageWithName {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@media (max-width: 400px) {
+  .input {
+    flex: 1;
+  }
+}
