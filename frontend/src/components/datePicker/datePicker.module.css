@@ -1,6 +1,6 @@
 .datePicker {
   position: relative;
-  margin: 0px 0px 10px 0px;
+  margin: 0 0 10px 0;
   font-size: smaller;
 }
 
@@ -106,7 +106,7 @@
 }
 
 .calendarWeekdays {
-  margin: 8px 0px 8px 0px;
+  margin: 8px 0 8px 0;
 }
 
 .cell {
@@ -138,11 +138,13 @@
   color: var(--color-white-3);
 }
 
-.selectedDay,
-.selectedDay:hover {
+.selectedDay {
   background-color: var(--color-blue-1);
-  outline: none;
   color: var(--color-white-1);
+}
+
+.selectedDay:hover {
+  background-color: var(--color-blue-2);
 }
 
 .focusedDay {
@@ -153,6 +155,6 @@
 
 .focusedSelectedDay,
 .focusedSelectedDay:hover {
-  outline: 2px solid var(--color-blue-2);
+  outline: 2px solid var(--color-blue-3);
   outline-offset: -2px;
 }

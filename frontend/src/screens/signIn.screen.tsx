@@ -72,7 +72,7 @@ const SignInScreen = () => {
             >
               <span>Entrar</span>
               {loadingRequest && (
-                <Spinner size={12} classname={styles.spinner} />
+                <Spinner size={12} className={styles.spinner} />
               )}
             </span>
           </button>

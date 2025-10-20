@@ -6,7 +6,7 @@
 .label {
   display: flex;
   justify-content: space-between;
-  margin: 0px 5px 5px 5px;
+  margin: 0 5px 5px 5px;
 }
 
 .asterisk {

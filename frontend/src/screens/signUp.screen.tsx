@@ -10,6 +10,7 @@ import { formatDateFromDate } from "../utils/formatDateFromDate";
 import { CURRENT_DATE } from "../config/constants";
 import { FormatDateEnum } from "../enums/FormatDate.enum";
 import DatePicker from "../components/datePicker/datePicker";
+import { parseDate } from "../utils/formatDateFromString";
 
 const SignUpScreen = () => {
   const {
@@ -44,6 +45,7 @@ const SignUpScreen = () => {
               id="name"
               type="text"
               placeholder="Nome"
+              value={signUp.name}
               onChange={(e) => handleChangeInput(e, "name")}
               disabled={loadingRequest}
               fieldState={
@@ -66,6 +68,11 @@ const SignUpScreen = () => {
           >
             <DatePicker
               onChange={handleChangeBirthdateInput}
+              value={
+                signUp.birthdate
+                  ? parseDate(signUp.birthdate, FormatDateEnum.DASH_YYYY_MM_DD)
+                  : undefined
+              }
               disabled={loadingRequest}
               validationMessage={birthdateInputValidationMessage}
               fieldState={
@@ -83,6 +90,7 @@ const SignUpScreen = () => {
               id="email"
               type="email"
               placeholder="seuemail@email.com"
+              value={signUp.email}
               onChange={(e) => handleChangeInput(e, "email")}
               disabled={loadingRequest}
               fieldState={
@@ -126,6 +134,7 @@ const SignUpScreen = () => {
               id="password"
               type="password"
               placeholder="••••••••"
+              value={signUp.password}
               onChange={(e) => handleChangeInput(e, "password")}
               disabled={loadingRequest}
               fieldState={
@@ -143,6 +152,7 @@ const SignUpScreen = () => {
               id="confirmPassword"
               type="password"
               placeholder="••••••••"
+              value={signUp.confirmPassword}
               onChange={(e) => handleChangeInput(e, "confirmPassword")}
               disabled={loadingRequest}
               fieldState={
@@ -183,7 +193,7 @@ const SignUpScreen = () => {
               >
                 <span>Criar Conta</span>
                 {loadingRequest && (
-                  <Spinner size={12} classname={styles.spinner} />
+                  <Spinner size={12} className={styles.spinner} />
                 )}
               </span>
             </button>

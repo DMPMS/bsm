@@ -3,6 +3,7 @@ import Image from "../components/image/image";
 import Modal from "../components/modal/modal";
 import Spinner from "../components/spinner/spinner";
 import Table from "../components/table/table";
+import { DEFAULT_TEAMGLOBAL_URL } from "../config/constants";
 import { TableActionEnum } from "../enums/TableActionEnum";
 import { TableHideLevelEnum } from "../enums/TableHideLevelEnum";
 import { useTeamglobal } from "../hooks/useTeamglobal";
@@ -42,7 +43,8 @@ const TeamglobalsScreen = () => {
     id: teamglobal.id,
     name: (
       <div className={styles.imageWithName}>
-        <Image src={teamglobal.imageUrl || ""} size={20} /> {teamglobal.name}
+        <Image src={teamglobal.imageUrl || DEFAULT_TEAMGLOBAL_URL} size={20} />{" "}
+        {teamglobal.name}
       </div>
     ),
     abbreviation: teamglobal.abbreviation,

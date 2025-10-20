@@ -8,4 +8,5 @@ export enum KeyboardKeyEnum {
   Tab = "Tab",
   Backspace = "Backspace",
   Delete = "Delete",
+  Space = " ",
 }

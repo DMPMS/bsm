@@ -14,7 +14,7 @@
 }
 
 .h2 {
-  margin: 0px 0px 20px 0px;
+  margin: 0 0 20px 0;
   text-align: center;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .signInContainer {
-  margin: 10px 0px 0px 0px;
+  margin: 10px 0 0 0;
   text-align: center;
 }
 
@@ -37,10 +37,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
-  margin: 20px 0px 0px 0px;
+  margin: 20px 0 0 0;
 }
 
 .button {
+  height: 36px;
   flex: 1;
   padding: 10px;
   border: none;
@@ -48,11 +49,13 @@
   color: var(--color-white-1);
   cursor: pointer;
   transition: background-color 0.3s;
+  outline-offset: -1px;
 }
 
 .submitButton {
   min-width: 150px;
   background-color: var(--color-blue-1);
+  outline-color: var(--color-blue-3);
 }
 
 .submitButton:hover {
@@ -66,6 +69,7 @@
 
 .resetButton {
   background-color: var(--color-gray-1);
+  outline-color: var(--color-gray-3);
 }
 
 .resetButton:hover {
@@ -81,7 +85,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0px;
+  gap: 0;
   transition: gap 0.3s;
 }
 
@@ -90,5 +94,5 @@
 }
 
 .spinner {
-  margin: 0px 0px 0px 1px;
+  margin: 0 0 0 1px;
 }

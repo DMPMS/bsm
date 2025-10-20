@@ -6,6 +6,7 @@ import styles from "./table.module.css";
 import { TableHideLevelEnum } from "../../enums/TableHideLevelEnum";
 import PencilIcon from "../icons/pencil.icon";
 import TrashIcon from "../icons/trash.icon";
+import { KeyboardKeyEnum } from "../../enums/KeyboardKey.enum";
 
 interface TableProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -84,28 +85,60 @@ const Table = ({
           <td>
             <div className={styles.contentTdActions}>
               {actions.includes(TableActionEnum.Update) && (
-                <PencilIcon
-                  size={20}
-                  color="var(--color-yellow-1)"
-                  colorHover="var(--color-yellow-2)"
-                  colorDisabled="var(--color-yellow-1)"
+                <button
+                  type="button"
+                  className={`${styles.buttonIcon} ${styles.buttonIconUpdate}`}
                   onClick={() =>
                     handleUpdate ? handleUpdate(row.id) : undefined
                   }
-                />
+                  onKeyDown={(e) => {
+                    if (
+                      e.key === KeyboardKeyEnum.Enter ||
+                      e.key === KeyboardKeyEnum.Space
+                    ) {
+                      e.preventDefault();
+                      if (handleUpdate) {
+                        handleUpdate(row.id);
+                      }
+                    }
+                  }}
+                >
+                  <PencilIcon
+                    size={20}
+                    color="var(--color-yellow-1)"
+                    colorHover="var(--color-yellow-2)"
+                    colorDisabled="var(--color-yellow-1)"
+                  />
+                </button>
               )}
               {actions.includes(TableActionEnum.Delete) && (
-                <TrashIcon
-                  size={20}
-                  color="var(--color-red-1)"
-                  colorHover="var(--color-red-2)"
-                  colorDisabled="var(--color-red-1)"
+                <button
+                  type="button"
+                  className={`${styles.buttonIcon} ${styles.buttonIconDelete}`}
                   onClick={() =>
                     handleOpenModalDelete
                       ? handleOpenModalDelete(row.id)
                       : undefined
                   }
-                />
+                  onKeyDown={(e) => {
+                    if (
+                      e.key === KeyboardKeyEnum.Enter ||
+                      e.key === KeyboardKeyEnum.Space
+                    ) {
+                      e.preventDefault();
+                      if (handleOpenModalDelete) {
+                        handleOpenModalDelete(row.id);
+                      }
+                    }
+                  }}
+                >
+                  <TrashIcon
+                    size={20}
+                    color="var(--color-red-1)"
+                    colorHover="var(--color-red-2)"
+                    colorDisabled="var(--color-red-1)"
+                  />
+                </button>
               )}
             </div>
           </td>

@@ -7,7 +7,7 @@ import {
 @ValidatorConstraint({ name: "isCustomEmail", async: false })
 export class IsCustomEmail implements ValidatorConstraintInterface {
   validate(email: string) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    const emailRegex = /^[^\s@]+@[^.\s@][^\s@]*\.[^\s@]{2,}$/;
     return emailRegex.test(email);
   }
 

@@ -1,6 +1,6 @@
 .select {
   position: relative;
-  margin: 0px 0px 10px 0px;
+  margin: 0 0 10px 0;
   font-size: smaller;
 }
 
@@ -47,7 +47,7 @@
   position: absolute;
   top: 50%;
   z-index: 1;
-  padding: 0px 0px 0px 8.75px;
+  padding: 0 0 0 8.75px;
   pointer-events: none;
   transform: translateY(-50%);
 }
@@ -100,7 +100,6 @@
   max-height: 150px;
   gap: 3px;
   overflow-y: auto;
-  outline: none;
 }
 
 .option {
@@ -113,11 +112,13 @@
   background-color: var(--color-white-2);
 }
 
-.selectedOption,
-.selectedOption:hover {
+.selectedOption {
   background-color: var(--color-blue-1);
-  outline: none;
   color: var(--color-white-1);
+}
+
+.selectedOption:hover {
+  background-color: var(--color-blue-2);
 }
 
 .focusedOption {
@@ -128,7 +129,7 @@
 
 .focusedSelectedOption,
 .focusedSelectedOption:hover {
-  outline: 2px solid var(--color-blue-2);
+  outline: 2px solid var(--color-blue-3);
   outline-offset: -2px;
 }
 

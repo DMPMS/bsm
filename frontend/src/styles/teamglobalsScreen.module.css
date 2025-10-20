@@ -16,7 +16,7 @@
 }
 
 .h2 {
-  margin: 0px 0px 20px 0px;
+  margin: 0 0 20px 0;
   text-align: center;
 }
 
@@ -25,7 +25,7 @@
   flex-wrap: wrap;
   gap: 10px;
   justify-content: space-between;
-  margin: 0px 0px 10px 0px;
+  margin: 0 0 10px 0;
 }
 
 .input {
@@ -42,6 +42,7 @@
 
 .button {
   min-width: 85px;
+  height: 36px;
   padding: 10px;
   border-radius: 8px;
   background-color: var(--color-blue-1);
@@ -49,6 +50,8 @@
   border: none;
   cursor: pointer;
   transition: background-color 0.3s;
+  outline-color: var(--color-blue-3);
+  outline-offset: -1px;
 }
 
 .button:hover {

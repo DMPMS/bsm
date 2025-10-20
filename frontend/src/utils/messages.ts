@@ -18,7 +18,7 @@ export const SIGN_UP_MESSAGES = {
 
 export const TEAMGLOBAL_MESSAGES = {
   SUCCESS: {
-    CREATE: "Time criado com sucesso",
+    CREATE: "Time criado",
     DELETE: "Time deletado",
   },
 };

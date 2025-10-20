@@ -123,8 +123,10 @@ const DatePicker = ({
   }, []);
 
   useEffect(() => {
-    inputRef.current?.setCustomValidity(validationMessage);
-    inputRef.current?.reportValidity();
+    if (inputRef.current && document.activeElement === inputRef.current) {
+      inputRef.current.setCustomValidity(validationMessage);
+      inputRef.current.reportValidity();
+    }
   }, [selectedDate]);
 
   const weeks = useMemo(() => {
@@ -282,6 +284,7 @@ const DatePicker = ({
 
         break;
       case KeyboardKeyEnum.Enter:
+      case KeyboardKeyEnum.Space:
         e.preventDefault();
 
         if (!isOpen) {

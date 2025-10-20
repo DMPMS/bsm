@@ -8,19 +8,19 @@ export const USER_MESSAGES = {
     DELETE_USER_ERROR: "Erro ao deletar usuário",
     DELETE_ADMIN_ERROR: "Erro ao deletar administrador",
     USER_ROOT_ID_NOT_FOUND: (userId: string) =>
-      `O usuário root com id ${userId} não foi encontrado`,
+      `O usuário root com identificador ${userId} não foi encontrado`,
     USER_ADMIN_ID_NOT_FOUND: (userId: string) =>
-      `O usuário admin com id ${userId} não foi encontrado`,
+      `O usuário admin com identificador ${userId} não foi encontrado`,
     USER_ID_NOT_FOUND: (userId: string) =>
-      `O usuário com id ${userId} não foi encontrado`,
+      `O usuário com identificador ${userId} não foi encontrado`,
     USER_EMAIL_NOT_FOUND: (userEmail: string) =>
       `O usuário com e-mail ${userEmail} não foi encontrado`,
-    USER_ID_IS_REQUIRED: "O userId é obrigatório",
-    USER_TYPE_IS_REQUIRED: "O userType é obrigatório",
+    USER_ID_IS_REQUIRED: "O identificador do usuário é obrigatório",
+    USER_TYPE_IS_REQUIRED: "O tipo do usuário é obrigatório",
     USER_DELETE_ID_IS_INVALID:
-      "O userDeleteId é obrigatório e precisa ser um UUID",
+      "O identificador do usuário a ser deletado é obrigatório e precisa ser um UUID",
     ADMIN_DELETE_ID_IS_INVALID:
-      "O adminDeleteId é obrigatório e precisa ser um UUID",
+      "O identificador do administrador a ser deletado é obrigatório e precisa ser um UUID",
     PASSWORDS_DO_NOT_MATCH: "As senhas não coincidem",
     EMAIL_ALREADY_EXISTS: "E-mail já cadastrado",
     INVALID_USER_PASSWORD: "Senha atual incorreta",
@@ -44,7 +44,7 @@ export const COUNTRY_MESSAGES = {
   ERROR: {
     SELECT_COUNTRY_ERROR: "Erro ao buscar países",
     COUNTRY_ID_NOT_FOUND: (countryId: string) =>
-      `O país com id ${countryId} não foi encontrado`,
+      `O país com identificador ${countryId} não foi encontrado`,
   },
 };
 
@@ -52,7 +52,7 @@ export const POSITION_MESSAGES = {
   ERROR: {
     SELECT_POSITION_ERROR: "Erro ao buscar posições",
     POSITION_ID_NOT_FOUND: (positionId: string) =>
-      `A posição com id ${positionId} não foi encontrada`,
+      `A posição com identificador ${positionId} não foi encontrada`,
   },
 };
 
@@ -60,96 +60,96 @@ export const RULE_MESSAGES = {
   ERROR: {
     SELECT_RULE_ERROR: "Erro ao buscar regras",
     RULE_ID_NOT_FOUND: (ruleId: string) =>
-      `A regra com id ${ruleId} não foi encontrada`,
+      `A regra com identificador ${ruleId} não foi encontrada`,
     RULE_CODE_NOT_FOUND: (ruleCode: number) =>
       `A regra com código ${ruleCode} não foi encontrada`,
     RULE_WITH_COMPETITIONGLOBAL: (ruleId: string) =>
-      `A regra com id ${ruleId} possui uma competitionglobal`,
+      `A regra com identificador ${ruleId} possui uma competitição associada`,
   },
 };
 
 export const MANAGERGLOBAL_MESSAGES = {
   ERROR: {
-    CREATE_MANAGERGLOBAL_ERROR: "Erro ao criar managerglobal",
-    UPDATE_MANAGERGLOBAL_ERROR: "Erro ao editar managerglobal",
-    SELECT_MANAGERGLOBAL_ERROR: "Erro ao buscar managerglobals",
-    SELECT_MANAGERGLOBAL_BY_ID_ERROR: "Erro ao buscar managerglobal",
-    DELETE_MANAGERGLOBAL_ERROR: "Erro ao deletar managerglobal",
+    CREATE_MANAGERGLOBAL_ERROR: "Erro ao criar treinador",
+    UPDATE_MANAGERGLOBAL_ERROR: "Erro ao editar treinador",
+    SELECT_MANAGERGLOBAL_ERROR: "Erro ao buscar treinadores",
+    SELECT_MANAGERGLOBAL_BY_ID_ERROR: "Erro ao buscar treinador",
+    DELETE_MANAGERGLOBAL_ERROR: "Erro ao deletar treinador",
     MANAGERGLOBAL_ID_NOT_FOUND: (managerglobalId: string) =>
-      `O managerglobal com id ${managerglobalId} não foi encontrado`,
+      `O treinador com identificador ${managerglobalId} não foi encontrado`,
     MANAGERGLOBAL_ID_IS_INVALID:
-      "O managerglobalId é obrigatório e precisa ser um UUID",
+      "O identificador do treinador é obrigatório e precisa ser um UUID",
     MANAGERGLOBAL_WITH_TEAMGLOBAL: (managerglobalId: string) =>
-      `O managerglobal com id ${managerglobalId} possui um teamglobal`,
+      `O treinador com identificador ${managerglobalId} possui um time associado`,
   },
   SUCCESS: {
-    MANAGERGLOBAL_DELETED_SUCCESSFULLY: "Managerglobal deletado",
+    MANAGERGLOBAL_DELETED_SUCCESSFULLY: "Treinador deletado",
   },
 };
 
 export const COMPETITIONGLOBAL_MESSAGES = {
   ERROR: {
-    CREATE_COMPETITIONGLOBAL_ERROR: "Erro ao criar competitionglobal",
-    UPDATE_COMPETITIONGLOBAL_ERROR: "Erro ao editar competitionglobal",
-    SELECT_COMPETITIONGLOBAL_ERROR: "Erro ao buscar competitionglobals",
-    SELECT_COMPETITIONGLOBAL_BY_ID_ERROR: "Erro ao buscar competitionglobal",
-    DELETE_COMPETITIONGLOBAL_ERROR: "Erro ao deletar competitionglobal",
+    CREATE_COMPETITIONGLOBAL_ERROR: "Erro ao criar competição",
+    UPDATE_COMPETITIONGLOBAL_ERROR: "Erro ao editar competição",
+    SELECT_COMPETITIONGLOBAL_ERROR: "Erro ao buscar competições",
+    SELECT_COMPETITIONGLOBAL_BY_ID_ERROR: "Erro ao buscar competição",
+    DELETE_COMPETITIONGLOBAL_ERROR: "Erro ao deletar competição",
     COMPETITIONGLOBAL_ID_IS_INVALID:
-      "O competitionglobalId é obrigatório e precisa ser um UUID",
+      "O identificador da competição é obrigatório e precisa ser um UUID",
     COMPETITIONGLOBAL_ID_NOT_FOUND: (competitionglobalId: string) =>
-      `O competitionglobal com id ${competitionglobalId} não foi encontrado`,
+      `A competição com identificador ${competitionglobalId} não foi encontrada`,
     TEAMGLOBALS_COUNT_INVALID: (
       teamglobalsCount: number,
       expectedCount: number
     ) =>
-      `Foram passados ${teamglobalsCount} teamglobals, mas esperava-se ${expectedCount}`,
+      `Foram passados ${teamglobalsCount} times, mas esperava-se ${expectedCount}`,
     COMPETITION_RULE_CONFLICT_MESSAGE: (teamglobalId: string) =>
-      `O teamglobal com id ${teamglobalId} pertence a outra competição que conflita com as regras da competição em criação`,
+      `O time com identificador ${teamglobalId} pertence a outra competição que conflita com as regras da competição em criação`,
   },
   SUCCESS: {
-    COMPETITIONGLOBAL_DELETED_SUCCESSFULLY: "Competitionglobal deletada",
+    COMPETITIONGLOBAL_DELETED_SUCCESSFULLY: "Competição deletada",
   },
 };
 
 export const TEAMGLOBAL_MESSAGES = {
   ERROR: {
-    CREATE_TEAMGLOBAL_ERROR: "Erro ao criar teamglobal",
-    UPDATE_TEAMGLOBAL_ERROR: "Erro ao editar teamglobal",
-    SELECT_TEAMGLOBAL_ERROR: "Erro ao buscar teamglobals",
-    SELECT_TEAMGLOBAL_BY_ID_ERROR: "Erro ao buscar teamglobal",
-    DELETE_TEAMGLOBAL_ERROR: "Erro ao deletar teamglobal",
+    CREATE_TEAMGLOBAL_ERROR: "Erro ao criar time",
+    UPDATE_TEAMGLOBAL_ERROR: "Erro ao editar time",
+    SELECT_TEAMGLOBAL_ERROR: "Erro ao buscar times",
+    SELECT_TEAMGLOBAL_BY_ID_ERROR: "Erro ao buscar time",
+    DELETE_TEAMGLOBAL_ERROR: "Erro ao deletar time",
     TEAMGLOBAL_ID_IS_INVALID:
-      "O teamglobalId é obrigatório e precisa ser um UUID",
+      "O identificador do time é obrigatório e precisa ser um UUID",
     TEAMGLOBAL_ID_NOT_FOUND: (teamglobalId: string) =>
-      `O teamglobal com id ${teamglobalId} não foi encontrado`,
+      `O time com identificador ${teamglobalId} não foi encontrado`,
     TEAMGLOBAL_WITH_COMPETITIONGLOBAL: (teamglobalId: string) =>
-      `O teamglobal com id ${teamglobalId} possui uma competitionglobal`,
+      `O time com identificador ${teamglobalId} possui uma competição associada`,
   },
   SUCCESS: {
-    TEAMGLOBAL_DELETED_SUCCESSFULLY: "Teamglobal deletado",
+    TEAMGLOBAL_DELETED_SUCCESSFULLY: "Time deletado",
   },
 };
 
 export const PLAYERGLOBAL_MESSAGES = {
   ERROR: {
-    CREATE_PLAYERGLOBAL_ERROR: "Erro ao criar playerglobal",
-    UPDATE_PLAYERGLOBAL_ERROR: "Erro ao editar playerglobal",
-    SELECT_PLAYERGLOBAL_ERROR: "Erro ao buscar playerglobals",
-    SELECT_PLAYERGLOBAL_BY_ID_ERROR: "Erro ao buscar playerglobal",
-    DELETE_PLAYERGLOBAL_ERROR: "Erro ao deletar playerglobal",
+    CREATE_PLAYERGLOBAL_ERROR: "Erro ao criar jogador",
+    UPDATE_PLAYERGLOBAL_ERROR: "Erro ao editar jogador",
+    SELECT_PLAYERGLOBAL_ERROR: "Erro ao buscar jogadores",
+    SELECT_PLAYERGLOBAL_BY_ID_ERROR: "Erro ao buscar jogador",
+    DELETE_PLAYERGLOBAL_ERROR: "Erro ao deletar jogador",
     PLAYERGLOBAL_ID_NOT_FOUND: (playerglobalId: string) =>
-      `O playerglobal com id ${playerglobalId} não foi encontrado`,
+      `O jogador com identificador ${playerglobalId} não foi encontrado`,
     PLAYERGLOBAL_ID_IS_INVALID:
-      "O playerglobalId é obrigatório e precisa ser um UUID",
+      "O identificador do jogador é obrigatório e precisa ser um UUID",
     PLAYERGLOBAL_WITH_TEAMGLOBAL: (playerglobalId: string) =>
-      `O playerglobal com id ${playerglobalId} possui um teamglobal`,
+      `O jogador com identificador ${playerglobalId} possui um time associado`,
     COMMON_POSITION_IDS: (commonPositionIds: string[]) =>
-      `Os seguintes positionIds são comuns entre as posições primárias e secundárias: ${commonPositionIds.join(
+      `Os seguintes identificadores são comuns entre as posições primárias e secundárias: ${commonPositionIds.join(
         ", "
       )}`,
   },
   SUCCESS: {
-    PLAYERGLOBAL_DELETED_SUCCESSFULLY: "Playerglobal deletado",
+    PLAYERGLOBAL_DELETED_SUCCESSFULLY: "Jogador deletado",
   },
 };
 

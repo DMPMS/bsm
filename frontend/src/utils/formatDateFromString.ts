@@ -23,7 +23,10 @@ export function formatDateFromString(
   }
 }
 
-function parseDate(dateString: string, inputFormat: FormatDateEnum): Date {
+export function parseDate(
+  dateString: string,
+  inputFormat: FormatDateEnum
+): Date {
   let year: number, month: number, day: number;
 
   switch (inputFormat) {

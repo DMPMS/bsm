@@ -8,6 +8,9 @@ export const PAGINATION = {
   DEFAULT_LIMIT: 5,
 };
 
+export const DEFAULT_TEAMGLOBAL_URL =
+  "https://i.ibb.co/HTJXnqSW/default-team.png";
+
 export const USER = {
   NAME: {
     MIN: 4,
