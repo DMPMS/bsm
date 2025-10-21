@@ -13,5 +13,10 @@ export const URL_USER_ID = `http://localhost:${BACKEND_API_PORT}/api/user/:userI
 
 export const URL_COUNTRY = `http://localhost:${BACKEND_API_PORT}/api/country`;
 
+export const URL_POSITION = `http://localhost:${BACKEND_API_PORT}/api/position`;
+
 export const URL_TEAMGLOBAL = `http://localhost:${BACKEND_API_PORT}/api/teamglobal`;
 export const URL_TEAMGLOBAL_ID = `http://localhost:${BACKEND_API_PORT}/api/teamglobal/:teamglobalId`;
+
+export const URL_PLAYERGLOBAL = `http://localhost:${BACKEND_API_PORT}/api/playerglobal`;
+export const URL_PLAYERGLOBAL_ID = `http://localhost:${BACKEND_API_PORT}/api/playerglobal/:playerglobalId`;

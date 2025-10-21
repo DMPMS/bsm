@@ -4,7 +4,7 @@ import { useUser } from "../hooks/useUser";
 import type { TableHeaderType } from "../types/TableHeaderType";
 import styles from "../styles/usersScreen.module.css";
 import Image from "../components/image/image";
-import { DEFAULT_USER_URL } from "../config/constants";
+import { DEFAULT_USER_IMAGE_URL } from "../config/constants";
 import CountryIcon from "../components/icons/country.icon";
 import Spinner from "../components/spinner/spinner";
 import Table from "../components/table/table";
@@ -33,7 +33,8 @@ const UsersScreen = () => {
     id: user.id,
     name: (
       <div className={styles.imageWithName}>
-        <Image src={user.imageUrl || DEFAULT_USER_URL} size={20} /> {user.name}
+        <Image src={user.imageUrl || DEFAULT_USER_IMAGE_URL} size={20} />{" "}
+        {user.name}
       </div>
     ),
     country: (

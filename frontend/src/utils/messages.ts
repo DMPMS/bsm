@@ -23,6 +23,13 @@ export const TEAMGLOBAL_MESSAGES = {
   },
 };
 
+export const PLAYERGLOBAL_MESSAGES = {
+  SUCCESS: {
+    CREATE: "Jogador criado",
+    DELETE: "Jogador deletado",
+  },
+};
+
 export const USER_MESSAGES = {
   FIELD_VALIDATION: {
     BIRTHDATE: (minAge: number, maxAge: number) =>

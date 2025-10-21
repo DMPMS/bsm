@@ -8,9 +8,12 @@ export const PAGINATION = {
   DEFAULT_LIMIT: 5,
 };
 
-export const DEFAULT_TEAMGLOBAL_URL =
+export const DEFAULT_TEAMGLOBAL_IMAGE_URL =
   "https://i.ibb.co/HTJXnqSW/default-team.png";
-export const DEFAULT_USER_URL = "https://i.ibb.co/Y4nfzFbB/default-user.png";
+export const DEFAULT_USER_IMAGE_URL =
+  "https://i.ibb.co/Y4nfzFbB/default-user.png";
+export const DEFAULT_PLAYERGLOBAL_IMAGE_URL =
+  "https://i.ibb.co/RpRcyk1x/default-jogador.png";
 
 export const USER = {
   NAME: {

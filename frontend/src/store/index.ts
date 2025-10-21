@@ -4,6 +4,8 @@ import globalReducer from "./reducers/globalReducer";
 import userReducer from "./reducers/userReducer";
 import countryReducer from "./reducers/countryReducer";
 import teamglobalReducer from "./reducers/teamglobalReducer";
+import positionReducer from "./reducers/positionReducer";
+import playerglobalReducer from "./reducers/playerglobalReducer";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +13,8 @@ export const store = configureStore({
     userReducer,
     countryReducer,
     teamglobalReducer,
+    positionReducer,
+    playerglobalReducer,
   },
 });
 

@@ -1,20 +1,20 @@
-import CountryIcon from "../components/icons/country.icon";
 import Image from "../components/image/image";
-import Modal from "../components/modal/modal";
-import Spinner from "../components/spinner/spinner";
-import Table from "../components/table/table";
-import { DEFAULT_TEAMGLOBAL_IMAGE_URL } from "../config/constants";
 import { TableActionEnum } from "../enums/TableActionEnum";
 import { TableHideLevelEnum } from "../enums/TableHideLevelEnum";
-import { useTeamglobal } from "../hooks/useTeamglobal";
-import styles from "../styles/teamglobalsScreen.module.css";
+import { usePlayerglobal } from "../hooks/usePlayerglobal";
 import type { TableHeaderType } from "../types/TableHeaderType";
+import styles from "../styles/playerglobalsScreen.module.css";
+import { DEFAULT_PLAYERGLOBAL_IMAGE_URL } from "../config/constants";
+import CountryIcon from "../components/icons/country.icon";
+import Spinner from "../components/spinner/spinner";
+import Table from "../components/table/table";
+import Modal from "../components/modal/modal";
 
-const TeamglobalsScreen = () => {
+const PlayerglobalsScreen = () => {
   const {
-    loadingTeamglobals,
+    loadingPlayerglobals,
     loadingRequest,
-    teamglobals,
+    playerglobals,
     handleCreate,
     handleSearch,
     handleUpdate,
@@ -22,15 +22,11 @@ const TeamglobalsScreen = () => {
     openModalDelete,
     handleOpenModalDelete,
     handleCloseModalDelete,
-  } = useTeamglobal();
+  } = usePlayerglobal();
 
   const tableHeaders: TableHeaderType[] = [
     { th: "Nome", td: "name" },
-    {
-      th: "Abreviação",
-      td: "abbreviation",
-      hideAtWith: TableHideLevelEnum.at900,
-    },
+    { th: "Time", td: "teamglobal", hideAtWith: TableHideLevelEnum.at500 },
     { th: "País", td: "country", hideAtWith: TableHideLevelEnum.at700 },
   ];
 
@@ -39,34 +35,44 @@ const TeamglobalsScreen = () => {
     TableActionEnum.Update,
   ];
 
-  const tableData = teamglobals.map((teamglobal) => ({
-    id: teamglobal.id,
+  const tableData = playerglobals.map((playerglobal) => ({
+    id: playerglobal.id,
     name: (
       <div className={styles.imageWithName}>
         <Image
-          src={teamglobal.imageUrl || DEFAULT_TEAMGLOBAL_IMAGE_URL}
+          src={playerglobal.imageUrl || DEFAULT_PLAYERGLOBAL_IMAGE_URL}
           size={20}
         />{" "}
-        {teamglobal.name}
+        {playerglobal.name}
       </div>
     ),
-    abbreviation: teamglobal.abbreviation,
+    teamglobal: playerglobal.teamglobal ? (
+      <div className={styles.imageWithName}>
+        <Image
+          src={
+            playerglobal.teamglobal.imageUrl || DEFAULT_PLAYERGLOBAL_IMAGE_URL
+          }
+          size={20}
+        />{" "}
+        {playerglobal.teamglobal.name}
+      </div>
+    ) : null,
     country: (
       <div className={styles.imageWithName}>
-        <CountryIcon countryCode={teamglobal.country!.code} size={20} />{" "}
-        {teamglobal.country!.name}
+        <CountryIcon countryCode={playerglobal.country!.code} size={20} />{" "}
+        {playerglobal.country!.name}
       </div>
     ),
   }));
 
-  return loadingTeamglobals ? (
+  return loadingPlayerglobals ? (
     <div className={styles.container}>
       <Spinner size={50} />
     </div>
   ) : (
     <div className={styles.container}>
-      <div className={styles.cardTeamglobals}>
-        <h2 className={styles.h2}>Times</h2>
+      <div className={styles.cardPlayerglobals}>
+        <h2 className={styles.h2}>Jogadores</h2>
         <div className={styles.containerSearchAndCreate}>
           <input
             type="text"
@@ -79,7 +85,7 @@ const TeamglobalsScreen = () => {
             onClick={handleCreate}
             className={styles.button}
           >
-            Criar Time
+            Criar Jogador
           </button>
         </div>
         <Table
@@ -92,7 +98,7 @@ const TeamglobalsScreen = () => {
       </div>
 
       <Modal
-        title="Deseja realmente excluir este time?"
+        title="Deseja realmente excluir este jogador?"
         description="Esta ação será irreversível."
         isOpen={openModalDelete}
         onConfirm={handleDelete}
@@ -104,4 +110,4 @@ const TeamglobalsScreen = () => {
   );
 };
 
-export default TeamglobalsScreen;
+export default PlayerglobalsScreen;

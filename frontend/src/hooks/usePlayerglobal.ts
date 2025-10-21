@@ -1,46 +1,44 @@
 import { useNavigate } from "react-router-dom";
 import { useGlobalReducer } from "../store/reducers/globalReducer/useGlobalReducer";
-import { useTeamglobalReducer } from "../store/reducers/teamglobalReducer/useTeamglobalReducer";
+import { usePlayerglobalReducer } from "../store/reducers/playerglobalReducer/usePlayerglobalReducer";
 import { useRequest } from "../utils/request";
 import { useEffect, useState } from "react";
-import type { TeamglobalType } from "../types/Teamglobal.type";
 import { MethodEnum } from "../enums/Method.enum";
-import { URL_TEAMGLOBAL, URL_TEAMGLOBAL_ID } from "../config/urls";
+import { URL_PLAYERGLOBAL, URL_PLAYERGLOBAL_ID } from "../config/urls";
 import type { AxiosError } from "axios";
-import { OTHER_MESSAGES, TEAMGLOBAL_MESSAGES } from "../utils/messages";
+import { OTHER_MESSAGES, PLAYERGLOBAL_MESSAGES } from "../utils/messages";
 import { NotificationEnum } from "../enums/Notification.enum";
 import { logout } from "../utils/auth";
-import { TeamglobalRoutesEnum } from "../routes/teamglobal.routes";
-import { usePlayerglobal } from "./usePlayerglobal";
+import { PlayerglobalRoutesEnum } from "../routes/playerglobal.routes";
+import type { PlayerglobalType } from "../types/Playerglobal.type";
 
-export const useTeamglobal = () => {
+export const usePlayerglobal = () => {
   const { setNotification } = useGlobalReducer();
-  const { teamglobals, setTeamglobals } = useTeamglobalReducer();
-
-  const { fetchPlayerglobals } = usePlayerglobal();
+  const { playerglobals, setPlayerglobals } = usePlayerglobalReducer();
 
   const { request, loadingRequest } = useRequest();
   const navigate = useNavigate();
 
-  const [loadingTeamglobals, setLoadingTeamglobals] = useState<boolean>(true);
-  const [teamglobalIdDelete, setTeamglobalIdDelete] = useState<
+  const [loadingPlayerglobals, setLoadingPlayerglobals] =
+    useState<boolean>(true);
+  const [playerglobalIdDelete, setPlayerglobalIdDelete] = useState<
     string | undefined
   >(undefined);
   const [searchValue, setSearchValue] = useState<string>("");
 
-  const teamglobalsFiltered = teamglobals.filter((teamglobal) =>
-    teamglobal.name.toLowerCase().includes(searchValue.toLowerCase())
+  const playerglobalsFiltered = playerglobals.filter((playerglobal) =>
+    playerglobal.name.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  const fetchTeamglobals = async (timeout: number) => {
-    await request<TeamglobalType[]>({
+  const fetchPlayerglobals = async (timeout: number) => {
+    await request<PlayerglobalType[]>({
       method: MethodEnum.Get,
-      url: URL_TEAMGLOBAL,
+      url: URL_PLAYERGLOBAL,
       timeout: timeout,
     })
       .then((data) => {
-        setTeamglobals(data);
-        setLoadingTeamglobals(false);
+        setPlayerglobals(data);
+        setLoadingPlayerglobals(false);
       })
       .catch((error: AxiosError) => {
         const responseErrorMessage =
@@ -56,22 +54,22 @@ export const useTeamglobal = () => {
   };
 
   useEffect(() => {
-    if (!teamglobals || teamglobals.length === 0) {
-      fetchTeamglobals(1000);
+    if (!playerglobals || playerglobals.length === 0) {
+      fetchPlayerglobals(1000);
     } else {
-      setLoadingTeamglobals(false);
+      setLoadingPlayerglobals(false);
     }
   }, []);
 
   const handleCreate = () => {
-    navigate(TeamglobalRoutesEnum.CreateTeamglobal);
+    navigate(PlayerglobalRoutesEnum.CreatePlayerglobal);
   };
 
-  const handleUpdate = (teamglobalId: string) => {
+  const handleUpdate = (playerglobalId: string) => {
     navigate(
-      TeamglobalRoutesEnum.UpdateTeamglobal.replace(
-        ":teamglobalId",
-        teamglobalId
+      PlayerglobalRoutesEnum.UpdatePlayerglobal.replace(
+        ":playerglobalId",
+        playerglobalId
       )
     );
   };
@@ -83,15 +81,17 @@ export const useTeamglobal = () => {
   const handleDelete = async () => {
     await request<void>({
       method: MethodEnum.Delete,
-      url: URL_TEAMGLOBAL_ID.replace(":teamglobalId", `${teamglobalIdDelete}`),
+      url: URL_PLAYERGLOBAL_ID.replace(
+        ":playerglobalId",
+        `${playerglobalIdDelete}`
+      ),
       timeout: 1000,
     })
       .then(async () => {
-        await fetchTeamglobals(0);
         await fetchPlayerglobals(0);
 
         setNotification({
-          message: TEAMGLOBAL_MESSAGES.SUCCESS.DELETE,
+          message: PLAYERGLOBAL_MESSAGES.SUCCESS.DELETE,
           type: NotificationEnum.Success,
         });
       })
@@ -105,28 +105,28 @@ export const useTeamglobal = () => {
         });
       });
 
-    setTeamglobalIdDelete(undefined);
+    setPlayerglobalIdDelete(undefined);
   };
 
   const handleCloseModalDelete = () => {
-    setTeamglobalIdDelete(undefined);
+    setPlayerglobalIdDelete(undefined);
   };
 
-  const handleOpenModalDelete = (teamglobalId: string) => {
-    setTeamglobalIdDelete(teamglobalId);
+  const handleOpenModalDelete = (playerglobalId: string) => {
+    setPlayerglobalIdDelete(playerglobalId);
   };
 
   return {
-    loadingTeamglobals,
+    loadingPlayerglobals,
     loadingRequest,
-    teamglobals: teamglobalsFiltered,
+    playerglobals: playerglobalsFiltered,
     handleCreate,
     handleUpdate,
     handleSearch,
     handleDelete,
-    openModalDelete: !!teamglobalIdDelete,
+    openModalDelete: !!playerglobalIdDelete,
     handleOpenModalDelete,
     handleCloseModalDelete,
-    fetchTeamglobals,
+    fetchPlayerglobals,
   };
 };
