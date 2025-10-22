@@ -8,27 +8,29 @@ import PencilIcon from "../icons/pencil.icon";
 import TrashIcon from "../icons/trash.icon";
 import { KeyboardKeyEnum } from "../../enums/KeyboardKey.enum";
 
-interface TableProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: any;
+interface TableProps<T> {
+  data: T[];
   headers: TableHeaderType[];
-  actions?: TableActionEnum[];
   handleUpdate?: (id: string) => void;
   handleOpenModalDelete?: (id: string) => void;
 }
 
-const Table = ({
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function Table<T extends { id: string; [key: string]: any }>({
   data,
   headers,
-  actions,
   handleUpdate,
   handleOpenModalDelete,
-}: TableProps) => {
+}: TableProps<T>) {
   const [currentPage, setCurrentPage] = useState<number>(
     PAGINATION.DEFAULT_PAGE
   );
 
   const totalPages = Math.ceil(data.length / PAGINATION.DEFAULT_LIMIT);
+
+  const hasActionsColumn = data.some(
+    (row: T) => Array.isArray(row.actions) && row.actions.length > 0
+  );
 
   const renderTableData = () => {
     if (data.length === 0) {
@@ -36,7 +38,7 @@ const Table = ({
         <tr>
           <td
             className={styles.tdEmptyData}
-            colSpan={headers.length + (actions && actions.length > 0 ? 1 : 0)}
+            colSpan={headers.length + (hasActionsColumn ? 1 : 0)}
           >
             Nenhum dado encontrado.
           </td>
@@ -48,7 +50,7 @@ const Table = ({
       (currentPage - PAGINATION.INITIAL_PAGE) * PAGINATION.DEFAULT_LIMIT;
     const end = start + PAGINATION.DEFAULT_LIMIT;
 
-    return data.slice(start, end).map((row: typeof data, rowIndex: number) => (
+    return data.slice(start, end).map((row: T, rowIndex: number) => (
       <tr key={rowIndex}>
         {headers.map((header, index) => (
           <td
@@ -81,10 +83,10 @@ const Table = ({
             {row[header.td]}
           </td>
         ))}
-        {actions && actions.length > 0 && (
+        {row.actions && row.actions.length > 0 && (
           <td>
             <div className={styles.contentTdActions}>
-              {actions.includes(TableActionEnum.Update) && (
+              {row.actions.includes(TableActionEnum.Update) && (
                 <button
                   type="button"
                   className={`${styles.buttonIcon} ${styles.buttonIconUpdate}`}
@@ -111,7 +113,7 @@ const Table = ({
                   />
                 </button>
               )}
-              {actions.includes(TableActionEnum.Delete) && (
+              {row.actions.includes(TableActionEnum.Delete) && (
                 <button
                   type="button"
                   className={`${styles.buttonIcon} ${styles.buttonIconDelete}`}
@@ -215,7 +217,7 @@ const Table = ({
                 {header.th}
               </th>
             ))}
-            {actions && actions.length > 0 && <th>Ações</th>}
+            {hasActionsColumn && <th>Ações</th>}
           </tr>
         </thead>
         <tbody>{renderTableData()}</tbody>
@@ -223,6 +225,6 @@ const Table = ({
       <div className={styles.pagination}>{renderPagination()}</div>
     </div>
   );
-};
+}
 
 export default Table;

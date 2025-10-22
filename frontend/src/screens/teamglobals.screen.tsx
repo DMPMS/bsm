@@ -34,11 +34,6 @@ const TeamglobalsScreen = () => {
     { th: "País", td: "country", hideAtWith: TableHideLevelEnum.at700 },
   ];
 
-  const tableActions: TableActionEnum[] = [
-    TableActionEnum.Delete,
-    TableActionEnum.Update,
-  ];
-
   const tableData = teamglobals.map((teamglobal) => ({
     id: teamglobal.id,
     name: (
@@ -57,6 +52,7 @@ const TeamglobalsScreen = () => {
         {teamglobal.country!.name}
       </div>
     ),
+    actions: [TableActionEnum.Update, TableActionEnum.Delete],
   }));
 
   return loadingTeamglobals ? (
@@ -85,7 +81,6 @@ const TeamglobalsScreen = () => {
         <Table
           data={tableData}
           headers={tableHeaders}
-          actions={tableActions}
           handleUpdate={handleUpdate}
           handleOpenModalDelete={handleOpenModalDelete}
         />

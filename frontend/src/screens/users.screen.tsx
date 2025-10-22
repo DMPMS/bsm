@@ -27,8 +27,6 @@ const UsersScreen = () => {
     { th: "País", td: "country", hideAtWith: TableHideLevelEnum.at700 },
   ];
 
-  const tableActions: TableActionEnum[] = [TableActionEnum.Delete];
-
   const tableData = users.map((user) => ({
     id: user.id,
     name: (
@@ -43,6 +41,7 @@ const UsersScreen = () => {
         {user.country!.name}
       </div>
     ),
+    actions: [TableActionEnum.Delete],
   }));
 
   return loadingUsers ? (
@@ -64,7 +63,6 @@ const UsersScreen = () => {
         <Table
           data={tableData}
           headers={tableHeaders}
-          actions={tableActions}
           handleOpenModalDelete={handleOpenModalDelete}
         />
       </div>
