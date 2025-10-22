@@ -12,12 +12,14 @@ import { NotificationEnum } from "../enums/Notification.enum";
 import { logout } from "../utils/auth";
 import { TeamglobalRoutesEnum } from "../routes/teamglobal.routes";
 import { usePlayerglobal } from "./usePlayerglobal";
+import { useManagerglobal } from "./useManagerglobal";
 
 export const useTeamglobal = () => {
   const { setNotification } = useGlobalReducer();
   const { teamglobals, setTeamglobals } = useTeamglobalReducer();
 
   const { fetchPlayerglobals } = usePlayerglobal();
+  const { fetchManagerglobals } = useManagerglobal();
 
   const { request, loadingRequest } = useRequest();
   const navigate = useNavigate();
@@ -89,6 +91,7 @@ export const useTeamglobal = () => {
       .then(async () => {
         await fetchTeamglobals(0);
         await fetchPlayerglobals(0);
+        await fetchManagerglobals(0);
 
         setNotification({
           message: TEAMGLOBAL_MESSAGES.SUCCESS.DELETE,

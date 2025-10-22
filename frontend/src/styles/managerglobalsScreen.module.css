@@ -1,0 +1,72 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.cardManagerglobals {
+  display: flex;
+  flex-direction: column;
+  width: 1000px;
+  padding: 16px;
+  margin: 16px;
+  border-radius: 8px;
+  background-color: var(--color-white-1);
+}
+
+.h2 {
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.containerSearchAndCreate {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
+  margin: 0 0 10px 0;
+}
+
+.input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--color-white-3);
+  transition: border-color 0.3s;
+}
+
+.input:focus {
+  border-color: var(--color-blue-1);
+  outline: none;
+}
+
+.button {
+  min-width: 109px;
+  height: 36px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: var(--color-blue-1);
+  color: var(--color-white-1);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  outline-color: var(--color-blue-3);
+  outline-offset: -1px;
+}
+
+.button:hover {
+  background-color: var(--color-blue-2);
+}
+
+.imageWithName {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+@media (max-width: 400px) {
+  .input,
+  .button {
+    flex: 1;
+  }
+}

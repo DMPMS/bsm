@@ -20,3 +20,6 @@ export const URL_TEAMGLOBAL_ID = `http://localhost:${BACKEND_API_PORT}/api/teamg
 
 export const URL_PLAYERGLOBAL = `http://localhost:${BACKEND_API_PORT}/api/playerglobal`;
 export const URL_PLAYERGLOBAL_ID = `http://localhost:${BACKEND_API_PORT}/api/playerglobal/:playerglobalId`;
+
+export const URL_MANAGERGLOBAL = `http://localhost:${BACKEND_API_PORT}/api/managerglobal`;
+export const URL_MANAGERGLOBAL_ID = `http://localhost:${BACKEND_API_PORT}/api/managerglobal/:managerglobalId`;

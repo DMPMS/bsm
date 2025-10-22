@@ -30,6 +30,13 @@ export const PLAYERGLOBAL_MESSAGES = {
   },
 };
 
+export const MANAGERGLOBAL_MESSAGES = {
+  SUCCESS: {
+    CREATE: "Treinador criado",
+    DELETE: "Treinador deletado",
+  },
+};
+
 export const USER_MESSAGES = {
   FIELD_VALIDATION: {
     BIRTHDATE: (minAge: number, maxAge: number) =>

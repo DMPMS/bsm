@@ -14,6 +14,7 @@ import NotFoundScreen from "./screens/notFound.screen";
 import { saveRoutes } from "./routes/save.routes";
 import { teamglobalRoutes } from "./routes/teamglobal.routes";
 import { playerglobalRoutes } from "./routes/playerglobal.routes";
+import { managerglobalRoutes } from "./routes/managerglobal.routes";
 
 const routesNotLoggedIn: RouteObject[] = [...signInRoutes, ...signUpRoutes];
 
@@ -26,6 +27,7 @@ const routesAdminLoggedIn: RouteObject[] = [
   ...userRoutes,
   ...teamglobalRoutes,
   ...playerglobalRoutes,
+  ...managerglobalRoutes,
 ].map((route) => ({
   ...route,
   loader: verifyLoggedIn(UserTypeEnum.Admin),
