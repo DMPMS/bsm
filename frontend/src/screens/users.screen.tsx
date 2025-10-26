@@ -9,6 +9,7 @@ import CountryIcon from "../components/icons/country.icon";
 import Spinner from "../components/spinner/spinner";
 import Table from "../components/table/table";
 import Modal from "../components/modal/modal";
+import Header from "../components/header/header";
 
 const UsersScreen = () => {
   const {
@@ -50,6 +51,7 @@ const UsersScreen = () => {
     </div>
   ) : (
     <div className={styles.container}>
+      <Header />
       <div className={styles.cardUsers}>
         <h2 className={styles.h2}>Usuários</h2>
         <div className={styles.containerSearch}>

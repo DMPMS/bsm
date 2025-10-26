@@ -9,6 +9,7 @@ import CountryIcon from "../components/icons/country.icon";
 import Spinner from "../components/spinner/spinner";
 import Table from "../components/table/table";
 import Modal from "../components/modal/modal";
+import Header from "../components/header/header";
 
 const PlayerglobalsScreen = () => {
   const {
@@ -69,6 +70,7 @@ const PlayerglobalsScreen = () => {
     </div>
   ) : (
     <div className={styles.container}>
+      <Header />
       <div className={styles.cardPlayerglobals}>
         <h2 className={styles.h2}>Jogadores</h2>
         <div className={styles.containerSearchAndCreate}>

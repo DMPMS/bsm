@@ -12,6 +12,7 @@ import { TableActionEnum } from "../enums/TableActionEnum";
 import Spinner from "../components/spinner/spinner";
 import Table from "../components/table/table";
 import Modal from "../components/modal/modal";
+import Header from "../components/header/header";
 
 const ManagerglobalsScreen = () => {
   const {
@@ -72,6 +73,7 @@ const ManagerglobalsScreen = () => {
     </div>
   ) : (
     <div className={styles.container}>
+      <Header />
       <div className={styles.cardManagerglobals}>
         <h2 className={styles.h2}>Treinadores</h2>
         <div className={styles.containerSearchAndCreate}>

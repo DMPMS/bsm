@@ -1,3 +1,4 @@
+import Header from "../components/header/header";
 import CountryIcon from "../components/icons/country.icon";
 import Image from "../components/image/image";
 import Modal from "../components/modal/modal";
@@ -61,6 +62,7 @@ const TeamglobalsScreen = () => {
     </div>
   ) : (
     <div className={styles.container}>
+      <Header />
       <div className={styles.cardTeamglobals}>
         <h2 className={styles.h2}>Times</h2>
         <div className={styles.containerSearchAndCreate}>
