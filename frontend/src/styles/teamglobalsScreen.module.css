@@ -23,8 +23,8 @@
 .containerSearchAndCreate {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
   justify-content: space-between;
+  gap: 10px;
   margin: 0 0 10px 0;
 }
 
@@ -48,10 +48,10 @@
   background-color: var(--color-blue-1);
   color: var(--color-white-1);
   border: none;
-  cursor: pointer;
-  transition: background-color 0.3s;
   outline-color: var(--color-blue-3);
   outline-offset: -1px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .button:hover {

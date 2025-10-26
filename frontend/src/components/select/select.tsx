@@ -292,13 +292,13 @@ const Select = ({
       >
         <input
           ref={inputRef}
+          className={styles.input}
           type="text"
           placeholder={selectedOption ? "" : placeholder}
           value={displayValue}
           onChange={handleChangeInput}
           onFocus={handleFocusInput}
           onKeyDown={handleKeyDown}
-          className={styles.input}
           disabled={disabled}
         />
 
@@ -333,8 +333,8 @@ const Select = ({
         >
           <div
             ref={optionsListRef}
-            tabIndex={-1}
             className={styles.optionsList}
+            tabIndex={-1}
           >
             {filteredOptions.length > 0 && isOpen ? (
               filteredOptions.map((option, index) => (

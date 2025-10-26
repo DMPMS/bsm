@@ -75,15 +75,15 @@ const PlayerglobalsScreen = () => {
         <h2 className={styles.h2}>Jogadores</h2>
         <div className={styles.containerSearchAndCreate}>
           <input
+            className={styles.input}
             type="text"
             placeholder="Buscar"
             onChange={(e) => handleSearch(e.target.value)}
-            className={styles.input}
           />
           <button
+            className={styles.button}
             type="button"
             onClick={handleCreate}
-            className={styles.button}
           >
             Criar Jogador
           </button>

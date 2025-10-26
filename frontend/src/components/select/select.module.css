@@ -48,8 +48,8 @@
   top: 50%;
   z-index: 1;
   padding: 0 0 0 8.75px;
-  pointer-events: none;
   transform: translateY(-50%);
+  pointer-events: none;
 }
 
 /* May not work for all cases. */
@@ -79,13 +79,13 @@
   top: calc(100% + 4px);
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 200;
   padding: 3px;
   background-color: var(--color-white-1);
   border: 1px solid var(--color-white-3);
   border-radius: 8px;
-  pointer-events: none;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.3s;
 }
 
@@ -97,9 +97,9 @@
 .optionsList {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
   max-height: 150px;
   gap: 3px;
-  overflow-y: auto;
 }
 
 .option {

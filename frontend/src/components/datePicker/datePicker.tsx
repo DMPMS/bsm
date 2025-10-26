@@ -358,6 +358,7 @@ const DatePicker = ({
       >
         <input
           ref={inputRef}
+          className={styles.input}
           type="text"
           placeholder={placeholder}
           value={
@@ -370,7 +371,6 @@ const DatePicker = ({
           }
           onFocus={handleFocusInput}
           onKeyDown={handleKeyDown}
-          className={styles.input}
           disabled={disabled}
         />
 

@@ -39,7 +39,7 @@ const SignUpScreen = () => {
     <div className={styles.container}>
       <div className={styles.cardSignUp}>
         <h2 className={styles.h2}>Criar Conta</h2>
-        <form onSubmit={handleSignUp} className={styles.form}>
+        <form className={styles.form} onSubmit={handleSignUp}>
           <FormGroup label="Nome" required={true}>
             <Input
               id="name"
@@ -166,15 +166,15 @@ const SignUpScreen = () => {
           </FormGroup>
 
           <div className={styles.signInContainer}>
-            <a href="" onClick={handleSignIn} className={styles.signIn}>
+            <a className={styles.signIn} href="" onClick={handleSignIn}>
               Já é cadastrado? Entrar.
             </a>
           </div>
 
           <div className={styles.actions}>
             <button
-              type="button"
               className={`${styles.button} ${styles.resetButton}`}
+              type="button"
               disabled={loadingRequest}
               onClick={handleReset}
             >
@@ -182,8 +182,8 @@ const SignUpScreen = () => {
             </button>
 
             <button
-              type="submit"
               className={`${styles.button} ${styles.submitButton}`}
+              type="submit"
               disabled={disabledButton || loadingRequest}
             >
               <span

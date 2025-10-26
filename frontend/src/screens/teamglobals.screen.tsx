@@ -4,7 +4,10 @@ import Image from "../components/image/image";
 import Modal from "../components/modal/modal";
 import Spinner from "../components/spinner/spinner";
 import Table from "../components/table/table";
-import { DEFAULT_TEAMGLOBAL_IMAGE_URL } from "../config/constants";
+import {
+  DEFAULT_MANAGERGLOBAL_IMAGE_URL,
+  DEFAULT_TEAMGLOBAL_IMAGE_URL,
+} from "../config/constants";
 import { TableActionEnum } from "../enums/TableActionEnum";
 import { TableHideLevelEnum } from "../enums/TableHideLevelEnum";
 import { useTeamglobal } from "../hooks/useTeamglobal";
@@ -28,11 +31,11 @@ const TeamglobalsScreen = () => {
   const tableHeaders: TableHeaderType[] = [
     { th: "Nome", td: "name" },
     {
-      th: "Abreviação",
-      td: "abbreviation",
-      hideAtWith: TableHideLevelEnum.at900,
+      th: "Treinador",
+      td: "managerglobal",
+      hideAtWith: TableHideLevelEnum.at700,
     },
-    { th: "País", td: "country", hideAtWith: TableHideLevelEnum.at700 },
+    { th: "País", td: "country", hideAtWith: TableHideLevelEnum.at500 },
   ];
 
   const tableData = teamglobals.map((teamglobal) => ({
@@ -46,7 +49,18 @@ const TeamglobalsScreen = () => {
         {teamglobal.name}
       </div>
     ),
-    abbreviation: teamglobal.abbreviation,
+    managerglobal: (
+      <div className={styles.imageWithName}>
+        <Image
+          src={
+            teamglobal.managerglobal!.imageUrl ||
+            DEFAULT_MANAGERGLOBAL_IMAGE_URL
+          }
+          size={20}
+        />{" "}
+        {teamglobal.managerglobal!.name}
+      </div>
+    ),
     country: (
       <div className={styles.imageWithName}>
         <CountryIcon countryCode={teamglobal.country!.code} size={20} />{" "}
@@ -67,15 +81,15 @@ const TeamglobalsScreen = () => {
         <h2 className={styles.h2}>Times</h2>
         <div className={styles.containerSearchAndCreate}>
           <input
+            className={styles.input}
             type="text"
             placeholder="Buscar"
             onChange={(e) => handleSearch(e.target.value)}
-            className={styles.input}
           />
           <button
+            className={styles.button}
             type="button"
             onClick={handleCreate}
-            className={styles.button}
           >
             Criar Time
           </button>

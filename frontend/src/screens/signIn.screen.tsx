@@ -21,7 +21,7 @@ const SignInScreen = () => {
       <div className={styles.cardSignIn}>
         <img className={styles.logo} src="/logo.png" />
         <h2 className={styles.h2}>Entrar</h2>
-        <form onSubmit={handleSignIn} className={styles.form}>
+        <form className={styles.form} onSubmit={handleSignIn}>
           <FormGroup label="E-mail">
             <Input
               type="email"
@@ -55,14 +55,14 @@ const SignInScreen = () => {
           </FormGroup>
 
           <div className={styles.signUpContainer}>
-            <a href="" onClick={handleSignUp} className={styles.signUp}>
+            <a className={styles.signUp} href="" onClick={handleSignUp}>
               Novo por aqui? Criar conta.
             </a>
           </div>
 
           <button
-            type="submit"
             className={styles.button}
+            type="submit"
             disabled={disabledButton || loadingRequest}
           >
             <span

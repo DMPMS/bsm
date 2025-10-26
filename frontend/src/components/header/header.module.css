@@ -1,12 +1,12 @@
 .header {
-  position: fixed;
   display: flex;
   justify-content: center;
+  position: fixed;
   top: 0;
+  z-index: 900;
   width: 100%;
-  background-color: var(--color-blue-3);
   padding: 10px 0 10px 0;
-  z-index: 1000;
+  background-color: var(--color-blue-3);
 }
 
 .menuIcon {
@@ -22,33 +22,34 @@
 .navItem {
   display: flex;
   align-items: center;
-  border-radius: 3px;
   padding: 3.5px 3px 3px 3px;
+  gap: 5px;
+  border-radius: 3px;
   background-color: var(--color-white-1);
   color: var(--color-blue-3);
-  gap: 5px;
-  transition: background-color 0.3s;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .navItem:hover {
-  background-color: var(--color-white-2);
+  background-color: var(--color-white-3);
 }
 
 @media (max-width: 700px) {
   .nav {
-    display: none;
     flex-direction: column;
     position: absolute;
     top: calc((46.5 + 16) * 1px);
-    background-color: var(--color-blue-3);
     padding: 10px;
     margin: 0 16px 0 0;
+    background-color: var(--color-blue-3);
     border-radius: 8px;
+    opacity: 0;
+    transition: opacity 0.3s;
   }
 
   .navShow {
-    display: flex;
+    opacity: 1;
   }
 
   .header {
@@ -56,7 +57,7 @@
   }
 
   .menuIcon {
-    margin: 3.25px 16px 3.25px 0;
     display: block;
+    margin: 3.25px 16px 3.25px 0;
   }
 }

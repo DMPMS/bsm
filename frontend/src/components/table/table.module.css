@@ -26,8 +26,8 @@
 
 .table th,
 .table td {
-  border: 1px solid var(--color-white-3);
   padding: 8px;
+  border: 1px solid var(--color-white-3);
   text-align: left;
 }
 
@@ -63,6 +63,7 @@
 
 .pagination {
   display: flex;
+  flex-wrap: wrap;
   justify-content: right;
   gap: 5px;
   margin: 10px 0 0 0;
@@ -74,9 +75,9 @@
   background-color: var(--color-blue-1);
   color: white;
   border-radius: 8px;
-  transition: background-color 0.3s;
   outline-color: var(--color-blue-3);
   outline-offset: -1px;
+  transition: background-color 0.3s;
 }
 
 .pagination a:hover {

@@ -25,7 +25,7 @@ const UsersScreen = () => {
 
   const tableHeaders: TableHeaderType[] = [
     { th: "Nome", td: "name" },
-    { th: "País", td: "country", hideAtWith: TableHideLevelEnum.at700 },
+    { th: "País", td: "country", hideAtWith: TableHideLevelEnum.at500 },
   ];
 
   const tableData = users.map((user) => ({
@@ -56,10 +56,10 @@ const UsersScreen = () => {
         <h2 className={styles.h2}>Usuários</h2>
         <div className={styles.containerSearch}>
           <input
+            className={styles.input}
             type="text"
             placeholder="Buscar"
             onChange={(e) => handleSearch(e.target.value)}
-            className={styles.input}
           />
         </div>
         <Table

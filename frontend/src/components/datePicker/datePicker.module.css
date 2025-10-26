@@ -49,8 +49,8 @@
   background-color: transparent;
   border: none;
   outline: none;
-  cursor: pointer;
   caret-color: transparent;
+  cursor: pointer;
 }
 
 .input:disabled {
@@ -63,13 +63,13 @@
   top: calc(100% + 4px);
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 100;
   padding: 3px;
   background-color: var(--color-white-1);
   border: 1px solid var(--color-white-3);
   border-radius: 8px;
-  pointer-events: none;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.3s;
 }
 

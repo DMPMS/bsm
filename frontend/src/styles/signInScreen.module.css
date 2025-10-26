@@ -48,10 +48,10 @@
   border-radius: 8px;
   background-color: var(--color-blue-1);
   color: var(--color-white-1);
-  cursor: pointer;
-  transition: background-color 0.3s;
   outline-color: var(--color-blue-3);
   outline-offset: -1px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .button:hover {

@@ -29,8 +29,8 @@
 }
 
 .signIn {
-  text-align: center;
   text-decoration: none;
+  text-align: center;
 }
 
 .actions {
@@ -41,15 +41,15 @@
 }
 
 .button {
-  height: 36px;
   flex: 1;
+  height: 36px;
   padding: 10px;
   border: none;
   border-radius: 8px;
   color: var(--color-white-1);
+  outline-offset: -1px;
   cursor: pointer;
   transition: background-color 0.3s;
-  outline-offset: -1px;
 }
 
 .submitButton {
