@@ -22,37 +22,39 @@ const SignInScreen = () => {
         <img className={styles.logo} src="/logo.png" />
         <h2 className={styles.h2}>Entrar</h2>
         <form className={styles.form} onSubmit={handleSignIn}>
-          <FormGroup label="E-mail">
-            <Input
-              type="email"
-              placeholder="seuemail@email.com"
-              onChange={(e) => handleChangeInput(e, "email")}
-              disabled={loadingRequest}
-              fieldState={
-                invalidFields.includes("email")
-                  ? FieldStateEnum.Invalid
-                  : warningFields.includes("email")
-                  ? FieldStateEnum.Warning
-                  : FieldStateEnum.Default
-              }
-            />
-          </FormGroup>
+          <div className={styles.containerFormGroups}>
+            <FormGroup label="E-mail">
+              <Input
+                type="email"
+                placeholder="seuemail@email.com"
+                onChange={(e) => handleChangeInput(e, "email")}
+                disabled={loadingRequest}
+                fieldState={
+                  invalidFields.includes("email")
+                    ? FieldStateEnum.Invalid
+                    : warningFields.includes("email")
+                    ? FieldStateEnum.Warning
+                    : FieldStateEnum.Default
+                }
+              />
+            </FormGroup>
 
-          <FormGroup label="Senha">
-            <Input
-              type="password"
-              placeholder="••••••••"
-              onChange={(e) => handleChangeInput(e, "password")}
-              disabled={loadingRequest}
-              fieldState={
-                invalidFields.includes("password")
-                  ? FieldStateEnum.Invalid
-                  : warningFields.includes("password")
-                  ? FieldStateEnum.Warning
-                  : FieldStateEnum.Default
-              }
-            />
-          </FormGroup>
+            <FormGroup label="Senha">
+              <Input
+                type="password"
+                placeholder="••••••••"
+                onChange={(e) => handleChangeInput(e, "password")}
+                disabled={loadingRequest}
+                fieldState={
+                  invalidFields.includes("password")
+                    ? FieldStateEnum.Invalid
+                    : warningFields.includes("password")
+                    ? FieldStateEnum.Warning
+                    : FieldStateEnum.Default
+                }
+              />
+            </FormGroup>
+          </div>
 
           <div className={styles.signUpContainer}>
             <a className={styles.signUp} href="" onClick={handleSignUp}>

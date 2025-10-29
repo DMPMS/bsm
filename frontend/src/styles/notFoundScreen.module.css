@@ -28,6 +28,7 @@
 
 .button {
   width: 100%;
+  min-width: 112px;
   height: 36px;
   padding: 10px;
   background-color: var(--color-blue-1);

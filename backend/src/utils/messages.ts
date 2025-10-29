@@ -1,7 +1,7 @@
 export const USER_MESSAGES = {
   ERROR: {
     CREATE_USER_ERROR: "Erro ao criar usuário",
-    UPDATE_USER_ERROR: "Erro ao editar usuário",
+    UPDATE_USER_ERROR: "Erro ao atualizar usuário",
     SELECT_USER_ERROR: "Erro ao buscar usuários",
     SELECT_USER_INFO_ERROR: "Erro ao buscar informações do usuário",
     DELETE_MY_USER_ERROR: "Erro ao deletar seu usuário",
@@ -71,7 +71,7 @@ export const RULE_MESSAGES = {
 export const MANAGERGLOBAL_MESSAGES = {
   ERROR: {
     CREATE_MANAGERGLOBAL_ERROR: "Erro ao criar treinador",
-    UPDATE_MANAGERGLOBAL_ERROR: "Erro ao editar treinador",
+    UPDATE_MANAGERGLOBAL_ERROR: "Erro ao atualizar treinador",
     SELECT_MANAGERGLOBAL_ERROR: "Erro ao buscar treinadores",
     SELECT_MANAGERGLOBAL_BY_ID_ERROR: "Erro ao buscar treinador",
     DELETE_MANAGERGLOBAL_ERROR: "Erro ao deletar treinador",
@@ -90,7 +90,7 @@ export const MANAGERGLOBAL_MESSAGES = {
 export const COMPETITIONGLOBAL_MESSAGES = {
   ERROR: {
     CREATE_COMPETITIONGLOBAL_ERROR: "Erro ao criar competição",
-    UPDATE_COMPETITIONGLOBAL_ERROR: "Erro ao editar competição",
+    UPDATE_COMPETITIONGLOBAL_ERROR: "Erro ao atualizar competição",
     SELECT_COMPETITIONGLOBAL_ERROR: "Erro ao buscar competições",
     SELECT_COMPETITIONGLOBAL_BY_ID_ERROR: "Erro ao buscar competição",
     DELETE_COMPETITIONGLOBAL_ERROR: "Erro ao deletar competição",
@@ -114,7 +114,7 @@ export const COMPETITIONGLOBAL_MESSAGES = {
 export const TEAMGLOBAL_MESSAGES = {
   ERROR: {
     CREATE_TEAMGLOBAL_ERROR: "Erro ao criar time",
-    UPDATE_TEAMGLOBAL_ERROR: "Erro ao editar time",
+    UPDATE_TEAMGLOBAL_ERROR: "Erro ao atualizar time",
     SELECT_TEAMGLOBAL_ERROR: "Erro ao buscar times",
     SELECT_TEAMGLOBAL_BY_ID_ERROR: "Erro ao buscar time",
     DELETE_TEAMGLOBAL_ERROR: "Erro ao deletar time",
@@ -133,7 +133,7 @@ export const TEAMGLOBAL_MESSAGES = {
 export const PLAYERGLOBAL_MESSAGES = {
   ERROR: {
     CREATE_PLAYERGLOBAL_ERROR: "Erro ao criar jogador",
-    UPDATE_PLAYERGLOBAL_ERROR: "Erro ao editar jogador",
+    UPDATE_PLAYERGLOBAL_ERROR: "Erro ao atualizar jogador",
     SELECT_PLAYERGLOBAL_ERROR: "Erro ao buscar jogadores",
     SELECT_PLAYERGLOBAL_BY_ID_ERROR: "Erro ao buscar jogador",
     DELETE_PLAYERGLOBAL_ERROR: "Erro ao deletar jogador",

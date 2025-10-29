@@ -7,11 +7,12 @@ export const INITIAL_SIGN_IN_DTO: SignInDto = {
 };
 
 export const INITIAL_SIGN_UP_DTO: SignUpDto = {
-  countryId: undefined,
   name: "",
   imageUrl: "",
   email: "",
   birthdate: "",
   password: "",
   confirmPassword: "",
+
+  countryId: undefined,
 };

@@ -6,7 +6,7 @@
 }
 
 .cardSignUp {
-  width: 400px;
+  width: 600px;
   padding: 16px;
   margin: 16px;
   background-color: var(--color-white-1);
@@ -23,8 +23,24 @@
   flex-direction: column;
 }
 
+.containerImagePreview {
+  display: block;
+  margin: 0 auto 20px auto;
+}
+
+.containerFormGroups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.containerFormGroups > * {
+  flex: 1;
+  min-width: 257.6px;
+}
+
 .signInContainer {
-  margin: 10px 0 0 0;
+  margin: 20px 0 0 0;
   text-align: center;
 }
 

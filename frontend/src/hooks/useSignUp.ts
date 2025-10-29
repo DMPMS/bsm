@@ -26,6 +26,7 @@ import { AuthRedirectRoutesEnum } from "../routes/authRedirect.routes";
 import { SignInRoutesEnum } from "../routes/signIn.routes";
 import { isWithinAgeRange } from "../utils/isWithinAgeRange";
 import { useCountry } from "./useCountry";
+import { validateImage } from "../utils/validateImage";
 
 export const useSignUp = () => {
   const { setUser, setNotification } = useGlobalReducer();
@@ -36,6 +37,7 @@ export const useSignUp = () => {
   const { request, loadingRequest } = useRequest();
   const navigate = useNavigate();
 
+  const [isValidImage, setIsValidImage] = useState<boolean>(true);
   const [disabledButton, setDisabledButton] = useState<boolean>(true);
   const [signUp, setSignUp] = useState<SignUpDto>(INITIAL_SIGN_UP_DTO);
 
@@ -51,11 +53,13 @@ export const useSignUp = () => {
     if (
       signUp.name.length >= USER.NAME.MIN &&
       signUp.name.length <= USER.NAME.MAX &&
+      isValidImage &&
       signUp.birthdate &&
       isWithinAgeRange(signUp.birthdate, USER.AGE.MIN, USER.AGE.MAX) &&
       signUp.email.length >= USER.EMAIL.MIN &&
       signUp.email.length <= USER.EMAIL.MAX &&
       isValidEmail(signUp.email) &&
+      signUp.countryId &&
       signUp.password.length >= USER.PASSWORD.MIN &&
       signUp.password.length <= USER.PASSWORD.MAX &&
       signUp.confirmPassword.length >= USER.CONFIRM_PASSWORD.MIN &&
@@ -66,32 +70,28 @@ export const useSignUp = () => {
     } else {
       setDisabledButton(true);
     }
-  }, [signUp]);
+  }, [signUp, isValidImage]);
 
   const validateInputField = (
-    name: string,
+    id: string,
     value: string,
     input: HTMLInputElement
   ) => {
-    if (
-      !["name", "imageUrl", "email", "password", "confirmPassword"].includes(
-        name
-      )
-    ) {
+    if (!["name", "email", "password", "confirmPassword"].includes(id)) {
       return;
     }
 
     const isValid = () => {
       input.setCustomValidity("");
-      setInvalidFields((prev) => prev.filter((item) => item !== name));
-      setWarningFields((prev) => prev.filter((item) => item !== name));
+      setInvalidFields((prev) => prev.filter((item) => item !== id));
+      setWarningFields((prev) => prev.filter((item) => item !== id));
     };
 
     if (!value) {
       input.setCustomValidity(GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED);
-      setInvalidFields((prev) => [...prev, name]);
+      setInvalidFields((prev) => [...prev, id]);
 
-      if (name === "password") {
+      if (id === "password") {
         const inputConfirmPassword = document.getElementById(
           "confirmPassword"
         ) as HTMLInputElement;
@@ -112,50 +112,50 @@ export const useSignUp = () => {
           );
         }
       }
-    } else if (name === "name") {
+    } else if (id === "name") {
       if (value.length < USER.NAME.MIN) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.NAME.MIN)
         );
-        setInvalidFields((prev) => [...prev, name]);
+        setInvalidFields((prev) => [...prev, id]);
       } else if (value.length > USER.NAME.MAX) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(USER.NAME.MAX)
         );
-        setInvalidFields((prev) => [...prev, name]);
+        setInvalidFields((prev) => [...prev, id]);
       } else {
         isValid();
       }
-    } else if (name === "email") {
+    } else if (id === "email") {
       if (value.length < USER.EMAIL.MIN) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.EMAIL.MIN)
         );
-        setInvalidFields((prev) => [...prev, name]);
+        setInvalidFields((prev) => [...prev, id]);
       } else if (value.length > USER.EMAIL.MAX) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(USER.NAME.MAX)
         );
-        setInvalidFields((prev) => [...prev, name]);
+        setInvalidFields((prev) => [...prev, id]);
       } else if (!isValidEmail(value)) {
         input.setCustomValidity(
           USER_MESSAGES.FIELD_VALIDATION.EMAIL.EMAIL_IS_INVALID
         );
-        setInvalidFields((prev) => [...prev, name]);
+        setInvalidFields((prev) => [...prev, id]);
       } else {
         isValid();
       }
-    } else if (name === "password") {
+    } else if (id === "password") {
       if (value.length < USER.PASSWORD.MIN) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.PASSWORD.MIN)
         );
-        setInvalidFields((prev) => [...prev, name]);
+        setInvalidFields((prev) => [...prev, id]);
       } else if (value.length > USER.PASSWORD.MAX) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.PASSWORD.MAX)
         );
-        setInvalidFields((prev) => [...prev, name]);
+        setInvalidFields((prev) => [...prev, id]);
       } else {
         isValid();
       }
@@ -178,21 +178,21 @@ export const useSignUp = () => {
           prev.filter((item) => item !== "confirmPassword")
         );
       }
-    } else if (name === "confirmPassword") {
+    } else if (id === "confirmPassword") {
       if (value.length < USER.CONFIRM_PASSWORD.MIN) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(
             USER.CONFIRM_PASSWORD.MIN
           )
         );
-        setInvalidFields((prev) => [...prev, name]);
+        setInvalidFields((prev) => [...prev, id]);
       } else if (value.length > USER.CONFIRM_PASSWORD.MAX) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(
             USER.CONFIRM_PASSWORD.MAX
           )
         );
-        setInvalidFields((prev) => [...prev, name]);
+        setInvalidFields((prev) => [...prev, id]);
       } else {
         const inputPassword = document.getElementById(
           "password"
@@ -203,7 +203,7 @@ export const useSignUp = () => {
             USER_MESSAGES.FIELD_VALIDATION.CONFIRM_PASSWORD
               .PASSWORDS_DO_NOT_MATCH
           );
-          setInvalidFields((prev) => [...prev, name]);
+          setInvalidFields((prev) => [...prev, id]);
         } else {
           isValid();
         }
@@ -215,7 +215,7 @@ export const useSignUp = () => {
     input.reportValidity();
   };
 
-  const handleChangeInput = (
+  const handleChangeInput = async (
     e: React.ChangeEvent<HTMLInputElement>,
     name: string
   ) => {
@@ -227,7 +227,38 @@ export const useSignUp = () => {
       [name]: name === "email" ? value.toLowerCase() : value,
     });
 
-    validateInputField(name, value, input);
+    if (name === "imageUrl") {
+      if (value) {
+        const isValid = await validateImage(value);
+
+        if (!isValid) {
+          input.setCustomValidity(
+            GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID
+          );
+          setInvalidFields((prev) => [...prev, "imageUrl"]);
+        } else {
+          input.setCustomValidity("");
+          setInvalidFields((prev) =>
+            prev.filter((item) => item !== "imageUrl")
+          );
+          setWarningFields((prev) =>
+            prev.filter((item) => item !== "imageUrl")
+          );
+        }
+
+        setIsValidImage(isValid);
+      } else {
+        input.setCustomValidity("");
+        setInvalidFields((prev) => prev.filter((item) => item !== "imageUrl"));
+        setWarningFields((prev) => prev.filter((item) => item !== "imageUrl"));
+
+        setIsValidImage(true);
+      }
+
+      input.reportValidity();
+    } else {
+      validateInputField(name, value, input);
+    }
   };
 
   const handleChangeBirthdateInput = (value: string) => {
@@ -243,7 +274,7 @@ export const useSignUp = () => {
       setInvalidFields((prev) => [...prev, "birthdate"]);
     } else if (!isWithinAgeRange(value, USER.AGE.MIN, USER.AGE.MAX)) {
       setBirthdateInputValidationMessage(
-        USER_MESSAGES.FIELD_VALIDATION.BIRTHDATE(USER.AGE.MIN, USER.AGE.MAX)
+        GENERAL_FIELD_VALIDATION_MESSAGES.BIRTHDATE(USER.AGE.MIN, USER.AGE.MAX)
       );
       setInvalidFields((prev) => [...prev, "birthdate"]);
     } else {
@@ -297,7 +328,8 @@ export const useSignUp = () => {
 
             const decodedToken = jwtDecode<TokenType>(data.token.split(" ")[1]);
 
-            setUser(decodedToken.user);
+            // setUser(decodedToken.user);
+            console.log(decodedToken.user);
 
             setUsers([]);
 
@@ -308,7 +340,7 @@ export const useSignUp = () => {
               type: NotificationEnum.Success,
             });
 
-            navigate(AuthRedirectRoutesEnum.AuthRedirect);
+            // navigate(AuthRedirectRoutesEnum.AuthRedirect);
           })
           .catch((error: AxiosError) => {
             const responseErrorMessage =
@@ -333,6 +365,7 @@ export const useSignUp = () => {
 
   const handleReset = () => {
     setSignUp(INITIAL_SIGN_UP_DTO);
+    setIsValidImage(true);
     setInvalidFields([]);
     setWarningFields([]);
   };
@@ -345,6 +378,7 @@ export const useSignUp = () => {
   return {
     signUp,
     loadingRequest,
+    imageUrl: signUp.imageUrl,
     disabledButton,
     invalidFields,
     warningFields,

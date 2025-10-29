@@ -1,0 +1,12 @@
+.container {
+  width: calc(var(--size) * 1px);
+  height: calc(var(--size) * 1px);
+  border: 1px solid var(--color-white-3);
+  background-image: var(--urlImage);
+  background-size: cover;
+}
+
+.noImage {
+  width: calc(var(--size) * 1px);
+  height: calc(var(--size) * 1px);
+}

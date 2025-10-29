@@ -44,29 +44,29 @@ export const useSignIn = () => {
   }, [signIn]);
 
   const validateInputField = (
-    name: string,
+    id: string,
     value: string,
     input: HTMLInputElement
   ) => {
-    if (!["email", "password"].includes(name)) {
+    if (!["email", "password"].includes(id)) {
       return;
     }
 
     const isValid = () => {
       input.setCustomValidity("");
-      setInvalidFields((prev) => prev.filter((item) => item !== name));
-      setWarningFields((prev) => prev.filter((item) => item !== name));
+      setInvalidFields((prev) => prev.filter((item) => item !== id));
+      setWarningFields((prev) => prev.filter((item) => item !== id));
     };
 
     if (!value) {
       input.setCustomValidity(GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED);
-      setInvalidFields((prev) => [...prev, name]);
-    } else if (name === "email") {
+      setInvalidFields((prev) => [...prev, id]);
+    } else if (id === "email") {
       if (!isValidEmail(value)) {
         input.setCustomValidity(
           SIGN_IN_MESSAGES.FIELD_VALIDATION.EMAIL_IS_INVALID
         );
-        setInvalidFields((prev) => [...prev, name]);
+        setInvalidFields((prev) => [...prev, id]);
       } else {
         isValid();
       }

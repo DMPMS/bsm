@@ -19,6 +19,7 @@ export const SIGN_UP_MESSAGES = {
 export const TEAMGLOBAL_MESSAGES = {
   SUCCESS: {
     CREATE: "Time criado",
+    UPDATE: "Time atualizado",
     DELETE: "Time deletado",
   },
 };
@@ -26,6 +27,7 @@ export const TEAMGLOBAL_MESSAGES = {
 export const PLAYERGLOBAL_MESSAGES = {
   SUCCESS: {
     CREATE: "Jogador criado",
+    UPDATE: "Jogador atualizado",
     DELETE: "Jogador deletado",
   },
 };
@@ -33,14 +35,13 @@ export const PLAYERGLOBAL_MESSAGES = {
 export const MANAGERGLOBAL_MESSAGES = {
   SUCCESS: {
     CREATE: "Treinador criado",
+    UPDATE: "Treinador atualizado",
     DELETE: "Treinador deletado",
   },
 };
 
 export const USER_MESSAGES = {
   FIELD_VALIDATION: {
-    BIRTHDATE: (minAge: number, maxAge: number) =>
-      `A idade deve estar entre ${minAge} e ${maxAge} anos.`,
     EMAIL: {
       EMAIL_IS_INVALID: "Insira um e-mail válido.",
     },
@@ -63,6 +64,9 @@ export const GENERAL_FIELD_VALIDATION_MESSAGES = {
   REQUIRED: "Preencha este campo.",
   MIN_CHARACTER: (min: number) => `Insira pelo menos ${min} caractere(s).`,
   MAX_CHARACTER: (max: number) => `Insira até ${max} caractere(s).`,
+  BIRTHDATE: (minAge: number, maxAge: number) =>
+    `A idade deve estar entre ${minAge} e ${maxAge} anos.`,
+  IMAGE_URL_IS_INVALID: "Insira uma URL de imagem válida.",
 };
 
 export const OTHER_MESSAGES = {
