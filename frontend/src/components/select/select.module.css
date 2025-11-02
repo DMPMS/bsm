@@ -88,6 +88,11 @@
   transition: opacity 0.3s;
 }
 
+.dropdownUp {
+  top: auto;
+  bottom: calc(100% + 4px);
+}
+
 .dropdownVisible {
   pointer-events: auto;
   opacity: 1;

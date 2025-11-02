@@ -39,6 +39,7 @@ const Select = ({
     useState<boolean>(false);
   const [lastInteractionWasKeyboard, setLastInteractionWasKeyboard] =
     useState<boolean>(false);
+  const [dropdownUp, setDropdownUp] = useState(false);
 
   const selectRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -104,6 +105,26 @@ const Select = ({
     inputRef.current?.setCustomValidity(validationMessage);
     inputRef.current?.reportValidity();
   }, [validationMessage]);
+
+  useEffect(() => {
+    checkDropdownDirection();
+
+    window.addEventListener("resize", checkDropdownDirection);
+
+    return () => {
+      window.removeEventListener("resize", checkDropdownDirection);
+    };
+  }, []);
+
+  const checkDropdownDirection = () => {
+    if (!selectRef.current) return;
+
+    const rect = selectRef.current.getBoundingClientRect();
+    const approxDropdownHeight = 170;
+    const spaceBelow = window.innerHeight - rect.bottom;
+
+    setDropdownUp(spaceBelow < approxDropdownHeight);
+  };
 
   const closeSelect = () => {
     setIsOpen(false);
@@ -328,7 +349,7 @@ const Select = ({
         <div
           className={`${styles.dropdown} ${
             isOpen ? styles.dropdownVisible : ""
-          }`}
+          } ${dropdownUp ? styles.dropdownUp : ""}`}
           onMouseDown={handlePreventInputBlur}
         >
           <div

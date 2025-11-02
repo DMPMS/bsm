@@ -14,7 +14,7 @@ const NotFoundScreen = () => {
           type="button"
           onClick={handleClickButton}
         >
-          Página de login
+          Página de Login
         </button>
       </div>
     </div>

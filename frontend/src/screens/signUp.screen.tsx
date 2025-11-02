@@ -70,7 +70,7 @@ const SignUpScreen = () => {
             </FormGroup>
 
             <FormGroup
-              label="Caminho da imagem"
+              label="Caminho da Imagem"
               tooltip={
                 "Recomenda-se o uso de uma imagem de fundo transparente, com formato quadrado. A resolução máxima utilizada será de 100x100 pixels."
               }
@@ -93,7 +93,7 @@ const SignUpScreen = () => {
             </FormGroup>
 
             <FormGroup
-              label="Data de nascimento"
+              label="Data de Nascimento"
               required={true}
               tooltip={`A data atual no sistema é ${formatDateFromDate(
                 CURRENT_DATE,
@@ -184,7 +184,7 @@ const SignUpScreen = () => {
               />
             </FormGroup>
 
-            <FormGroup label="Confirmar senha" required={true}>
+            <FormGroup label="Confirmar Senha" required={true}>
               <Input
                 id="confirmPassword"
                 type="password"
