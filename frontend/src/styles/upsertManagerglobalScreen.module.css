@@ -1,0 +1,108 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.cardUpsertManagerglobal {
+  width: 600px;
+  padding: 16px;
+  margin: 16px;
+  margin: calc((46.5 + 16) * 1px) 16px 16px 16px;
+  background-color: var(--color-white-1);
+  border-radius: 8px;
+}
+
+.h2 {
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.containerImagePreview {
+  display: block;
+  margin: 0 auto 20px auto;
+}
+
+.containerFormGroups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.containerFormGroups > * {
+  flex: 1;
+  min-width: 257.6px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 20px 0 0 0;
+}
+
+.button {
+  flex: 1;
+  height: 36px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  color: var(--color-white-1);
+  outline-offset: -1px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submitButton {
+  min-width: 150px;
+  background-color: var(--color-blue-1);
+  outline-color: var(--color-blue-3);
+}
+
+.submitButton:hover {
+  background-color: var(--color-blue-2);
+}
+
+.submitButton:disabled {
+  background-color: var(--color-blue-3);
+  cursor: not-allowed;
+}
+
+.cancelButton,
+.resetButton {
+  background-color: var(--color-gray-1);
+  outline-color: var(--color-gray-3);
+}
+
+.cancelButton:hover,
+.resetButton:hover {
+  background-color: var(--color-gray-2);
+}
+
+.cancelButton:disabled,
+.resetButton:disabled {
+  background-color: var(--color-gray-3);
+  cursor: not-allowed;
+}
+
+.buttonContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  transition: gap 0.3s;
+}
+
+.buttonContentLoading {
+  gap: 10px;
+}
+
+.spinner {
+  margin: 0 0 0 1px;
+}
