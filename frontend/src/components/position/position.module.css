@@ -1,0 +1,27 @@
+.span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  font-size: x-small;
+}
+
+.attack {
+  color: var(--color-white-1);
+  background-color: var(--color-red-1);
+}
+
+.midfield {
+  background-color: var(--color-green-1);
+}
+
+.defense {
+  color: var(--color-white-1);
+  background-color: var(--color-blue-1);
+}
+
+.goalkeeper {
+  background-color: var(--color-yellow-1);
+}

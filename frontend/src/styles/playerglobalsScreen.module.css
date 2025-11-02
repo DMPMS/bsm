@@ -28,6 +28,11 @@
   margin: 0 0 10px 0;
 }
 
+.positions {
+  display: flex;
+  gap: 3px;
+}
+
 .input {
   padding: 8px;
   border-radius: 8px;

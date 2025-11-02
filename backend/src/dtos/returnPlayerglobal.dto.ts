@@ -26,10 +26,12 @@ export class ReturnPlayerglobalDto {
       : undefined;
 
     this.playerglobalPositions = playerglobalEntity.playerglobalPositions
-      ? playerglobalEntity.playerglobalPositions.map(
-          (playerglobalPosition) =>
-            new ReturnPlayerglobalPositionDto(playerglobalPosition)
-        )
+      ? playerglobalEntity.playerglobalPositions
+          .sort((a, b) => a.position!.code - b.position!.code)
+          .map(
+            (playerglobalPosition) =>
+              new ReturnPlayerglobalPositionDto(playerglobalPosition)
+          )
       : undefined;
 
     this.teamglobal = playerglobalEntity.teamglobal

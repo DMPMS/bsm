@@ -4,11 +4,11 @@ export class InsertTablePosition1749508886416 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
         INSERT INTO public.position(id, name, abbreviation, area, code) VALUES
-        ('18764397-9670-43c1-92ae-1e3404ac76a3', 'Goleiro', 'GOL', 1, 1),
-        ('691d1eb3-3dfe-4fa5-bac1-31ad59912349', 'Zagueiro', 'ZAG', 2, 2),
+        ('18764397-9670-43c1-92ae-1e3404ac76a3', 'Goleiro', 'GL', 1, 1),
+        ('691d1eb3-3dfe-4fa5-bac1-31ad59912349', 'Zagueiro', 'ZG', 2, 2),
         ('e1f5e721-3138-4b45-a466-a85852be6155', 'Lateral Esquerdo', 'LE', 2, 3),
         ('11e396d5-3450-44c1-8fea-fe43db0f3523', 'Lateral Direito', 'LD', 2, 4),
-        ('3752dc46-b4e7-4b14-bf01-ee7f4d7971d3', 'Volante', 'VOL', 3, 5),
+        ('3752dc46-b4e7-4b14-bf01-ee7f4d7971d3', 'Volante', 'VL', 3, 5),
         ('913d872c-c3c6-4f31-9776-3fbc2fd586ad', 'Meio-campista Central', 'MC', 3, 6),
         ('bc711354-c771-4768-9266-ecf7ced1fd55', 'Meio-campista Esquerdo', 'ME', 3, 7),
         ('6a5a6b27-bc91-467f-a566-d9d25de1f548', 'Meio-campista Direito', 'MD', 3, 8),

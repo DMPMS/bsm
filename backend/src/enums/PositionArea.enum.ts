@@ -1,6 +1,6 @@
 export enum PositionAreaEnum {
-  Attack = 1,
-  Midfield = 2,
-  Defense = 3,
-  Goalkeeper = 4,
+  Goalkeeper = 1,
+  Defense = 2,
+  Midfield = 3,
+  Attack = 4,
 }

@@ -10,6 +10,7 @@ import Spinner from "../components/spinner/spinner";
 import Table from "../components/table/table";
 import Modal from "../components/modal/modal";
 import Header from "../components/header/header";
+import Position from "../components/position/position";
 
 const PlayerglobalsScreen = () => {
   const {
@@ -27,6 +28,17 @@ const PlayerglobalsScreen = () => {
 
   const tableHeaders: TableHeaderType[] = [
     { th: "Nome", td: "name" },
+    { th: "Geral", td: "overall", hideAtWith: TableHideLevelEnum.at300 },
+    {
+      th: "Posições Principais",
+      td: "primaryPositions",
+      hideAtWith: TableHideLevelEnum.at400,
+    },
+    {
+      th: "Posições Secundárias",
+      td: "secondaryPositions",
+      hideAtWith: TableHideLevelEnum.at600,
+    },
     { th: "Time", td: "teamglobal", hideAtWith: TableHideLevelEnum.at500 },
     { th: "País", td: "country", hideAtWith: TableHideLevelEnum.at700 },
   ];
@@ -40,6 +52,37 @@ const PlayerglobalsScreen = () => {
           size={20}
         />{" "}
         {playerglobal.name}
+      </div>
+    ),
+    overall: playerglobal.overall,
+    primaryPositions: (
+      <div className={styles.positions}>
+        {playerglobal
+          .playerglobalPositions!.filter(
+            (playerglobalPosition) => playerglobalPosition.isPrimary
+          )
+          .map((playerglobalPosition) => (
+            <Position
+              key={playerglobalPosition.id}
+              abbreviation={playerglobalPosition.position!.abbreviation}
+              area={playerglobalPosition.position!.area}
+            />
+          ))}
+      </div>
+    ),
+    secondaryPositions: (
+      <div className={styles.positions}>
+        {playerglobal
+          .playerglobalPositions!.filter(
+            (playerglobalPosition) => !playerglobalPosition.isPrimary
+          )
+          .map((playerglobalPosition) => (
+            <Position
+              key={playerglobalPosition.id}
+              abbreviation={playerglobalPosition.position!.abbreviation}
+              area={playerglobalPosition.position!.area}
+            />
+          ))}
       </div>
     ),
     teamglobal: playerglobal.teamglobal ? (
