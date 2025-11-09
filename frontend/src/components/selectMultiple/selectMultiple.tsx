@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import styles from "./select.module.css";
+import styles from "./selectMultiple.module.css";
 import TriangleDownIcon from "../icons/triangleDown.icon";
 import CloseIcon from "../icons/close.icon";
 import { FieldStateEnum } from "../../enums/FieldState.enum";
 import { KeyboardKeyEnum } from "../../enums/KeyboardKey.enum";
+import Modal from "../modal/modal";
+import MenuIcon from "../icons/menu.icon";
 
 interface Option {
   value: string | number;
@@ -13,8 +15,8 @@ interface Option {
 
 interface SelectProps {
   options: Option[];
-  value?: string | number;
-  onChange: (value: string | number) => void;
+  values: Array<string | number>;
+  onChange: (values: Array<string | number>) => void;
   placeholder?: string;
   disabled?: boolean;
   allowClear?: boolean;
@@ -22,11 +24,11 @@ interface SelectProps {
   fieldState?: FieldStateEnum;
 }
 
-const Select = ({
+const SelectMultiple = ({
   options,
-  value = "",
+  values = [],
   onChange,
-  placeholder = "Selecione a opção",
+  placeholder = "Selecione as opções",
   disabled = false,
   allowClear = true,
   validationMessage = "",
@@ -40,12 +42,15 @@ const Select = ({
   const [lastInteractionWasKeyboard, setLastInteractionWasKeyboard] =
     useState<boolean>(false);
   const [dropdownUp, setDropdownUp] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const selectRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const optionsListRef = useRef<HTMLDivElement>(null);
 
-  const selectedOption = options.find((option) => option.value === value);
+  const selectedOptions = options.filter((option) =>
+    values.includes(option.value)
+  );
   const filteredOptions = options.filter((option) =>
     option.name.toLowerCase().includes(searchValue.toLowerCase())
   );
@@ -139,8 +144,8 @@ const Select = ({
 
       if (!isOpen) {
         setIsOpen(true);
-        const selectedIndex = filteredOptions.findIndex(
-          (option) => option.value === value
+        const selectedIndex = filteredOptions.findIndex((option) =>
+          values.includes(option.value)
         );
         setFocusedIndex(selectedIndex >= 0 ? selectedIndex : -1);
       }
@@ -153,8 +158,8 @@ const Select = ({
     e.stopPropagation();
 
     if (!disabled) {
-      if (selectedOption && allowClear) {
-        onChange("");
+      if (selectedOptions.length > 0 && allowClear) {
+        onChange([]);
         closeSelect();
 
         return;
@@ -164,8 +169,8 @@ const Select = ({
         closeSelect();
       } else {
         setIsOpen(true);
-        const selectedIndex = filteredOptions.findIndex(
-          (option) => option.value === value
+        const selectedIndex = filteredOptions.findIndex((option) =>
+          values.includes(option.value)
         );
         setFocusedIndex(selectedIndex >= 0 ? selectedIndex : -1);
 
@@ -174,14 +179,26 @@ const Select = ({
     }
   };
 
+  const handleClickButton = () => {
+    if (disabled) {
+      return;
+    }
+
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   const handleFocusInput = () => {
     if (!disabled) {
       setIsKeyboardNavigation(lastInteractionWasKeyboard);
 
       if (!isOpen && lastInteractionWasKeyboard) {
         setIsOpen(true);
-        const selectedIndex = filteredOptions.findIndex(
-          (option) => option.value === value
+        const selectedIndex = filteredOptions.findIndex((option) =>
+          values.includes(option.value)
         );
         setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
       }
@@ -200,10 +217,16 @@ const Select = ({
     }
   };
 
-  const handleClickOption = (optionValue: string | number) => {
-    onChange(optionValue);
+  const toggleValue = (optionValue: string | number) => {
+    if (values.includes(optionValue)) {
+      onChange(values.filter((value) => value !== optionValue));
+    } else {
+      onChange([...values, optionValue]);
+    }
+  };
 
-    closeSelect();
+  const handleClickOption = (optionValue: string | number) => {
+    toggleValue(optionValue);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -217,8 +240,8 @@ const Select = ({
 
         if (!isOpen) {
           setIsOpen(true);
-          const selectedIndex = filteredOptions.findIndex(
-            (option) => option.value === value
+          const selectedIndex = filteredOptions.findIndex((option) =>
+            values.includes(option.value)
           );
           setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
         } else {
@@ -233,8 +256,8 @@ const Select = ({
 
         if (!isOpen) {
           setIsOpen(true);
-          const selectedIndex = filteredOptions.findIndex(
-            (option) => option.value === value
+          const selectedIndex = filteredOptions.findIndex((option) =>
+            values.includes(option.value)
           );
           setFocusedIndex(
             selectedIndex >= 0 ? selectedIndex : filteredOptions.length - 1
@@ -251,12 +274,12 @@ const Select = ({
 
         if (!isOpen) {
           setIsOpen(true);
-          const selectedIndex = filteredOptions.findIndex(
-            (option) => option.value === value
+          const selectedIndex = filteredOptions.findIndex((option) =>
+            values.includes(option.value)
           );
           setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
         } else if (focusedIndex >= 0 && filteredOptions[focusedIndex]) {
-          handleClickOption(filteredOptions[focusedIndex].value);
+          toggleValue(filteredOptions[focusedIndex].value);
         }
 
         break;
@@ -274,13 +297,11 @@ const Select = ({
         }
 
         break;
-
       case KeyboardKeyEnum.Delete:
       case KeyboardKeyEnum.Backspace:
-        if (selectedOption && allowClear && !isOpen) {
+        if (!searchValue && allowClear && selectedOptions.length > 0) {
           e.preventDefault();
-          onChange("");
-          closeSelect();
+          onChange(values.slice(0, -1));
         }
 
         break;
@@ -311,7 +332,11 @@ const Select = ({
           ref={inputRef}
           className={styles.input}
           type="text"
-          placeholder={selectedOption ? "" : placeholder}
+          placeholder={
+            selectedOptions.length > 0
+              ? `${selectedOptions.length} opções selecionadas`
+              : placeholder
+          }
           value={displayValue}
           onChange={handleChangeInput}
           onFocus={handleFocusInput}
@@ -319,7 +344,7 @@ const Select = ({
           disabled={disabled}
         />
 
-        {selectedOption && allowClear ? (
+        {selectedOptions.length > 0 && allowClear ? (
           <CloseIcon onClick={handleClickIcon} size={15} disabled={disabled} />
         ) : (
           <TriangleDownIcon
@@ -330,17 +355,19 @@ const Select = ({
         )}
       </div>
 
-      {!displayValue && selectedOption && (
-        <div
-          className={`${styles.displayNode} ${
-            isOpen ? styles.displayNodeOpen : ""
-          }`}
-        >
-          {selectedOption.display}
-        </div>
-      )}
+      <button
+        className={styles.button}
+        type="button"
+        onClick={handleClickButton}
+      >
+        <MenuIcon
+          size={15}
+          color="var(--color-gray-1)"
+          colorHover="var(--color-gray-1)"
+          colorDisabled="var(--color-gray-1)"
+        />
+      </button>
 
-      {/* Fix later the performance issue caused by too many country SVGs. */}
       {!disabled && (
         <div
           className={`${styles.dropdown} ${
@@ -354,43 +381,50 @@ const Select = ({
             tabIndex={-1}
           >
             {filteredOptions.length > 0 && isOpen ? (
-              filteredOptions.map((option, index) => (
-                <div
-                  id={`option-${option.value}`}
-                  key={option.value}
-                  onClick={() => handleClickOption(option.value)}
-                  className={`${styles.option} ${
-                    option.value === value ? styles.selectedOption : ""
-                  } ${
-                    index === focusedIndex && isKeyboardNavigation
-                      ? option.value === value
-                        ? styles.focusedSelectedOption
-                        : styles.focusedOption
-                      : ""
-                  }`}
-                >
-                  {option.display}
-                </div>
-              ))
-            ) : selectedOption ? (
-              <div
-                id={`option-${selectedOption.value}`}
-                key={selectedOption.value}
-                onClick={() => handleClickOption(selectedOption.value)}
-                className={`${styles.option} ${styles.selectedOption} ${
-                  lastInteractionWasKeyboard ? styles.focusedSelectedOption : ""
-                }`}
-              >
-                {selectedOption.display}
-              </div>
+              filteredOptions.map((option, index) => {
+                const isSelected = values.includes(option.value);
+
+                return (
+                  <div
+                    id={`option-${option.value}`}
+                    key={option.value}
+                    onClick={() => handleClickOption(option.value)}
+                    className={`${styles.option} ${
+                      isSelected ? styles.selectedOption : ""
+                    } ${
+                      index === focusedIndex && isKeyboardNavigation
+                        ? isSelected
+                          ? styles.focusedSelectedOption
+                          : styles.focusedOption
+                        : ""
+                    }`}
+                  >
+                    <div>{option.display}</div>
+                  </div>
+                );
+              })
             ) : (
               <div className={styles.noOptions}>Nenhuma opção encontrada</div>
             )}
           </div>
         </div>
       )}
+
+      <Modal
+        title="Opções Selecionadas"
+        description={
+          selectedOptions.length > 0
+            ? selectedOptions.map((option) => option.name).join(", ")
+            : "Nenhuma opção selecionada."
+        }
+        isOpen={isModalOpen}
+        loading={false}
+        onConfirm={handleCloseModal}
+        onClose={handleCloseModal}
+        danger={false}
+      />
     </div>
   );
 };
 
-export default Select;
+export default SelectMultiple;
