@@ -1,26 +1,33 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import Spinner from "../spinner/spinner";
 import styles from "./modal.module.css";
 import { KeyboardKeyEnum } from "../../enums/KeyboardKey.enum";
+import { ModalSizeEnum } from "../../enums/ModalSize.enum";
 
 interface ModalProps {
   title: string;
-  description?: string;
+  children?: ReactNode;
   isOpen: boolean;
   loading: boolean;
+  size?: ModalSizeEnum;
   danger?: boolean;
-  onConfirm: () => void;
-  onClose: () => void;
+  onConfirm?: () => void;
+  confirmText?: string;
+  onCancel: () => void;
+  cancelText?: string;
 }
 
 const Modal = ({
   title,
-  description,
+  children,
   isOpen,
   loading,
+  size = ModalSizeEnum.Small,
   danger = false,
   onConfirm,
-  onClose,
+  confirmText = "Confirmar",
+  onCancel,
+  cancelText = "Cancelar",
 }: ModalProps) => {
   const loadingRef = useRef(loading);
 
@@ -66,7 +73,7 @@ const Modal = ({
       case KeyboardKeyEnum.Escape:
         e.preventDefault();
 
-        onClose();
+        onCancel();
         break;
       case KeyboardKeyEnum.Tab:
         e.preventDefault();
@@ -92,11 +99,12 @@ const Modal = ({
 
   return (
     <div className={styles.overlay}>
-      <div className={styles.cardModal}>
+      <div
+        className={styles.cardModal}
+        style={{ "--size": size } as React.CSSProperties}
+      >
         <h3 className={styles.h3}>{title}</h3>
-        {description && (
-          <text className={styles.description}>{description}</text>
-        )}
+        {children && <div className={styles.children}>{children}</div>}
         <div className={styles.actions}>
           <button
             tabIndex={0}
@@ -104,29 +112,33 @@ const Modal = ({
             type="button"
             className={`${styles.button} ${styles.cancelButton}`}
             disabled={loading}
-            onClick={onClose}
+            onClick={onCancel}
           >
-            Cancelar
+            {cancelText}
           </button>
-          <button
-            tabIndex={0}
-            ref={confirmButtonRef}
-            type="button"
-            className={`${styles.button} ${styles.confirmButton} ${
-              danger ? styles.confirmButtonDanger : styles.confirmButtonPrimary
-            }`}
-            disabled={loading}
-            onClick={onConfirm}
-          >
-            <span
-              className={`${styles.buttonContent} ${
-                loading && styles.buttonContentLoading
+          {onConfirm && (
+            <button
+              tabIndex={0}
+              ref={confirmButtonRef}
+              type="button"
+              className={`${styles.button} ${styles.confirmButton} ${
+                danger
+                  ? styles.confirmButtonDanger
+                  : styles.confirmButtonPrimary
               }`}
+              disabled={loading}
+              onClick={onConfirm}
             >
-              <span>Confirmar</span>
-              {loading && <Spinner size={12} className={styles.spinner} />}
-            </span>
-          </button>
+              <span
+                className={`${styles.buttonContent} ${
+                  loading && styles.buttonContentLoading
+                }`}
+              >
+                <span>{confirmText}</span>
+                {loading && <Spinner size={12} className={styles.spinner} />}
+              </span>
+            </button>
+          )}
         </div>
       </div>
     </div>

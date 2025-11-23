@@ -16,6 +16,7 @@ const PlayerglobalsScreen = () => {
   const {
     loadingPlayerglobals,
     loadingRequest,
+    loadingFetchs,
     playerglobals,
     handleCreate,
     handleSearch,
@@ -140,12 +141,16 @@ const PlayerglobalsScreen = () => {
       </div>
 
       <Modal
-        title="Deseja realmente excluir este jogador?"
-        description="Esta ação será irreversível."
+        title="Deletar Jogador"
+        children={
+          <div>
+            Deseja realmente deletar este jogador? Esta ação é irreversível.
+          </div>
+        }
         isOpen={openModalDelete}
         onConfirm={handleDelete}
-        onClose={handleCloseModalDelete}
-        loading={loadingRequest}
+        onCancel={handleCloseModalDelete}
+        loading={loadingRequest || loadingFetchs}
         danger={true}
       />
     </div>

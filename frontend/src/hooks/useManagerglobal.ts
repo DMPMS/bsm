@@ -21,6 +21,7 @@ export const useManagerglobal = () => {
 
   const [loadingManagerglobals, setLoadingManagerglobals] =
     useState<boolean>(true);
+  const [loadingFetchs, setLoadingFetchs] = useState<boolean>(false);
   const [managerglobalIdDelete, setManagerglobalIdDelete] = useState<
     string | undefined
   >(undefined);
@@ -79,6 +80,8 @@ export const useManagerglobal = () => {
   };
 
   const handleDelete = async () => {
+    setLoadingFetchs(true);
+
     await request<void>({
       method: MethodEnum.Delete,
       url: URL_MANAGERGLOBAL_ID.replace(
@@ -105,6 +108,7 @@ export const useManagerglobal = () => {
         });
       });
 
+    setLoadingFetchs(false);
     setManagerglobalIdDelete(undefined);
   };
 
@@ -119,6 +123,7 @@ export const useManagerglobal = () => {
   return {
     loadingManagerglobals,
     loadingRequest,
+    loadingFetchs,
     managerglobals: managerglobalsFiltered,
     handleCreate,
     handleUpdate,

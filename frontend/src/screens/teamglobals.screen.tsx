@@ -18,6 +18,7 @@ const TeamglobalsScreen = () => {
   const {
     loadingTeamglobals,
     loadingRequest,
+    loadingFetchs,
     teamglobals,
     handleCreate,
     handleSearch,
@@ -103,12 +104,18 @@ const TeamglobalsScreen = () => {
       </div>
 
       <Modal
-        title="Deseja realmente excluir este time?"
-        description="Esta ação será irreversível."
+        title="Deletar Time"
+        children={
+          <div>
+            Deseja realmente deletar este time? Os jogadores e o treinador deste
+            time ficarão disponíveis para outros times. Esta ação é
+            irreversível.
+          </div>
+        }
         isOpen={openModalDelete}
         onConfirm={handleDelete}
-        onClose={handleCloseModalDelete}
-        loading={loadingRequest}
+        onCancel={handleCloseModalDelete}
+        loading={loadingRequest || loadingFetchs}
         danger={true}
       />
     </div>

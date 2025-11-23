@@ -6,6 +6,7 @@ import { FieldStateEnum } from "../../enums/FieldState.enum";
 import { KeyboardKeyEnum } from "../../enums/KeyboardKey.enum";
 import Modal from "../modal/modal";
 import MenuIcon from "../icons/menu.icon";
+import { ModalSizeEnum } from "../../enums/ModalSize.enum";
 
 interface Option {
   value: string | number;
@@ -310,6 +311,10 @@ const SelectMultiple = ({
     }
   };
 
+  const handleRemoveOptionModal = (optionValue: string | number) => {
+    onChange(values.filter((value) => value !== optionValue));
+  };
+
   return (
     <div ref={selectRef} className={styles.select}>
       <div
@@ -333,9 +338,11 @@ const SelectMultiple = ({
           className={styles.input}
           type="text"
           placeholder={
-            selectedOptions.length > 0
-              ? `${selectedOptions.length} opções selecionadas`
-              : placeholder
+            selectedOptions.length === 0
+              ? placeholder
+              : selectedOptions.length === 1
+              ? "1 opção selecionada"
+              : `${selectedOptions.length} opções selecionadas`
           }
           value={displayValue}
           onChange={handleChangeInput}
@@ -412,15 +419,44 @@ const SelectMultiple = ({
 
       <Modal
         title="Opções Selecionadas"
-        description={
-          selectedOptions.length > 0
-            ? selectedOptions.map((option) => option.name).join(", ")
-            : "Nenhuma opção selecionada."
+        size={
+          selectedOptions.length <= 10
+            ? ModalSizeEnum.Small
+            : selectedOptions.length <= 20
+            ? ModalSizeEnum.Medium
+            : selectedOptions.length <= 30
+            ? ModalSizeEnum.Large
+            : ModalSizeEnum.VeryLarge
+        }
+        children={
+          selectedOptions.length > 0 ? (
+            <div>
+              <div className={styles.modalDescription}>
+                {selectedOptions.length === 1
+                  ? "1 opção selecionada."
+                  : `${selectedOptions.length} opções selecionadas.`}{" "}
+                Clique em uma opção para removê-la da seleção.
+              </div>
+              <div className={styles.modalSelectedOptions}>
+                {selectedOptions.map((option) => (
+                  <div
+                    key={option.value}
+                    className={styles.modalSelectedOption}
+                    onClick={() => handleRemoveOptionModal(option.value)}
+                  >
+                    {option.display}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div>Nenhuma opção selecionada.</div>
+          )
         }
         isOpen={isModalOpen}
         loading={false}
-        onConfirm={handleCloseModal}
-        onClose={handleCloseModal}
+        onCancel={handleCloseModal}
+        cancelText="Fechar"
         danger={false}
       />
     </div>

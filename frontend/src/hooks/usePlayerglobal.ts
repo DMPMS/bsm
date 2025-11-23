@@ -21,6 +21,7 @@ export const usePlayerglobal = () => {
 
   const [loadingPlayerglobals, setLoadingPlayerglobals] =
     useState<boolean>(true);
+  const [loadingFetchs, setLoadingFetchs] = useState<boolean>(false);
   const [playerglobalIdDelete, setPlayerglobalIdDelete] = useState<
     string | undefined
   >(undefined);
@@ -79,6 +80,8 @@ export const usePlayerglobal = () => {
   };
 
   const handleDelete = async () => {
+    setLoadingFetchs(true);
+
     await request<void>({
       method: MethodEnum.Delete,
       url: URL_PLAYERGLOBAL_ID.replace(
@@ -105,6 +108,7 @@ export const usePlayerglobal = () => {
         });
       });
 
+    setLoadingFetchs(false);
     setPlayerglobalIdDelete(undefined);
   };
 
@@ -119,6 +123,7 @@ export const usePlayerglobal = () => {
   return {
     loadingPlayerglobals,
     loadingRequest,
+    loadingFetchs,
     playerglobals: playerglobalsFiltered,
     handleCreate,
     handleUpdate,

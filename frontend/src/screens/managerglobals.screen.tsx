@@ -18,6 +18,7 @@ const ManagerglobalsScreen = () => {
   const {
     loadingManagerglobals,
     loadingRequest,
+    loadingFetchs,
     managerglobals,
     handleCreate,
     handleSearch,
@@ -100,12 +101,17 @@ const ManagerglobalsScreen = () => {
       </div>
 
       <Modal
-        title="Deseja realmente excluir este treinador?"
-        description="Esta ação será irreversível."
+        title="Deletar Treinador"
+        children={
+          <div>
+            Deseja realmente deletar este treinador? Esta ação será
+            irreversível.
+          </div>
+        }
         isOpen={openModalDelete}
         onConfirm={handleDelete}
-        onClose={handleCloseModalDelete}
-        loading={loadingRequest}
+        onCancel={handleCloseModalDelete}
+        loading={loadingRequest || loadingFetchs}
         danger={true}
       />
     </div>

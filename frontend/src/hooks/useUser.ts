@@ -19,6 +19,7 @@ export const useUser = () => {
   const navigate = useNavigate();
 
   const [loadingUsers, setLoadingUsers] = useState<boolean>(true);
+  const [loadingFetchs, setLoadingFetchs] = useState<boolean>(false);
   const [userIdDelete, setUserIdDelete] = useState<string | undefined>(
     undefined
   );
@@ -64,6 +65,8 @@ export const useUser = () => {
   };
 
   const handleDelete = async () => {
+    setLoadingFetchs(true);
+
     await request<void>({
       method: MethodEnum.Delete,
       url: URL_USER_ID.replace(":userId", `${userIdDelete}`),
@@ -87,6 +90,7 @@ export const useUser = () => {
         });
       });
 
+    setLoadingFetchs(false);
     setUserIdDelete(undefined);
   };
 
@@ -101,6 +105,7 @@ export const useUser = () => {
   return {
     loadingUsers,
     loadingRequest,
+    loadingFetchs,
     users: usersFiltered,
     handleSearch,
     handleDelete,

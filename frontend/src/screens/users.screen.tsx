@@ -15,6 +15,7 @@ const UsersScreen = () => {
   const {
     loadingUsers,
     loadingRequest,
+    loadingFetchs,
     users,
     handleSearch,
     handleDelete,
@@ -70,12 +71,17 @@ const UsersScreen = () => {
       </div>
 
       <Modal
-        title="Deseja realmente excluir este usuário?"
-        description="Esta ação será irreversível."
+        title="Deletar Usuário"
+        children={
+          <div>
+            Deseja realmente deletar este usuário? Os salvamentos deste usuário
+            também serão deletados. Esta ação é irreversível.
+          </div>
+        }
         isOpen={openModalDelete}
         onConfirm={handleDelete}
-        onClose={handleCloseModalDelete}
-        loading={loadingRequest}
+        onCancel={handleCloseModalDelete}
+        loading={loadingRequest || loadingFetchs}
         danger={true}
       />
     </div>

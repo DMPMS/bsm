@@ -8,7 +8,7 @@ const NotFoundScreen = () => {
     <div className={styles.container}>
       <div className={styles.cardNotFound}>
         <h2 className={styles.h2}>Erro 404</h2>
-        <text className={styles.text}>Página não encontrada</text>
+        <div className={styles.text}>Página não encontrada</div>
         <button
           className={styles.button}
           type="button"

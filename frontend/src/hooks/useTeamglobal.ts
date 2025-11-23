@@ -25,6 +25,7 @@ export const useTeamglobal = () => {
   const navigate = useNavigate();
 
   const [loadingTeamglobals, setLoadingTeamglobals] = useState<boolean>(true);
+  const [loadingFetchs, setLoadingFetchs] = useState<boolean>(false);
   const [teamglobalIdDelete, setTeamglobalIdDelete] = useState<
     string | undefined
   >(undefined);
@@ -83,6 +84,8 @@ export const useTeamglobal = () => {
   };
 
   const handleDelete = async () => {
+    setLoadingFetchs(true);
+
     await request<void>({
       method: MethodEnum.Delete,
       url: URL_TEAMGLOBAL_ID.replace(":teamglobalId", `${teamglobalIdDelete}`),
@@ -108,6 +111,7 @@ export const useTeamglobal = () => {
         });
       });
 
+    setLoadingFetchs(false);
     setTeamglobalIdDelete(undefined);
   };
 
@@ -122,6 +126,7 @@ export const useTeamglobal = () => {
   return {
     loadingTeamglobals,
     loadingRequest,
+    loadingFetchs,
     teamglobals: teamglobalsFiltered,
     handleCreate,
     handleUpdate,

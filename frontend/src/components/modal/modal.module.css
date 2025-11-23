@@ -14,7 +14,7 @@
 .cardModal {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: calc(var(--size) * 1px);
   padding: 16px;
   margin: 16px;
   border-radius: 8px;
@@ -26,7 +26,7 @@
   text-align: center;
 }
 
-.description {
+.children {
   margin: 0 0 10px 0;
 }
 
