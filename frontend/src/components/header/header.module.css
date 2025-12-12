@@ -9,9 +9,8 @@
   background-color: var(--color-blue-3);
 }
 
-.menuIcon {
+.menu {
   display: none;
-  margin: 3.25px 0 3.25px 0;
 }
 
 .nav {
@@ -27,8 +26,15 @@
   border-radius: 3px;
   background-color: var(--color-white-1);
   color: var(--color-blue-3);
+  border: none;
+  font-size: medium;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+
+.navItem:focus-visible {
+  outline: 2px solid var(--color-gray-1);
+  outline-offset: -2px;
 }
 
 .navItem:hover {
@@ -45,19 +51,38 @@
     background-color: var(--color-blue-3);
     border-radius: 8px;
     opacity: 0;
+    pointer-events: none;
     transition: opacity 0.3s;
   }
 
-  .navShow {
+  .navVisible {
     opacity: 1;
+    pointer-events: auto;
   }
 
   .header {
     justify-content: right;
   }
 
-  .menuIcon {
-    display: block;
-    margin: 3.25px 16px 3.25px 0;
+  .menu {
+    display: flex;
+    justify-content: center;
+    padding: 3px;
+    border-radius: 3px;
+    background-color: var(--color-white-1);
+    color: var(--color-blue-3);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 0 16px 0 0;
+  }
+
+  .menu:focus-visible {
+    outline: 2px solid var(--color-gray-1);
+    outline-offset: -2px;
+  }
+
+  .menu:hover {
+    background-color: var(--color-white-3);
   }
 }

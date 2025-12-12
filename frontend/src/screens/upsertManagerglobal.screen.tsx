@@ -11,12 +11,12 @@ import {
   CURRENT_DATE,
   DEFAULT_MANAGERGLOBAL_IMAGE_URL,
 } from "../config/constants";
-import { FieldStateEnum } from "../enums/FieldState.enum";
 import { FormatDateEnum } from "../enums/FormatDate.enum";
 import { useUpsertManagerGlobal } from "../hooks/useUpsertManagerglobal";
 import styles from "../styles/upsertManagerglobalScreen.module.css";
 import { formatDateFromDate } from "../utils/formatDateFromDate";
 import { parseDate } from "../utils/formatDateFromString";
+import { getFieldState } from "../utils/getFieldState";
 
 const UpsertManagerglobalScreen = () => {
   const { managerglobalId } = useParams<{ managerglobalId: string }>();
@@ -28,8 +28,7 @@ const UpsertManagerglobalScreen = () => {
     imageUrl,
     disabledButton,
     isUpdate,
-    invalidFields,
-    warningFields,
+    fieldsStatus,
     birthdateInputValidationMessage,
     countrySelectValidationMessage,
     loadingCountries,
@@ -71,13 +70,7 @@ const UpsertManagerglobalScreen = () => {
                 value={upsertManagerglobal.name}
                 onChange={(e) => handleChangeInput(e, "name")}
                 disabled={loadingRequest}
-                fieldState={
-                  invalidFields.includes("name")
-                    ? FieldStateEnum.Invalid
-                    : warningFields.includes("name")
-                    ? FieldStateEnum.Warning
-                    : FieldStateEnum.Default
-                }
+                fieldState={getFieldState("name", fieldsStatus)}
               />
             </FormGroup>
 
@@ -94,13 +87,7 @@ const UpsertManagerglobalScreen = () => {
                 value={upsertManagerglobal.imageUrl}
                 onChange={(e) => handleChangeInput(e, "imageUrl")}
                 disabled={loadingRequest}
-                fieldState={
-                  invalidFields.includes("imageUrl")
-                    ? FieldStateEnum.Invalid
-                    : warningFields.includes("imageUrl")
-                    ? FieldStateEnum.Warning
-                    : FieldStateEnum.Default
-                }
+                fieldState={getFieldState("imageUrl", fieldsStatus)}
               />
             </FormGroup>
 
@@ -124,13 +111,7 @@ const UpsertManagerglobalScreen = () => {
                 }
                 disabled={loadingRequest}
                 validationMessage={birthdateInputValidationMessage}
-                fieldState={
-                  invalidFields.includes("birthdate")
-                    ? FieldStateEnum.Invalid
-                    : warningFields.includes("birthdate")
-                    ? FieldStateEnum.Warning
-                    : FieldStateEnum.Default
-                }
+                fieldState={getFieldState("birthdate", fieldsStatus)}
               />
             </FormGroup>
 
@@ -150,13 +131,7 @@ const UpsertManagerglobalScreen = () => {
                 }))}
                 disabled={loadingRequest}
                 validationMessage={countrySelectValidationMessage}
-                fieldState={
-                  invalidFields.includes("countryId")
-                    ? FieldStateEnum.Invalid
-                    : warningFields.includes("countryId")
-                    ? FieldStateEnum.Warning
-                    : FieldStateEnum.Default
-                }
+                fieldState={getFieldState("countryId", fieldsStatus)}
               />
             </FormGroup>
           </div>

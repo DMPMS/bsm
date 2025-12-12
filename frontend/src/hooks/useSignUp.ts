@@ -27,6 +27,8 @@ import { SignInRoutesEnum } from "../routes/signIn.routes";
 import { isWithinAgeRange } from "../utils/isWithinAgeRange";
 import { useCountry } from "./useCountry";
 import { validateImage } from "../utils/validateImage";
+import type { FieldStatusType } from "../types/FieldStatus.type";
+import { FieldStateEnum } from "../enums/FieldState.enum";
 
 export const useSignUp = () => {
   const { setUser, setNotification } = useGlobalReducer();
@@ -41,8 +43,7 @@ export const useSignUp = () => {
   const [disabledButton, setDisabledButton] = useState<boolean>(true);
   const [signUp, setSignUp] = useState<SignUpDto>(INITIAL_SIGN_UP_DTO);
 
-  const [invalidFields, setInvalidFields] = useState<string[]>([]);
-  const [warningFields, setWarningFields] = useState<string[]>([]);
+  const [fieldsStatus, setFieldsStatus] = useState<FieldStatusType[]>([]);
 
   const [birthdateInputValidationMessage, setBirthdateInputValidationMessage] =
     useState<string>("");
@@ -83,13 +84,15 @@ export const useSignUp = () => {
 
     const isValid = () => {
       input.setCustomValidity("");
-      setInvalidFields((prev) => prev.filter((item) => item !== id));
-      setWarningFields((prev) => prev.filter((item) => item !== id));
+      setFieldsStatus((prev) => prev.filter((item) => item.id !== id));
     };
 
     if (!value) {
       input.setCustomValidity(GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED);
-      setInvalidFields((prev) => [...prev, id]);
+      setFieldsStatus((prev) => [
+        ...prev,
+        { id: id, state: FieldStateEnum.Invalid },
+      ]);
 
       if (id === "password") {
         const inputConfirmPassword = document.getElementById(
@@ -101,14 +104,14 @@ export const useSignUp = () => {
             USER_MESSAGES.FIELD_VALIDATION.CONFIRM_PASSWORD
               .PASSWORDS_DO_NOT_MATCH
           );
-          setInvalidFields((prev) => [...prev, "confirmPassword"]);
+          setFieldsStatus((prev) => [
+            ...prev,
+            { id: "confirmPassword", state: FieldStateEnum.Invalid },
+          ]);
         } else {
           inputConfirmPassword.setCustomValidity("");
-          setInvalidFields((prev) =>
-            prev.filter((item) => item !== "confirmPassword")
-          );
-          setWarningFields((prev) =>
-            prev.filter((item) => item !== "confirmPassword")
+          setFieldsStatus((prev) =>
+            prev.filter((item) => item.id !== "confirmPassword")
           );
         }
       }
@@ -117,12 +120,18 @@ export const useSignUp = () => {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.NAME.MIN)
         );
-        setInvalidFields((prev) => [...prev, id]);
+        setFieldsStatus((prev) => [
+          ...prev,
+          { id: id, state: FieldStateEnum.Invalid },
+        ]);
       } else if (value.length > USER.NAME.MAX) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(USER.NAME.MAX)
         );
-        setInvalidFields((prev) => [...prev, id]);
+        setFieldsStatus((prev) => [
+          ...prev,
+          { id: id, state: FieldStateEnum.Invalid },
+        ]);
       } else {
         isValid();
       }
@@ -131,17 +140,26 @@ export const useSignUp = () => {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.EMAIL.MIN)
         );
-        setInvalidFields((prev) => [...prev, id]);
+        setFieldsStatus((prev) => [
+          ...prev,
+          { id: id, state: FieldStateEnum.Invalid },
+        ]);
       } else if (value.length > USER.EMAIL.MAX) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(USER.NAME.MAX)
         );
-        setInvalidFields((prev) => [...prev, id]);
+        setFieldsStatus((prev) => [
+          ...prev,
+          { id: id, state: FieldStateEnum.Invalid },
+        ]);
       } else if (!isValidEmail(value)) {
         input.setCustomValidity(
           USER_MESSAGES.FIELD_VALIDATION.EMAIL.EMAIL_IS_INVALID
         );
-        setInvalidFields((prev) => [...prev, id]);
+        setFieldsStatus((prev) => [
+          ...prev,
+          { id: id, state: FieldStateEnum.Invalid },
+        ]);
       } else {
         isValid();
       }
@@ -150,12 +168,18 @@ export const useSignUp = () => {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.PASSWORD.MIN)
         );
-        setInvalidFields((prev) => [...prev, id]);
+        setFieldsStatus((prev) => [
+          ...prev,
+          { id: id, state: FieldStateEnum.Invalid },
+        ]);
       } else if (value.length > USER.PASSWORD.MAX) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.PASSWORD.MAX)
         );
-        setInvalidFields((prev) => [...prev, id]);
+        setFieldsStatus((prev) => [
+          ...prev,
+          { id: id, state: FieldStateEnum.Invalid },
+        ]);
       } else {
         isValid();
       }
@@ -168,14 +192,14 @@ export const useSignUp = () => {
         inputConfirmPassword.setCustomValidity(
           USER_MESSAGES.FIELD_VALIDATION.CONFIRM_PASSWORD.PASSWORDS_DO_NOT_MATCH
         );
-        setInvalidFields((prev) => [...prev, "confirmPassword"]);
+        setFieldsStatus((prev) => [
+          ...prev,
+          { id: "confirmPassword", state: FieldStateEnum.Invalid },
+        ]);
       } else {
         inputConfirmPassword.setCustomValidity("");
-        setInvalidFields((prev) =>
-          prev.filter((item) => item !== "confirmPassword")
-        );
-        setWarningFields((prev) =>
-          prev.filter((item) => item !== "confirmPassword")
+        setFieldsStatus((prev) =>
+          prev.filter((item) => item.id !== "confirmPassword")
         );
       }
     } else if (id === "confirmPassword") {
@@ -185,14 +209,20 @@ export const useSignUp = () => {
             USER.CONFIRM_PASSWORD.MIN
           )
         );
-        setInvalidFields((prev) => [...prev, id]);
+        setFieldsStatus((prev) => [
+          ...prev,
+          { id: id, state: FieldStateEnum.Invalid },
+        ]);
       } else if (value.length > USER.CONFIRM_PASSWORD.MAX) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(
             USER.CONFIRM_PASSWORD.MAX
           )
         );
-        setInvalidFields((prev) => [...prev, id]);
+        setFieldsStatus((prev) => [
+          ...prev,
+          { id: id, state: FieldStateEnum.Invalid },
+        ]);
       } else {
         const inputPassword = document.getElementById(
           "password"
@@ -203,7 +233,10 @@ export const useSignUp = () => {
             USER_MESSAGES.FIELD_VALIDATION.CONFIRM_PASSWORD
               .PASSWORDS_DO_NOT_MATCH
           );
-          setInvalidFields((prev) => [...prev, id]);
+          setFieldsStatus((prev) => [
+            ...prev,
+            { id: id, state: FieldStateEnum.Invalid },
+          ]);
         } else {
           isValid();
         }
@@ -235,23 +268,23 @@ export const useSignUp = () => {
           input.setCustomValidity(
             GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID
           );
-          setInvalidFields((prev) => [...prev, "imageUrl"]);
+          setFieldsStatus((prev) => [
+            ...prev,
+            { id: "imageUrl", state: FieldStateEnum.Invalid },
+          ]);
         } else {
           input.setCustomValidity("");
-          setInvalidFields((prev) =>
-            prev.filter((item) => item !== "imageUrl")
-          );
-          setWarningFields((prev) =>
-            prev.filter((item) => item !== "imageUrl")
+          setFieldsStatus((prev) =>
+            prev.filter((item) => item.id !== "imageUrl")
           );
         }
 
         setIsValidImage(isValid);
       } else {
         input.setCustomValidity("");
-        setInvalidFields((prev) => prev.filter((item) => item !== "imageUrl"));
-        setWarningFields((prev) => prev.filter((item) => item !== "imageUrl"));
-
+        setFieldsStatus((prev) =>
+          prev.filter((item) => item.id !== "imageUrl")
+        );
         setIsValidImage(true);
       }
 
@@ -271,16 +304,21 @@ export const useSignUp = () => {
       setBirthdateInputValidationMessage(
         GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
       );
-      setInvalidFields((prev) => [...prev, "birthdate"]);
+      setFieldsStatus((prev) => [
+        ...prev,
+        { id: "birthdate", state: FieldStateEnum.Invalid },
+      ]);
     } else if (!isWithinAgeRange(value, USER.AGE.MIN, USER.AGE.MAX)) {
       setBirthdateInputValidationMessage(
         GENERAL_FIELD_VALIDATION_MESSAGES.BIRTHDATE(USER.AGE.MIN, USER.AGE.MAX)
       );
-      setInvalidFields((prev) => [...prev, "birthdate"]);
+      setFieldsStatus((prev) => [
+        ...prev,
+        { id: "birthdate", state: FieldStateEnum.Invalid },
+      ]);
     } else {
       setBirthdateInputValidationMessage("");
-      setInvalidFields((prev) => prev.filter((item) => item !== "birthdate"));
-      setWarningFields((prev) => prev.filter((item) => item !== "birthdate"));
+      setFieldsStatus((prev) => prev.filter((item) => item.id !== "birthdate"));
     }
   };
 
@@ -296,11 +334,13 @@ export const useSignUp = () => {
       setCountrySelectValidationMessage(
         GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
       );
-      setInvalidFields((prev) => [...prev, "countryId"]);
+      setFieldsStatus((prev) => [
+        ...prev,
+        { id: "countryId", state: FieldStateEnum.Invalid },
+      ]);
     } else {
       setCountrySelectValidationMessage("");
-      setInvalidFields((prev) => prev.filter((item) => item !== "countryId"));
-      setWarningFields((prev) => prev.filter((item) => item !== "countryId"));
+      setFieldsStatus((prev) => prev.filter((item) => item.id !== "countryId"));
     }
   };
 
@@ -366,8 +406,9 @@ export const useSignUp = () => {
   const handleReset = () => {
     setSignUp(INITIAL_SIGN_UP_DTO);
     setIsValidImage(true);
-    setInvalidFields([]);
-    setWarningFields([]);
+    setFieldsStatus([]);
+    setBirthdateInputValidationMessage("");
+    setCountrySelectValidationMessage("");
   };
 
   const handleSignIn = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -380,8 +421,7 @@ export const useSignUp = () => {
     loadingRequest,
     imageUrl: signUp.imageUrl,
     disabledButton,
-    invalidFields,
-    warningFields,
+    fieldsStatus,
     birthdateInputValidationMessage,
     countrySelectValidationMessage,
     loadingCountries,

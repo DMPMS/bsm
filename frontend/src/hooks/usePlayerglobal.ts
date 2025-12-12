@@ -31,7 +31,7 @@ export const usePlayerglobal = () => {
     playerglobal.name.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  const fetchPlayerglobals = async (timeout: number) => {
+  const fetchPlayerglobals = async (timeout?: number) => {
     await request<PlayerglobalType[]>({
       method: MethodEnum.Get,
       url: URL_PLAYERGLOBAL,
@@ -91,7 +91,7 @@ export const usePlayerglobal = () => {
       timeout: 1000,
     })
       .then(async () => {
-        await fetchPlayerglobals(0);
+        await fetchPlayerglobals();
 
         setNotification({
           message: PLAYERGLOBAL_MESSAGES.SUCCESS.DELETE,

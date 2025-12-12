@@ -1,5 +1,5 @@
 import { FieldStateEnum } from "../../enums/FieldState.enum";
-import styles from "./inputNumber.module.css";
+import Input from "../input/input";
 
 interface InputNumberProps extends React.InputHTMLAttributes<HTMLInputElement> {
   placecholder?: string;
@@ -56,14 +56,8 @@ const InputNumber = ({
   };
 
   return (
-    <input
-      className={`${styles.input} ${
-        fieldState === FieldStateEnum.Invalid
-          ? styles.invalidInput
-          : fieldState === FieldStateEnum.Warning
-          ? styles.warningInput
-          : ""
-      }`}
+    <Input
+      fieldState={fieldState}
       type="text"
       placeholder={finalPlaceholder}
       onInput={handleChangeInput}

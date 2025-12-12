@@ -29,7 +29,7 @@ export const useUser = () => {
     user.name.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  const fetchUsers = async (timeout: number) => {
+  const fetchUsers = async (timeout?: number) => {
     await request<UserType[]>({
       method: MethodEnum.Get,
       url: URL_USER,
@@ -73,7 +73,7 @@ export const useUser = () => {
       timeout: 1000,
     })
       .then(async () => {
-        await fetchUsers(0);
+        await fetchUsers();
 
         setNotification({
           message: USER_MESSAGES.SUCCESS.DELETE,

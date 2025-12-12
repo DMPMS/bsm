@@ -23,6 +23,8 @@ import type { FieldValidationType } from "../types/FieldValidationType";
 import { useTeamglobal } from "./useTeamglobal";
 import { validateImage } from "../utils/validateImage";
 import { useManagerglobalReducer } from "../store/reducers/managerglobalReducer/useManagerglobalReducer";
+import type { FieldStatusType } from "../types/FieldStatus.type";
+import { FieldStateEnum } from "../enums/FieldState.enum";
 
 export const useUpsertManagerGlobal = (managerglobalId?: string) => {
   const { setNotification } = useGlobalReducer();
@@ -44,8 +46,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
   const [upsertManagerglobal, setUpsertManagerglobal] =
     useState<UpsertManagerglobalDto>(INITIAL_UPSERT_MANAGERGLOBAL_DTO);
 
-  const [invalidFields, setInvalidFields] = useState<string[]>([]);
-  const [warningFields, setWarningFields] = useState<string[]>([]);
+  const [fieldsStatus, setFieldsStatus] = useState<FieldStatusType[]>([]);
 
   const [birthdateInputValidationMessage, setBirthdateInputValidationMessage] =
     useState<string>("");
@@ -116,8 +117,9 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
       });
     } else {
       setUpsertManagerglobal(INITIAL_UPSERT_MANAGERGLOBAL_DTO);
-      setInvalidFields([]);
-      setWarningFields([]);
+      setFieldsStatus([]);
+      setBirthdateInputValidationMessage("");
+      setCountrySelectValidationMessage("");
     }
   }, [managerglobal]);
 
@@ -141,38 +143,46 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
   }, [upsertManagerglobal, isValidImage]);
 
   const validateInputField = (
-    name: string,
+    id: string,
     value: string,
     input: HTMLInputElement
   ) => {
-    if (!["name"].includes(name)) {
+    if (!["name"].includes(id)) {
       return;
     }
 
     const isValid = () => {
       input.setCustomValidity("");
-      setInvalidFields((prev) => prev.filter((item) => item !== name));
-      setWarningFields((prev) => prev.filter((item) => item !== name));
+      setFieldsStatus((prev) => prev.filter((item) => item.id !== id));
     };
 
     if (!value) {
       input.setCustomValidity(GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED);
-      setInvalidFields((prev) => [...prev, name]);
-    } else if (name === "name") {
+      setFieldsStatus((prev) => [
+        ...prev,
+        { id: id, state: FieldStateEnum.Invalid },
+      ]);
+    } else if (id === "name") {
       if (value.length < MANAGERGLOBAL.NAME.MIN) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(
             MANAGERGLOBAL.NAME.MIN
           )
         );
-        setInvalidFields((prev) => [...prev, name]);
+        setFieldsStatus((prev) => [
+          ...prev,
+          { id: id, state: FieldStateEnum.Invalid },
+        ]);
       } else if (value.length > MANAGERGLOBAL.NAME.MAX) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(
             MANAGERGLOBAL.NAME.MAX
           )
         );
-        setInvalidFields((prev) => [...prev, name]);
+        setFieldsStatus((prev) => [
+          ...prev,
+          { id: id, state: FieldStateEnum.Invalid },
+        ]);
       } else {
         isValid();
       }
@@ -189,7 +199,10 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
         setBirthdateInputValidationMessage(
           GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
         );
-        setInvalidFields((prev) => [...prev, "birthdate"]);
+        setFieldsStatus((prev) => [
+          ...prev,
+          { id: "birthdate", state: FieldStateEnum.Invalid },
+        ]);
       } else if (
         !isWithinAgeRange(value, MANAGERGLOBAL.AGE.MIN, MANAGERGLOBAL.AGE.MAX)
       ) {
@@ -199,11 +212,15 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
             MANAGERGLOBAL.AGE.MAX
           )
         );
-        setInvalidFields((prev) => [...prev, "birthdate"]);
+        setFieldsStatus((prev) => [
+          ...prev,
+          { id: "birthdate", state: FieldStateEnum.Invalid },
+        ]);
       } else {
         setBirthdateInputValidationMessage("");
-        setInvalidFields((prev) => prev.filter((item) => item !== "birthdate"));
-        setWarningFields((prev) => prev.filter((item) => item !== "birthdate"));
+        setFieldsStatus((prev) =>
+          prev.filter((item) => item.id !== "birthdate")
+        );
       }
     } else if (id === "imageUrl") {
       const input = document.getElementById(id) as HTMLInputElement;
@@ -217,22 +234,23 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
           input.setCustomValidity(
             GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID
           );
-          setInvalidFields((prev) => [...prev, "imageUrl"]);
+          setFieldsStatus((prev) => [
+            ...prev,
+            { id: "imageUrl", state: FieldStateEnum.Invalid },
+          ]);
         } else {
           input.setCustomValidity("");
-          setInvalidFields((prev) =>
-            prev.filter((item) => item !== "imageUrl")
-          );
-          setWarningFields((prev) =>
-            prev.filter((item) => item !== "imageUrl")
+          setFieldsStatus((prev) =>
+            prev.filter((item) => item.id !== "imageUrl")
           );
         }
 
         setIsValidImage(isValid);
       } else {
         input.setCustomValidity("");
-        setInvalidFields((prev) => prev.filter((item) => item !== "imageUrl"));
-        setWarningFields((prev) => prev.filter((item) => item !== "imageUrl"));
+        setFieldsStatus((prev) =>
+          prev.filter((item) => item.id !== "imageUrl")
+        );
 
         setIsValidImage(true);
       }
@@ -261,23 +279,23 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
           input.setCustomValidity(
             GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID
           );
-          setInvalidFields((prev) => [...prev, "imageUrl"]);
+          setFieldsStatus((prev) => [
+            ...prev,
+            { id: "imageUrl", state: FieldStateEnum.Invalid },
+          ]);
         } else {
           input.setCustomValidity("");
-          setInvalidFields((prev) =>
-            prev.filter((item) => item !== "imageUrl")
-          );
-          setWarningFields((prev) =>
-            prev.filter((item) => item !== "imageUrl")
+          setFieldsStatus((prev) =>
+            prev.filter((item) => item.id !== "imageUrl")
           );
         }
 
         setIsValidImage(isValid);
       } else {
         input.setCustomValidity("");
-        setInvalidFields((prev) => prev.filter((item) => item !== "imageUrl"));
-        setWarningFields((prev) => prev.filter((item) => item !== "imageUrl"));
-
+        setFieldsStatus((prev) =>
+          prev.filter((item) => item.id !== "imageUrl")
+        );
         setIsValidImage(true);
       }
 
@@ -297,7 +315,10 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
       setBirthdateInputValidationMessage(
         GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
       );
-      setInvalidFields((prev) => [...prev, "birthdate"]);
+      setFieldsStatus((prev) => [
+        ...prev,
+        { id: "birthdate", state: FieldStateEnum.Invalid },
+      ]);
     } else if (
       !isWithinAgeRange(value, MANAGERGLOBAL.AGE.MIN, MANAGERGLOBAL.AGE.MAX)
     ) {
@@ -307,11 +328,13 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
           MANAGERGLOBAL.AGE.MAX
         )
       );
-      setInvalidFields((prev) => [...prev, "birthdate"]);
+      setFieldsStatus((prev) => [
+        ...prev,
+        { id: "birthdate", state: FieldStateEnum.Invalid },
+      ]);
     } else {
       setBirthdateInputValidationMessage("");
-      setInvalidFields((prev) => prev.filter((item) => item !== "birthdate"));
-      setWarningFields((prev) => prev.filter((item) => item !== "birthdate"));
+      setFieldsStatus((prev) => prev.filter((item) => item.id !== "birthdate"));
     }
   };
 
@@ -327,11 +350,13 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
       setCountrySelectValidationMessage(
         GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
       );
-      setInvalidFields((prev) => [...prev, "countryId"]);
+      setFieldsStatus((prev) => [
+        ...prev,
+        { id: "countryId", state: FieldStateEnum.Invalid },
+      ]);
     } else {
       setCountrySelectValidationMessage("");
-      setInvalidFields((prev) => prev.filter((item) => item !== "countryId"));
-      setWarningFields((prev) => prev.filter((item) => item !== "countryId"));
+      setFieldsStatus((prev) => prev.filter((item) => item.id !== "countryId"));
     }
   };
 
@@ -354,8 +379,8 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
         timeout: 1000,
       })
         .then(async () => {
-          await fetchManagerglobals(0);
-          await fetchTeamglobals(0);
+          await fetchManagerglobals();
+          await fetchTeamglobals();
 
           setNotification({
             message: MANAGERGLOBAL_MESSAGES.SUCCESS.UPDATE,
@@ -379,7 +404,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
         timeout: 1000,
       })
         .then(async () => {
-          await fetchManagerglobals(0);
+          await fetchManagerglobals();
 
           setNotification({
             message: MANAGERGLOBAL_MESSAGES.SUCCESS.CREATE,
@@ -403,8 +428,9 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
   const handleReset = () => {
     setUpsertManagerglobal(INITIAL_UPSERT_MANAGERGLOBAL_DTO);
     setIsValidImage(true);
-    setInvalidFields([]);
-    setWarningFields([]);
+    setFieldsStatus([]);
+    setBirthdateInputValidationMessage("");
+    setCountrySelectValidationMessage("");
   };
 
   const handleCancel = () => {
@@ -418,8 +444,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
     imageUrl: upsertManagerglobal.imageUrl,
     disabledButton,
     isUpdate,
-    invalidFields,
-    warningFields,
+    fieldsStatus,
     birthdateInputValidationMessage,
     countrySelectValidationMessage,
     loadingCountries,

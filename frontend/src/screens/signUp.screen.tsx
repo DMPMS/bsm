@@ -2,7 +2,6 @@ import styles from "../styles/signUpScreen.module.css";
 import { useSignUp } from "../hooks/useSignUp";
 import Select from "../components/select/select";
 import Country from "../components/country/country";
-import { FieldStateEnum } from "../enums/FieldState.enum";
 import Spinner from "../components/spinner/spinner";
 import FormGroup from "../components/formGroup/formGroup";
 import Input from "../components/input/input";
@@ -12,6 +11,7 @@ import { FormatDateEnum } from "../enums/FormatDate.enum";
 import DatePicker from "../components/datePicker/datePicker";
 import { parseDate } from "../utils/formatDateFromString";
 import ImagePreview from "../components/imagePreview/imagePreview";
+import { getFieldState } from "../utils/getFieldState";
 
 const SignUpScreen = () => {
   const {
@@ -19,8 +19,7 @@ const SignUpScreen = () => {
     loadingRequest,
     imageUrl,
     disabledButton,
-    invalidFields,
-    warningFields,
+    fieldsStatus,
     birthdateInputValidationMessage,
     countrySelectValidationMessage,
     loadingCountries,
@@ -59,13 +58,7 @@ const SignUpScreen = () => {
                 value={signUp.name}
                 onChange={(e) => handleChangeInput(e, "name")}
                 disabled={loadingRequest}
-                fieldState={
-                  invalidFields.includes("name")
-                    ? FieldStateEnum.Invalid
-                    : warningFields.includes("name")
-                    ? FieldStateEnum.Warning
-                    : FieldStateEnum.Default
-                }
+                fieldState={getFieldState("name", fieldsStatus)}
               />
             </FormGroup>
 
@@ -82,13 +75,7 @@ const SignUpScreen = () => {
                 value={signUp.imageUrl}
                 onChange={(e) => handleChangeInput(e, "imageUrl")}
                 disabled={loadingRequest}
-                fieldState={
-                  invalidFields.includes("imageUrl")
-                    ? FieldStateEnum.Invalid
-                    : warningFields.includes("imageUrl")
-                    ? FieldStateEnum.Warning
-                    : FieldStateEnum.Default
-                }
+                fieldState={getFieldState("imageUrl", fieldsStatus)}
               />
             </FormGroup>
 
@@ -112,13 +99,7 @@ const SignUpScreen = () => {
                 }
                 disabled={loadingRequest}
                 validationMessage={birthdateInputValidationMessage}
-                fieldState={
-                  invalidFields.includes("birthdate")
-                    ? FieldStateEnum.Invalid
-                    : warningFields.includes("birthdate")
-                    ? FieldStateEnum.Warning
-                    : FieldStateEnum.Default
-                }
+                fieldState={getFieldState("birthdate", fieldsStatus)}
               />
             </FormGroup>
 
@@ -130,13 +111,7 @@ const SignUpScreen = () => {
                 value={signUp.email}
                 onChange={(e) => handleChangeInput(e, "email")}
                 disabled={loadingRequest}
-                fieldState={
-                  invalidFields.includes("email")
-                    ? FieldStateEnum.Invalid
-                    : warningFields.includes("email")
-                    ? FieldStateEnum.Warning
-                    : FieldStateEnum.Default
-                }
+                fieldState={getFieldState("email", fieldsStatus)}
               />
             </FormGroup>
 
@@ -156,13 +131,7 @@ const SignUpScreen = () => {
                 }))}
                 disabled={loadingRequest}
                 validationMessage={countrySelectValidationMessage}
-                fieldState={
-                  invalidFields.includes("countryId")
-                    ? FieldStateEnum.Invalid
-                    : warningFields.includes("countryId")
-                    ? FieldStateEnum.Warning
-                    : FieldStateEnum.Default
-                }
+                fieldState={getFieldState("countryId", fieldsStatus)}
               />
             </FormGroup>
 
@@ -174,13 +143,7 @@ const SignUpScreen = () => {
                 value={signUp.password}
                 onChange={(e) => handleChangeInput(e, "password")}
                 disabled={loadingRequest}
-                fieldState={
-                  invalidFields.includes("password")
-                    ? FieldStateEnum.Invalid
-                    : warningFields.includes("password")
-                    ? FieldStateEnum.Warning
-                    : FieldStateEnum.Default
-                }
+                fieldState={getFieldState("password", fieldsStatus)}
               />
             </FormGroup>
 
@@ -192,13 +155,7 @@ const SignUpScreen = () => {
                 value={signUp.confirmPassword}
                 onChange={(e) => handleChangeInput(e, "confirmPassword")}
                 disabled={loadingRequest}
-                fieldState={
-                  invalidFields.includes("confirmPassword")
-                    ? FieldStateEnum.Invalid
-                    : warningFields.includes("confirmPassword")
-                    ? FieldStateEnum.Warning
-                    : FieldStateEnum.Default
-                }
+                fieldState={getFieldState("confirmPassword", fieldsStatus)}
               />
             </FormGroup>
           </div>

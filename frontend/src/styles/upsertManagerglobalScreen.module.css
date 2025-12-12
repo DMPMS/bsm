@@ -54,7 +54,6 @@
   border: none;
   border-radius: 8px;
   color: var(--color-white-1);
-  outline-offset: -1px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -62,7 +61,11 @@
 .submitButton {
   min-width: 150px;
   background-color: var(--color-blue-1);
-  outline-color: var(--color-blue-3);
+}
+
+.submitButton:focus-visible {
+  outline: 2px solid var(--color-blue-3);
+  outline-offset: -2px;
 }
 
 .submitButton:hover {
@@ -77,7 +80,12 @@
 .cancelButton,
 .resetButton {
   background-color: var(--color-gray-1);
-  outline-color: var(--color-gray-3);
+}
+
+.cancelButton:focus-visible,
+.resetButton:focus-visible {
+  outline: 2px solid var(--color-gray-3);
+  outline-offset: -2px;
 }
 
 .cancelButton:hover,

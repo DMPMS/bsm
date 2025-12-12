@@ -21,6 +21,8 @@ import { NotificationEnum } from "../enums/Notification.enum";
 import { AuthRedirectRoutesEnum } from "../routes/authRedirect.routes";
 import type { AxiosError } from "axios";
 import { SignUpRoutesEnum } from "../routes/signUp.routes";
+import type { FieldStatusType } from "../types/FieldStatus.type";
+import { FieldStateEnum } from "../enums/FieldState.enum";
 
 export const useSignIn = () => {
   const { setUser, setNotification } = useGlobalReducer();
@@ -32,8 +34,7 @@ export const useSignIn = () => {
   const [disabledButton, setDisabledButton] = useState<boolean>(true);
   const [signIn, setSignIn] = useState<SignInDto>(INITIAL_SIGN_IN_DTO);
 
-  const [invalidFields, setInvalidFields] = useState<string[]>([]);
-  const [warningFields, setWarningFields] = useState<string[]>([]);
+  const [fieldsStatus, setFieldsStatus] = useState<FieldStatusType[]>([]);
 
   useEffect(() => {
     if (signIn.email && signIn.password && isValidEmail(signIn.email)) {
@@ -54,19 +55,24 @@ export const useSignIn = () => {
 
     const isValid = () => {
       input.setCustomValidity("");
-      setInvalidFields((prev) => prev.filter((item) => item !== id));
-      setWarningFields((prev) => prev.filter((item) => item !== id));
+      setFieldsStatus((prev) => prev.filter((item) => item.id !== id));
     };
 
     if (!value) {
       input.setCustomValidity(GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED);
-      setInvalidFields((prev) => [...prev, id]);
+      setFieldsStatus((prev) => [
+        ...prev,
+        { id: id, state: FieldStateEnum.Invalid },
+      ]);
     } else if (id === "email") {
       if (!isValidEmail(value)) {
         input.setCustomValidity(
           SIGN_IN_MESSAGES.FIELD_VALIDATION.EMAIL_IS_INVALID
         );
-        setInvalidFields((prev) => [...prev, id]);
+        setFieldsStatus((prev) => [
+          ...prev,
+          { id: id, state: FieldStateEnum.Invalid },
+        ]);
       } else {
         isValid();
       }
@@ -138,8 +144,7 @@ export const useSignIn = () => {
   return {
     loadingRequest,
     disabledButton,
-    invalidFields,
-    warningFields,
+    fieldsStatus,
     handleChangeInput,
     handleSignIn,
     handleSignUp,

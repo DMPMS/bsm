@@ -20,7 +20,7 @@ export const useCountry = () => {
 
   const [loadingCountries, setLoadingCountries] = useState<boolean>(true);
 
-  const fetchCountries = async (timeout: number) => {
+  const fetchCountries = async (timeout?: number) => {
     await request<CountryType[]>({
       method: MethodEnum.Get,
       url: URL_COUNTRY,

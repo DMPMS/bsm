@@ -13,6 +13,7 @@ import Spinner from "../components/spinner/spinner";
 import Table from "../components/table/table";
 import Modal from "../components/modal/modal";
 import Header from "../components/header/header";
+import Input from "../components/input/input";
 
 const ManagerglobalsScreen = () => {
   const {
@@ -78,7 +79,7 @@ const ManagerglobalsScreen = () => {
       <div className={styles.cardManagerglobals}>
         <h2 className={styles.h2}>Treinadores</h2>
         <div className={styles.containerSearchAndCreate}>
-          <input
+          <Input
             className={styles.input}
             type="text"
             placeholder="Buscar"

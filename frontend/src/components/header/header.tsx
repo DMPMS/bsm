@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./header.module.css";
 import UserIcon from "../icons/user.icon";
 import PlayerIcon from "../icons/player.icon";
@@ -17,7 +17,25 @@ interface HeaderProps extends React.HTMLAttributes<HTMLElement> {}
 const Header = ({ ...props }: HeaderProps) => {
   const navigate = useNavigate();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    checkMenuVisibility();
+
+    window.addEventListener("resize", checkMenuVisibility);
+
+    return () => {
+      window.removeEventListener("resize", checkMenuVisibility);
+    };
+  }, []);
+
+  const checkMenuVisibility = () => {
+    const menuBreakpoint = 700;
+    const currentWidth = window.innerWidth;
+
+    setIsMenuVisible(currentWidth <= menuBreakpoint);
+  };
 
   const handleClickMenu = () => {
     setIsOpen(!isOpen);
@@ -45,16 +63,21 @@ const Header = ({ ...props }: HeaderProps) => {
 
   return (
     <header className={styles.header} {...props}>
-      <MenuIcon
-        className={styles.menuIcon}
-        size={20}
-        color="var(--color-white-1)"
-        colorHover="var(--color-white-2)"
-        colorDisabled="var(--color-white-1)"
-        onClick={handleClickMenu}
-      />
-      <nav className={`${styles.nav} ${isOpen ? styles.navShow : ""}`}>
-        <div className={styles.navItem} onClick={handleClickUsers}>
+      <button type="button" className={styles.menu} onClick={handleClickMenu}>
+        <MenuIcon
+          size={20}
+          color="var(--color-blue-3)"
+          colorHover="var(--color-blue-3)"
+          colorDisabled="var(--color-blue-3)"
+        />
+      </button>
+      <nav className={`${styles.nav} ${isOpen ? styles.navVisible : ""}`}>
+        <button
+          tabIndex={!isMenuVisible ? 0 : isOpen ? 0 : -1}
+          type="button"
+          className={styles.navItem}
+          onClick={handleClickUsers}
+        >
           <UserIcon
             size={20}
             color="var(--color-blue-3)"
@@ -62,8 +85,13 @@ const Header = ({ ...props }: HeaderProps) => {
             colorDisabled="var(--color-blue-3)"
           />
           Usuários
-        </div>
-        <div className={styles.navItem} onClick={handleClickPlayerglobals}>
+        </button>
+        <button
+          tabIndex={!isMenuVisible ? 0 : isOpen ? 0 : -1}
+          type="button"
+          className={styles.navItem}
+          onClick={handleClickPlayerglobals}
+        >
           <PlayerIcon
             size={20}
             color="var(--color-blue-3)"
@@ -71,8 +99,13 @@ const Header = ({ ...props }: HeaderProps) => {
             colorDisabled="var(--color-blue-3)"
           />
           Jogadores
-        </div>
-        <div className={styles.navItem} onClick={handleClickManagerglobals}>
+        </button>
+        <button
+          tabIndex={!isMenuVisible ? 0 : isOpen ? 0 : -1}
+          type="button"
+          className={styles.navItem}
+          onClick={handleClickManagerglobals}
+        >
           <ManagerIcon
             size={20}
             color="var(--color-blue-3)"
@@ -80,8 +113,13 @@ const Header = ({ ...props }: HeaderProps) => {
             colorDisabled="var(--color-blue-3)"
           />
           Treinadores
-        </div>
-        <div className={styles.navItem} onClick={handleClickTeamglobals}>
+        </button>
+        <button
+          tabIndex={!isMenuVisible ? 0 : isOpen ? 0 : -1}
+          type="button"
+          className={styles.navItem}
+          onClick={handleClickTeamglobals}
+        >
           <TeamIcon
             size={20}
             color="var(--color-blue-3)"
@@ -89,8 +127,13 @@ const Header = ({ ...props }: HeaderProps) => {
             colorDisabled="var(--color-blue-3)"
           />
           Times
-        </div>
-        <div className={styles.navItem} onClick={handleClickCompetitions}>
+        </button>
+        <button
+          tabIndex={!isMenuVisible ? 0 : isOpen ? 0 : -1}
+          type="button"
+          className={styles.navItem}
+          onClick={handleClickCompetitions}
+        >
           <CompetitionIcon
             size={20}
             color="var(--color-blue-3)"
@@ -98,7 +141,7 @@ const Header = ({ ...props }: HeaderProps) => {
             colorDisabled="var(--color-blue-3)"
           />
           Competições
-        </div>
+        </button>
       </nav>
     </header>
   );

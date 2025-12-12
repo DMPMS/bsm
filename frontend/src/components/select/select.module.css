@@ -46,8 +46,11 @@
   position: absolute;
   top: 50%;
   z-index: 1;
-  padding: 0 0 0 8.75px;
   transform: translateY(-50%);
+  max-width: calc(100% - 41px);
+  overflow: hidden;
+  padding: 0 0 0 8.75px;
+  white-space: nowrap;
   pointer-events: none;
 }
 

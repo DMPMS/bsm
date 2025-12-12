@@ -31,7 +31,7 @@ export const useManagerglobal = () => {
     managerglobal.name.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  const fetchManagerglobals = async (timeout: number) => {
+  const fetchManagerglobals = async (timeout?: number) => {
     await request<ManagerglobalType[]>({
       method: MethodEnum.Get,
       url: URL_MANAGERGLOBAL,
@@ -91,7 +91,7 @@ export const useManagerglobal = () => {
       timeout: 1000,
     })
       .then(async () => {
-        await fetchManagerglobals(0);
+        await fetchManagerglobals();
 
         setNotification({
           message: MANAGERGLOBAL_MESSAGES.SUCCESS.DELETE,

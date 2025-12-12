@@ -35,7 +35,7 @@ export const useTeamglobal = () => {
     teamglobal.name.toLowerCase().includes(searchValue.toLowerCase())
   );
 
-  const fetchTeamglobals = async (timeout: number) => {
+  const fetchTeamglobals = async (timeout?: number) => {
     await request<TeamglobalType[]>({
       method: MethodEnum.Get,
       url: URL_TEAMGLOBAL,
@@ -92,9 +92,9 @@ export const useTeamglobal = () => {
       timeout: 1000,
     })
       .then(async () => {
-        await fetchTeamglobals(0);
-        await fetchPlayerglobals(0);
-        await fetchManagerglobals(0);
+        await fetchTeamglobals();
+        await fetchPlayerglobals();
+        await fetchManagerglobals();
 
         setNotification({
           message: TEAMGLOBAL_MESSAGES.SUCCESS.DELETE,

@@ -46,15 +46,18 @@
   padding: 0;
   border: none;
   background: none;
-  outline-offset: -1px;
 }
 
-.buttonIconUpdate {
-  outline-color: var(--color-yellow-3);
+.buttonIconUpdate:focus-visible {
+  border-radius: 50%;
+  outline: 2px solid var(--color-yellow-3);
+  outline-offset: -2px;
 }
 
-.buttonIconDelete {
-  outline-color: var(--color-red-3);
+.buttonIconDelete:focus-visible {
+  border-radius: 50%;
+  outline: 2px solid var(--color-red-3);
+  outline-offset: -2px;
 }
 
 .tdEmptyData {
@@ -75,9 +78,12 @@
   background-color: var(--color-blue-1);
   color: white;
   border-radius: 8px;
-  outline-color: var(--color-blue-3);
-  outline-offset: -1px;
   transition: background-color 0.3s;
+}
+
+.pagination a:focus-visible {
+  outline: 2px solid var(--color-blue-3);
+  outline-offset: -2px;
 }
 
 .pagination a:hover {

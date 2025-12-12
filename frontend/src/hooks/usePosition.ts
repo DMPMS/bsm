@@ -20,7 +20,7 @@ export const usePosition = () => {
 
   const [loadingPositions, setLoadingPositions] = useState<boolean>(true);
 
-  const fetchPositions = async (timeout: number) => {
+  const fetchPositions = async (timeout?: number) => {
     await request<PositionType[]>({
       method: MethodEnum.Get,
       url: URL_POSITION,

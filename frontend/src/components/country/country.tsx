@@ -8,12 +8,11 @@ interface CountryProps {
   size?: number;
 }
 
-const Country = ({ countryCode, name, size = 20, ...props }: CountryProps) => {
+const Country = ({ countryCode, name, size = 20 }: CountryProps) => {
   return (
     <div
       className={styles.container}
       style={{ "--size": size } as React.CSSProperties}
-      {...props}
     >
       <CountryIcon
         className={styles.countryIcon}

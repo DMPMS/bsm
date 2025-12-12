@@ -11,6 +11,7 @@ import Table from "../components/table/table";
 import Modal from "../components/modal/modal";
 import Header from "../components/header/header";
 import Position from "../components/position/position";
+import Input from "../components/input/input";
 
 const PlayerglobalsScreen = () => {
   const {
@@ -118,7 +119,7 @@ const PlayerglobalsScreen = () => {
       <div className={styles.cardPlayerglobals}>
         <h2 className={styles.h2}>Jogadores</h2>
         <div className={styles.containerSearchAndCreate}>
-          <input
+          <Input
             className={styles.input}
             type="text"
             placeholder="Buscar"

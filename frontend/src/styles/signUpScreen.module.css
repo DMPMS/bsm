@@ -49,6 +49,12 @@
   text-align: center;
 }
 
+.signIn:focus-visible {
+  border-radius: 3px;
+  outline: 2px solid var(--color-black);
+  outline-offset: -2px;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -63,7 +69,6 @@
   border: none;
   border-radius: 8px;
   color: var(--color-white-1);
-  outline-offset: -1px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -71,7 +76,11 @@
 .submitButton {
   min-width: 150px;
   background-color: var(--color-blue-1);
-  outline-color: var(--color-blue-3);
+}
+
+.submitButton:focus-visible {
+  outline: 2px solid var(--color-blue-3);
+  outline-offset: -2px;
 }
 
 .submitButton:hover {
@@ -85,7 +94,11 @@
 
 .resetButton {
   background-color: var(--color-gray-1);
-  outline-color: var(--color-gray-3);
+}
+
+.resetButton:focus-visible {
+  outline: 2px solid var(--color-gray-3);
+  outline-offset: -2px;
 }
 
 .resetButton:hover {

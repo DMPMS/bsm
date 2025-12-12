@@ -1,16 +1,15 @@
 import FormGroup from "../components/formGroup/formGroup";
 import Input from "../components/input/input";
 import Spinner from "../components/spinner/spinner";
-import { FieldStateEnum } from "../enums/FieldState.enum";
 import { useSignIn } from "../hooks/useSignIn";
 import styles from "../styles/signInScreen.module.css";
+import { getFieldState } from "../utils/getFieldState";
 
 const SignInScreen = () => {
   const {
     loadingRequest,
     disabledButton,
-    invalidFields,
-    warningFields,
+    fieldsStatus,
     handleChangeInput,
     handleSignIn,
     handleSignUp,
@@ -29,13 +28,7 @@ const SignInScreen = () => {
                 placeholder="seuemail@email.com"
                 onChange={(e) => handleChangeInput(e, "email")}
                 disabled={loadingRequest}
-                fieldState={
-                  invalidFields.includes("email")
-                    ? FieldStateEnum.Invalid
-                    : warningFields.includes("email")
-                    ? FieldStateEnum.Warning
-                    : FieldStateEnum.Default
-                }
+                fieldState={getFieldState("email", fieldsStatus)}
               />
             </FormGroup>
 
@@ -45,13 +38,7 @@ const SignInScreen = () => {
                 placeholder="••••••••"
                 onChange={(e) => handleChangeInput(e, "password")}
                 disabled={loadingRequest}
-                fieldState={
-                  invalidFields.includes("password")
-                    ? FieldStateEnum.Invalid
-                    : warningFields.includes("password")
-                    ? FieldStateEnum.Warning
-                    : FieldStateEnum.Default
-                }
+                fieldState={getFieldState("password", fieldsStatus)}
               />
             </FormGroup>
           </div>

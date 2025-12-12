@@ -3,10 +3,12 @@ import styles from "./input.module.css";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   fieldState?: FieldStateEnum;
+  className?: string;
 }
 
 const Input = ({
   fieldState = FieldStateEnum.Default,
+  className = "",
   ...props
 }: InputProps) => {
   return (
@@ -17,7 +19,7 @@ const Input = ({
           : fieldState === FieldStateEnum.Warning
           ? styles.warningInput
           : ""
-      }`}
+      } ${className}`}
       {...props}
     />
   );

@@ -1,6 +1,7 @@
 import Header from "../components/header/header";
 import CountryIcon from "../components/icons/country.icon";
 import Image from "../components/image/image";
+import Input from "../components/input/input";
 import Modal from "../components/modal/modal";
 import Spinner from "../components/spinner/spinner";
 import Table from "../components/table/table";
@@ -81,7 +82,7 @@ const TeamglobalsScreen = () => {
       <div className={styles.cardTeamglobals}>
         <h2 className={styles.h2}>Times</h2>
         <div className={styles.containerSearchAndCreate}>
-          <input
+          <Input
             className={styles.input}
             type="text"
             placeholder="Buscar"

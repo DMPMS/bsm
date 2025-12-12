@@ -39,7 +39,7 @@ const Select = ({
     useState<boolean>(false);
   const [lastInteractionWasKeyboard, setLastInteractionWasKeyboard] =
     useState<boolean>(false);
-  const [dropdownUp, setDropdownUp] = useState(false);
+  const [dropdownUp, setDropdownUp] = useState<boolean>(false);
 
   const selectRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -348,11 +348,7 @@ const Select = ({
           } ${dropdownUp ? styles.dropdownUp : ""}`}
           onMouseDown={handlePreventInputBlur}
         >
-          <div
-            ref={optionsListRef}
-            className={styles.optionsList}
-            tabIndex={-1}
-          >
+          <div ref={optionsListRef} className={styles.optionsList}>
             {filteredOptions.length > 0 && isOpen ? (
               filteredOptions.map((option, index) => (
                 <div

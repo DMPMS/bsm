@@ -5,12 +5,11 @@ interface SpinnerProps {
   className?: string;
 }
 
-const Spinner = ({ size, className = "", ...props }: SpinnerProps) => {
+const Spinner = ({ size, className = "" }: SpinnerProps) => {
   return (
     <span
       className={`${styles.spinner} ${className}`}
       style={{ "--size": size } as React.CSSProperties}
-      {...props}
     ></span>
   );
 };

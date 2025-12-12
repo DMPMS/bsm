@@ -73,7 +73,7 @@ const DatePicker = ({
   validationMessage = "",
   fieldState = FieldStateEnum.Default,
 }: DatePickerProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(value);
   const [displayMonth, setDisplayMonth] = useState<Date>(
     value ? value : CURRENT_DATE
@@ -83,7 +83,7 @@ const DatePicker = ({
     useState<boolean>(false);
   const [lastInteractionWasKeyboard, setLastInteractionWasKeyboard] =
     useState<boolean>(false);
-  const [dropdownUp, setDropdownUp] = useState(false);
+  const [dropdownUp, setDropdownUp] = useState<boolean>(false);
 
   const datePickerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);

@@ -107,7 +107,6 @@ const Modal = ({
         {children && <div className={styles.children}>{children}</div>}
         <div className={styles.actions}>
           <button
-            tabIndex={0}
             ref={cancelButtonRef}
             type="button"
             className={`${styles.button} ${styles.cancelButton}`}
@@ -118,7 +117,6 @@ const Modal = ({
           </button>
           {onConfirm && (
             <button
-              tabIndex={0}
               ref={confirmButtonRef}
               type="button"
               className={`${styles.button} ${styles.confirmButton} ${

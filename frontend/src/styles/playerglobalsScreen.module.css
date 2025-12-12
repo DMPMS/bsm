@@ -33,18 +33,6 @@
   gap: 3px;
 }
 
-.input {
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid var(--color-white-3);
-  transition: border-color 0.3s;
-}
-
-.input:focus {
-  border-color: var(--color-blue-1);
-  outline: none;
-}
-
 .button {
   min-width: 101px;
   height: 36px;
@@ -53,10 +41,13 @@
   background-color: var(--color-blue-1);
   color: var(--color-white-1);
   border: none;
-  outline-color: var(--color-blue-3);
-  outline-offset: -1px;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-blue-3);
+  outline-offset: -2px;
 }
 
 .button:hover {
