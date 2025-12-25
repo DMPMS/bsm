@@ -4,11 +4,13 @@ import TriangleDownIcon from "../icons/triangleDown.icon";
 import CloseIcon from "../icons/close.icon";
 import { FieldStateEnum } from "../../enums/FieldState.enum";
 import { KeyboardKeyEnum } from "../../enums/KeyboardKey.enum";
+import { NavigationDirectionEnum } from "../../enums/NavigationDirection.enum";
 
 interface Option {
   value: string | number;
   name: string;
   display: string | React.ReactNode;
+  disabled?: boolean;
 }
 
 interface SelectProps {
@@ -183,7 +185,14 @@ const Select = ({
         const selectedIndex = filteredOptions.findIndex(
           (option) => option.value === value
         );
-        setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
+        if (selectedIndex >= 0) {
+          setFocusedIndex(selectedIndex);
+        } else {
+          const firstEnabled = filteredOptions.findIndex(
+            (option) => !option.disabled
+          );
+          setFocusedIndex(firstEnabled);
+        }
       }
     }
   };
@@ -206,6 +215,25 @@ const Select = ({
     closeSelect();
   };
 
+  const getNextEnabledIndex = (
+    start: number,
+    direction: NavigationDirectionEnum,
+    optionsArray: Option[]
+  ) => {
+    let index = start;
+    const len = optionsArray.length;
+
+    for (let i = 0; i < len; i++) {
+      index = (index + direction + len) % len;
+
+      if (!optionsArray[index].disabled) {
+        return index;
+      }
+    }
+
+    return -1;
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (disabled) return;
 
@@ -220,10 +248,21 @@ const Select = ({
           const selectedIndex = filteredOptions.findIndex(
             (option) => option.value === value
           );
-          setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
+          if (selectedIndex >= 0) {
+            setFocusedIndex(selectedIndex);
+          } else {
+            const firstEnabled = filteredOptions.findIndex(
+              (option) => !option.disabled
+            );
+            setFocusedIndex(firstEnabled);
+          }
         } else {
           setFocusedIndex((prev) =>
-            prev < filteredOptions.length - 1 ? prev + 1 : 0
+            getNextEnabledIndex(
+              prev,
+              NavigationDirectionEnum.Next,
+              filteredOptions
+            )
           );
         }
 
@@ -236,12 +275,23 @@ const Select = ({
           const selectedIndex = filteredOptions.findIndex(
             (option) => option.value === value
           );
-          setFocusedIndex(
-            selectedIndex >= 0 ? selectedIndex : filteredOptions.length - 1
-          );
+          if (selectedIndex >= 0) {
+            setFocusedIndex(selectedIndex);
+          } else {
+            const lastEnabled = [...filteredOptions]
+              .reverse()
+              .findIndex((option) => !option.disabled);
+            setFocusedIndex(
+              lastEnabled >= 0 ? filteredOptions.length - 1 - lastEnabled : -1
+            );
+          }
         } else {
           setFocusedIndex((prev) =>
-            prev > 0 ? prev - 1 : filteredOptions.length - 1
+            getNextEnabledIndex(
+              prev,
+              NavigationDirectionEnum.Previous,
+              filteredOptions
+            )
           );
         }
 
@@ -254,8 +304,19 @@ const Select = ({
           const selectedIndex = filteredOptions.findIndex(
             (option) => option.value === value
           );
-          setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
-        } else if (focusedIndex >= 0 && filteredOptions[focusedIndex]) {
+          if (selectedIndex >= 0) {
+            setFocusedIndex(selectedIndex);
+          } else {
+            const firstEnabled = filteredOptions.findIndex(
+              (option) => !option.disabled
+            );
+            setFocusedIndex(firstEnabled);
+          }
+        } else if (
+          focusedIndex >= 0 &&
+          filteredOptions[focusedIndex] &&
+          !filteredOptions[focusedIndex].disabled
+        ) {
           handleClickOption(filteredOptions[focusedIndex].value);
         }
 
@@ -354,10 +415,13 @@ const Select = ({
                 <div
                   id={`option-${option.value}`}
                   key={option.value}
-                  onClick={() => handleClickOption(option.value)}
+                  onClick={() =>
+                    !option.disabled && handleClickOption(option.value)
+                  }
+                  tabIndex={option.disabled ? -1 : 0}
                   className={`${styles.option} ${
                     option.value === value ? styles.selectedOption : ""
-                  } ${
+                  } ${option.disabled ? styles.disabledOption : ""} ${
                     index === focusedIndex && isKeyboardNavigation
                       ? option.value === value
                         ? styles.focusedSelectedOption

@@ -1,6 +1,7 @@
 import type { SignInDto } from "../dtos/signIn.dto";
 import type { SignUpDto } from "../dtos/signUp.dto";
 import type { UpsertManagerglobalDto } from "../dtos/upsertManagerglobal.dto";
+import type { UpsertPlayerglobalDto } from "../dtos/upsertPlayerglobal.dto";
 
 export const INITIAL_SIGN_IN_DTO: SignInDto = {
   email: "",
@@ -24,4 +25,15 @@ export const INITIAL_UPSERT_MANAGERGLOBAL_DTO: UpsertManagerglobalDto = {
   birthdate: "",
 
   countryId: undefined,
+};
+
+export const INITIAL_UPSERT_PLAYERGLOBAL_DTO: UpsertPlayerglobalDto = {
+  name: "",
+  imageUrl: "",
+  birthdate: "",
+  overall: 60,
+
+  countryId: undefined,
+  primaryPositionIds: [],
+  secondaryPositionIds: [],
 };

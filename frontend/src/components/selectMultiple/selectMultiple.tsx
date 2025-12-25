@@ -7,11 +7,13 @@ import { KeyboardKeyEnum } from "../../enums/KeyboardKey.enum";
 import Modal from "../modal/modal";
 import MenuIcon from "../icons/menu.icon";
 import { ModalSizeEnum } from "../../enums/ModalSize.enum";
+import { NavigationDirectionEnum } from "../../enums/NavigationDirection.enum";
 
 interface Option {
   value: string | number;
   name: string;
   display: string | React.ReactNode;
+  disabled?: boolean;
 }
 
 interface SelectProps {
@@ -201,7 +203,14 @@ const SelectMultiple = ({
         const selectedIndex = filteredOptions.findIndex((option) =>
           values.includes(option.value)
         );
-        setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
+        if (selectedIndex >= 0) {
+          setFocusedIndex(selectedIndex);
+        } else {
+          const firstEnabled = filteredOptions.findIndex(
+            (option) => !option.disabled
+          );
+          setFocusedIndex(firstEnabled);
+        }
       }
     }
   };
@@ -230,6 +239,25 @@ const SelectMultiple = ({
     toggleValue(optionValue);
   };
 
+  const getNextEnabledIndex = (
+    start: number,
+    direction: NavigationDirectionEnum,
+    optionsArray: Option[]
+  ) => {
+    let index = start;
+    const len = optionsArray.length;
+
+    for (let i = 0; i < len; i++) {
+      index = (index + direction + len) % len;
+
+      if (!optionsArray[index].disabled) {
+        return index;
+      }
+    }
+
+    return -1;
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (disabled) return;
 
@@ -244,10 +272,21 @@ const SelectMultiple = ({
           const selectedIndex = filteredOptions.findIndex((option) =>
             values.includes(option.value)
           );
-          setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
+          if (selectedIndex >= 0) {
+            setFocusedIndex(selectedIndex);
+          } else {
+            const firstEnabled = filteredOptions.findIndex(
+              (option) => !option.disabled
+            );
+            setFocusedIndex(firstEnabled);
+          }
         } else {
           setFocusedIndex((prev) =>
-            prev < filteredOptions.length - 1 ? prev + 1 : 0
+            getNextEnabledIndex(
+              prev,
+              NavigationDirectionEnum.Next,
+              filteredOptions
+            )
           );
         }
 
@@ -260,12 +299,23 @@ const SelectMultiple = ({
           const selectedIndex = filteredOptions.findIndex((option) =>
             values.includes(option.value)
           );
-          setFocusedIndex(
-            selectedIndex >= 0 ? selectedIndex : filteredOptions.length - 1
-          );
+          if (selectedIndex >= 0) {
+            setFocusedIndex(selectedIndex);
+          } else {
+            const lastEnabled = [...filteredOptions]
+              .reverse()
+              .findIndex((option) => !option.disabled);
+            setFocusedIndex(
+              lastEnabled >= 0 ? filteredOptions.length - 1 - lastEnabled : -1
+            );
+          }
         } else {
           setFocusedIndex((prev) =>
-            prev > 0 ? prev - 1 : filteredOptions.length - 1
+            getNextEnabledIndex(
+              prev,
+              NavigationDirectionEnum.Previous,
+              filteredOptions
+            )
           );
         }
 
@@ -278,8 +328,19 @@ const SelectMultiple = ({
           const selectedIndex = filteredOptions.findIndex((option) =>
             values.includes(option.value)
           );
-          setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
-        } else if (focusedIndex >= 0 && filteredOptions[focusedIndex]) {
+          if (selectedIndex >= 0) {
+            setFocusedIndex(selectedIndex);
+          } else {
+            const firstEnabled = filteredOptions.findIndex(
+              (option) => !option.disabled
+            );
+            setFocusedIndex(firstEnabled);
+          }
+        } else if (
+          focusedIndex >= 0 &&
+          filteredOptions[focusedIndex] &&
+          !filteredOptions[focusedIndex].disabled
+        ) {
           toggleValue(filteredOptions[focusedIndex].value);
         }
 
@@ -386,15 +447,19 @@ const SelectMultiple = ({
             {filteredOptions.length > 0 && isOpen ? (
               filteredOptions.map((option, index) => {
                 const isSelected = values.includes(option.value);
+                const isDisabled = option.disabled;
 
                 return (
                   <div
                     id={`option-${option.value}`}
                     key={option.value}
-                    onClick={() => handleClickOption(option.value)}
+                    onClick={() =>
+                      !isDisabled && handleClickOption(option.value)
+                    }
+                    tabIndex={isDisabled ? -1 : 0}
                     className={`${styles.option} ${
                       isSelected ? styles.selectedOption : ""
-                    } ${
+                    } ${isDisabled ? styles.disabledOption : ""} ${
                       index === focusedIndex && isKeyboardNavigation
                         ? isSelected
                           ? styles.focusedSelectedOption

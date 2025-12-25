@@ -56,7 +56,7 @@
 
 /* May not work for all cases. */
 .displayNodeOpen > div *:not(span) {
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 .displayNodeOpen span {
@@ -126,6 +126,13 @@
 
 .selectedOption:hover {
   background-color: var(--color-blue-2);
+}
+
+.disabledOption,
+.disabledOption:hover {
+  background-color: var(--color-white-1);
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .focusedOption {

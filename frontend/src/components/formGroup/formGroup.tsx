@@ -6,7 +6,8 @@ interface FormGroupProps {
   label: string;
   required?: boolean;
   tooltip?: string;
-  tooltipIcon?: React.ReactNode;
+  tooltipContent?: React.ReactNode;
+  tooltipCursor?: MouseCursorEnum;
   children: React.ReactNode;
 }
 
@@ -14,7 +15,8 @@ const FormGroup = ({
   label,
   required = false,
   tooltip,
-  tooltipIcon,
+  tooltipContent,
+  tooltipCursor = MouseCursorEnum.Help,
   children,
 }: FormGroupProps) => {
   return (
@@ -24,10 +26,16 @@ const FormGroup = ({
           {label} {required && <span className={styles.asterisk}>*</span>}{" "}
         </div>
         {tooltip && (
-          <div title={tooltip} className={styles.tooltipContainer}>
-            {tooltipIcon || (
-              <InfoIcon size={15} cursor={MouseCursorEnum.Help} />
-            )}
+          <div
+            title={tooltip}
+            className={styles.tooltipContainer}
+            style={
+              {
+                "--cursor": tooltipCursor,
+              } as React.CSSProperties
+            }
+          >
+            {tooltipContent || <InfoIcon size={15} cursor={tooltipCursor} />}
           </div>
         )}
       </label>

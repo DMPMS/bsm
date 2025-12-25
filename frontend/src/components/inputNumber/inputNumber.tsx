@@ -17,8 +17,9 @@ const getPlaceholder = (decimalPrecision: number) => {
 
 const DIGITS_ONLY_REGEX = /[^0-9]/g;
 const DECIMAL_NUMBER_REGEX = /[^0-9.]/g;
+const LEADING_ZEROS_REGEX = /^0+(\d)/;
 const SINGLE_DOT_REGEX = /(\..*)\./g;
-const SINGLE_DOT_REPLACEMENT = "$1";
+const REPLACEMENT_GROUP = "$1";
 
 const InputNumber = ({
   placeholder,
@@ -36,19 +37,29 @@ const InputNumber = ({
     let value = e.currentTarget.value;
 
     if (value.startsWith(".")) {
-      value = value.slice(1);
+      value = "0" + value;
     }
 
     if (isInteger) {
       value = value.replace(DIGITS_ONLY_REGEX, "");
+      value = value.replace(LEADING_ZEROS_REGEX, REPLACEMENT_GROUP);
     } else {
       value = value
         .replace(DECIMAL_NUMBER_REGEX, "")
-        .replace(SINGLE_DOT_REGEX, SINGLE_DOT_REPLACEMENT);
+        .replace(SINGLE_DOT_REGEX, REPLACEMENT_GROUP);
 
       if (decimalPrecision > 0 && value.includes(".")) {
         const [integerPart, decimalPart] = value.split(".");
-        value = integerPart + "." + decimalPart.slice(0, decimalPrecision);
+        const integerPartWithoutLeadingZeros = integerPart.replace(
+          LEADING_ZEROS_REGEX,
+          REPLACEMENT_GROUP
+        );
+        value =
+          integerPartWithoutLeadingZeros +
+          "." +
+          decimalPart.slice(0, decimalPrecision);
+      } else {
+        value = value.replace(LEADING_ZEROS_REGEX, REPLACEMENT_GROUP);
       }
     }
 

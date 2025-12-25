@@ -7,6 +7,7 @@
 .selectHeader {
   display: flex;
   align-items: center;
+  width: 100%;
   min-height: 18px;
   padding: 8px 8px 8px 6px;
   border: 1px solid var(--color-white-3);
@@ -134,6 +135,13 @@
 
 .selectedOption:hover {
   background-color: var(--color-blue-2);
+}
+
+.disabledOption,
+.disabledOption:hover {
+  background-color: var(--color-white-1);
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .focusedOption {

@@ -50,3 +50,26 @@ export const MANAGERGLOBAL = {
     MAX: 90,
   },
 };
+
+export const PLAYERGLOBAL = {
+  NAME: {
+    MIN: 4,
+    MAX: 30,
+  },
+  AGE: {
+    MIN: 16,
+    MAX: 50,
+  },
+  OVERALL: {
+    MIN: 1,
+    MAX: 100,
+  },
+  PRIMARY_POSITIONS: {
+    MIN: 1,
+    MAX: 3,
+  },
+  SECONDARY_POSITIONS: {
+    MIN: 0,
+    MAX: 5,
+  },
+};
