@@ -41,31 +41,6 @@
   background-color: var(--color-white-2);
 }
 
-.contentTdActions {
-  display: flex;
-  justify-content: center;
-  gap: 5px;
-}
-
-.buttonIcon {
-  display: inline-flex;
-  padding: 0;
-  border: none;
-  background: none;
-}
-
-.buttonIconUpdate:focus-visible {
-  border-radius: 50%;
-  outline: 2px solid var(--color-yellow-3);
-  outline-offset: -2px;
-}
-
-.buttonIconDelete:focus-visible {
-  border-radius: 50%;
-  outline: 2px solid var(--color-red-3);
-  outline-offset: -2px;
-}
-
 .pagination {
   display: flex;
   flex-wrap: wrap;
@@ -95,6 +70,15 @@
 .pagination a.active {
   background-color: var(--color-blue-3);
   outline-color: var(--color-black);
+}
+
+.checkbox {
+  accent-color: var(--color-blue-1);
+  cursor: pointer;
+}
+
+.checkbox:disabled {
+  cursor: not-allowed;
 }
 
 .hideAt900px {

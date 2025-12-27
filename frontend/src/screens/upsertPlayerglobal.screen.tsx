@@ -110,7 +110,7 @@ const UpsertPlayerglobalScreen = () => {
               tooltip={`A data atual no sistema é ${formatDateFromDate(
                 CURRENT_DATE,
                 FormatDateEnum.SLASH_DD_MM_YYYY
-              )}`}
+              )}.`}
             >
               <DatePicker
                 onChange={handleChangeBirthdateInput}

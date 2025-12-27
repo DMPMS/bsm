@@ -1,27 +1,28 @@
 import { useState } from "react";
-import { TableActionEnum } from "../../enums/TableActionEnum";
 import type { TableHeaderType } from "../../types/TableHeaderType";
 import { PAGINATION } from "../../config/constants";
-import styles from "./table.module.css";
+import styles from "./selectTable.module.css";
 import { TableHideLevelEnum } from "../../enums/TableHideLevelEnum";
-import PencilIcon from "../icons/pencil.icon";
-import TrashIcon from "../icons/trash.icon";
 import { KeyboardKeyEnum } from "../../enums/KeyboardKey.enum";
 
-interface TableProps<T> {
+const CHECKBOX_COLUMN_COUNT = 1;
+
+interface SelectTableProps<T> {
   data: T[];
   headers: TableHeaderType[];
-  handleUpdate?: (id: string) => void;
-  handleOpenModalDelete?: (id: string) => void;
+  values: string[];
+  onChange: (values: string[]) => void;
+  disabled?: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function Table<T extends { id: string; [key: string]: any }>({
+function SelectTable<T extends { id: string; [key: string]: any }>({
   data,
   headers,
-  handleUpdate,
-  handleOpenModalDelete,
-}: TableProps<T>) {
+  values = [],
+  onChange,
+  disabled = false,
+}: SelectTableProps<T>) {
   const [currentPage, setCurrentPage] = useState<number>(
     PAGINATION.DEFAULT_PAGE
   );
@@ -32,11 +33,22 @@ function Table<T extends { id: string; [key: string]: any }>({
     (row: T) => Array.isArray(row.actions) && row.actions.length > 0
   );
 
+  const handleSelectRow = (rowId: string) => {
+    if (values.includes(rowId)) {
+      onChange(values.filter((value) => value !== rowId));
+    } else {
+      onChange([...values, rowId]);
+    }
+  };
+
   const renderTableData = () => {
     if (data.length === 0) {
       return (
         <tr>
-          <td className={styles.tdEmptyData} colSpan={headers.length}>
+          <td
+            className={styles.tdEmptyData}
+            colSpan={headers.length + CHECKBOX_COLUMN_COUNT}
+          >
             Nenhum dado encontrado
           </td>
         </tr>
@@ -49,6 +61,16 @@ function Table<T extends { id: string; [key: string]: any }>({
 
     return data.slice(start, end).map((row: T, rowIndex: number) => (
       <tr key={rowIndex}>
+        <td>
+          <input
+            className={styles.checkbox}
+            type="checkbox"
+            checked={values.includes(row.id)}
+            onChange={() => handleSelectRow(row.id)}
+            onKeyDown={(e) => handleKeyDown(e, row.id)}
+            disabled={disabled}
+          />
+        </td>
         {headers.map((header, index) => (
           <td
             key={index}
@@ -80,68 +102,6 @@ function Table<T extends { id: string; [key: string]: any }>({
             {row[header.td]}
           </td>
         ))}
-        {row.actions && row.actions.length > 0 && (
-          <td>
-            <div className={styles.contentTdActions}>
-              {row.actions.includes(TableActionEnum.Update) && (
-                <button
-                  type="button"
-                  className={`${styles.buttonIcon} ${styles.buttonIconUpdate}`}
-                  onClick={() =>
-                    handleUpdate ? handleUpdate(row.id) : undefined
-                  }
-                  onKeyDown={(e) => {
-                    if (
-                      e.key === KeyboardKeyEnum.Enter ||
-                      e.key === KeyboardKeyEnum.Space
-                    ) {
-                      e.preventDefault();
-                      if (handleUpdate) {
-                        handleUpdate(row.id);
-                      }
-                    }
-                  }}
-                >
-                  <PencilIcon
-                    size={20}
-                    color="var(--color-yellow-1)"
-                    colorHover="var(--color-yellow-2)"
-                    colorDisabled="var(--color-yellow-1)"
-                  />
-                </button>
-              )}
-              {row.actions.includes(TableActionEnum.Delete) && (
-                <button
-                  type="button"
-                  className={`${styles.buttonIcon} ${styles.buttonIconDelete}`}
-                  onClick={() =>
-                    handleOpenModalDelete
-                      ? handleOpenModalDelete(row.id)
-                      : undefined
-                  }
-                  onKeyDown={(e) => {
-                    if (
-                      e.key === KeyboardKeyEnum.Enter ||
-                      e.key === KeyboardKeyEnum.Space
-                    ) {
-                      e.preventDefault();
-                      if (handleOpenModalDelete) {
-                        handleOpenModalDelete(row.id);
-                      }
-                    }
-                  }}
-                >
-                  <TrashIcon
-                    size={20}
-                    color="var(--color-red-1)"
-                    colorHover="var(--color-red-2)"
-                    colorDisabled="var(--color-red-1)"
-                  />
-                </button>
-              )}
-            </div>
-          </td>
-        )}
       </tr>
     ));
   };
@@ -178,11 +138,28 @@ function Table<T extends { id: string; [key: string]: any }>({
     setCurrentPage(page);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent, rowId: string) => {
+    if (disabled) return;
+
+    switch (e.key) {
+      case KeyboardKeyEnum.Enter:
+      case KeyboardKeyEnum.Space:
+        e.preventDefault();
+
+        handleSelectRow(rowId);
+
+        break;
+      default:
+        return;
+    }
+  };
+
   return (
     <div className={styles.containerTable}>
       <table className={styles.table}>
         <thead>
           <tr>
+            <th></th>
             {headers.map((header, index) => (
               <th
                 key={index}
@@ -224,4 +201,4 @@ function Table<T extends { id: string; [key: string]: any }>({
   );
 }
 
-export default Table;
+export default SelectTable;

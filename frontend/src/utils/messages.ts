@@ -6,13 +6,13 @@ export const SIGN_IN_MESSAGES = {
     EMAIL_IS_INVALID: "Insira um e-mail válido.",
   },
   SUCCESS: {
-    WELCOME: (name: string) => `Bem-vindo(a) de volta, ${name} 😊!`,
+    WELCOME: (name: string) => `Bem-vindo(a) de volta, ${name}`,
   },
 };
 
 export const SIGN_UP_MESSAGES = {
   SUCCESS: {
-    WELCOME: (name: string) => `Bem-vindo(a), ${name} 😊!`,
+    WELCOME: (name: string) => `Bem-vindo(a), ${name}`,
   },
 };
 
@@ -28,7 +28,7 @@ export const PLAYERGLOBAL_MESSAGES = {
   FIELD_VALIDATION: {
     PRIMARY_POSITIONS: (min: number, max: number) =>
       max === 1
-        ? "Selecione 1 posição primária"
+        ? "Selecione 1 posição primária."
         : `Selecione de ${min} a ${max} posições primárias.`,
     SECONDARY_POSITIONS: (min: number, max: number) =>
       min === 0

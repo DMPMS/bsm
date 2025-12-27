@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+}
+
+.option:first-child .button {
+  border-radius: 8px 0 0 8px;
+}
+
+.option:last-child .button {
+  border-radius: 0 8px 8px 0;
+}
+
+.button {
+  height: 36px;
+  padding: 10px;
+  background-color: var(--color-white-1);
+  border: 1px solid var(--color-white-3);
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-gray-1);
+  outline-offset: -2px;
+}
+
+.button:hover {
+  background-color: var(--color-white-2);
+}
+
+.selected,
+.selected:hover {
+  background-color: var(--color-blue-1);
+  border-color: var(--color-blue-1);
+  color: var(--color-white-1);
+}
+
+.selected:focus-visible {
+  outline: 2px solid var(--color-blue-3);
+  outline-offset: -2px;
+}

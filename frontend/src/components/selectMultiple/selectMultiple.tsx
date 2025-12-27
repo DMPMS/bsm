@@ -111,7 +111,9 @@ const SelectMultiple = ({
 
   useEffect(() => {
     inputRef.current?.setCustomValidity(validationMessage);
-    inputRef.current?.reportValidity();
+    if (!isModalOpen) {
+      inputRef.current?.reportValidity();
+    }
   }, [validationMessage]);
 
   useEffect(() => {
@@ -427,12 +429,14 @@ const SelectMultiple = ({
         className={styles.button}
         type="button"
         onClick={handleClickButton}
+        disabled={disabled}
       >
         <MenuIcon
           size={15}
           color="var(--color-gray-1)"
           colorHover="var(--color-gray-1)"
           colorDisabled="var(--color-gray-1)"
+          disabled={disabled}
         />
       </button>
 
