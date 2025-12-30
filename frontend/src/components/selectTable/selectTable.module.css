@@ -37,16 +37,34 @@
   font-style: italic;
 }
 
+.table td.tdSelectInput {
+  text-align: center;
+}
+
 .table th {
   background-color: var(--color-white-2);
 }
 
+.validationAndPaginationContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  margin: 10px 0 0 0;
+}
+
+.validationMessage {
+  flex: 1;
+  color: var(--color-red-1);
+}
+
 .pagination {
   display: flex;
+  flex: 1;
   flex-wrap: wrap;
   justify-content: right;
   gap: 5px;
-  margin: 10px 0 0 0;
 }
 
 .pagination a {
@@ -72,13 +90,19 @@
   outline-color: var(--color-black);
 }
 
-.checkbox {
+.selectInput {
   accent-color: var(--color-blue-1);
   cursor: pointer;
+  transition: accent-color 0.3s;
 }
 
-.checkbox:disabled {
+.selectInput:disabled {
   cursor: not-allowed;
+}
+
+.invalid {
+  accent-color: var(--color-red-1);
+  cursor: pointer;
 }
 
 .hideAt900px {

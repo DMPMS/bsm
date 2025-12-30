@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TableActionEnum } from "../../enums/TableActionEnum";
 import type { TableHeaderType } from "../../types/TableHeaderType";
 import { PAGINATION } from "../../config/constants";
@@ -25,6 +25,10 @@ function Table<T extends { id: string; [key: string]: any }>({
   const [currentPage, setCurrentPage] = useState<number>(
     PAGINATION.DEFAULT_PAGE
   );
+
+  useEffect(() => {
+    setCurrentPage(PAGINATION.DEFAULT_PAGE);
+  }, [data.length]);
 
   const totalPages = Math.ceil(data.length / PAGINATION.DEFAULT_LIMIT);
 

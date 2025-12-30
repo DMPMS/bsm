@@ -73,3 +73,18 @@ export const PLAYERGLOBAL = {
     MAX: 5,
   },
 };
+
+export const TEAMGLOBAL = {
+  NAME: {
+    MIN: 4,
+    MAX: 30,
+  },
+  ABBREVIATION: {
+    MIN: 1,
+    MAX: 3,
+  },
+  PLAYERGLOBALS: {
+    MIN: 16,
+    MAX: 33,
+  },
+};

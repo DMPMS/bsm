@@ -149,7 +149,8 @@ const UpsertPlayerglobalScreen = () => {
               tooltipContent={
                 <div className={styles.tooltipContentPositions}>
                   {primaryPositionIds.length} /{" "}
-                  {PLAYERGLOBAL.PRIMARY_POSITIONS.MAX}
+                  {PLAYERGLOBAL.PRIMARY_POSITIONS.MAX}{" "}
+                  {`(mín. ${PLAYERGLOBAL.PRIMARY_POSITIONS.MIN})`}
                 </div>
               }
             >

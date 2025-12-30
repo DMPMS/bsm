@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { TableHeaderType } from "../../types/TableHeaderType";
 import { PAGINATION } from "../../config/constants";
 import styles from "./selectTable.module.css";
 import { TableHideLevelEnum } from "../../enums/TableHideLevelEnum";
 import { KeyboardKeyEnum } from "../../enums/KeyboardKey.enum";
+import { FieldStateEnum } from "../../enums/FieldState.enum";
 
 const CHECKBOX_COLUMN_COUNT = 1;
 
@@ -12,7 +13,10 @@ interface SelectTableProps<T> {
   headers: TableHeaderType[];
   values: string[];
   onChange: (values: string[]) => void;
+  multiple?: boolean;
   disabled?: boolean;
+  validationMessage?: string;
+  fieldState?: FieldStateEnum;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -21,11 +25,18 @@ function SelectTable<T extends { id: string; [key: string]: any }>({
   headers,
   values = [],
   onChange,
+  multiple = true,
   disabled = false,
+  validationMessage = "",
+  fieldState = FieldStateEnum.Default,
 }: SelectTableProps<T>) {
   const [currentPage, setCurrentPage] = useState<number>(
     PAGINATION.DEFAULT_PAGE
   );
+
+  useEffect(() => {
+    setCurrentPage(PAGINATION.DEFAULT_PAGE);
+  }, [data.length]);
 
   const totalPages = Math.ceil(data.length / PAGINATION.DEFAULT_LIMIT);
 
@@ -34,10 +45,18 @@ function SelectTable<T extends { id: string; [key: string]: any }>({
   );
 
   const handleSelectRow = (rowId: string) => {
-    if (values.includes(rowId)) {
-      onChange(values.filter((value) => value !== rowId));
+    if (multiple) {
+      if (values.includes(rowId)) {
+        onChange(values.filter((value) => value !== rowId));
+      } else {
+        onChange([...values, rowId]);
+      }
     } else {
-      onChange([...values, rowId]);
+      if (values.includes(rowId)) {
+        onChange([]);
+      } else {
+        onChange([rowId]);
+      }
     }
   };
 
@@ -61,14 +80,16 @@ function SelectTable<T extends { id: string; [key: string]: any }>({
 
     return data.slice(start, end).map((row: T, rowIndex: number) => (
       <tr key={rowIndex}>
-        <td>
+        <td className={styles.tdSelectInput}>
           <input
-            className={styles.checkbox}
-            type="checkbox"
+            className={`${styles.selectInput} ${
+              fieldState === FieldStateEnum.Invalid ? styles.invalid : ""
+            }`}
+            type={multiple ? "checkbox" : "radio"}
             checked={values.includes(row.id)}
             onChange={() => handleSelectRow(row.id)}
             onKeyDown={(e) => handleKeyDown(e, row.id)}
-            disabled={disabled}
+            disabled={disabled || row.disabled}
           />
         </td>
         {headers.map((header, index) => (
@@ -196,7 +217,12 @@ function SelectTable<T extends { id: string; [key: string]: any }>({
         </thead>
         <tbody>{renderTableData()}</tbody>
       </table>
-      <div className={styles.pagination}>{renderPagination()}</div>
+      <div className={styles.validationAndPaginationContainer}>
+        {validationMessage && (
+          <div className={styles.validationMessage}>{validationMessage}</div>
+        )}
+        <div className={styles.pagination}>{renderPagination()}</div>
+      </div>
     </div>
   );
 }
