@@ -419,7 +419,6 @@ export const useSignUp = () => {
   return {
     signUp,
     loadingRequest,
-    imageUrl: signUp.imageUrl,
     disabledButton,
     fieldsStatus,
     birthdateInputValidationMessage,

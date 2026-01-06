@@ -20,8 +20,8 @@ import Select from "../components/select/select";
 import Country from "../components/country/country";
 import InputNumber from "../components/inputNumber/inputNumber";
 import SelectMultiple from "../components/selectMultiple/selectMultiple";
-import Position from "../components/position/position";
 import { PLAYERGLOBAL_MESSAGES } from "../utils/messages";
+import PositionLabel from "../components/positionLabel/positionLabel";
 
 const UpsertPlayerglobalScreen = () => {
   const { playerglobalId } = useParams<{ playerglobalId: string }>();
@@ -30,9 +30,6 @@ const UpsertPlayerglobalScreen = () => {
     upsertPlayerglobal,
     loadingPlayerglobal,
     loadingRequest,
-    imageUrl,
-    primaryPositionIds,
-    secondaryPositionIds,
     disabledButton,
     isUpdate,
     fieldsStatus,
@@ -68,7 +65,7 @@ const UpsertPlayerglobalScreen = () => {
         <form className={styles.form} onSubmit={handleUpsertPlayerglobal}>
           <div className={styles.containerImagePreview}>
             <ImagePreview
-              imageUrl={imageUrl}
+              imageUrl={upsertPlayerglobal.imageUrl}
               backgroundUrl={DEFAULT_PLAYERGLOBAL_IMAGE_URL}
               size={100}
             />
@@ -148,7 +145,7 @@ const UpsertPlayerglobalScreen = () => {
               )}
               tooltipContent={
                 <div className={styles.tooltipContentPositions}>
-                  {primaryPositionIds.length} /{" "}
+                  {upsertPlayerglobal.primaryPositionIds.length} /{" "}
                   {PLAYERGLOBAL.PRIMARY_POSITIONS.MAX}{" "}
                   {`(mín. ${PLAYERGLOBAL.PRIMARY_POSITIONS.MIN})`}
                 </div>
@@ -156,23 +153,17 @@ const UpsertPlayerglobalScreen = () => {
             >
               <SelectMultiple
                 placeholder="Selecione as posições"
-                values={primaryPositionIds}
+                values={upsertPlayerglobal.primaryPositionIds}
                 onChange={(values: (string | number)[]) =>
                   handleChangePrimaryPositionsSelect(values as string[])
                 }
                 options={positions.map((position) => ({
                   value: position.id,
                   name: position.name,
-                  disabled: secondaryPositionIds.includes(position.id),
-                  display: (
-                    <div className={styles.positionWithName}>
-                      <Position
-                        abbreviation={position.abbreviation}
-                        area={position.area}
-                      />
-                      <span>{position.name}</span>
-                    </div>
+                  disabled: upsertPlayerglobal.secondaryPositionIds.includes(
+                    position.id
                   ),
+                  display: <PositionLabel position={position} />,
                 }))}
                 disabled={loadingRequest}
                 validationMessage={primaryPositionSelectValidationMessage}
@@ -188,30 +179,24 @@ const UpsertPlayerglobalScreen = () => {
               )}
               tooltipContent={
                 <div className={styles.tooltipContentPositions}>
-                  {secondaryPositionIds.length} /{" "}
+                  {upsertPlayerglobal.secondaryPositionIds.length} /{" "}
                   {PLAYERGLOBAL.SECONDARY_POSITIONS.MAX}
                 </div>
               }
             >
               <SelectMultiple
                 placeholder="Selecione as posições"
-                values={secondaryPositionIds}
+                values={upsertPlayerglobal.secondaryPositionIds}
                 onChange={(values: (string | number)[]) =>
                   handleChangeSecondaryPositionsSelect(values as string[])
                 }
                 options={positions.map((position) => ({
                   value: position.id,
                   name: position.name,
-                  disabled: primaryPositionIds.includes(position.id),
-                  display: (
-                    <div className={styles.positionWithName}>
-                      <Position
-                        abbreviation={position.abbreviation}
-                        area={position.area}
-                      />
-                      <span>{position.name}</span>
-                    </div>
+                  disabled: upsertPlayerglobal.primaryPositionIds.includes(
+                    position.id
                   ),
+                  display: <PositionLabel position={position} />,
                 }))}
                 disabled={loadingRequest}
                 validationMessage={secondaryPositionSelectValidationMessage}
@@ -219,7 +204,7 @@ const UpsertPlayerglobalScreen = () => {
               />
             </FormGroup>
 
-            <FormGroup label="Nacionalidade" required={true}>
+            <FormGroup label="País" required={true}>
               <Select
                 placeholder="Selecione o país"
                 value={upsertPlayerglobal.countryId}
@@ -269,7 +254,7 @@ const UpsertPlayerglobalScreen = () => {
                   loadingRequest && styles.buttonContentLoading
                 }`}
               >
-                <span>{isUpdate ? "Salvar Jogador" : "Criar Jogador"}</span>
+                {isUpdate ? "Salvar Jogador" : "Criar Jogador"}
                 {loadingRequest && (
                   <Spinner size={12} className={styles.spinner} />
                 )}

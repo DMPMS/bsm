@@ -31,10 +31,10 @@ const Header = ({ ...props }: HeaderProps) => {
   }, []);
 
   const checkMenuVisibility = () => {
-    const menuBreakpoint = 700;
+    const menuHideAtWith = 700;
     const currentWidth = window.innerWidth;
 
-    setIsMenuVisible(currentWidth <= menuBreakpoint);
+    setIsMenuVisible(currentWidth <= menuHideAtWith);
   };
 
   const handleClickMenu = () => {

@@ -1,17 +1,20 @@
-import Image from "../components/image/image";
-import { TableActionEnum } from "../enums/TableActionEnum";
-import { TableHideLevelEnum } from "../enums/TableHideLevelEnum";
+import { TableActionEnum } from "../enums/TableAction.enum";
+import { TableHideLevelEnum } from "../enums/TableHideLevel.enum";
 import { usePlayerglobal } from "../hooks/usePlayerglobal";
 import type { TableHeaderType } from "../types/TableHeaderType";
 import styles from "../styles/playerglobalsScreen.module.css";
-import { DEFAULT_PLAYERGLOBAL_IMAGE_URL } from "../config/constants";
-import CountryIcon from "../components/icons/country.icon";
+import {
+  DEFAULT_PLAYERGLOBAL_IMAGE_URL,
+  DEFAULT_TEAMGLOBAL_IMAGE_URL,
+} from "../config/constants";
 import Spinner from "../components/spinner/spinner";
 import Table from "../components/table/table";
 import Modal from "../components/modal/modal";
 import Header from "../components/header/header";
 import Position from "../components/position/position";
 import Input from "../components/input/input";
+import ImageLabel from "../components/imageLabel/imageLabel";
+import Country from "../components/country/country";
 
 const PlayerglobalsScreen = () => {
   const {
@@ -30,31 +33,28 @@ const PlayerglobalsScreen = () => {
 
   const tableHeaders: TableHeaderType[] = [
     { th: "Nome", td: "name" },
-    { th: "Geral", td: "overall", hideAtWith: TableHideLevelEnum.at300 },
+    { th: "Geral", td: "overall", hideAtWidth: TableHideLevelEnum.at300 },
     {
       th: "Posições Principais",
       td: "primaryPositions",
-      hideAtWith: TableHideLevelEnum.at400,
+      hideAtWidth: TableHideLevelEnum.at400,
     },
     {
       th: "Posições Secundárias",
       td: "secondaryPositions",
-      hideAtWith: TableHideLevelEnum.at600,
+      hideAtWidth: TableHideLevelEnum.at600,
     },
-    { th: "Time", td: "teamglobal", hideAtWith: TableHideLevelEnum.at500 },
-    { th: "País", td: "country", hideAtWith: TableHideLevelEnum.at700 },
+    { th: "Time", td: "teamglobal", hideAtWidth: TableHideLevelEnum.at500 },
+    { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at700 },
   ];
 
   const tableData = playerglobals.map((playerglobal) => ({
     id: playerglobal.id,
     name: (
-      <div className={styles.imageWithName}>
-        <Image
-          src={playerglobal.imageUrl || DEFAULT_PLAYERGLOBAL_IMAGE_URL}
-          size={20}
-        />{" "}
-        {playerglobal.name}
-      </div>
+      <ImageLabel
+        imageUrl={playerglobal.imageUrl || DEFAULT_PLAYERGLOBAL_IMAGE_URL}
+        name={playerglobal.name}
+      />
     ),
     overall: playerglobal.overall,
     primaryPositions: (
@@ -66,8 +66,7 @@ const PlayerglobalsScreen = () => {
           .map((playerglobalPosition) => (
             <Position
               key={playerglobalPosition.id}
-              abbreviation={playerglobalPosition.position!.abbreviation}
-              area={playerglobalPosition.position!.area}
+              position={playerglobalPosition.position!}
             />
           ))}
       </div>
@@ -81,28 +80,24 @@ const PlayerglobalsScreen = () => {
           .map((playerglobalPosition) => (
             <Position
               key={playerglobalPosition.id}
-              abbreviation={playerglobalPosition.position!.abbreviation}
-              area={playerglobalPosition.position!.area}
+              position={playerglobalPosition.position!}
             />
           ))}
       </div>
     ),
     teamglobal: playerglobal.teamglobal ? (
-      <div className={styles.imageWithName}>
-        <Image
-          src={
-            playerglobal.teamglobal.imageUrl || DEFAULT_PLAYERGLOBAL_IMAGE_URL
-          }
-          size={20}
-        />{" "}
-        {playerglobal.teamglobal.name}
-      </div>
+      <ImageLabel
+        imageUrl={
+          playerglobal.teamglobal.imageUrl || DEFAULT_TEAMGLOBAL_IMAGE_URL
+        }
+        name={playerglobal.teamglobal.name}
+      />
     ) : null,
     country: (
-      <div className={styles.imageWithName}>
-        <CountryIcon countryCode={playerglobal.country!.code} size={20} />{" "}
-        {playerglobal.country!.name}
-      </div>
+      <Country
+        countryCode={playerglobal.country!.code}
+        name={playerglobal.country!.name}
+      />
     ),
     actions: playerglobal.teamglobal
       ? [TableActionEnum.Update]
@@ -122,7 +117,7 @@ const PlayerglobalsScreen = () => {
           <Input
             className={styles.input}
             type="text"
-            placeholder="Buscar"
+            placeholder="Buscar por nome"
             onChange={(e) => handleSearch(e.target.value)}
           />
           <button

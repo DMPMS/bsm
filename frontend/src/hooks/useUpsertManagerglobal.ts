@@ -441,7 +441,6 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
     upsertManagerglobal,
     loadingManagerglobal,
     loadingRequest,
-    imageUrl: upsertManagerglobal.imageUrl,
     disabledButton,
     isUpdate,
     fieldsStatus,

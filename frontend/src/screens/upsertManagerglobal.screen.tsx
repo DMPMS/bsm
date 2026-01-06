@@ -25,7 +25,6 @@ const UpsertManagerglobalScreen = () => {
     upsertManagerglobal,
     loadingManagerglobal,
     loadingRequest,
-    imageUrl,
     disabledButton,
     isUpdate,
     fieldsStatus,
@@ -55,7 +54,7 @@ const UpsertManagerglobalScreen = () => {
         <form className={styles.form} onSubmit={handleUpsertManagerglobal}>
           <div className={styles.containerImagePreview}>
             <ImagePreview
-              imageUrl={imageUrl}
+              imageUrl={upsertManagerglobal.imageUrl}
               backgroundUrl={DEFAULT_MANAGERGLOBAL_IMAGE_URL}
               size={100}
             />
@@ -115,7 +114,7 @@ const UpsertManagerglobalScreen = () => {
               />
             </FormGroup>
 
-            <FormGroup label="Nacionalidade" required={true}>
+            <FormGroup label="País" required={true}>
               <Select
                 placeholder="Selecione o país"
                 value={upsertManagerglobal.countryId}
@@ -165,7 +164,7 @@ const UpsertManagerglobalScreen = () => {
                   loadingRequest && styles.buttonContentLoading
                 }`}
               >
-                <span>{isUpdate ? "Salvar Treinador" : "Criar Treinador"}</span>
+                {isUpdate ? "Salvar Treinador" : "Criar Treinador"}
                 {loadingRequest && (
                   <Spinner size={12} className={styles.spinner} />
                 )}

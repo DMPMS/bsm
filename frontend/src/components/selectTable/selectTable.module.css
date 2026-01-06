@@ -5,22 +5,21 @@
 
 .table {
   border-spacing: 0;
-  border-radius: 8px;
 }
 
-.table th:first-child {
+.thead tr th:first-child {
   border-top-left-radius: 8px;
 }
 
-.table th:last-child {
+.thead tr th:last-child {
   border-top-right-radius: 8px;
 }
 
-.table tr:last-child td:first-child {
+.tbody tr:last-child td:first-child {
   border-bottom-left-radius: 8px;
 }
 
-.table tr:last-child td:last-child {
+.tbody tr:last-child td:last-child {
   border-bottom-right-radius: 8px;
 }
 
@@ -115,18 +114,10 @@
   }
 }
 
-.hideAt800px {
-  display: table-cell;
-}
-
 @media (max-width: 800px) {
   .hideAt800px {
     display: none;
   }
-}
-
-.hideAt700px {
-  display: table-cell;
 }
 
 @media (max-width: 700px) {
@@ -135,18 +126,10 @@
   }
 }
 
-.hideAt600px {
-  display: table-cell;
-}
-
 @media (max-width: 600px) {
   .hideAt600px {
     display: none;
   }
-}
-
-.hideAt500px {
-  display: table-cell;
 }
 
 @media (max-width: 500px) {
@@ -155,18 +138,10 @@
   }
 }
 
-.hideAt400px {
-  display: table-cell;
-}
-
 @media (max-width: 400px) {
   .hideAt400px {
     display: none;
   }
-}
-
-.hideAt300px {
-  display: table-cell;
 }
 
 @media (max-width: 300px) {

@@ -6,6 +6,8 @@
   height: 20px;
   border-radius: 3px;
   font-size: x-small;
+  cursor: help;
+  user-select: none;
 }
 
 .attack {

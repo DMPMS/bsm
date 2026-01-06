@@ -1,4 +1,4 @@
-import type { PositionAreaEnum } from "../../enums/PositionArea.enum";
+import type { PositionType } from "../../types/Position.type";
 import styles from "./position.module.css";
 
 const areaClassMap = {
@@ -9,14 +9,16 @@ const areaClassMap = {
 };
 
 interface PositionProps {
-  abbreviation: string;
-  area: PositionAreaEnum;
+  position: PositionType;
 }
 
-const Position = ({ abbreviation, area }: PositionProps) => {
+const Position = ({ position }: PositionProps) => {
   return (
-    <span className={`${styles.span} ${areaClassMap[area]}`}>
-      {abbreviation}
+    <span
+      title={position.name}
+      className={`${styles.span} ${areaClassMap[position.area]}`}
+    >
+      {position.abbreviation}
     </span>
   );
 };

@@ -67,15 +67,9 @@
   margin: 0 0 10px 0;
 }
 
-.imageWithName {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
 .positions {
   display: flex;
-  gap: 3px;
+  gap: 5px;
 }
 
 .tooltipContentPlayerglobals {
@@ -156,4 +150,11 @@
 
 .spinner {
   margin: 0 0 0 1px;
+}
+
+@media (max-width: 511px) {
+  .input,
+  .buttonRadio {
+    flex: 1;
+  }
 }

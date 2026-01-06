@@ -132,7 +132,7 @@ const Modal = ({
                   loading && styles.buttonContentLoading
                 }`}
               >
-                <span>{confirmText}</span>
+                {confirmText}
                 {loading && <Spinner size={12} className={styles.spinner} />}
               </span>
             </button>

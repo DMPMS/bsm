@@ -30,7 +30,7 @@
 
 .positions {
   display: flex;
-  gap: 3px;
+  gap: 5px;
 }
 
 .button {
@@ -52,12 +52,6 @@
 
 .button:hover {
   background-color: var(--color-blue-2);
-}
-
-.imageWithName {
-  display: flex;
-  align-items: center;
-  gap: 5px;
 }
 
 @media (max-width: 400px) {

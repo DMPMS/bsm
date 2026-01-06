@@ -45,12 +45,6 @@
   color: var(--color-gray-1);
 }
 
-.positionWithName {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
 .actions {
   display: flex;
   flex-wrap: wrap;

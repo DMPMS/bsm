@@ -17,7 +17,6 @@ const SignUpScreen = () => {
   const {
     signUp,
     loadingRequest,
-    imageUrl,
     disabledButton,
     fieldsStatus,
     birthdateInputValidationMessage,
@@ -43,7 +42,7 @@ const SignUpScreen = () => {
         <form className={styles.form} onSubmit={handleSignUp}>
           <div className={styles.containerImagePreview}>
             <ImagePreview
-              imageUrl={imageUrl}
+              imageUrl={signUp.imageUrl}
               backgroundUrl={DEFAULT_USER_IMAGE_URL}
               size={100}
             />
@@ -115,7 +114,7 @@ const SignUpScreen = () => {
               />
             </FormGroup>
 
-            <FormGroup label="Nacionalidade" required={true}>
+            <FormGroup label="País" required={true}>
               <Select
                 placeholder="Selecione o país"
                 value={signUp.countryId}
@@ -186,7 +185,7 @@ const SignUpScreen = () => {
                   loadingRequest && styles.buttonContentLoading
                 }`}
               >
-                <span>Criar Conta</span>
+                Criar Conta
                 {loadingRequest && (
                   <Spinner size={12} className={styles.spinner} />
                 )}

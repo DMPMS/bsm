@@ -8,12 +8,18 @@ interface Option {
 interface ButtonRadioProps {
   options: Option[];
   value: string;
+  className?: string;
   onChange: (value: string) => void;
 }
 
-const ButtonRadio = ({ options, value, onChange }: ButtonRadioProps) => {
+const ButtonRadio = ({
+  options,
+  value,
+  className = "",
+  onChange,
+}: ButtonRadioProps) => {
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${className}`}>
       {options.map((option) => {
         const isSelected = value === option.value;
 

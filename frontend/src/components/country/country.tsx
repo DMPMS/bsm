@@ -19,7 +19,7 @@ const Country = ({ countryCode, name, size = 20 }: CountryProps) => {
         countryCode={countryCode}
         size={size}
       />
-      <span>{name}</span>
+      {name}
     </div>
   );
 };

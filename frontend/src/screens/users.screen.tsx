@@ -1,16 +1,16 @@
-import { TableActionEnum } from "../enums/TableActionEnum";
-import { TableHideLevelEnum } from "../enums/TableHideLevelEnum";
+import { TableActionEnum } from "../enums/TableAction.enum";
+import { TableHideLevelEnum } from "../enums/TableHideLevel.enum";
 import { useUser } from "../hooks/useUser";
 import type { TableHeaderType } from "../types/TableHeaderType";
 import styles from "../styles/usersScreen.module.css";
-import Image from "../components/image/image";
 import { DEFAULT_USER_IMAGE_URL } from "../config/constants";
-import CountryIcon from "../components/icons/country.icon";
 import Spinner from "../components/spinner/spinner";
 import Table from "../components/table/table";
 import Modal from "../components/modal/modal";
 import Header from "../components/header/header";
 import Input from "../components/input/input";
+import ImageLabel from "../components/imageLabel/imageLabel";
+import Country from "../components/country/country";
 
 const UsersScreen = () => {
   const {
@@ -27,22 +27,19 @@ const UsersScreen = () => {
 
   const tableHeaders: TableHeaderType[] = [
     { th: "Nome", td: "name" },
-    { th: "País", td: "country", hideAtWith: TableHideLevelEnum.at500 },
+    { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at500 },
   ];
 
   const tableData = users.map((user) => ({
     id: user.id,
     name: (
-      <div className={styles.imageWithName}>
-        <Image src={user.imageUrl || DEFAULT_USER_IMAGE_URL} size={20} />{" "}
-        {user.name}
-      </div>
+      <ImageLabel
+        imageUrl={user.imageUrl || DEFAULT_USER_IMAGE_URL}
+        name={user.name}
+      />
     ),
     country: (
-      <div className={styles.imageWithName}>
-        <CountryIcon countryCode={user.country!.code} size={20} />{" "}
-        {user.country!.name}
-      </div>
+      <Country countryCode={user.country!.code} name={user.country!.name} />
     ),
     actions: [TableActionEnum.Delete],
   }));
@@ -60,7 +57,7 @@ const UsersScreen = () => {
           <Input
             className={styles.input}
             type="text"
-            placeholder="Buscar"
+            placeholder="Buscar por nome"
             onChange={(e) => handleSearch(e.target.value)}
           />
         </div>

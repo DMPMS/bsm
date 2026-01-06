@@ -16,14 +16,13 @@ import { getFieldState } from "../utils/getFieldState";
 import Select from "../components/select/select";
 import Country from "../components/country/country";
 import type { TableHeaderType } from "../types/TableHeaderType";
-import { TableHideLevelEnum } from "../enums/TableHideLevelEnum";
-import Image from "../components/image/image";
+import { TableHideLevelEnum } from "../enums/TableHideLevel.enum";
 import Position from "../components/position/position";
-import CountryIcon from "../components/icons/country.icon";
 import SelectTable from "../components/selectTable/selectTable";
 import ButtonRadio from "../components/buttonRadio/buttonRadio";
 import { TEAMGLOBAL_MESSAGES } from "../utils/messages";
 import { SelectTableFilterEnum } from "../enums/SelectTableFilter.enum";
+import ImageLabel from "../components/imageLabel/imageLabel";
 
 const UpsertTeamglobalScreen = () => {
   const { teamglobalId } = useParams<{ teamglobalId: string }>();
@@ -62,37 +61,31 @@ const UpsertTeamglobalScreen = () => {
 
   const managerglobalsTableHeaders: TableHeaderType[] = [
     { th: "Nome", td: "name" },
-    { th: "Time", td: "teamglobal", hideAtWith: TableHideLevelEnum.at500 },
-    { th: "País", td: "country", hideAtWith: TableHideLevelEnum.at700 },
+    { th: "Time", td: "teamglobal", hideAtWidth: TableHideLevelEnum.at500 },
+    { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at700 },
   ];
 
   const managerglobalsTableData = managerglobals.map((managerglobal) => ({
     id: managerglobal.id,
     name: (
-      <div className={styles.imageWithName}>
-        <Image
-          src={managerglobal.imageUrl || DEFAULT_MANAGERGLOBAL_IMAGE_URL}
-          size={20}
-        />{" "}
-        {managerglobal.name}
-      </div>
+      <ImageLabel
+        imageUrl={managerglobal.imageUrl || DEFAULT_MANAGERGLOBAL_IMAGE_URL}
+        name={managerglobal.name}
+      />
     ),
     teamglobal: managerglobal.teamglobal ? (
-      <div className={styles.imageWithName}>
-        <Image
-          src={
-            managerglobal.teamglobal.imageUrl || DEFAULT_TEAMGLOBAL_IMAGE_URL
-          }
-          size={20}
-        />{" "}
-        {managerglobal.teamglobal.name}
-      </div>
+      <ImageLabel
+        imageUrl={
+          managerglobal.teamglobal.imageUrl || DEFAULT_TEAMGLOBAL_IMAGE_URL
+        }
+        name={managerglobal.teamglobal.name}
+      />
     ) : null,
     country: (
-      <div className={styles.imageWithName}>
-        <CountryIcon countryCode={managerglobal.country!.code} size={20} />{" "}
-        {managerglobal.country!.name}
-      </div>
+      <Country
+        countryCode={managerglobal.country!.code}
+        name={managerglobal.country!.name}
+      />
     ),
     disabled: managerglobal.teamglobal
       ? managerglobal.teamglobal.id === teamglobalId
@@ -103,31 +96,28 @@ const UpsertTeamglobalScreen = () => {
 
   const playerglobalsTableHeaders: TableHeaderType[] = [
     { th: "Nome", td: "name" },
-    { th: "Geral", td: "overall", hideAtWith: TableHideLevelEnum.at300 },
+    { th: "Geral", td: "overall", hideAtWidth: TableHideLevelEnum.at300 },
     {
       th: "Posições Principais",
       td: "primaryPositions",
-      hideAtWith: TableHideLevelEnum.at400,
+      hideAtWidth: TableHideLevelEnum.at400,
     },
     {
       th: "Posições Secundárias",
       td: "secondaryPositions",
-      hideAtWith: TableHideLevelEnum.at600,
+      hideAtWidth: TableHideLevelEnum.at600,
     },
-    { th: "Time", td: "teamglobal", hideAtWith: TableHideLevelEnum.at500 },
-    { th: "País", td: "country", hideAtWith: TableHideLevelEnum.at700 },
+    { th: "Time", td: "teamglobal", hideAtWidth: TableHideLevelEnum.at500 },
+    { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at700 },
   ];
 
   const playerglobalsTableData = playerglobals.map((playerglobal) => ({
     id: playerglobal.id,
     name: (
-      <div className={styles.imageWithName}>
-        <Image
-          src={playerglobal.imageUrl || DEFAULT_PLAYERGLOBAL_IMAGE_URL}
-          size={20}
-        />{" "}
-        {playerglobal.name}
-      </div>
+      <ImageLabel
+        imageUrl={playerglobal.imageUrl || DEFAULT_PLAYERGLOBAL_IMAGE_URL}
+        name={playerglobal.name}
+      />
     ),
     overall: playerglobal.overall,
     primaryPositions: (
@@ -139,8 +129,7 @@ const UpsertTeamglobalScreen = () => {
           .map((playerglobalPosition) => (
             <Position
               key={playerglobalPosition.id}
-              abbreviation={playerglobalPosition.position!.abbreviation}
-              area={playerglobalPosition.position!.area}
+              position={playerglobalPosition.position!}
             />
           ))}
       </div>
@@ -154,28 +143,24 @@ const UpsertTeamglobalScreen = () => {
           .map((playerglobalPosition) => (
             <Position
               key={playerglobalPosition.id}
-              abbreviation={playerglobalPosition.position!.abbreviation}
-              area={playerglobalPosition.position!.area}
+              position={playerglobalPosition.position!}
             />
           ))}
       </div>
     ),
     teamglobal: playerglobal.teamglobal ? (
-      <div className={styles.imageWithName}>
-        <Image
-          src={
-            playerglobal.teamglobal.imageUrl || DEFAULT_PLAYERGLOBAL_IMAGE_URL
-          }
-          size={20}
-        />{" "}
-        {playerglobal.teamglobal.name}
-      </div>
+      <ImageLabel
+        imageUrl={
+          playerglobal.teamglobal.imageUrl || DEFAULT_TEAMGLOBAL_IMAGE_URL
+        }
+        name={playerglobal.teamglobal.name}
+      />
     ) : null,
     country: (
-      <div className={styles.imageWithName}>
-        <CountryIcon countryCode={playerglobal.country!.code} size={20} />{" "}
-        {playerglobal.country!.name}
-      </div>
+      <Country
+        countryCode={playerglobal.country!.code}
+        name={playerglobal.country!.name}
+      />
     ),
     disabled: playerglobal.teamglobal
       ? playerglobal.teamglobal.id === teamglobalId
@@ -250,7 +235,7 @@ const UpsertTeamglobalScreen = () => {
               />
             </FormGroup>
 
-            <FormGroup label="Nacionalidade" required={true}>
+            <FormGroup label="País" required={true}>
               <Select
                 placeholder="Selecione o país"
                 value={upsertTeamglobal.countryId}
@@ -277,12 +262,13 @@ const UpsertTeamglobalScreen = () => {
                 <Input
                   className={styles.input}
                   type="text"
-                  placeholder="Buscar"
+                  placeholder="Buscar por nome"
                   onChange={(e) => handleSearchManagerglobals(e.target.value)}
                   onKeyDown={(e) => handlePreventSubmitOnEnter(e)}
                 />
 
                 <ButtonRadio
+                  className={styles.buttonRadio}
                   options={[
                     { value: SelectTableFilterEnum.All, label: "Todos" },
                     {
@@ -355,12 +341,13 @@ const UpsertTeamglobalScreen = () => {
                 <Input
                   className={styles.input}
                   type="text"
-                  placeholder="Buscar"
+                  placeholder="Buscar por nome"
                   onChange={(e) => handleSearchPlayerglobals(e.target.value)}
                   onKeyDown={(e) => handlePreventSubmitOnEnter(e)}
                 />
 
                 <ButtonRadio
+                  className={styles.buttonRadio}
                   options={[
                     { value: SelectTableFilterEnum.All, label: "Todos" },
                     {
@@ -432,7 +419,7 @@ const UpsertTeamglobalScreen = () => {
                   loadingRequest && styles.buttonContentLoading
                 }`}
               >
-                <span>{isUpdate ? "Salvar Time" : "Criar Time"}</span>
+                {isUpdate ? "Salvar Time" : "Criar Time"}
                 {loadingRequest && (
                   <Spinner size={12} className={styles.spinner} />
                 )}

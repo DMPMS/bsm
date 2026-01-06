@@ -1,19 +1,19 @@
-import { TableHideLevelEnum } from "../enums/TableHideLevelEnum";
+import { TableHideLevelEnum } from "../enums/TableHideLevel.enum";
 import { useManagerglobal } from "../hooks/useManagerglobal";
 import type { TableHeaderType } from "../types/TableHeaderType";
 import styles from "../styles/managerglobalsScreen.module.css";
-import Image from "../components/image/image";
 import {
   DEFAULT_MANAGERGLOBAL_IMAGE_URL,
   DEFAULT_TEAMGLOBAL_IMAGE_URL,
 } from "../config/constants";
-import CountryIcon from "../components/icons/country.icon";
-import { TableActionEnum } from "../enums/TableActionEnum";
+import { TableActionEnum } from "../enums/TableAction.enum";
 import Spinner from "../components/spinner/spinner";
 import Table from "../components/table/table";
 import Modal from "../components/modal/modal";
 import Header from "../components/header/header";
 import Input from "../components/input/input";
+import ImageLabel from "../components/imageLabel/imageLabel";
+import Country from "../components/country/country";
 
 const ManagerglobalsScreen = () => {
   const {
@@ -32,37 +32,31 @@ const ManagerglobalsScreen = () => {
 
   const tableHeaders: TableHeaderType[] = [
     { th: "Nome", td: "name" },
-    { th: "Time", td: "teamglobal", hideAtWith: TableHideLevelEnum.at500 },
-    { th: "País", td: "country", hideAtWith: TableHideLevelEnum.at700 },
+    { th: "Time", td: "teamglobal", hideAtWidth: TableHideLevelEnum.at500 },
+    { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at700 },
   ];
 
   const tableData = managerglobals.map((managerglobal) => ({
     id: managerglobal.id,
     name: (
-      <div className={styles.imageWithName}>
-        <Image
-          src={managerglobal.imageUrl || DEFAULT_MANAGERGLOBAL_IMAGE_URL}
-          size={20}
-        />{" "}
-        {managerglobal.name}
-      </div>
+      <ImageLabel
+        imageUrl={managerglobal.imageUrl || DEFAULT_MANAGERGLOBAL_IMAGE_URL}
+        name={managerglobal.name}
+      />
     ),
     teamglobal: managerglobal.teamglobal ? (
-      <div className={styles.imageWithName}>
-        <Image
-          src={
-            managerglobal.teamglobal.imageUrl || DEFAULT_TEAMGLOBAL_IMAGE_URL
-          }
-          size={20}
-        />{" "}
-        {managerglobal.teamglobal.name}
-      </div>
+      <ImageLabel
+        imageUrl={
+          managerglobal.teamglobal.imageUrl || DEFAULT_TEAMGLOBAL_IMAGE_URL
+        }
+        name={managerglobal.teamglobal.name}
+      />
     ) : null,
     country: (
-      <div className={styles.imageWithName}>
-        <CountryIcon countryCode={managerglobal.country!.code} size={20} />{" "}
-        {managerglobal.country!.name}
-      </div>
+      <Country
+        countryCode={managerglobal.country!.code}
+        name={managerglobal.country!.name}
+      />
     ),
     actions: managerglobal.teamglobal
       ? [TableActionEnum.Update]
@@ -82,7 +76,7 @@ const ManagerglobalsScreen = () => {
           <Input
             className={styles.input}
             type="text"
-            placeholder="Buscar"
+            placeholder="Buscar por nome"
             onChange={(e) => handleSearch(e.target.value)}
           />
           <button

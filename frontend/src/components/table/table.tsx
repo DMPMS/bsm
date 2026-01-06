@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { TableActionEnum } from "../../enums/TableActionEnum";
+import { TableActionEnum } from "../../enums/TableAction.enum";
 import type { TableHeaderType } from "../../types/TableHeaderType";
 import { PAGINATION } from "../../config/constants";
 import styles from "./table.module.css";
-import { TableHideLevelEnum } from "../../enums/TableHideLevelEnum";
+import { TableHideLevelEnum } from "../../enums/TableHideLevel.enum";
 import PencilIcon from "../icons/pencil.icon";
 import TrashIcon from "../icons/trash.icon";
 import { KeyboardKeyEnum } from "../../enums/KeyboardKey.enum";
@@ -25,10 +25,29 @@ function Table<T extends { id: string; [key: string]: any }>({
   const [currentPage, setCurrentPage] = useState<number>(
     PAGINATION.DEFAULT_PAGE
   );
+  const [currentWindowWidth, setCurrentWindowWidth] = useState<number>(
+    window.innerWidth
+  );
 
   useEffect(() => {
     setCurrentPage(PAGINATION.DEFAULT_PAGE);
   }, [data.length]);
+
+  useEffect(() => {
+    checkColumnVisibility();
+
+    window.addEventListener("resize", checkColumnVisibility);
+
+    return () => {
+      window.removeEventListener("resize", checkColumnVisibility);
+    };
+  }, []);
+
+  const checkColumnVisibility = () => {
+    const currentWidth = window.innerWidth;
+
+    setCurrentWindowWidth(currentWidth);
+  };
 
   const totalPages = Math.ceil(data.length / PAGINATION.DEFAULT_LIMIT);
 
@@ -53,38 +72,42 @@ function Table<T extends { id: string; [key: string]: any }>({
 
     return data.slice(start, end).map((row: T, rowIndex: number) => (
       <tr key={rowIndex}>
-        {headers.map((header, index) => (
-          <td
-            key={index}
-            className={`${
-              header.hideAtWith &&
-              header.hideAtWith === TableHideLevelEnum.at900
-                ? styles.hideAt900px
-                : header.hideAtWith &&
-                  header.hideAtWith === TableHideLevelEnum.at800
-                ? styles.hideAt800px
-                : header.hideAtWith &&
-                  header.hideAtWith === TableHideLevelEnum.at700
-                ? styles.hideAt700px
-                : header.hideAtWith &&
-                  header.hideAtWith === TableHideLevelEnum.at600
-                ? styles.hideAt600px
-                : header.hideAtWith &&
-                  header.hideAtWith === TableHideLevelEnum.at500
-                ? styles.hideAt500px
-                : header.hideAtWith &&
-                  header.hideAtWith === TableHideLevelEnum.at400
-                ? styles.hideAt400px
-                : header.hideAtWith &&
-                  header.hideAtWith === TableHideLevelEnum.at300
-                ? styles.hideAt300px
-                : ""
-            }`}
-          >
-            {row[header.td]}
-          </td>
-        ))}
-        {row.actions && row.actions.length > 0 && (
+        {headers.map(
+          (header, index) =>
+            (!header.hideAtWidth ||
+              currentWindowWidth > header.hideAtWidth) && (
+              <td
+                key={index}
+                className={`${
+                  header.hideAtWidth &&
+                  header.hideAtWidth === TableHideLevelEnum.at900
+                    ? styles.hideAt900px
+                    : header.hideAtWidth &&
+                      header.hideAtWidth === TableHideLevelEnum.at800
+                    ? styles.hideAt800px
+                    : header.hideAtWidth &&
+                      header.hideAtWidth === TableHideLevelEnum.at700
+                    ? styles.hideAt700px
+                    : header.hideAtWidth &&
+                      header.hideAtWidth === TableHideLevelEnum.at600
+                    ? styles.hideAt600px
+                    : header.hideAtWidth &&
+                      header.hideAtWidth === TableHideLevelEnum.at500
+                    ? styles.hideAt500px
+                    : header.hideAtWidth &&
+                      header.hideAtWidth === TableHideLevelEnum.at400
+                    ? styles.hideAt400px
+                    : header.hideAtWidth &&
+                      header.hideAtWidth === TableHideLevelEnum.at300
+                    ? styles.hideAt300px
+                    : ""
+                }`}
+              >
+                {row[header.td]}
+              </td>
+            )
+        )}
+        {hasActionsColumn && row.actions.length > 0 && (
           <td>
             <div className={styles.contentTdActions}>
               {row.actions.includes(TableActionEnum.Update) && (
@@ -185,43 +208,47 @@ function Table<T extends { id: string; [key: string]: any }>({
   return (
     <div className={styles.containerTable}>
       <table className={styles.table}>
-        <thead>
+        <thead className={styles.thead}>
           <tr>
-            {headers.map((header, index) => (
-              <th
-                key={index}
-                className={`${
-                  header.hideAtWith &&
-                  header.hideAtWith === TableHideLevelEnum.at900
-                    ? styles.hideAt900px
-                    : header.hideAtWith &&
-                      header.hideAtWith === TableHideLevelEnum.at800
-                    ? styles.hideAt800px
-                    : header.hideAtWith &&
-                      header.hideAtWith === TableHideLevelEnum.at700
-                    ? styles.hideAt700px
-                    : header.hideAtWith &&
-                      header.hideAtWith === TableHideLevelEnum.at600
-                    ? styles.hideAt600px
-                    : header.hideAtWith &&
-                      header.hideAtWith === TableHideLevelEnum.at500
-                    ? styles.hideAt500px
-                    : header.hideAtWith &&
-                      header.hideAtWith === TableHideLevelEnum.at400
-                    ? styles.hideAt400px
-                    : header.hideAtWith &&
-                      header.hideAtWith === TableHideLevelEnum.at300
-                    ? styles.hideAt300px
-                    : ""
-                }`}
-              >
-                {header.th}
-              </th>
-            ))}
+            {headers.map(
+              (header, index) =>
+                (!header.hideAtWidth ||
+                  currentWindowWidth > header.hideAtWidth) && (
+                  <th
+                    key={index}
+                    className={`${
+                      header.hideAtWidth &&
+                      header.hideAtWidth === TableHideLevelEnum.at900
+                        ? styles.hideAt900px
+                        : header.hideAtWidth &&
+                          header.hideAtWidth === TableHideLevelEnum.at800
+                        ? styles.hideAt800px
+                        : header.hideAtWidth &&
+                          header.hideAtWidth === TableHideLevelEnum.at700
+                        ? styles.hideAt700px
+                        : header.hideAtWidth &&
+                          header.hideAtWidth === TableHideLevelEnum.at600
+                        ? styles.hideAt600px
+                        : header.hideAtWidth &&
+                          header.hideAtWidth === TableHideLevelEnum.at500
+                        ? styles.hideAt500px
+                        : header.hideAtWidth &&
+                          header.hideAtWidth === TableHideLevelEnum.at400
+                        ? styles.hideAt400px
+                        : header.hideAtWidth &&
+                          header.hideAtWidth === TableHideLevelEnum.at300
+                        ? styles.hideAt300px
+                        : ""
+                    }`}
+                  >
+                    {header.th}
+                  </th>
+                )
+            )}
             {hasActionsColumn && <th>Ações</th>}
           </tr>
         </thead>
-        <tbody>{renderTableData()}</tbody>
+        <tbody className={styles.tbody}>{renderTableData()}</tbody>
       </table>
       <div className={styles.pagination}>{renderPagination()}</div>
     </div>

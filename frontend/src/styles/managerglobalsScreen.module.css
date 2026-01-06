@@ -49,12 +49,6 @@
   background-color: var(--color-blue-2);
 }
 
-.imageWithName {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
 @media (max-width: 400px) {
   .input,
   .button {

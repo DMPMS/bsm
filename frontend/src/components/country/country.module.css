@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  line-height: calc(var(--size) * 1px);
+  /* line-height: calc(var(--size) * 1px); If an error occurs, try uncommenting this line. */
 }
 
 .countryIcon {
