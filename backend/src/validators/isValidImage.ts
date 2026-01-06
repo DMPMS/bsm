@@ -9,7 +9,12 @@ import axios from "axios";
 const validateImage = (srcImage: string): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     axios
-      .get(srcImage, { responseType: "arraybuffer" })
+      .get(srcImage, {
+        responseType: "arraybuffer",
+        headers: {
+          "User-Agent": "Mozilla/5.0",
+        },
+      })
       .then((response) => {
         sharp(response.data)
           .metadata()
