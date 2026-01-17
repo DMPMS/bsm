@@ -105,6 +105,12 @@ export const COMPETITIONGLOBAL_MESSAGES = {
       `Foram passados ${teamglobalsCount} times, mas esperava-se ${expectedCount}`,
     COMPETITION_RULE_CONFLICT_MESSAGE: (teamglobalId: string) =>
       `O time com identificador ${teamglobalId} pertence a outra competição que conflita com as regras da competição em criação`,
+    COMPETITION_RULE_REQUIREMENTS_MESSAGE: (ruleId: string) =>
+      `As competições com as regras necessárias para a existência da competição com a regra com identificador ${ruleId} não existem`,
+    COMPETITION_RULE_DEPENDENTS_MESSAGE: (ruleId: string) =>
+      `A competição com a regra com identificador ${ruleId} é necessária para a existência de competições com regras dependentes`,
+    COMPETITION_RULE_DELETE_RESTRICTION_MESSAGE: (ruleId: string) =>
+      `A competição com a regra com identificador ${ruleId} não pode ser excluída`,
   },
   SUCCESS: {
     COMPETITIONGLOBAL_DELETED_SUCCESSFULLY: "Competição deletada",

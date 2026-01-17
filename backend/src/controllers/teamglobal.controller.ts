@@ -25,6 +25,7 @@ export class TeamglobalController {
       const relationsOptions: RelationsOptionsType = {
         country: true,
         managerglobal: true,
+        competitionglobalTeamglobals: true,
       };
 
       const teamglobals = await this.teamglobalService.getTeamglobals(

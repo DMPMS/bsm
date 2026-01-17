@@ -54,6 +54,14 @@ export const MANAGERGLOBAL_MESSAGES = {
   },
 };
 
+export const COMPETITIONGLOBAL_MESSAGES = {
+  SUCCESS: {
+    CREATE: "Competição criada",
+    UPDATE: "Competição atualizada",
+    DELETE: "Competição deletada",
+  },
+};
+
 export const USER_MESSAGES = {
   FIELD_VALIDATION: {
     EMAIL: {

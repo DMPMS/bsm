@@ -15,6 +15,8 @@ export const URL_COUNTRY = `http://localhost:${BACKEND_API_PORT}/api/country`;
 
 export const URL_POSITION = `http://localhost:${BACKEND_API_PORT}/api/position`;
 
+export const URL_RULE = `http://localhost:${BACKEND_API_PORT}/api/rule`;
+
 export const URL_TEAMGLOBAL = `http://localhost:${BACKEND_API_PORT}/api/teamglobal`;
 export const URL_TEAMGLOBAL_ID = `http://localhost:${BACKEND_API_PORT}/api/teamglobal/:teamglobalId`;
 
@@ -23,3 +25,6 @@ export const URL_PLAYERGLOBAL_ID = `http://localhost:${BACKEND_API_PORT}/api/pla
 
 export const URL_MANAGERGLOBAL = `http://localhost:${BACKEND_API_PORT}/api/managerglobal`;
 export const URL_MANAGERGLOBAL_ID = `http://localhost:${BACKEND_API_PORT}/api/managerglobal/:managerglobalId`;
+
+export const URL_COMPETITIONGLOBAL = `http://localhost:${BACKEND_API_PORT}/api/competitionglobal`;
+export const URL_COMPETITIONGLOBAL_ID = `http://localhost:${BACKEND_API_PORT}/api/competitionglobal/:competitionglobalId`;

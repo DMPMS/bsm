@@ -5,7 +5,10 @@ import { CompetitionglobalService } from "./competitionglobal.service";
 import { TeamglobalService } from "./teamglobal.service";
 import { CompetitionglobalTeamglobalEntity } from "../entities/competitionglobalTeamglobal.entity";
 import { CreateCompetitionglobalTeamglobalDto } from "../dtos/createCompetitionglobalTeamglobal.dto";
-import { checkRuleConflict } from "../utils/checkRuleConflict";
+import { hasRuleConflict } from "../utils/rulesRelations";
+import { HttpError } from "../utils/httpError";
+import { HttpStatusEnum } from "../enums/HttpStatus.enum";
+import { COMPETITIONGLOBAL_MESSAGES } from "../utils/messages";
 
 export class CompetitionglobalTeamglobalService {
   private readonly competitionglobalService: CompetitionglobalService;
@@ -42,10 +45,24 @@ export class CompetitionglobalTeamglobalService {
         entityManager
       );
 
-    checkRuleConflict(
-      teamglobalWithCompetitionglobals,
-      createCompetitionglobalTeamglobalDto.ruleCode
-    );
+    const ruleCodes =
+      teamglobalWithCompetitionglobals.competitionglobalTeamglobals
+        ? teamglobalWithCompetitionglobals.competitionglobalTeamglobals.map(
+            (competitionglobalTeamglobal) =>
+              competitionglobalTeamglobal.competitionglobal!.rule!.code
+          )
+        : [];
+
+    if (
+      hasRuleConflict(createCompetitionglobalTeamglobalDto.ruleCode, ruleCodes)
+    ) {
+      throw new HttpError(
+        HttpStatusEnum.Conflict,
+        COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITION_RULE_CONFLICT_MESSAGE(
+          createCompetitionglobalTeamglobalDto.teamglobalId
+        )
+      );
+    }
 
     await repository.save({
       ...createCompetitionglobalTeamglobalDto,

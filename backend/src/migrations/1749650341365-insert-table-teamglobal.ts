@@ -63,7 +63,15 @@ export class InsertTableTeamglobal1749650341365 implements MigrationInterface {
         ('3a2e3c33-306b-4760-9b1f-75dd94e619cf', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', '3334ea00-a23c-4fbc-93e4-2b6933b8e313', 'Retrô', 'RET', 'https://i.ibb.co/XxNzJDrB/retro-pe-bra.png'),
         ('b27a06dc-1d4f-431d-ac7e-8a45d3278d64', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', '9fad14ef-3953-4be9-9ea7-34dbe2ce3d72', 'São Bernardo', 'SBR', 'https://i.ibb.co/Gv7x88Ly/sao-bernardo-sp-bra.png'),
         ('24520607-23c9-4242-a22c-3b0fcd5444fe', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'a5f1703a-3049-453b-a9f5-590d1d27c9b9', 'Tombense', 'TOM', 'https://i.ibb.co/mk7cd3L/tombense-mg-bra.png'),
-        ('07f08f09-72ef-4476-9650-bb13762d281e', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'fe31c00b-3e82-487e-a77d-3e2f66f785a1', 'Ypiranga', 'YPI', 'https://i.ibb.co/VYLv8gjF/ypiranga-rs-bra.png');
+        ('07f08f09-72ef-4476-9650-bb13762d281e', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'fe31c00b-3e82-487e-a77d-3e2f66f785a1', 'Ypiranga', 'YPI', 'https://i.ibb.co/VYLv8gjF/ypiranga-rs-bra.png'),
+        ('e6a489d6-08f9-462e-9aa7-1fd9211f6678', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'e8be0890-0f86-4d44-a44c-4e16e317a65c', 'Aparecidense', 'APA', 'https://i.ibb.co/LXtD9Ngm/aparecidense-go-bra.png'),
+        ('1e20cd41-f255-4cd8-b0ae-b87280dc2514', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', '0a2a6a71-9cab-4d95-b230-9c927a742647', 'Sampaio Corrêa', 'SAM', 'https://i.ibb.co/cKwNZ6MV/sampaio-correa-ma-bra.png'),
+        ('e43961a0-b30e-41fe-ac56-6215953e5d92', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', '34810001-9f67-4248-9ff7-8ee1d2e37e4c', 'Maracanã - CE', 'MAR', 'https://i.ibb.co/XZ89ffvD/maracana-ce-br.png'),
+        ('7c114587-4ea2-4422-968e-e7af02398fbc', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'e1401510-6fae-4e77-8301-a343d314d0a8', 'São José - RS', 'SJA', 'https://i.ibb.co/fY041X0p/sao-jose-rs-bra.png'),
+        ('8b6f82d2-0a46-4bd8-a621-2cf5cc9ef366', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', '49f888b0-48ab-4793-9ffc-120fbba836e3', 'Iguatu', 'IGU', 'https://i.ibb.co/7tcKSD7P/iguatu-ce-bra.png'),
+        ('149e9276-cfa2-48a1-865c-ab49d2347cc1', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', '366047b1-869f-47b2-b3ec-aeb540f4470a', 'Ferroviário', 'FER', 'https://i.ibb.co/yF80QGCG/ferroviario-ce-bra.png'),
+        ('214644fe-bf8a-4764-b8cb-54c236aeeb08', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', '8f54f12f-2bd4-472b-b536-a21a14a3daa9', 'Treze - PB', 'TRE', 'https://i.ibb.co/cKSXynKm/treze-pb-bra.png'),
+        ('6fead172-16ca-421e-8707-d86d4d65b384', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', '0cd70a2d-7de1-40f2-b81a-84247e966121', 'Brasiliense', 'BRA', 'https://i.ibb.co/gbSw2zGg/brasiliense-df-bra.png');
     `);
   }
 

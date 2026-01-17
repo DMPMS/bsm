@@ -12,6 +12,11 @@ import { CreateCompetitionglobalDto } from "../dtos/createCompetitionglobal.dto"
 import { UpdateCompetitionglobalDto } from "../dtos/updateCompetitionglobal.dto";
 import { TeamglobalService } from "./teamglobal.service";
 import { CompetitionglobalTeamglobalService } from "./competitionglobalTeamglobal.service";
+import {
+  hasRuleDependents,
+  hasRuleRequirements,
+} from "../utils/rulesRelations";
+import { RuleCodeEnum } from "../enums/RuleCode.enum";
 
 export class CompetitionglobalService {
   private readonly ruleService: RuleService;
@@ -106,6 +111,24 @@ export class CompetitionglobalService {
       );
     }
 
+    const competitionglobals = await this.getCompetitionglobals(
+      PAGINATION.DEFAULT_PAGE,
+      PAGINATION.DEFAULT_LIMIT,
+      { rule: true }
+    );
+    const ruleCodes = competitionglobals.map(
+      (competitionglobal) => competitionglobal.rule!.code
+    );
+
+    if (!hasRuleRequirements(rule.code, ruleCodes)) {
+      throw new HttpError(
+        HttpStatusEnum.BadRequest,
+        COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITION_RULE_REQUIREMENTS_MESSAGE(
+          createCompetitionglobalDto.ruleId
+        )
+      );
+    }
+
     await Promise.all(
       createCompetitionglobalDto.teamglobalIds.map((teamglobalId) =>
         this.teamglobalService.getTeamglobalById(teamglobalId)
@@ -168,6 +191,24 @@ export class CompetitionglobalService {
       );
     }
 
+    const competitionglobals = await this.getCompetitionglobals(
+      PAGINATION.DEFAULT_PAGE,
+      PAGINATION.DEFAULT_LIMIT,
+      { rule: true }
+    );
+    const ruleCodes = competitionglobals.map(
+      (competitionglobal) => competitionglobal.rule!.code
+    );
+
+    if (!hasRuleRequirements(rule.code, ruleCodes)) {
+      throw new HttpError(
+        HttpStatusEnum.BadRequest,
+        COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITION_RULE_REQUIREMENTS_MESSAGE(
+          updateCompetitionglobalDto.ruleId
+        )
+      );
+    }
+
     await Promise.all(
       updateCompetitionglobalDto.teamglobalIds.map((teamglobalId) =>
         this.teamglobalService.getTeamglobalById(teamglobalId)
@@ -210,7 +251,37 @@ export class CompetitionglobalService {
   async deleteCompetitionglobal(
     competitionglobalId: string
   ): Promise<DeleteResult> {
-    await this.getCompetitionglobalById(competitionglobalId);
+    const competitionglobal = await this.getCompetitionglobalById(
+      competitionglobalId,
+      { rule: true }
+    );
+
+    if (competitionglobal.rule!.code === RuleCodeEnum.BrazilianLeagueA) {
+      throw new HttpError(
+        HttpStatusEnum.Forbidden,
+        COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITION_RULE_DELETE_RESTRICTION_MESSAGE(
+          competitionglobal.rule!.id
+        )
+      );
+    }
+
+    const competitionglobals = await this.getCompetitionglobals(
+      PAGINATION.DEFAULT_PAGE,
+      PAGINATION.DEFAULT_LIMIT,
+      { rule: true }
+    );
+    const ruleCodes = competitionglobals.map(
+      (competitionglobal) => competitionglobal.rule!.code
+    );
+
+    if (hasRuleDependents(competitionglobal.rule!.code, ruleCodes)) {
+      throw new HttpError(
+        HttpStatusEnum.BadRequest,
+        COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITION_RULE_DEPENDENTS_MESSAGE(
+          competitionglobal.rule!.id
+        )
+      );
+    }
 
     return await this.competitionglobalRepository.delete({
       id: competitionglobalId,

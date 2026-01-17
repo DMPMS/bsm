@@ -1,3 +1,4 @@
+import type { CompetitionglobalTeamglobalType } from "./CompetitionglobalTeamglobal.type";
 import type { CountryType } from "./Country.type";
 import type { ManagerglobalType } from "./Managerglobal.type";
 import type { PlayerglobalType } from "./Playerglobal.type";
@@ -11,4 +12,5 @@ export interface TeamglobalType {
   country?: CountryType;
   managerglobal?: ManagerglobalType;
   playerglobals?: PlayerglobalType[];
+  competitionglobalTeamglobals?: CompetitionglobalTeamglobalType[];
 }

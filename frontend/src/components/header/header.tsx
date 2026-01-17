@@ -11,6 +11,7 @@ import { UserRoutesEnum } from "../../routes/user.routes";
 import { PlayerglobalRoutesEnum } from "../../routes/playerglobal.routes";
 import { TeamglobalRoutesEnum } from "../../routes/teamglobal.routes";
 import { ManagerglobalRoutesEnum } from "../../routes/managerglobal.routes";
+import { CompetitionglobalRoutesEnum } from "../../routes/competitionglobal.routes";
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {}
 
@@ -58,7 +59,7 @@ const Header = ({ ...props }: HeaderProps) => {
   };
 
   const handleClickCompetitions = () => {
-    // navigate(CompetitionglobalRoutesEnum.Competitionglobals);
+    navigate(CompetitionglobalRoutesEnum.Competitionglobals);
   };
 
   return (

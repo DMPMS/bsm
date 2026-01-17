@@ -80,5 +80,5 @@ export class RuleEntity {
     () => CompetitionglobalEntity,
     (competitionglobal) => competitionglobal.rule
   )
-  competitionglobal: CompetitionglobalEntity;
+  competitionglobal?: CompetitionglobalEntity;
 }

@@ -62,7 +62,11 @@ const TeamglobalsScreen = () => {
         name={teamglobal.country!.name}
       />
     ),
-    actions: [TableActionEnum.Update, TableActionEnum.Delete],
+    actions: [
+      TableActionEnum.Update,
+      teamglobal.competitionglobalTeamglobals!.length === 0 &&
+        TableActionEnum.Delete,
+    ],
   }));
 
   return loadingTeamglobals ? (

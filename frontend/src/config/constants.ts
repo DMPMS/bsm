@@ -16,6 +16,8 @@ export const DEFAULT_PLAYERGLOBAL_IMAGE_URL =
   "https://i.ibb.co/RpRcyk1x/default-jogador.png";
 export const DEFAULT_MANAGERGLOBAL_IMAGE_URL =
   "https://i.ibb.co/R8PnW1z/default-treinador.png";
+export const DEFAULT_COMPETITIONGLOBAL_IMAGE_URL =
+  "https://i.ibb.co/dw951Qp2/default-competition.png";
 
 export const USER = {
   NAME: {

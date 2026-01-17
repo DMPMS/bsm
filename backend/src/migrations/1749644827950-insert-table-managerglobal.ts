@@ -65,7 +65,15 @@ export class InsertTableManagerglobal1749444827950
         ('3334ea00-a23c-4fbc-93e4-2b6933b8e313', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Wíres', NULL, '1982-12-30'),
         ('9fad14ef-3953-4be9-9ea7-34dbe2ce3d72', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Ricardo Catalá', NULL, '1982-04-28'),
         ('a5f1703a-3049-453b-a9f5-590d1d27c9b9', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Raul Cabral', NULL, '1981-10-06'),
-        ('fe31c00b-3e82-487e-a77d-3e2f66f785a1', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Matheus Costa', NULL, '1987-01-14');
+        ('fe31c00b-3e82-487e-a77d-3e2f66f785a1', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Matheus Costa', NULL, '1987-01-14'),
+        ('e8be0890-0f86-4d44-a44c-4e16e317a65c', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Lucio Flavio', NULL, '1979-02-03'),
+        ('0a2a6a71-9cab-4d95-b230-9c927a742647', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Gerson Gusmão', NULL, '1974-03-08'),
+        ('34810001-9f67-4248-9ff7-8ee1d2e37e4c', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Júnior Cearense', NULL, '1977-11-19'),
+        ('e1401510-6fae-4e77-8301-a343d314d0a8', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Ranielle Ribeiro', NULL, '1979-08-25'),
+        ('49f888b0-48ab-4793-9ffc-120fbba836e3', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Washington Luiz', NULL, '1982-09-29'),
+        ('366047b1-869f-47b2-b3ec-aeb540f4470a', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Marcelo Vilar', NULL, '1961-05-13'),
+        ('8f54f12f-2bd4-472b-b536-a21a14a3daa9', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Roberto Fernandes', NULL, '1971-05-05'),
+        ('0cd70a2d-7de1-40f2-b81a-84247e966121', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Luís Carlos Winck', NULL, '1963-01-05');
     `);
   }
 

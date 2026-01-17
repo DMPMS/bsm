@@ -1,4 +1,5 @@
 import { TeamglobalEntity } from "../entities/teamglobal.entity";
+import { ReturnCompetitionglobalTeamglobalDto } from "./returnCompetitionglobalTeamglobal.dto";
 import { ReturnCountryDto } from "./returnCountry.dto";
 import { ReturnManagerglobalDto } from "./returnManagerglobal.dto";
 import { ReturnPlayerglobalDto } from "./returnPlayerglobal.dto";
@@ -12,6 +13,7 @@ export class ReturnTeamglobalDto {
   country?: ReturnCountryDto;
   managerglobal?: ReturnManagerglobalDto;
   playerglobals?: ReturnPlayerglobalDto[];
+  competitionglobalTeamglobals?: ReturnCompetitionglobalTeamglobalDto[];
 
   constructor(teamglobalEntity: TeamglobalEntity) {
     this.id = teamglobalEntity.id;
@@ -32,5 +34,15 @@ export class ReturnTeamglobalDto {
           (playerglobal) => new ReturnPlayerglobalDto(playerglobal)
         )
       : undefined;
+
+    this.competitionglobalTeamglobals =
+      teamglobalEntity.competitionglobalTeamglobals
+        ? teamglobalEntity.competitionglobalTeamglobals.map(
+            (competitionglobalTeamglobal) =>
+              new ReturnCompetitionglobalTeamglobalDto(
+                competitionglobalTeamglobal
+              )
+          )
+        : undefined;
   }
 }
