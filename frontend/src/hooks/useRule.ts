@@ -22,7 +22,7 @@ export const useRule = () => {
   const [searchValue, setSearchValue] = useState<string>("");
 
   const rulesFiltered = rules.filter((rule) =>
-    rule.name.toLowerCase().includes(searchValue.toLowerCase())
+    rule.name.toLowerCase().includes(searchValue.toLowerCase()),
   );
 
   const fetchRules = async (timeout?: number) => {

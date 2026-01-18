@@ -55,6 +55,9 @@ export const MANAGERGLOBAL_MESSAGES = {
 };
 
 export const COMPETITIONGLOBAL_MESSAGES = {
+  FIELD_VALIDATION: {
+    TEAMGLOBALS: (numberOfTeams: number) => `Selecione ${numberOfTeams} times.`,
+  },
   SUCCESS: {
     CREATE: "Competição criada",
     UPDATE: "Competição atualizada",

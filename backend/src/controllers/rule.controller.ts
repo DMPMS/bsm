@@ -19,12 +19,13 @@ export class RuleController {
 
       const relationsOptions: RelationsOptionsType = {
         country: true,
+        competitionglobal: true,
       };
 
       const rules = await this.ruleService.getRules(
         Number(page),
         Number(limit),
-        relationsOptions
+        relationsOptions,
       );
 
       res

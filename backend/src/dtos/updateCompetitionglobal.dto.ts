@@ -14,10 +14,6 @@ import { UniqueArray } from "../validators/uniqueArray";
 
 export class UpdateCompetitionglobalDto {
   @Expose()
-  @IsUUID(UUID_VERSION)
-  ruleId: string;
-
-  @Expose()
   @IsString()
   @Length(COMPETITIONGLOBAL.NAME.MIN, COMPETITIONGLOBAL.NAME.MAX)
   @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))

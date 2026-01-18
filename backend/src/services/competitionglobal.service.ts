@@ -171,13 +171,7 @@ export class CompetitionglobalService {
       competitionglobalId
     );
 
-    const rule = await this.ruleService.getRuleById(
-      updateCompetitionglobalDto.ruleId,
-      undefined,
-      updateCompetitionglobalDto.ruleId !== competitionglobal.ruleId
-        ? true
-        : false
-    );
+    const rule = await this.ruleService.getRuleById(competitionglobal.ruleId);
 
     if (
       updateCompetitionglobalDto.teamglobalIds.length !== rule.numberOfTeams
@@ -186,26 +180,8 @@ export class CompetitionglobalService {
         HttpStatusEnum.BadRequest,
         COMPETITIONGLOBAL_MESSAGES.ERROR.TEAMGLOBALS_COUNT_INVALID(
           updateCompetitionglobalDto.teamglobalIds.length,
-          rule.numberOfTeams
-        )
-      );
-    }
-
-    const competitionglobals = await this.getCompetitionglobals(
-      PAGINATION.DEFAULT_PAGE,
-      PAGINATION.DEFAULT_LIMIT,
-      { rule: true }
-    );
-    const ruleCodes = competitionglobals.map(
-      (competitionglobal) => competitionglobal.rule!.code
-    );
-
-    if (!hasRuleRequirements(rule.code, ruleCodes)) {
-      throw new HttpError(
-        HttpStatusEnum.BadRequest,
-        COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITION_RULE_REQUIREMENTS_MESSAGE(
-          updateCompetitionglobalDto.ruleId
-        )
+          rule.numberOfTeams,
+        ),
       );
     }
 
@@ -222,6 +198,7 @@ export class CompetitionglobalService {
         const updatedCompetitionglobal = await repository.save({
           ...competitionglobal,
           ...updateCompetitionglobalDto,
+          ruleId: competitionglobal.ruleId,
           imageUrl: updateCompetitionglobalDto.imageUrl
             ? updateCompetitionglobalDto.imageUrl
             : null,

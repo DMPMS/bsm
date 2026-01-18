@@ -1,5 +1,6 @@
 import { RuleEntity } from "../entities/rule.entity";
 import { RuleCodeEnum } from "../enums/RuleCode.enum";
+import { ReturnCompetitionglobalDto } from "./returnCompetitionglobal.dto";
 import { ReturnCountryDto } from "./returnCountry.dto";
 
 export class ReturnRuleDto {
@@ -12,6 +13,7 @@ export class ReturnRuleDto {
   code: RuleCodeEnum;
 
   country?: ReturnCountryDto;
+  competitionglobal?: ReturnCompetitionglobalDto;
 
   constructor(ruleEntity: RuleEntity) {
     this.id = ruleEntity.id;
@@ -24,6 +26,10 @@ export class ReturnRuleDto {
 
     this.country = ruleEntity.country
       ? new ReturnCountryDto(ruleEntity.country)
+      : undefined;
+
+    this.competitionglobal = ruleEntity.competitionglobal
+      ? new ReturnCompetitionglobalDto(ruleEntity.competitionglobal)
       : undefined;
   }
 }

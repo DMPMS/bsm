@@ -1,4 +1,5 @@
 import type { RuleCodeEnum } from "../enums/RuleCode.enum";
+import type { CompetitionglobalType } from "./Competitionglobal.type";
 import type { CountryType } from "./Country.type";
 
 export interface RuleType {
@@ -11,4 +12,5 @@ export interface RuleType {
   code: RuleCodeEnum;
 
   country?: CountryType;
+  competitionglobal?: CompetitionglobalType;
 }

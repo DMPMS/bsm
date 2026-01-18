@@ -25,19 +25,23 @@ export class TeamglobalController {
       const relationsOptions: RelationsOptionsType = {
         country: true,
         managerglobal: true,
-        competitionglobalTeamglobals: true,
+        competitionglobalTeamglobals: {
+          competitionglobal: {
+            rule: true,
+          },
+        },
       };
 
       const teamglobals = await this.teamglobalService.getTeamglobals(
         Number(page),
         Number(limit),
-        relationsOptions
+        relationsOptions,
       );
 
       res
         .status(HttpStatusEnum.Ok)
         .json(
-          teamglobals.map((teamglobal) => new ReturnTeamglobalDto(teamglobal))
+          teamglobals.map((teamglobal) => new ReturnTeamglobalDto(teamglobal)),
         );
     } catch (error) {
       if (error instanceof HttpError) {
@@ -75,7 +79,7 @@ export class TeamglobalController {
 
       const teamglobal = await this.teamglobalService.getTeamglobalById(
         teamglobalId,
-        relationsOptions
+        relationsOptions,
       );
 
       res.status(HttpStatusEnum.Ok).json(new ReturnTeamglobalDto(teamglobal));
@@ -103,7 +107,7 @@ export class TeamglobalController {
         req.body,
         {
           excludeExtraneousValues: true,
-        }
+        },
       );
 
       const isValid = await validateDto(createTeamglobalDto);
@@ -114,9 +118,8 @@ export class TeamglobalController {
         return;
       }
 
-      const savedTeamglobal = await this.teamglobalService.createTeamglobal(
-        createTeamglobalDto
-      );
+      const savedTeamglobal =
+        await this.teamglobalService.createTeamglobal(createTeamglobalDto);
 
       res
         .status(HttpStatusEnum.Created)
@@ -145,7 +148,7 @@ export class TeamglobalController {
         req.body,
         {
           excludeExtraneousValues: true,
-        }
+        },
       );
 
       const { teamglobalId } = req.params;
@@ -167,7 +170,7 @@ export class TeamglobalController {
 
       const updatedTeamglobal = await this.teamglobalService.updateTeamglobal(
         updateTeamglobalDto,
-        teamglobalId
+        teamglobalId,
       );
 
       res
