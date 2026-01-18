@@ -28,7 +28,7 @@ export const usePlayerglobal = () => {
   const [searchValue, setSearchValue] = useState<string>("");
 
   const playerglobalsFiltered = playerglobals.filter((playerglobal) =>
-    playerglobal.name.toLowerCase().includes(searchValue.toLowerCase())
+    playerglobal.name.toLowerCase().includes(searchValue.toLowerCase()),
   );
 
   const fetchPlayerglobals = async (timeout?: number) => {
@@ -70,8 +70,8 @@ export const usePlayerglobal = () => {
     navigate(
       PlayerglobalRoutesEnum.UpdatePlayerglobal.replace(
         ":playerglobalId",
-        playerglobalId
-      )
+        playerglobalId,
+      ),
     );
   };
 
@@ -86,7 +86,7 @@ export const usePlayerglobal = () => {
       method: MethodEnum.Delete,
       url: URL_PLAYERGLOBAL_ID.replace(
         ":playerglobalId",
-        `${playerglobalIdDelete}`
+        `${playerglobalIdDelete}`,
       ),
       timeout: 1000,
     })

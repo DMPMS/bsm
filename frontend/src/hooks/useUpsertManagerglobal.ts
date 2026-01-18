@@ -56,13 +56,13 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
   useEffect(() => {
     if (managerglobalId) {
       const findAndSetManagerglobalReducer = async (
-        managerglobalId: string
+        managerglobalId: string,
       ) => {
         await request<ManagerglobalType>({
           method: MethodEnum.Get,
           url: URL_MANAGERGLOBAL_ID.replace(
             ":managerglobalId",
-            managerglobalId
+            managerglobalId,
           ),
           timeout: 1000,
         })
@@ -132,7 +132,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
       isWithinAgeRange(
         upsertManagerglobal.birthdate,
         MANAGERGLOBAL.AGE.MIN,
-        MANAGERGLOBAL.AGE.MAX
+        MANAGERGLOBAL.AGE.MAX,
       ) &&
       upsertManagerglobal.countryId
     ) {
@@ -145,7 +145,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
   const validateInputField = (
     id: string,
     value: string,
-    input: HTMLInputElement
+    input: HTMLInputElement,
   ) => {
     if (!["name"].includes(id)) {
       return;
@@ -166,8 +166,8 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
       if (value.length < MANAGERGLOBAL.NAME.MIN) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(
-            MANAGERGLOBAL.NAME.MIN
-          )
+            MANAGERGLOBAL.NAME.MIN,
+          ),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -176,8 +176,8 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
       } else if (value.length > MANAGERGLOBAL.NAME.MAX) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(
-            MANAGERGLOBAL.NAME.MAX
-          )
+            MANAGERGLOBAL.NAME.MAX,
+          ),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -197,7 +197,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
     if (id === "birthdate") {
       if (!value) {
         setBirthdateInputValidationMessage(
-          GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
+          GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED,
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -209,8 +209,8 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
         setBirthdateInputValidationMessage(
           GENERAL_FIELD_VALIDATION_MESSAGES.BIRTHDATE(
             MANAGERGLOBAL.AGE.MIN,
-            MANAGERGLOBAL.AGE.MAX
-          )
+            MANAGERGLOBAL.AGE.MAX,
+          ),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -219,7 +219,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
       } else {
         setBirthdateInputValidationMessage("");
         setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "birthdate")
+          prev.filter((item) => item.id !== "birthdate"),
         );
       }
     } else if (id === "imageUrl") {
@@ -232,7 +232,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
 
         if (!isValid) {
           input.setCustomValidity(
-            GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID
+            GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID,
           );
           setFieldsStatus((prev) => [
             ...prev,
@@ -241,7 +241,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
         } else {
           input.setCustomValidity("");
           setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl")
+            prev.filter((item) => item.id !== "imageUrl"),
           );
         }
 
@@ -249,7 +249,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
       } else {
         input.setCustomValidity("");
         setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl")
+          prev.filter((item) => item.id !== "imageUrl"),
         );
 
         setIsValidImage(true);
@@ -261,7 +261,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
 
   const handleChangeInput = async (
     e: React.ChangeEvent<HTMLInputElement>,
-    name: string
+    name: string,
   ) => {
     const input = e.target;
     const value = input.value;
@@ -277,7 +277,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
 
         if (!isValid) {
           input.setCustomValidity(
-            GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID
+            GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID,
           );
           setFieldsStatus((prev) => [
             ...prev,
@@ -286,7 +286,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
         } else {
           input.setCustomValidity("");
           setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl")
+            prev.filter((item) => item.id !== "imageUrl"),
           );
         }
 
@@ -294,7 +294,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
       } else {
         input.setCustomValidity("");
         setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl")
+          prev.filter((item) => item.id !== "imageUrl"),
         );
         setIsValidImage(true);
       }
@@ -313,7 +313,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
 
     if (!value) {
       setBirthdateInputValidationMessage(
-        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
+        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED,
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -325,8 +325,8 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
       setBirthdateInputValidationMessage(
         GENERAL_FIELD_VALIDATION_MESSAGES.BIRTHDATE(
           MANAGERGLOBAL.AGE.MIN,
-          MANAGERGLOBAL.AGE.MAX
-        )
+          MANAGERGLOBAL.AGE.MAX,
+        ),
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -348,7 +348,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
 
     if (!newValue) {
       setCountrySelectValidationMessage(
-        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
+        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED,
       );
       setFieldsStatus((prev) => [
         ...prev,

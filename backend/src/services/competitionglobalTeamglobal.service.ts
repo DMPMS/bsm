@@ -16,8 +16,8 @@ export class CompetitionglobalTeamglobalService {
 
   constructor(
     private readonly competitionglobalTeamglobalRepository: Repository<CompetitionglobalTeamglobalEntity> = AppDataSource.getRepository(
-      CompetitionglobalTeamglobalEntity
-    )
+      CompetitionglobalTeamglobalEntity,
+    ),
   ) {
     this.competitionglobalService = new CompetitionglobalService();
     this.teamglobalService = new TeamglobalService();
@@ -25,7 +25,7 @@ export class CompetitionglobalTeamglobalService {
 
   async createCompetitionglobalTeamglobal(
     createCompetitionglobalTeamglobalDto: CreateCompetitionglobalTeamglobalDto,
-    entityManager?: EntityManager
+    entityManager?: EntityManager,
   ): Promise<void> {
     const repository = entityManager
       ? entityManager.getRepository(CompetitionglobalTeamglobalEntity)
@@ -34,7 +34,7 @@ export class CompetitionglobalTeamglobalService {
     await this.competitionglobalService.getCompetitionglobalById(
       createCompetitionglobalTeamglobalDto.competitionglobalId,
       undefined,
-      entityManager
+      entityManager,
     );
 
     const teamglobalWithCompetitionglobals =
@@ -42,14 +42,14 @@ export class CompetitionglobalTeamglobalService {
         createCompetitionglobalTeamglobalDto.teamglobalId,
         { competitionglobalTeamglobals: { competitionglobal: { rule: true } } },
         undefined,
-        entityManager
+        entityManager,
       );
 
     const ruleCodes =
       teamglobalWithCompetitionglobals.competitionglobalTeamglobals
         ? teamglobalWithCompetitionglobals.competitionglobalTeamglobals.map(
             (competitionglobalTeamglobal) =>
-              competitionglobalTeamglobal.competitionglobal!.rule!.code
+              competitionglobalTeamglobal.competitionglobal!.rule!.code,
           )
         : [];
 
@@ -59,8 +59,8 @@ export class CompetitionglobalTeamglobalService {
       throw new HttpError(
         HttpStatusEnum.Conflict,
         COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITION_RULE_CONFLICT_MESSAGE(
-          createCompetitionglobalTeamglobalDto.teamglobalId
-        )
+          createCompetitionglobalTeamglobalDto.teamglobalId,
+        ),
       );
     }
 
@@ -72,7 +72,7 @@ export class CompetitionglobalTeamglobalService {
 
   async deleteCompetitionglobalTeamglobal(
     competitionglobalId: string,
-    entityManager?: EntityManager
+    entityManager?: EntityManager,
   ): Promise<DeleteResult> {
     const repository = entityManager
       ? entityManager.getRepository(CompetitionglobalTeamglobalEntity)
@@ -81,7 +81,7 @@ export class CompetitionglobalTeamglobalService {
     await this.competitionglobalService.getCompetitionglobalById(
       competitionglobalId,
       undefined,
-      entityManager
+      entityManager,
     );
 
     return await repository.delete({

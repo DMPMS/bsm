@@ -124,7 +124,7 @@ const UpsertTeamglobalScreen = () => {
       <div className={styles.positions}>
         {playerglobal
           .playerglobalPositions!.filter(
-            (playerglobalPosition) => playerglobalPosition.isPrimary
+            (playerglobalPosition) => playerglobalPosition.isPrimary,
           )
           .map((playerglobalPosition) => (
             <Position
@@ -138,7 +138,7 @@ const UpsertTeamglobalScreen = () => {
       <div className={styles.positions}>
         {playerglobal
           .playerglobalPositions!.filter(
-            (playerglobalPosition) => !playerglobalPosition.isPrimary
+            (playerglobalPosition) => !playerglobalPosition.isPrimary,
           )
           .map((playerglobalPosition) => (
             <Position
@@ -295,17 +295,17 @@ const UpsertTeamglobalScreen = () => {
                         managerglobalsTableData.find(
                           (managerglobal) =>
                             upsertTeamglobal.managerglobalId ===
-                            managerglobal.id
+                            managerglobal.id,
                         )!,
                       ]
                     : managerglobalsFilter === SelectTableFilterEnum.Selected &&
-                      !upsertTeamglobal.managerglobalId
-                    ? []
-                    : managerglobalsFilter === SelectTableFilterEnum.Available
-                    ? managerglobalsTableData.filter(
-                        (managerglobal) => managerglobal.disabled === false
-                      )
-                    : managerglobalsTableData
+                        !upsertTeamglobal.managerglobalId
+                      ? []
+                      : managerglobalsFilter === SelectTableFilterEnum.Available
+                        ? managerglobalsTableData.filter(
+                            (managerglobal) => managerglobal.disabled === false,
+                          )
+                        : managerglobalsTableData
                 }
                 headers={managerglobalsTableHeaders}
                 values={
@@ -327,7 +327,7 @@ const UpsertTeamglobalScreen = () => {
               required={true}
               tooltip={TEAMGLOBAL_MESSAGES.FIELD_VALIDATION.PLAYERGLOBALS(
                 TEAMGLOBAL.PLAYERGLOBALS.MIN,
-                TEAMGLOBAL.PLAYERGLOBALS.MAX
+                TEAMGLOBAL.PLAYERGLOBALS.MAX,
               )}
               tooltipContent={
                 <div className={styles.tooltipContentPlayerglobals}>
@@ -371,14 +371,14 @@ const UpsertTeamglobalScreen = () => {
                   playerglobalsFilter === SelectTableFilterEnum.Selected
                     ? playerglobalsTableData.filter((playerglobal) =>
                         upsertTeamglobal.playerglobalIds.includes(
-                          playerglobal.id
-                        )
+                          playerglobal.id,
+                        ),
                       )
                     : playerglobalsFilter === SelectTableFilterEnum.Available
-                    ? playerglobalsTableData.filter(
-                        (playerglobal) => playerglobal.disabled === false
-                      )
-                    : playerglobalsTableData
+                      ? playerglobalsTableData.filter(
+                          (playerglobal) => playerglobal.disabled === false,
+                        )
+                      : playerglobalsTableData
                 }
                 headers={playerglobalsTableHeaders}
                 values={upsertTeamglobal.playerglobalIds}

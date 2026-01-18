@@ -33,15 +33,15 @@ export class PlayerglobalController {
       const playerglobals = await this.playerglobalService.getPlayerglobals(
         Number(page),
         Number(limit),
-        relationsOptions
+        relationsOptions,
       );
 
       res
         .status(HttpStatusEnum.Ok)
         .json(
           playerglobals.map(
-            (playerglobal) => new ReturnPlayerglobalDto(playerglobal)
-          )
+            (playerglobal) => new ReturnPlayerglobalDto(playerglobal),
+          ),
         );
     } catch (error) {
       if (error instanceof HttpError) {
@@ -80,7 +80,7 @@ export class PlayerglobalController {
 
       const playerglobal = await this.playerglobalService.getPlayerglobalById(
         playerglobalId,
-        relationsOptions
+        relationsOptions,
       );
 
       res
@@ -110,7 +110,7 @@ export class PlayerglobalController {
         req.body,
         {
           excludeExtraneousValues: true,
-        }
+        },
       );
 
       const isValid = await validateDto(createPlayerglobalDto);
@@ -123,7 +123,7 @@ export class PlayerglobalController {
 
       const savedPlayerglobal =
         await this.playerglobalService.createPlayerglobal(
-          createPlayerglobalDto
+          createPlayerglobalDto,
         );
 
       res
@@ -153,7 +153,7 @@ export class PlayerglobalController {
         req.body,
         {
           excludeExtraneousValues: true,
-        }
+        },
       );
 
       const { playerglobalId } = req.params;
@@ -176,7 +176,7 @@ export class PlayerglobalController {
       const updatedPlayerglobal =
         await this.playerglobalService.updatePlayerglobal(
           updatePlayerglobalDto,
-          playerglobalId
+          playerglobalId,
         );
 
       res

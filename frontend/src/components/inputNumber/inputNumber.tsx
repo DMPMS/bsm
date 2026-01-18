@@ -52,7 +52,7 @@ const InputNumber = ({
         const [integerPart, decimalPart] = value.split(".");
         const integerPartWithoutLeadingZeros = integerPart.replace(
           LEADING_ZEROS_REGEX,
-          REPLACEMENT_GROUP
+          REPLACEMENT_GROUP,
         );
         value =
           integerPartWithoutLeadingZeros +

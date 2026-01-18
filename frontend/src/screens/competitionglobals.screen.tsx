@@ -62,7 +62,7 @@ const CompetitionglobalsScreen = () => {
       TableActionEnum.Update,
       !hasRuleDependents(
         competitionglobal.rule!.code,
-        competitionglobals.map((cg) => cg.rule!.code)
+        competitionglobals.map((cg) => cg.rule!.code),
       ) && competitionglobal.rule!.code !== RuleCodeEnum.BrazilianLeagueA
         ? TableActionEnum.Delete
         : null,

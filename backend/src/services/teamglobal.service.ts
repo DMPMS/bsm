@@ -20,8 +20,8 @@ export class TeamglobalService {
 
   constructor(
     private readonly teamglobalRepository: Repository<TeamglobalEntity> = AppDataSource.getRepository(
-      TeamglobalEntity
-    )
+      TeamglobalEntity,
+    ),
   ) {
     this.countryService = new CountryService();
     this.managerglobalService = new ManagerglobalService();
@@ -31,7 +31,7 @@ export class TeamglobalService {
   async getTeamglobals(
     page: number,
     limit: number,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
   ): Promise<TeamglobalEntity[]> {
     const skip = (page - PAGINATION.INITIAL_PAGE) * limit;
 
@@ -49,7 +49,7 @@ export class TeamglobalService {
     teamglobalId: string,
     relationsOptions?: RelationsOptionsType,
     onlyWithoutCompetitionglobal?: boolean,
-    entityManager?: EntityManager
+    entityManager?: EntityManager,
   ): Promise<TeamglobalEntity> {
     const repository = entityManager
       ? entityManager.getRepository(TeamglobalEntity)
@@ -70,7 +70,7 @@ export class TeamglobalService {
     if (!teamglobal) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        TEAMGLOBAL_MESSAGES.ERROR.TEAMGLOBAL_ID_NOT_FOUND(teamglobalId)
+        TEAMGLOBAL_MESSAGES.ERROR.TEAMGLOBAL_ID_NOT_FOUND(teamglobalId),
       );
     }
 
@@ -82,8 +82,8 @@ export class TeamglobalService {
       throw new HttpError(
         HttpStatusEnum.Conflict,
         TEAMGLOBAL_MESSAGES.ERROR.TEAMGLOBAL_WITH_COMPETITIONGLOBAL(
-          teamglobalId
-        )
+          teamglobalId,
+        ),
       );
     }
 
@@ -91,13 +91,13 @@ export class TeamglobalService {
   }
 
   async createTeamglobal(
-    createTeamglobalDto: CreateTeamglobalDto
+    createTeamglobalDto: CreateTeamglobalDto,
   ): Promise<TeamglobalEntity> {
     await this.countryService.getCountryById(createTeamglobalDto.countryId);
     await this.managerglobalService.getManagerglobalById(
       createTeamglobalDto.managerglobalId,
       undefined,
-      true
+      true,
     );
 
     await Promise.all(
@@ -105,9 +105,9 @@ export class TeamglobalService {
         this.playerglobalService.getPlayerglobalById(
           playerglobalId,
           undefined,
-          true
-        )
-      )
+          true,
+        ),
+      ),
     );
 
     return await AppDataSource.transaction(
@@ -127,18 +127,18 @@ export class TeamglobalService {
           await this.playerglobalService.updatePlayerglobalTeamglobalId(
             savedTeamglobal.id,
             playerglobalId,
-            entityManager
+            entityManager,
           );
         }
 
         return savedTeamglobal;
-      }
+      },
     );
   }
 
   async updateTeamglobal(
     updateTeamglobalDto: UpdateTeamglobalDto,
-    teamglobalId: string
+    teamglobalId: string,
   ): Promise<TeamglobalEntity> {
     const teamglobal = await this.getTeamglobalById(teamglobalId);
 
@@ -148,15 +148,14 @@ export class TeamglobalService {
       await this.managerglobalService.getManagerglobalById(
         updateTeamglobalDto.managerglobalId,
         undefined,
-        true
+        true,
       );
     }
 
     await Promise.all(
       updateTeamglobalDto.playerglobalIds.map(async (playerglobalId) => {
-        const playerglobal = await this.playerglobalService.getPlayerglobalById(
-          playerglobalId
-        );
+        const playerglobal =
+          await this.playerglobalService.getPlayerglobalById(playerglobalId);
 
         if (
           playerglobal.teamglobalId &&
@@ -165,11 +164,11 @@ export class TeamglobalService {
           throw new HttpError(
             HttpStatusEnum.Conflict,
             PLAYERGLOBAL_MESSAGES.ERROR.PLAYERGLOBAL_WITH_TEAMGLOBAL(
-              playerglobalId
-            )
+              playerglobalId,
+            ),
           );
         }
-      })
+      }),
     );
 
     return await AppDataSource.transaction(
@@ -188,19 +187,19 @@ export class TeamglobalService {
         await this.playerglobalService.clearPlayerglobalTeamglobalId(
           undefined,
           updatedTeamglobal.id,
-          entityManager
+          entityManager,
         );
 
         for (const playerglobalId of updateTeamglobalDto.playerglobalIds) {
           await this.playerglobalService.updatePlayerglobalTeamglobalId(
             updatedTeamglobal.id,
             playerglobalId,
-            entityManager
+            entityManager,
           );
         }
 
         return updatedTeamglobal;
-      }
+      },
     );
   }
 

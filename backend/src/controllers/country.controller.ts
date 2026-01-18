@@ -18,7 +18,7 @@ export class CountryController {
 
       const countries = await this.countryService.getCountries(
         Number(page),
-        Number(limit)
+        Number(limit),
       );
 
       res

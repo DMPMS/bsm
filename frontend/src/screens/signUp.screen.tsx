@@ -83,7 +83,7 @@ const SignUpScreen = () => {
               required={true}
               tooltip={`A data atual no sistema é ${formatDateFromDate(
                 CURRENT_DATE,
-                FormatDateEnum.SLASH_DD_MM_YYYY
+                FormatDateEnum.SLASH_DD_MM_YYYY,
               )}.`}
             >
               <DatePicker
@@ -92,7 +92,7 @@ const SignUpScreen = () => {
                   signUp.birthdate
                     ? parseDate(
                         signUp.birthdate,
-                        FormatDateEnum.DASH_YYYY_MM_DD
+                        FormatDateEnum.DASH_YYYY_MM_DD,
                       )
                     : undefined
                 }

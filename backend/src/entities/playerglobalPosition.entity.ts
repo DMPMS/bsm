@@ -44,7 +44,7 @@ export class PlayerglobalPositionEntity {
 
   @ManyToOne(
     () => PlayerglobalEntity,
-    (playerglobal) => playerglobal.playerglobalPositions
+    (playerglobal) => playerglobal.playerglobalPositions,
   )
   @JoinColumn({ name: "playerglobal_id", referencedColumnName: "id" })
   playerglobal?: PlayerglobalEntity;

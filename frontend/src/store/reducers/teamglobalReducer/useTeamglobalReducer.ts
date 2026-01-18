@@ -6,7 +6,7 @@ import { setTeamglobalAction, setTeamglobalsAction } from ".";
 export const useTeamglobalReducer = () => {
   const dispatch = useDispatch();
   const { teamglobal, teamglobals } = useAppSelector(
-    (state) => state.teamglobalReducer
+    (state) => state.teamglobalReducer,
   );
 
   const setTeamglobal = (teamglobal?: TeamglobalType) => {

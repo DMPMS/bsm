@@ -14,7 +14,7 @@ ruleRoutes.get(
   "/rule",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin, UserTypeEnum.User]),
-  (req, res) => ruleController.getRules(req, res)
+  (req, res) => ruleController.getRules(req, res),
 );
 
 export default ruleRoutes;

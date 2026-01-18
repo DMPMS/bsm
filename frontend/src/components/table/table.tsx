@@ -23,10 +23,10 @@ function Table<T extends { id: string; [key: string]: any }>({
   handleOpenModalDelete,
 }: TableProps<T>) {
   const [currentPage, setCurrentPage] = useState<number>(
-    PAGINATION.DEFAULT_PAGE
+    PAGINATION.DEFAULT_PAGE,
   );
   const [currentWindowWidth, setCurrentWindowWidth] = useState<number>(
-    window.innerWidth
+    window.innerWidth,
   );
 
   useEffect(() => {
@@ -52,7 +52,7 @@ function Table<T extends { id: string; [key: string]: any }>({
   const totalPages = Math.ceil(data.length / PAGINATION.DEFAULT_LIMIT);
 
   const hasActionsColumn = data.some(
-    (row: T) => Array.isArray(row.actions) && row.actions.length > 0
+    (row: T) => Array.isArray(row.actions) && row.actions.length > 0,
   );
 
   const renderTableData = () => {
@@ -83,29 +83,30 @@ function Table<T extends { id: string; [key: string]: any }>({
                   header.hideAtWidth === TableHideLevelEnum.at900
                     ? styles.hideAt900px
                     : header.hideAtWidth &&
-                      header.hideAtWidth === TableHideLevelEnum.at800
-                    ? styles.hideAt800px
-                    : header.hideAtWidth &&
-                      header.hideAtWidth === TableHideLevelEnum.at700
-                    ? styles.hideAt700px
-                    : header.hideAtWidth &&
-                      header.hideAtWidth === TableHideLevelEnum.at600
-                    ? styles.hideAt600px
-                    : header.hideAtWidth &&
-                      header.hideAtWidth === TableHideLevelEnum.at500
-                    ? styles.hideAt500px
-                    : header.hideAtWidth &&
-                      header.hideAtWidth === TableHideLevelEnum.at400
-                    ? styles.hideAt400px
-                    : header.hideAtWidth &&
-                      header.hideAtWidth === TableHideLevelEnum.at300
-                    ? styles.hideAt300px
-                    : ""
+                        header.hideAtWidth === TableHideLevelEnum.at800
+                      ? styles.hideAt800px
+                      : header.hideAtWidth &&
+                          header.hideAtWidth === TableHideLevelEnum.at700
+                        ? styles.hideAt700px
+                        : header.hideAtWidth &&
+                            header.hideAtWidth === TableHideLevelEnum.at600
+                          ? styles.hideAt600px
+                          : header.hideAtWidth &&
+                              header.hideAtWidth === TableHideLevelEnum.at500
+                            ? styles.hideAt500px
+                            : header.hideAtWidth &&
+                                header.hideAtWidth === TableHideLevelEnum.at400
+                              ? styles.hideAt400px
+                              : header.hideAtWidth &&
+                                  header.hideAtWidth ===
+                                    TableHideLevelEnum.at300
+                                ? styles.hideAt300px
+                                : ""
                 }`}
               >
                 {row[header.td]}
               </td>
-            )
+            ),
         )}
         {hasActionsColumn && row.actions.length > 0 && (
           <td>
@@ -177,7 +178,7 @@ function Table<T extends { id: string; [key: string]: any }>({
     let startPage = Math.max(1, currentPage - 2);
     const endPage = Math.min(
       totalPages,
-      startPage + PAGINATION.DEFAULT_LIMIT - 1
+      startPage + PAGINATION.DEFAULT_LIMIT - 1,
     );
 
     if (endPage - startPage + 1 < PAGINATION.DEFAULT_LIMIT) {
@@ -186,7 +187,7 @@ function Table<T extends { id: string; [key: string]: any }>({
 
     return Array.from(
       { length: endPage - startPage + 1 },
-      (_, i) => startPage + i
+      (_, i) => startPage + i,
     ).map((page) => (
       <a
         key={page}
@@ -221,29 +222,32 @@ function Table<T extends { id: string; [key: string]: any }>({
                       header.hideAtWidth === TableHideLevelEnum.at900
                         ? styles.hideAt900px
                         : header.hideAtWidth &&
-                          header.hideAtWidth === TableHideLevelEnum.at800
-                        ? styles.hideAt800px
-                        : header.hideAtWidth &&
-                          header.hideAtWidth === TableHideLevelEnum.at700
-                        ? styles.hideAt700px
-                        : header.hideAtWidth &&
-                          header.hideAtWidth === TableHideLevelEnum.at600
-                        ? styles.hideAt600px
-                        : header.hideAtWidth &&
-                          header.hideAtWidth === TableHideLevelEnum.at500
-                        ? styles.hideAt500px
-                        : header.hideAtWidth &&
-                          header.hideAtWidth === TableHideLevelEnum.at400
-                        ? styles.hideAt400px
-                        : header.hideAtWidth &&
-                          header.hideAtWidth === TableHideLevelEnum.at300
-                        ? styles.hideAt300px
-                        : ""
+                            header.hideAtWidth === TableHideLevelEnum.at800
+                          ? styles.hideAt800px
+                          : header.hideAtWidth &&
+                              header.hideAtWidth === TableHideLevelEnum.at700
+                            ? styles.hideAt700px
+                            : header.hideAtWidth &&
+                                header.hideAtWidth === TableHideLevelEnum.at600
+                              ? styles.hideAt600px
+                              : header.hideAtWidth &&
+                                  header.hideAtWidth ===
+                                    TableHideLevelEnum.at500
+                                ? styles.hideAt500px
+                                : header.hideAtWidth &&
+                                    header.hideAtWidth ===
+                                      TableHideLevelEnum.at400
+                                  ? styles.hideAt400px
+                                  : header.hideAtWidth &&
+                                      header.hideAtWidth ===
+                                        TableHideLevelEnum.at300
+                                    ? styles.hideAt300px
+                                    : ""
                     }`}
                   >
                     {header.th}
                   </th>
-                )
+                ),
             )}
             {hasActionsColumn && <th>Ações</th>}
           </tr>

@@ -10,14 +10,14 @@ import { RULE_MESSAGES } from "../utils/messages";
 export class RuleService {
   constructor(
     private readonly ruleRepository: Repository<RuleEntity> = AppDataSource.getRepository(
-      RuleEntity
-    )
+      RuleEntity,
+    ),
   ) {}
 
   async getRules(
     page: number,
     limit: number,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
   ): Promise<RuleEntity[]> {
     const skip = (page - PAGINATION.INITIAL_PAGE) * limit;
 
@@ -34,7 +34,7 @@ export class RuleService {
   async getRuleById(
     ruleId: string,
     relationsOptions?: RelationsOptionsType,
-    onlyWithoutCompetitionglobal?: boolean
+    onlyWithoutCompetitionglobal?: boolean,
   ): Promise<RuleEntity> {
     if (onlyWithoutCompetitionglobal) {
       relationsOptions = {
@@ -51,14 +51,14 @@ export class RuleService {
     if (!rule) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        RULE_MESSAGES.ERROR.RULE_ID_NOT_FOUND(ruleId)
+        RULE_MESSAGES.ERROR.RULE_ID_NOT_FOUND(ruleId),
       );
     }
 
     if (onlyWithoutCompetitionglobal && rule.competitionglobal) {
       throw new HttpError(
         HttpStatusEnum.Conflict,
-        RULE_MESSAGES.ERROR.RULE_WITH_COMPETITIONGLOBAL(ruleId)
+        RULE_MESSAGES.ERROR.RULE_WITH_COMPETITIONGLOBAL(ruleId),
       );
     }
 

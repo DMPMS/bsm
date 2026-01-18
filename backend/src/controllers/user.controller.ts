@@ -31,7 +31,7 @@ export class UserController {
       const users = await this.userService.getUsers(
         Number(page),
         Number(limit),
-        relationsOptions
+        relationsOptions,
       );
 
       res
@@ -157,7 +157,7 @@ export class UserController {
       const savedUser = await this.userService.createUser(
         createUserDto,
         userId,
-        userType
+        userType,
       );
 
       res.status(HttpStatusEnum.Created).json(new ReturnUserDto(savedUser));
@@ -203,7 +203,7 @@ export class UserController {
 
       const updatedUser = await this.userService.updateUser(
         updateUserDto,
-        userId
+        userId,
       );
 
       res.status(HttpStatusEnum.Ok).json(new ReturnUserDto(updatedUser));

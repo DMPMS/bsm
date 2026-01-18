@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class InsertTableCompetitionglobal1768266107233
-  implements MigrationInterface
-{
+export class InsertTableCompetitionglobal1768266107233 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
         INSERT INTO public.competitionglobal(id, rule_id, name, image_url, season) VALUES

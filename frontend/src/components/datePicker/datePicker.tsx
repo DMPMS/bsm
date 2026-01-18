@@ -76,7 +76,7 @@ const DatePicker = ({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(value);
   const [displayMonth, setDisplayMonth] = useState<Date>(
-    value ? value : CURRENT_DATE
+    value ? value : CURRENT_DATE,
   );
   const [focusedDate, setFocusedDate] = useState<Date | undefined>(undefined);
   const [isKeyboardNavigation, setIsKeyboardNavigation] =
@@ -156,25 +156,25 @@ const DatePicker = ({
 
   function prevMonth() {
     setDisplayMonth(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1)
+      (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1),
     );
   }
 
   function nextMonth() {
     setDisplayMonth(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1)
+      (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1),
     );
   }
 
   function prevYear() {
     setDisplayMonth(
-      (prev) => new Date(prev.getFullYear() - 1, prev.getMonth(), 1)
+      (prev) => new Date(prev.getFullYear() - 1, prev.getMonth(), 1),
     );
   }
 
   function nextYear() {
     setDisplayMonth(
-      (prev) => new Date(prev.getFullYear() + 1, prev.getMonth(), 1)
+      (prev) => new Date(prev.getFullYear() + 1, prev.getMonth(), 1),
     );
   }
 
@@ -260,7 +260,7 @@ const DatePicker = ({
     setIsKeyboardNavigation(true);
 
     let newFocusedDate = new Date(
-      focusedDate ? focusedDate : selectedDate ? selectedDate : CURRENT_DATE
+      focusedDate ? focusedDate : selectedDate ? selectedDate : CURRENT_DATE,
     );
 
     switch (e.key) {
@@ -354,7 +354,7 @@ const DatePicker = ({
       newFocusedDate.getFullYear() !== displayMonth.getFullYear()
     ) {
       setDisplayMonth(
-        new Date(newFocusedDate.getFullYear(), newFocusedDate.getMonth(), 1)
+        new Date(newFocusedDate.getFullYear(), newFocusedDate.getMonth(), 1),
       );
     }
   }
@@ -367,14 +367,14 @@ const DatePicker = ({
           fieldState === FieldStateEnum.Invalid
             ? styles.datePickerHeaderInvalid
             : fieldState === FieldStateEnum.Warning
-            ? styles.datePickerHeaderWarning
-            : ""
+              ? styles.datePickerHeaderWarning
+              : ""
         } ${isOpen ? styles.datePickerHeaderOpen : ""} ${
           fieldState === FieldStateEnum.Invalid
             ? styles.datePickerHeaderInvalidOpen
             : fieldState === FieldStateEnum.Warning
-            ? styles.datePickerHeaderWarningOpen
-            : ""
+              ? styles.datePickerHeaderWarningOpen
+              : ""
         } ${disabled ? styles.datePickerHeaderDisabled : ""}`}
       >
         <input
@@ -386,7 +386,7 @@ const DatePicker = ({
             selectedDate
               ? formatDateFromDate(
                   selectedDate,
-                  FormatDateEnum.SLASH_DD_MM_YYYY
+                  FormatDateEnum.SLASH_DD_MM_YYYY,
                 )
               : ""
           }

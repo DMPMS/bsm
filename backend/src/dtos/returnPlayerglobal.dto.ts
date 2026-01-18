@@ -30,7 +30,7 @@ export class ReturnPlayerglobalDto {
           .sort((a, b) => a.position!.code - b.position!.code)
           .map(
             (playerglobalPosition) =>
-              new ReturnPlayerglobalPositionDto(playerglobalPosition)
+              new ReturnPlayerglobalPositionDto(playerglobalPosition),
           )
       : undefined;
 

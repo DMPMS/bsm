@@ -28,7 +28,8 @@ export const USER_MESSAGES = {
   SUCCESS: {
     USER_DELETED_SUCCESSFULLY: "Usuário deletado",
     ADMIN_DELETED_SUCCESSFULLY: "Administrador deletado",
-    MY_USER_DELETED_SUCCESSFULLY: "Usuário deletado. Volte sempre que quiser 🥹",
+    MY_USER_DELETED_SUCCESSFULLY:
+      "Usuário deletado. Volte sempre que quiser 🥹",
   },
 };
 
@@ -100,7 +101,7 @@ export const COMPETITIONGLOBAL_MESSAGES = {
       `A competição com identificador ${competitionglobalId} não foi encontrada`,
     TEAMGLOBALS_COUNT_INVALID: (
       teamglobalsCount: number,
-      expectedCount: number
+      expectedCount: number,
     ) =>
       `Foram passados ${teamglobalsCount} times, mas esperava-se ${expectedCount}`,
     COMPETITION_RULE_CONFLICT_MESSAGE: (teamglobalId: string) =>
@@ -151,7 +152,7 @@ export const PLAYERGLOBAL_MESSAGES = {
       `O jogador com identificador ${playerglobalId} possui um time associado`,
     COMMON_POSITION_IDS: (commonPositionIds: string[]) =>
       `Os seguintes identificadores são comuns entre as posições primárias e secundárias: ${commonPositionIds.join(
-        ", "
+        ", ",
       )}`,
   },
   SUCCESS: {

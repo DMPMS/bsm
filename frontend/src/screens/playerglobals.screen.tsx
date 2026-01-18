@@ -61,7 +61,7 @@ const PlayerglobalsScreen = () => {
       <div className={styles.positions}>
         {playerglobal
           .playerglobalPositions!.filter(
-            (playerglobalPosition) => playerglobalPosition.isPrimary
+            (playerglobalPosition) => playerglobalPosition.isPrimary,
           )
           .map((playerglobalPosition) => (
             <Position
@@ -75,7 +75,7 @@ const PlayerglobalsScreen = () => {
       <div className={styles.positions}>
         {playerglobal
           .playerglobalPositions!.filter(
-            (playerglobalPosition) => !playerglobalPosition.isPrimary
+            (playerglobalPosition) => !playerglobalPosition.isPrimary,
           )
           .map((playerglobalPosition) => (
             <Position

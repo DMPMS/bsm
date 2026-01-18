@@ -14,7 +14,7 @@ export class InsertUserRoot1749161689974 implements MigrationInterface {
     if (!rootEmail || !rootPassword) {
       throw new HttpError(
         HttpStatusEnum.InternalServerError,
-        ENV_MESSAGES.ERROR.MISSING_ROOT_EMAIL_OR_PASSWORD
+        ENV_MESSAGES.ERROR.MISSING_ROOT_EMAIL_OR_PASSWORD,
       );
     }
 
@@ -24,8 +24,8 @@ export class InsertUserRoot1749161689974 implements MigrationInterface {
     await queryRunner.query(`
         INSERT INTO public.user (id, country_id, name, birthdate, type, email, hashed_password)
         VALUES ('${id}', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Root', '2000-01-01', ${
-      UserTypeEnum.Root
-    }, '${rootEmail.toLowerCase()}', '${hashedPassword}');
+          UserTypeEnum.Root
+        }, '${rootEmail.toLowerCase()}', '${hashedPassword}');
     `);
   }
 
@@ -35,7 +35,7 @@ export class InsertUserRoot1749161689974 implements MigrationInterface {
     if (!rootEmail) {
       throw new HttpError(
         HttpStatusEnum.InternalServerError,
-        ENV_MESSAGES.ERROR.MISSING_ROOT_EMAIL
+        ENV_MESSAGES.ERROR.MISSING_ROOT_EMAIL,
       );
     }
 

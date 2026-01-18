@@ -18,7 +18,7 @@ export class PositionController {
 
       const positions = await this.positionService.getPositions(
         Number(page),
-        Number(limit)
+        Number(limit),
       );
 
       res

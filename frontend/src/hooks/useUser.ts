@@ -21,12 +21,12 @@ export const useUser = () => {
   const [loadingUsers, setLoadingUsers] = useState<boolean>(true);
   const [loadingFetchs, setLoadingFetchs] = useState<boolean>(false);
   const [userIdDelete, setUserIdDelete] = useState<string | undefined>(
-    undefined
+    undefined,
   );
   const [searchValue, setSearchValue] = useState<string>("");
 
   const usersFiltered = users.filter((user) =>
-    user.name.toLowerCase().includes(searchValue.toLowerCase())
+    user.name.toLowerCase().includes(searchValue.toLowerCase()),
   );
 
   const fetchUsers = async (timeout?: number) => {

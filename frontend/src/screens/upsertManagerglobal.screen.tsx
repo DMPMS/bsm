@@ -95,7 +95,7 @@ const UpsertManagerglobalScreen = () => {
               required={true}
               tooltip={`A data atual no sistema é ${formatDateFromDate(
                 CURRENT_DATE,
-                FormatDateEnum.SLASH_DD_MM_YYYY
+                FormatDateEnum.SLASH_DD_MM_YYYY,
               )}.`}
             >
               <DatePicker
@@ -104,7 +104,7 @@ const UpsertManagerglobalScreen = () => {
                   upsertManagerglobal.birthdate
                     ? parseDate(
                         upsertManagerglobal.birthdate,
-                        FormatDateEnum.DASH_YYYY_MM_DD
+                        FormatDateEnum.DASH_YYYY_MM_DD,
                       )
                     : undefined
                 }

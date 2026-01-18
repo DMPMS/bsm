@@ -14,7 +14,7 @@ export class InsertUserAdmin1749161696393 implements MigrationInterface {
     if (!adminEmail || !adminPassword) {
       throw new HttpError(
         HttpStatusEnum.InternalServerError,
-        ENV_MESSAGES.ERROR.MISSING_ADMIN_EMAIL_OR_PASSWORD
+        ENV_MESSAGES.ERROR.MISSING_ADMIN_EMAIL_OR_PASSWORD,
       );
     }
 
@@ -24,8 +24,8 @@ export class InsertUserAdmin1749161696393 implements MigrationInterface {
     await queryRunner.query(`
         INSERT INTO public.user (id, country_id, name, birthdate, type, email, hashed_password)
         VALUES ('${id}', '4b7569fc-0f7b-4419-9a44-09e859c15dc8', 'Admin', '2000-01-01', ${
-      UserTypeEnum.Admin
-    }, '${adminEmail.toLowerCase()}', '${hashedPassword}');
+          UserTypeEnum.Admin
+        }, '${adminEmail.toLowerCase()}', '${hashedPassword}');
     `);
   }
 
@@ -35,7 +35,7 @@ export class InsertUserAdmin1749161696393 implements MigrationInterface {
     if (!adminEmail) {
       throw new HttpError(
         HttpStatusEnum.InternalServerError,
-        ENV_MESSAGES.ERROR.MISSING_ADMIN_EMAIL
+        ENV_MESSAGES.ERROR.MISSING_ADMIN_EMAIL,
       );
     }
 

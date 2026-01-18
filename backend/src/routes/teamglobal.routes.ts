@@ -14,35 +14,35 @@ teamglobalRoutes.get(
   "/teamglobal",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin, UserTypeEnum.User]),
-  (req, res) => teamglobalController.getTeamglobals(req, res)
+  (req, res) => teamglobalController.getTeamglobals(req, res),
 );
 
 teamglobalRoutes.get(
   "/teamglobal/:teamglobalId",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin]),
-  (req, res) => teamglobalController.getTeamglobalById(req, res)
+  (req, res) => teamglobalController.getTeamglobalById(req, res),
 );
 
 teamglobalRoutes.post(
   "/teamglobal",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin]),
-  (req, res) => teamglobalController.createTeamglobal(req, res)
+  (req, res) => teamglobalController.createTeamglobal(req, res),
 );
 
 teamglobalRoutes.put(
   "/teamglobal/:teamglobalId",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin]),
-  (req, res) => teamglobalController.updateTeamglobal(req, res)
+  (req, res) => teamglobalController.updateTeamglobal(req, res),
 );
 
 teamglobalRoutes.delete(
   "/teamglobal/:teamglobalId",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin]),
-  (req, res) => teamglobalController.deleteTeamglobal(req, res)
+  (req, res) => teamglobalController.deleteTeamglobal(req, res),
 );
 
 export default teamglobalRoutes;

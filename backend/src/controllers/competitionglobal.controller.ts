@@ -14,7 +14,7 @@ import { UpdateCompetitionglobalDto } from "../dtos/updateCompetitionglobal.dto"
 
 export class CompetitionglobalController {
   constructor(
-    private readonly competitionglobalService: CompetitionglobalService
+    private readonly competitionglobalService: CompetitionglobalService,
   ) {}
 
   async getCompetitionglobals(req: Request, res: Response): Promise<void> {
@@ -32,7 +32,7 @@ export class CompetitionglobalController {
         await this.competitionglobalService.getCompetitionglobals(
           Number(page),
           Number(limit),
-          relationsOptions
+          relationsOptions,
         );
 
       res
@@ -40,8 +40,8 @@ export class CompetitionglobalController {
         .json(
           competitionglobals.map(
             (competitionglobal) =>
-              new ReturnCompetitionglobalDto(competitionglobal)
-          )
+              new ReturnCompetitionglobalDto(competitionglobal),
+          ),
         );
     } catch (error) {
       if (error instanceof HttpError) {
@@ -56,7 +56,7 @@ export class CompetitionglobalController {
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(
-            COMPETITIONGLOBAL_MESSAGES.ERROR.SELECT_COMPETITIONGLOBAL_ERROR
+            COMPETITIONGLOBAL_MESSAGES.ERROR.SELECT_COMPETITIONGLOBAL_ERROR,
           );
       }
     }
@@ -70,7 +70,7 @@ export class CompetitionglobalController {
         res
           .status(HttpStatusEnum.BadRequest)
           .json(
-            COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITIONGLOBAL_ID_IS_INVALID
+            COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITIONGLOBAL_ID_IS_INVALID,
           );
         return;
       }
@@ -85,7 +85,7 @@ export class CompetitionglobalController {
       const competitionglobal =
         await this.competitionglobalService.getCompetitionglobalById(
           competitionglobalId,
-          relationsOptions
+          relationsOptions,
         );
 
       res
@@ -105,7 +105,7 @@ export class CompetitionglobalController {
           .status(HttpStatusEnum.InternalServerError)
           .json(
             COMPETITIONGLOBAL_MESSAGES.ERROR
-              .SELECT_COMPETITIONGLOBAL_BY_ID_ERROR
+              .SELECT_COMPETITIONGLOBAL_BY_ID_ERROR,
           );
       }
     }
@@ -118,7 +118,7 @@ export class CompetitionglobalController {
         req.body,
         {
           excludeExtraneousValues: true,
-        }
+        },
       );
 
       const isValid = await validateDto(createCompetitionglobalDto);
@@ -131,7 +131,7 @@ export class CompetitionglobalController {
 
       const savedCompetitionglobal =
         await this.competitionglobalService.createCompetitionglobal(
-          createCompetitionglobalDto
+          createCompetitionglobalDto,
         );
 
       res
@@ -150,7 +150,7 @@ export class CompetitionglobalController {
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(
-            COMPETITIONGLOBAL_MESSAGES.ERROR.CREATE_COMPETITIONGLOBAL_ERROR
+            COMPETITIONGLOBAL_MESSAGES.ERROR.CREATE_COMPETITIONGLOBAL_ERROR,
           );
       }
     }
@@ -163,7 +163,7 @@ export class CompetitionglobalController {
         req.body,
         {
           excludeExtraneousValues: true,
-        }
+        },
       );
 
       const { competitionglobalId } = req.params;
@@ -180,7 +180,7 @@ export class CompetitionglobalController {
         res
           .status(HttpStatusEnum.BadRequest)
           .json(
-            COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITIONGLOBAL_ID_IS_INVALID
+            COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITIONGLOBAL_ID_IS_INVALID,
           );
         return;
       }
@@ -188,7 +188,7 @@ export class CompetitionglobalController {
       const updatedCompetitionglobal =
         await this.competitionglobalService.updateCompetitionglobal(
           updateCompetitionglobalDto,
-          competitionglobalId
+          competitionglobalId,
         );
 
       res
@@ -207,7 +207,7 @@ export class CompetitionglobalController {
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(
-            COMPETITIONGLOBAL_MESSAGES.ERROR.UPDATE_COMPETITIONGLOBAL_ERROR
+            COMPETITIONGLOBAL_MESSAGES.ERROR.UPDATE_COMPETITIONGLOBAL_ERROR,
           );
       }
     }
@@ -221,20 +221,20 @@ export class CompetitionglobalController {
         res
           .status(HttpStatusEnum.BadRequest)
           .json(
-            COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITIONGLOBAL_ID_IS_INVALID
+            COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITIONGLOBAL_ID_IS_INVALID,
           );
         return;
       }
 
       await this.competitionglobalService.deleteCompetitionglobal(
-        competitionglobalId
+        competitionglobalId,
       );
 
       res
         .status(HttpStatusEnum.Ok)
         .json(
           COMPETITIONGLOBAL_MESSAGES.SUCCESS
-            .COMPETITIONGLOBAL_DELETED_SUCCESSFULLY
+            .COMPETITIONGLOBAL_DELETED_SUCCESSFULLY,
         );
     } catch (error) {
       if (error instanceof HttpError) {
@@ -249,7 +249,7 @@ export class CompetitionglobalController {
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(
-            COMPETITIONGLOBAL_MESSAGES.ERROR.DELETE_COMPETITIONGLOBAL_ERROR
+            COMPETITIONGLOBAL_MESSAGES.ERROR.DELETE_COMPETITIONGLOBAL_ERROR,
           );
       }
     }

@@ -6,7 +6,7 @@ import { setPlayerglobalAction, setPlayerglobalsAction } from ".";
 export const usePlayerglobalReducer = () => {
   const dispatch = useDispatch();
   const { playerglobal, playerglobals } = useAppSelector(
-    (state) => state.playerglobalReducer
+    (state) => state.playerglobalReducer,
   );
 
   const setPlayerglobal = (playerglobal?: PlayerglobalType) => {

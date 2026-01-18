@@ -52,10 +52,10 @@ const SelectMultiple = ({
   const optionsListRef = useRef<HTMLDivElement>(null);
 
   const selectedOptions = options.filter((option) =>
-    values.includes(option.value)
+    values.includes(option.value),
   );
   const filteredOptions = options.filter((option) =>
-    option.name.toLowerCase().includes(searchValue.toLowerCase())
+    option.name.toLowerCase().includes(searchValue.toLowerCase()),
   );
 
   const displayValue = isOpen ? searchValue : "";
@@ -150,7 +150,7 @@ const SelectMultiple = ({
       if (!isOpen) {
         setIsOpen(true);
         const selectedIndex = filteredOptions.findIndex((option) =>
-          values.includes(option.value)
+          values.includes(option.value),
         );
         setFocusedIndex(selectedIndex >= 0 ? selectedIndex : -1);
       }
@@ -175,7 +175,7 @@ const SelectMultiple = ({
       } else {
         setIsOpen(true);
         const selectedIndex = filteredOptions.findIndex((option) =>
-          values.includes(option.value)
+          values.includes(option.value),
         );
         setFocusedIndex(selectedIndex >= 0 ? selectedIndex : -1);
 
@@ -203,13 +203,13 @@ const SelectMultiple = ({
       if (!isOpen && lastInteractionWasKeyboard) {
         setIsOpen(true);
         const selectedIndex = filteredOptions.findIndex((option) =>
-          values.includes(option.value)
+          values.includes(option.value),
         );
         if (selectedIndex >= 0) {
           setFocusedIndex(selectedIndex);
         } else {
           const firstEnabled = filteredOptions.findIndex(
-            (option) => !option.disabled
+            (option) => !option.disabled,
           );
           setFocusedIndex(firstEnabled);
         }
@@ -244,7 +244,7 @@ const SelectMultiple = ({
   const getNextEnabledIndex = (
     start: number,
     direction: NavigationDirectionEnum,
-    optionsArray: Option[]
+    optionsArray: Option[],
   ) => {
     let index = start;
     const len = optionsArray.length;
@@ -272,13 +272,13 @@ const SelectMultiple = ({
         if (!isOpen) {
           setIsOpen(true);
           const selectedIndex = filteredOptions.findIndex((option) =>
-            values.includes(option.value)
+            values.includes(option.value),
           );
           if (selectedIndex >= 0) {
             setFocusedIndex(selectedIndex);
           } else {
             const firstEnabled = filteredOptions.findIndex(
-              (option) => !option.disabled
+              (option) => !option.disabled,
             );
             setFocusedIndex(firstEnabled);
           }
@@ -287,8 +287,8 @@ const SelectMultiple = ({
             getNextEnabledIndex(
               prev,
               NavigationDirectionEnum.Next,
-              filteredOptions
-            )
+              filteredOptions,
+            ),
           );
         }
 
@@ -299,7 +299,7 @@ const SelectMultiple = ({
         if (!isOpen) {
           setIsOpen(true);
           const selectedIndex = filteredOptions.findIndex((option) =>
-            values.includes(option.value)
+            values.includes(option.value),
           );
           if (selectedIndex >= 0) {
             setFocusedIndex(selectedIndex);
@@ -308,7 +308,7 @@ const SelectMultiple = ({
               .reverse()
               .findIndex((option) => !option.disabled);
             setFocusedIndex(
-              lastEnabled >= 0 ? filteredOptions.length - 1 - lastEnabled : -1
+              lastEnabled >= 0 ? filteredOptions.length - 1 - lastEnabled : -1,
             );
           }
         } else {
@@ -316,8 +316,8 @@ const SelectMultiple = ({
             getNextEnabledIndex(
               prev,
               NavigationDirectionEnum.Previous,
-              filteredOptions
-            )
+              filteredOptions,
+            ),
           );
         }
 
@@ -328,13 +328,13 @@ const SelectMultiple = ({
         if (!isOpen) {
           setIsOpen(true);
           const selectedIndex = filteredOptions.findIndex((option) =>
-            values.includes(option.value)
+            values.includes(option.value),
           );
           if (selectedIndex >= 0) {
             setFocusedIndex(selectedIndex);
           } else {
             const firstEnabled = filteredOptions.findIndex(
-              (option) => !option.disabled
+              (option) => !option.disabled,
             );
             setFocusedIndex(firstEnabled);
           }
@@ -386,14 +386,14 @@ const SelectMultiple = ({
           fieldState === FieldStateEnum.Invalid
             ? styles.selectHeaderInvalid
             : fieldState === FieldStateEnum.Warning
-            ? styles.selectHeaderWarning
-            : ""
+              ? styles.selectHeaderWarning
+              : ""
         } ${isOpen ? styles.selectHeaderOpen : ""} ${
           fieldState === FieldStateEnum.Invalid
             ? styles.selectHeaderInvalidOpen
             : fieldState === FieldStateEnum.Warning
-            ? styles.selectHeaderWarningOpen
-            : ""
+              ? styles.selectHeaderWarningOpen
+              : ""
         } ${disabled ? styles.selectHeaderDisabled : ""}`}
       >
         <input
@@ -404,8 +404,8 @@ const SelectMultiple = ({
             selectedOptions.length === 0
               ? placeholder
               : selectedOptions.length === 1
-              ? "1 opção selecionada"
-              : `${selectedOptions.length} opções selecionadas`
+                ? "1 opção selecionada"
+                : `${selectedOptions.length} opções selecionadas`
           }
           value={displayValue}
           onChange={handleChangeInput}
@@ -488,10 +488,10 @@ const SelectMultiple = ({
           selectedOptions.length <= 10
             ? ModalSizeEnum.Small
             : selectedOptions.length <= 20
-            ? ModalSizeEnum.Medium
-            : selectedOptions.length <= 30
-            ? ModalSizeEnum.Large
-            : ModalSizeEnum.VeryLarge
+              ? ModalSizeEnum.Medium
+              : selectedOptions.length <= 30
+                ? ModalSizeEnum.Large
+                : ModalSizeEnum.VeryLarge
         }
         children={
           selectedOptions.length > 0 ? (

@@ -10,14 +10,14 @@ import { POSITION_MESSAGES } from "../utils/messages";
 export class PositionService {
   constructor(
     private readonly positionRepository: Repository<PositionEntity> = AppDataSource.getRepository(
-      PositionEntity
-    )
+      PositionEntity,
+    ),
   ) {}
 
   async getPositions(
     page: number,
     limit: number,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
   ): Promise<PositionEntity[]> {
     const skip = (page - PAGINATION.INITIAL_PAGE) * limit;
 
@@ -33,7 +33,7 @@ export class PositionService {
 
   async getPositionById(
     positionId: string,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
   ): Promise<PositionEntity> {
     const position = await this.positionRepository.findOne({
       where: { id: positionId },
@@ -43,7 +43,7 @@ export class PositionService {
     if (!position) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        POSITION_MESSAGES.ERROR.POSITION_ID_NOT_FOUND(positionId)
+        POSITION_MESSAGES.ERROR.POSITION_ID_NOT_FOUND(positionId),
       );
     }
 

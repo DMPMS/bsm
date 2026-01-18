@@ -6,7 +6,7 @@ import type { ManagerglobalType } from "../../../types/Managerglobal.type";
 export const useManagerglobalReducer = () => {
   const dispatch = useDispatch();
   const { managerglobal, managerglobals } = useAppSelector(
-    (state) => state.managerglobalReducer
+    (state) => state.managerglobalReducer,
   );
 
   const setManagerglobal = (managerglobal?: ManagerglobalType) => {

@@ -9,7 +9,7 @@ import { ReturnUserDto } from "../dtos/returnUser.dto";
 export const authMiddleware = (
   req: AuthenticatedRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): void => {
   const authorizationHeader = req.headers.authorization;
 

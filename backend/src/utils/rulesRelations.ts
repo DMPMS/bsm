@@ -39,7 +39,7 @@ const dependentsMap: Record<RuleCodeEnum, RuleCodeEnum[]> = {
 
 export function hasRuleConflict(
   ruleCode: RuleCodeEnum,
-  ruleCodes: RuleCodeEnum[]
+  ruleCodes: RuleCodeEnum[],
 ): boolean {
   const conflictingRuleCodes = conflictMap[ruleCode];
 
@@ -48,7 +48,7 @@ export function hasRuleConflict(
 
 export function hasRuleRequirements(
   ruleCode: RuleCodeEnum,
-  ruleCodes: RuleCodeEnum[]
+  ruleCodes: RuleCodeEnum[],
 ): boolean {
   const requiredRuleCodes = requirementsMap[ruleCode];
 
@@ -57,7 +57,7 @@ export function hasRuleRequirements(
 
 export function hasRuleDependents(
   ruleCode: RuleCodeEnum,
-  ruleCodes: RuleCodeEnum[]
+  ruleCodes: RuleCodeEnum[],
 ): boolean {
   const dependentRuleCodes = dependentsMap[ruleCode];
 

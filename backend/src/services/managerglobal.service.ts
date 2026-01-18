@@ -16,8 +16,8 @@ export class ManagerglobalService {
 
   constructor(
     private readonly managerglobalRepository: Repository<ManagerglobalEntity> = AppDataSource.getRepository(
-      ManagerglobalEntity
-    )
+      ManagerglobalEntity,
+    ),
   ) {
     this.countryService = new CountryService();
   }
@@ -25,7 +25,7 @@ export class ManagerglobalService {
   async getManagerglobals(
     page: number,
     limit: number,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
   ): Promise<ManagerglobalEntity[]> {
     const skip = (page - PAGINATION.INITIAL_PAGE) * limit;
 
@@ -42,7 +42,7 @@ export class ManagerglobalService {
   async getManagerglobalById(
     managerglobalId: string,
     relationsOptions?: RelationsOptionsType,
-    onlyWithoutTeamglobal?: boolean
+    onlyWithoutTeamglobal?: boolean,
   ): Promise<ManagerglobalEntity> {
     if (onlyWithoutTeamglobal) {
       relationsOptions = {
@@ -59,7 +59,9 @@ export class ManagerglobalService {
     if (!managerglobal) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        MANAGERGLOBAL_MESSAGES.ERROR.MANAGERGLOBAL_ID_NOT_FOUND(managerglobalId)
+        MANAGERGLOBAL_MESSAGES.ERROR.MANAGERGLOBAL_ID_NOT_FOUND(
+          managerglobalId,
+        ),
       );
     }
 
@@ -67,8 +69,8 @@ export class ManagerglobalService {
       throw new HttpError(
         HttpStatusEnum.Conflict,
         MANAGERGLOBAL_MESSAGES.ERROR.MANAGERGLOBAL_WITH_TEAMGLOBAL(
-          managerglobalId
-        )
+          managerglobalId,
+        ),
       );
     }
 
@@ -76,7 +78,7 @@ export class ManagerglobalService {
   }
 
   async createManagerglobal(
-    createManagerglobalDto: CreateManagerglobalDto
+    createManagerglobalDto: CreateManagerglobalDto,
   ): Promise<ManagerglobalEntity> {
     await this.countryService.getCountryById(createManagerglobalDto.countryId);
 
@@ -93,7 +95,7 @@ export class ManagerglobalService {
 
   async updateManagerglobal(
     updateManagerglobalDto: UpdateManagerglobalDto,
-    managerglobalId: string
+    managerglobalId: string,
   ): Promise<ManagerglobalEntity> {
     const managerglobal = await this.getManagerglobalById(managerglobalId);
 

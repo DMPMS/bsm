@@ -46,7 +46,7 @@ export class CountryEntity {
 
   @OneToMany(
     () => ManagerglobalEntity,
-    (managerglobal) => managerglobal.country
+    (managerglobal) => managerglobal.country,
   )
   managerglobals?: ManagerglobalEntity[];
 

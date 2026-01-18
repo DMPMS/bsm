@@ -31,7 +31,7 @@ export class ReturnTeamglobalDto {
 
     this.playerglobals = teamglobalEntity.playerglobals
       ? teamglobalEntity.playerglobals.map(
-          (playerglobal) => new ReturnPlayerglobalDto(playerglobal)
+          (playerglobal) => new ReturnPlayerglobalDto(playerglobal),
         )
       : undefined;
 
@@ -40,8 +40,8 @@ export class ReturnTeamglobalDto {
         ? teamglobalEntity.competitionglobalTeamglobals.map(
             (competitionglobalTeamglobal) =>
               new ReturnCompetitionglobalTeamglobalDto(
-                competitionglobalTeamglobal
-              )
+                competitionglobalTeamglobal,
+              ),
           )
         : undefined;
   }

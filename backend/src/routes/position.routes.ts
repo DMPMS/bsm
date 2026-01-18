@@ -14,7 +14,7 @@ positionRoutes.get(
   "/position",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin, UserTypeEnum.User]),
-  (req, res) => positionController.getPositions(req, res)
+  (req, res) => positionController.getPositions(req, res),
 );
 
 export default positionRoutes;

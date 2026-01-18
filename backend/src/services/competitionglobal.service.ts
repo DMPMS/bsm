@@ -25,8 +25,8 @@ export class CompetitionglobalService {
 
   constructor(
     private readonly competitionglobalRepository: Repository<CompetitionglobalEntity> = AppDataSource.getRepository(
-      CompetitionglobalEntity
-    )
+      CompetitionglobalEntity,
+    ),
   ) {
     this.ruleService = new RuleService();
     this.teamglobalService = new TeamglobalService();
@@ -43,7 +43,7 @@ export class CompetitionglobalService {
   async getCompetitionglobals(
     page: number,
     limit: number,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
   ): Promise<CompetitionglobalEntity[]> {
     const skip = (page - PAGINATION.INITIAL_PAGE) * limit;
 
@@ -67,7 +67,7 @@ export class CompetitionglobalService {
   async getCompetitionglobalById(
     competitionglobalId: string,
     relationsOptions?: RelationsOptionsType,
-    entityManager?: EntityManager
+    entityManager?: EntityManager,
   ): Promise<CompetitionglobalEntity> {
     const repository = entityManager
       ? entityManager.getRepository(CompetitionglobalEntity)
@@ -82,8 +82,8 @@ export class CompetitionglobalService {
       throw new HttpError(
         HttpStatusEnum.NotFound,
         COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITIONGLOBAL_ID_NOT_FOUND(
-          competitionglobalId
-        )
+          competitionglobalId,
+        ),
       );
     }
 
@@ -91,12 +91,12 @@ export class CompetitionglobalService {
   }
 
   async createCompetitionglobal(
-    createCompetitionglobalDto: CreateCompetitionglobalDto
+    createCompetitionglobalDto: CreateCompetitionglobalDto,
   ): Promise<CompetitionglobalEntity> {
     const rule = await this.ruleService.getRuleById(
       createCompetitionglobalDto.ruleId,
       undefined,
-      true
+      true,
     );
 
     if (
@@ -106,33 +106,33 @@ export class CompetitionglobalService {
         HttpStatusEnum.BadRequest,
         COMPETITIONGLOBAL_MESSAGES.ERROR.TEAMGLOBALS_COUNT_INVALID(
           createCompetitionglobalDto.teamglobalIds.length,
-          rule.numberOfTeams
-        )
+          rule.numberOfTeams,
+        ),
       );
     }
 
     const competitionglobals = await this.getCompetitionglobals(
       PAGINATION.DEFAULT_PAGE,
       PAGINATION.DEFAULT_LIMIT,
-      { rule: true }
+      { rule: true },
     );
     const ruleCodes = competitionglobals.map(
-      (competitionglobal) => competitionglobal.rule!.code
+      (competitionglobal) => competitionglobal.rule!.code,
     );
 
     if (!hasRuleRequirements(rule.code, ruleCodes)) {
       throw new HttpError(
         HttpStatusEnum.BadRequest,
         COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITION_RULE_REQUIREMENTS_MESSAGE(
-          createCompetitionglobalDto.ruleId
-        )
+          createCompetitionglobalDto.ruleId,
+        ),
       );
     }
 
     await Promise.all(
       createCompetitionglobalDto.teamglobalIds.map((teamglobalId) =>
-        this.teamglobalService.getTeamglobalById(teamglobalId)
-      )
+        this.teamglobalService.getTeamglobalById(teamglobalId),
+      ),
     );
 
     return await AppDataSource.transaction(
@@ -154,22 +154,21 @@ export class CompetitionglobalService {
               teamglobalId: teamglobalId,
               ruleCode: rule.code,
             },
-            entityManager
+            entityManager,
           );
         }
 
         return savedCompetitionglobal;
-      }
+      },
     );
   }
 
   async updateCompetitionglobal(
     updateCompetitionglobalDto: UpdateCompetitionglobalDto,
-    competitionglobalId: string
+    competitionglobalId: string,
   ): Promise<CompetitionglobalEntity> {
-    const competitionglobal = await this.getCompetitionglobalById(
-      competitionglobalId
-    );
+    const competitionglobal =
+      await this.getCompetitionglobalById(competitionglobalId);
 
     const rule = await this.ruleService.getRuleById(competitionglobal.ruleId);
 
@@ -187,8 +186,8 @@ export class CompetitionglobalService {
 
     await Promise.all(
       updateCompetitionglobalDto.teamglobalIds.map((teamglobalId) =>
-        this.teamglobalService.getTeamglobalById(teamglobalId)
-      )
+        this.teamglobalService.getTeamglobalById(teamglobalId),
+      ),
     );
 
     return await AppDataSource.transaction(
@@ -206,7 +205,7 @@ export class CompetitionglobalService {
 
         await this.competitionglobalTeamglobalService.deleteCompetitionglobalTeamglobal(
           updatedCompetitionglobal.id,
-          entityManager
+          entityManager,
         );
 
         for (const teamglobalId of updateCompetitionglobalDto.teamglobalIds) {
@@ -216,47 +215,47 @@ export class CompetitionglobalService {
               teamglobalId: teamglobalId,
               ruleCode: rule.code,
             },
-            entityManager
+            entityManager,
           );
         }
 
         return updatedCompetitionglobal;
-      }
+      },
     );
   }
 
   async deleteCompetitionglobal(
-    competitionglobalId: string
+    competitionglobalId: string,
   ): Promise<DeleteResult> {
     const competitionglobal = await this.getCompetitionglobalById(
       competitionglobalId,
-      { rule: true }
+      { rule: true },
     );
 
     if (competitionglobal.rule!.code === RuleCodeEnum.BrazilianLeagueA) {
       throw new HttpError(
         HttpStatusEnum.Forbidden,
         COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITION_RULE_DELETE_RESTRICTION_MESSAGE(
-          competitionglobal.rule!.id
-        )
+          competitionglobal.rule!.id,
+        ),
       );
     }
 
     const competitionglobals = await this.getCompetitionglobals(
       PAGINATION.DEFAULT_PAGE,
       PAGINATION.DEFAULT_LIMIT,
-      { rule: true }
+      { rule: true },
     );
     const ruleCodes = competitionglobals.map(
-      (competitionglobal) => competitionglobal.rule!.code
+      (competitionglobal) => competitionglobal.rule!.code,
     );
 
     if (hasRuleDependents(competitionglobal.rule!.code, ruleCodes)) {
       throw new HttpError(
         HttpStatusEnum.BadRequest,
         COMPETITIONGLOBAL_MESSAGES.ERROR.COMPETITION_RULE_DEPENDENTS_MESSAGE(
-          competitionglobal.rule!.id
-        )
+          competitionglobal.rule!.id,
+        ),
       );
     }
 

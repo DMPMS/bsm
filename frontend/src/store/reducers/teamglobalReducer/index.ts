@@ -17,7 +17,7 @@ export const counterSlice = createSlice({
   reducers: {
     setTeamglobalAction: (
       state,
-      action: PayloadAction<TeamglobalType | undefined>
+      action: PayloadAction<TeamglobalType | undefined>,
     ) => {
       state.teamglobal = action.payload;
     },

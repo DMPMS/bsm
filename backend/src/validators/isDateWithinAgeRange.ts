@@ -18,13 +18,13 @@ export class IsDateWithinAgeRange implements ValidatorConstraintInterface {
     const minBirthDate = new Date(
       CURRENT_DATE.getFullYear() - maxAge,
       CURRENT_DATE.getMonth(),
-      CURRENT_DATE.getDate()
+      CURRENT_DATE.getDate(),
     );
 
     const maxBirthDate = new Date(
       CURRENT_DATE.getFullYear() - minAge,
       CURRENT_DATE.getMonth(),
-      CURRENT_DATE.getDate()
+      CURRENT_DATE.getDate(),
     );
 
     return ajustedBirthdate >= minBirthDate && ajustedBirthdate <= maxBirthDate;
@@ -36,7 +36,7 @@ export class IsDateWithinAgeRange implements ValidatorConstraintInterface {
       args.property
     } must result in an age between ${minAge} and ${maxAge} years. The current system date is ${formatDateFromDate(
       CURRENT_DATE,
-      FormatDateEnum.SLASH_MM_DD_YYYY
+      FormatDateEnum.SLASH_MM_DD_YYYY,
     )}`;
   }
 }

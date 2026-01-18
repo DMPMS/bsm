@@ -3,17 +3,17 @@ import type { FieldStatusType } from "../types/FieldStatus.type";
 
 export const getFieldState = (
   id: string,
-  fieldsStatus: FieldStatusType[]
+  fieldsStatus: FieldStatusType[],
 ): FieldStateEnum => {
   if (
     fieldsStatus.some(
-      (item) => item.id === id && item.state === FieldStateEnum.Invalid
+      (item) => item.id === id && item.state === FieldStateEnum.Invalid,
     )
   ) {
     return FieldStateEnum.Invalid;
   } else if (
     fieldsStatus.some(
-      (item) => item.id === id && item.state === FieldStateEnum.Warning
+      (item) => item.id === id && item.state === FieldStateEnum.Warning,
     )
   ) {
     return FieldStateEnum.Warning;

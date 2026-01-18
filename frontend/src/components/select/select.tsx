@@ -49,7 +49,7 @@ const Select = ({
 
   const selectedOption = options.find((option) => option.value === value);
   const filteredOptions = options.filter((option) =>
-    option.name.toLowerCase().includes(searchValue.toLowerCase())
+    option.name.toLowerCase().includes(searchValue.toLowerCase()),
   );
 
   const displayValue = isOpen ? searchValue : "";
@@ -142,7 +142,7 @@ const Select = ({
       if (!isOpen) {
         setIsOpen(true);
         const selectedIndex = filteredOptions.findIndex(
-          (option) => option.value === value
+          (option) => option.value === value,
         );
         setFocusedIndex(selectedIndex >= 0 ? selectedIndex : -1);
       }
@@ -167,7 +167,7 @@ const Select = ({
       } else {
         setIsOpen(true);
         const selectedIndex = filteredOptions.findIndex(
-          (option) => option.value === value
+          (option) => option.value === value,
         );
         setFocusedIndex(selectedIndex >= 0 ? selectedIndex : -1);
 
@@ -183,13 +183,13 @@ const Select = ({
       if (!isOpen && lastInteractionWasKeyboard) {
         setIsOpen(true);
         const selectedIndex = filteredOptions.findIndex(
-          (option) => option.value === value
+          (option) => option.value === value,
         );
         if (selectedIndex >= 0) {
           setFocusedIndex(selectedIndex);
         } else {
           const firstEnabled = filteredOptions.findIndex(
-            (option) => !option.disabled
+            (option) => !option.disabled,
           );
           setFocusedIndex(firstEnabled);
         }
@@ -218,7 +218,7 @@ const Select = ({
   const getNextEnabledIndex = (
     start: number,
     direction: NavigationDirectionEnum,
-    optionsArray: Option[]
+    optionsArray: Option[],
   ) => {
     let index = start;
     const len = optionsArray.length;
@@ -246,13 +246,13 @@ const Select = ({
         if (!isOpen) {
           setIsOpen(true);
           const selectedIndex = filteredOptions.findIndex(
-            (option) => option.value === value
+            (option) => option.value === value,
           );
           if (selectedIndex >= 0) {
             setFocusedIndex(selectedIndex);
           } else {
             const firstEnabled = filteredOptions.findIndex(
-              (option) => !option.disabled
+              (option) => !option.disabled,
             );
             setFocusedIndex(firstEnabled);
           }
@@ -261,8 +261,8 @@ const Select = ({
             getNextEnabledIndex(
               prev,
               NavigationDirectionEnum.Next,
-              filteredOptions
-            )
+              filteredOptions,
+            ),
           );
         }
 
@@ -273,7 +273,7 @@ const Select = ({
         if (!isOpen) {
           setIsOpen(true);
           const selectedIndex = filteredOptions.findIndex(
-            (option) => option.value === value
+            (option) => option.value === value,
           );
           if (selectedIndex >= 0) {
             setFocusedIndex(selectedIndex);
@@ -282,7 +282,7 @@ const Select = ({
               .reverse()
               .findIndex((option) => !option.disabled);
             setFocusedIndex(
-              lastEnabled >= 0 ? filteredOptions.length - 1 - lastEnabled : -1
+              lastEnabled >= 0 ? filteredOptions.length - 1 - lastEnabled : -1,
             );
           }
         } else {
@@ -290,8 +290,8 @@ const Select = ({
             getNextEnabledIndex(
               prev,
               NavigationDirectionEnum.Previous,
-              filteredOptions
-            )
+              filteredOptions,
+            ),
           );
         }
 
@@ -302,13 +302,13 @@ const Select = ({
         if (!isOpen) {
           setIsOpen(true);
           const selectedIndex = filteredOptions.findIndex(
-            (option) => option.value === value
+            (option) => option.value === value,
           );
           if (selectedIndex >= 0) {
             setFocusedIndex(selectedIndex);
           } else {
             const firstEnabled = filteredOptions.findIndex(
-              (option) => !option.disabled
+              (option) => !option.disabled,
             );
             setFocusedIndex(firstEnabled);
           }
@@ -358,14 +358,14 @@ const Select = ({
           fieldState === FieldStateEnum.Invalid
             ? styles.selectHeaderInvalid
             : fieldState === FieldStateEnum.Warning
-            ? styles.selectHeaderWarning
-            : ""
+              ? styles.selectHeaderWarning
+              : ""
         } ${isOpen ? styles.selectHeaderOpen : ""} ${
           fieldState === FieldStateEnum.Invalid
             ? styles.selectHeaderInvalidOpen
             : fieldState === FieldStateEnum.Warning
-            ? styles.selectHeaderWarningOpen
-            : ""
+              ? styles.selectHeaderWarningOpen
+              : ""
         } ${disabled ? styles.selectHeaderDisabled : ""}`}
       >
         <input

@@ -2,7 +2,7 @@ import { FormatDateEnum } from "../enums/FormatDate.enum";
 
 export function formatDateFromDate(
   date: Date,
-  outputFormat: FormatDateEnum
+  outputFormat: FormatDateEnum,
 ): string {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");

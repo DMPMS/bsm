@@ -56,7 +56,7 @@ export class CompetitionglobalEntity {
   @OneToMany(
     () => CompetitionglobalTeamglobalEntity,
     (competitionglobalTeamglobal) =>
-      competitionglobalTeamglobal.competitionglobal
+      competitionglobalTeamglobal.competitionglobal,
   )
   competitionglobalTeamglobals?: CompetitionglobalTeamglobalEntity[];
 }

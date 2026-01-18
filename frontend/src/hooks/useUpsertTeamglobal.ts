@@ -56,7 +56,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
   const [disabledButton, setDisabledButton] = useState<boolean>(true);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [upsertTeamglobal, setUpsertTeamglobal] = useState<UpsertTeamglobalDto>(
-    INITIAL_UPSERT_TEAMGLOBAL_DTO
+    INITIAL_UPSERT_TEAMGLOBAL_DTO,
   );
 
   const [fieldsStatus, setFieldsStatus] = useState<FieldStatusType[]>([]);
@@ -119,7 +119,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
         countryId: teamglobal.country!.id,
         managerglobalId: teamglobal.managerglobal!.id,
         playerglobalIds: teamglobal.playerglobals!.map(
-          (playerglobal) => playerglobal.id
+          (playerglobal) => playerglobal.id,
         ),
       });
 
@@ -165,7 +165,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
   const validateInputField = (
     id: string,
     value: string,
-    input: HTMLInputElement
+    input: HTMLInputElement,
   ) => {
     if (!["name", "abbreviation"].includes(id)) {
       return;
@@ -185,7 +185,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
     } else if (id === "name") {
       if (value.length < TEAMGLOBAL.NAME.MIN) {
         input.setCustomValidity(
-          GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(TEAMGLOBAL.NAME.MIN)
+          GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(TEAMGLOBAL.NAME.MIN),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -193,7 +193,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
         ]);
       } else if (value.length > TEAMGLOBAL.NAME.MAX) {
         input.setCustomValidity(
-          GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(TEAMGLOBAL.NAME.MAX)
+          GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(TEAMGLOBAL.NAME.MAX),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -206,8 +206,8 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
       if (value.length < TEAMGLOBAL.ABBREVIATION.MIN) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(
-            TEAMGLOBAL.ABBREVIATION.MIN
-          )
+            TEAMGLOBAL.ABBREVIATION.MIN,
+          ),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -216,8 +216,8 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
       } else if (value.length > TEAMGLOBAL.ABBREVIATION.MAX) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(
-            TEAMGLOBAL.ABBREVIATION.MAX
-          )
+            TEAMGLOBAL.ABBREVIATION.MAX,
+          ),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -244,7 +244,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
 
         if (!isValid) {
           input.setCustomValidity(
-            GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID
+            GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID,
           );
           setFieldsStatus((prev) => [
             ...prev,
@@ -253,7 +253,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
         } else {
           input.setCustomValidity("");
           setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl")
+            prev.filter((item) => item.id !== "imageUrl"),
           );
         }
 
@@ -261,7 +261,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
       } else {
         input.setCustomValidity("");
         setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl")
+          prev.filter((item) => item.id !== "imageUrl"),
         );
 
         setIsValidImage(true);
@@ -273,7 +273,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
 
   const handleChangeInput = async (
     e: React.ChangeEvent<HTMLInputElement>,
-    name: string
+    name: string,
   ) => {
     const input = e.target;
     const value = input.value;
@@ -289,7 +289,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
 
         if (!isValid) {
           input.setCustomValidity(
-            GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID
+            GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID,
           );
           setFieldsStatus((prev) => [
             ...prev,
@@ -298,7 +298,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
         } else {
           input.setCustomValidity("");
           setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl")
+            prev.filter((item) => item.id !== "imageUrl"),
           );
         }
 
@@ -306,7 +306,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
       } else {
         input.setCustomValidity("");
         setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl")
+          prev.filter((item) => item.id !== "imageUrl"),
         );
         setIsValidImage(true);
       }
@@ -327,7 +327,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
 
     if (!newValue) {
       setCountrySelectValidationMessage(
-        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
+        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED,
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -349,7 +349,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
 
     if (!newValue) {
       setManagerglobalSelectValidationMessage(
-        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
+        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED,
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -358,7 +358,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
     } else {
       setManagerglobalSelectValidationMessage("");
       setFieldsStatus((prev) =>
-        prev.filter((item) => item.id !== "managerglobalId")
+        prev.filter((item) => item.id !== "managerglobalId"),
       );
     }
   };
@@ -371,7 +371,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
 
     if (values.length === 0) {
       setPlayerglobalsSelectValidationMessage(
-        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED_CHECKBOX
+        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED_CHECKBOX,
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -384,8 +384,8 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
       setPlayerglobalsSelectValidationMessage(
         TEAMGLOBAL_MESSAGES.FIELD_VALIDATION.PLAYERGLOBALS(
           TEAMGLOBAL.PLAYERGLOBALS.MIN,
-          TEAMGLOBAL.PLAYERGLOBALS.MAX
-        )
+          TEAMGLOBAL.PLAYERGLOBALS.MAX,
+        ),
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -394,7 +394,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
     } else {
       setPlayerglobalsSelectValidationMessage("");
       setFieldsStatus((prev) =>
-        prev.filter((item) => item.id !== "playerglobalIds")
+        prev.filter((item) => item.id !== "playerglobalIds"),
       );
     }
   };
@@ -481,7 +481,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
   };
 
   const handlePreventSubmitOnEnter = (
-    e: React.KeyboardEvent<HTMLInputElement>
+    e: React.KeyboardEvent<HTMLInputElement>,
   ) => {
     if (e.key === KeyboardKeyEnum.Enter) {
       e.preventDefault();

@@ -22,8 +22,8 @@ export class PlayerglobalService {
 
   constructor(
     private readonly playerglobalRepository: Repository<PlayerglobalEntity> = AppDataSource.getRepository(
-      PlayerglobalEntity
-    )
+      PlayerglobalEntity,
+    ),
   ) {
     this.countryService = new CountryService();
     this.positionService = new PositionService();
@@ -46,7 +46,7 @@ export class PlayerglobalService {
   async getPlayerglobals(
     page: number,
     limit: number,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
   ): Promise<PlayerglobalEntity[]> {
     const skip = (page - PAGINATION.INITIAL_PAGE) * limit;
 
@@ -64,7 +64,7 @@ export class PlayerglobalService {
     playerglobalId: string,
     relationsOptions?: RelationsOptionsType,
     onlyWithoutTeamglobal?: boolean,
-    entityManager?: EntityManager
+    entityManager?: EntityManager,
   ): Promise<PlayerglobalEntity> {
     const repository = entityManager
       ? entityManager.getRepository(PlayerglobalEntity)
@@ -85,14 +85,16 @@ export class PlayerglobalService {
     if (!playerglobal) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        PLAYERGLOBAL_MESSAGES.ERROR.PLAYERGLOBAL_ID_NOT_FOUND(playerglobalId)
+        PLAYERGLOBAL_MESSAGES.ERROR.PLAYERGLOBAL_ID_NOT_FOUND(playerglobalId),
       );
     }
 
     if (onlyWithoutTeamglobal && playerglobal.teamglobal) {
       throw new HttpError(
         HttpStatusEnum.Conflict,
-        PLAYERGLOBAL_MESSAGES.ERROR.PLAYERGLOBAL_WITH_TEAMGLOBAL(playerglobalId)
+        PLAYERGLOBAL_MESSAGES.ERROR.PLAYERGLOBAL_WITH_TEAMGLOBAL(
+          playerglobalId,
+        ),
       );
     }
 
@@ -100,18 +102,18 @@ export class PlayerglobalService {
   }
 
   async createPlayerglobal(
-    createPlayerglobalDto: CreatePlayerglobalDto
+    createPlayerglobalDto: CreatePlayerglobalDto,
   ): Promise<PlayerglobalEntity> {
     const commonPositionIds = [
       ...createPlayerglobalDto.primaryPositionIds,
     ].filter((positionId) =>
-      createPlayerglobalDto.secondaryPositionIds.includes(positionId)
+      createPlayerglobalDto.secondaryPositionIds.includes(positionId),
     );
 
     if (commonPositionIds.length > 0) {
       throw new HttpError(
         HttpStatusEnum.UnprocessableEntity,
-        PLAYERGLOBAL_MESSAGES.ERROR.COMMON_POSITION_IDS(commonPositionIds)
+        PLAYERGLOBAL_MESSAGES.ERROR.COMMON_POSITION_IDS(commonPositionIds),
       );
     }
 
@@ -119,10 +121,10 @@ export class PlayerglobalService {
 
     await Promise.all([
       ...createPlayerglobalDto.primaryPositionIds.map((positionId) =>
-        this.positionService.getPositionById(positionId)
+        this.positionService.getPositionById(positionId),
       ),
       ...createPlayerglobalDto.secondaryPositionIds.map((positionId) =>
-        this.positionService.getPositionById(positionId)
+        this.positionService.getPositionById(positionId),
       ),
     ]);
 
@@ -145,7 +147,7 @@ export class PlayerglobalService {
               positionId: positionId,
               isPrimary: true,
             },
-            entityManager
+            entityManager,
           );
         }
 
@@ -156,29 +158,29 @@ export class PlayerglobalService {
               positionId: positionId,
               isPrimary: false,
             },
-            entityManager
+            entityManager,
           );
         }
 
         return savedPlayerglobal;
-      }
+      },
     );
   }
 
   async updatePlayerglobal(
     updatePlayerglobalDto: UpdatePlayerglobalDto,
-    playerglobalId: string
+    playerglobalId: string,
   ): Promise<PlayerglobalEntity> {
     const commonPositionIds = [
       ...updatePlayerglobalDto.primaryPositionIds,
     ].filter((positionId) =>
-      updatePlayerglobalDto.secondaryPositionIds.includes(positionId)
+      updatePlayerglobalDto.secondaryPositionIds.includes(positionId),
     );
 
     if (commonPositionIds.length > 0) {
       throw new HttpError(
         HttpStatusEnum.UnprocessableEntity,
-        PLAYERGLOBAL_MESSAGES.ERROR.COMMON_POSITION_IDS(commonPositionIds)
+        PLAYERGLOBAL_MESSAGES.ERROR.COMMON_POSITION_IDS(commonPositionIds),
       );
     }
 
@@ -188,10 +190,10 @@ export class PlayerglobalService {
 
     await Promise.all([
       ...updatePlayerglobalDto.primaryPositionIds.map((positionId) =>
-        this.positionService.getPositionById(positionId)
+        this.positionService.getPositionById(positionId),
       ),
       ...updatePlayerglobalDto.secondaryPositionIds.map((positionId) =>
-        this.positionService.getPositionById(positionId)
+        this.positionService.getPositionById(positionId),
       ),
     ]);
 
@@ -209,7 +211,7 @@ export class PlayerglobalService {
 
         await this.playerglobalPositionService.deletePlayerglobalPosition(
           updatedPlayerglobal.id,
-          entityManager
+          entityManager,
         );
 
         for (const positionId of updatePlayerglobalDto.primaryPositionIds) {
@@ -219,7 +221,7 @@ export class PlayerglobalService {
               positionId: positionId,
               isPrimary: true,
             },
-            entityManager
+            entityManager,
           );
         }
 
@@ -230,19 +232,19 @@ export class PlayerglobalService {
               positionId: positionId,
               isPrimary: false,
             },
-            entityManager
+            entityManager,
           );
         }
 
         return updatedPlayerglobal;
-      }
+      },
     );
   }
 
   async clearPlayerglobalTeamglobalId(
     playerglobalId?: string,
     allWithThisTeamglobalId?: string,
-    entityManager?: EntityManager
+    entityManager?: EntityManager,
   ): Promise<void> {
     const repository = entityManager
       ? entityManager.getRepository(PlayerglobalEntity)
@@ -253,7 +255,7 @@ export class PlayerglobalService {
         allWithThisTeamglobalId,
         undefined,
         undefined,
-        entityManager
+        entityManager,
       );
 
       const playerglobals = await repository.find({
@@ -264,14 +266,14 @@ export class PlayerglobalService {
         await this.updatePlayerglobalTeamglobalId(
           null,
           playerglobal.id,
-          entityManager
+          entityManager,
         );
       }
     } else {
       if (!playerglobalId) {
         throw new HttpError(
           HttpStatusEnum.BadRequest,
-          PLAYERGLOBAL_MESSAGES.ERROR.PLAYERGLOBAL_ID_IS_INVALID
+          PLAYERGLOBAL_MESSAGES.ERROR.PLAYERGLOBAL_ID_IS_INVALID,
         );
       }
 
@@ -279,7 +281,7 @@ export class PlayerglobalService {
         playerglobalId,
         undefined,
         undefined,
-        entityManager
+        entityManager,
       );
 
       await repository.save({
@@ -292,7 +294,7 @@ export class PlayerglobalService {
   async updatePlayerglobalTeamglobalId(
     teamglobalId: string | null,
     playerglobalId: string,
-    entityManager?: EntityManager
+    entityManager?: EntityManager,
   ): Promise<void> {
     const repository = entityManager
       ? entityManager.getRepository(PlayerglobalEntity)
@@ -302,7 +304,7 @@ export class PlayerglobalService {
       playerglobalId,
       undefined,
       undefined,
-      entityManager
+      entityManager,
     );
 
     if (teamglobalId) {
@@ -310,7 +312,7 @@ export class PlayerglobalService {
         teamglobalId,
         undefined,
         undefined,
-        entityManager
+        entityManager,
       );
     }
 

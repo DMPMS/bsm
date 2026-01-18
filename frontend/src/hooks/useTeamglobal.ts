@@ -32,7 +32,7 @@ export const useTeamglobal = () => {
   const [searchValue, setSearchValue] = useState<string>("");
 
   const teamglobalsFiltered = teamglobals.filter((teamglobal) =>
-    teamglobal.name.toLowerCase().includes(searchValue.toLowerCase())
+    teamglobal.name.toLowerCase().includes(searchValue.toLowerCase()),
   );
 
   const fetchTeamglobals = async (timeout?: number) => {
@@ -74,8 +74,8 @@ export const useTeamglobal = () => {
     navigate(
       TeamglobalRoutesEnum.UpdateTeamglobal.replace(
         ":teamglobalId",
-        teamglobalId
-      )
+        teamglobalId,
+      ),
     );
   };
 

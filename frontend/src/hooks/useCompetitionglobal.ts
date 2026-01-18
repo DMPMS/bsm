@@ -38,7 +38,7 @@ export const useCompetitionglobal = () => {
 
   const competitionglobalsFiltered = competitionglobals.filter(
     (competitionglobal) =>
-      competitionglobal.name.toLowerCase().includes(searchValue.toLowerCase())
+      competitionglobal.name.toLowerCase().includes(searchValue.toLowerCase()),
   );
 
   const fetchCompetitionglobals = async (timeout?: number) => {
@@ -80,8 +80,8 @@ export const useCompetitionglobal = () => {
     navigate(
       CompetitionglobalRoutesEnum.UpdateCompetitionglobal.replace(
         ":competitionglobalId",
-        competitionglobalId
-      )
+        competitionglobalId,
+      ),
     );
   };
 
@@ -96,7 +96,7 @@ export const useCompetitionglobal = () => {
       method: MethodEnum.Delete,
       url: URL_COMPETITIONGLOBAL_ID.replace(
         ":competitionglobalId",
-        `${competitionglobalIdDelete}`
+        `${competitionglobalIdDelete}`,
       ),
       timeout: 1000,
     })

@@ -104,12 +104,12 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
         countryId: playerglobal.country!.id,
         primaryPositionIds: playerglobal
           .playerglobalPositions!.filter(
-            (playerglobalPosition) => playerglobalPosition.isPrimary
+            (playerglobalPosition) => playerglobalPosition.isPrimary,
           )
           .map((playerglobalPosition) => playerglobalPosition.position!.id),
         secondaryPositionIds: playerglobal
           .playerglobalPositions!.filter(
-            (playerglobalPosition) => !playerglobalPosition.isPrimary
+            (playerglobalPosition) => !playerglobalPosition.isPrimary,
           )
           .map((playerglobalPosition) => playerglobalPosition.position!.id),
       });
@@ -141,7 +141,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
   useEffect(() => {
     const hasCommonPositionId = upsertPlayerglobal.primaryPositionIds.some(
       (positionId) =>
-        upsertPlayerglobal.secondaryPositionIds.includes(positionId)
+        upsertPlayerglobal.secondaryPositionIds.includes(positionId),
     );
 
     if (
@@ -152,7 +152,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
       isWithinAgeRange(
         upsertPlayerglobal.birthdate,
         PLAYERGLOBAL.AGE.MIN,
-        PLAYERGLOBAL.AGE.MAX
+        PLAYERGLOBAL.AGE.MAX,
       ) &&
       upsertPlayerglobal.overall >= PLAYERGLOBAL.OVERALL.MIN &&
       upsertPlayerglobal.overall <= PLAYERGLOBAL.OVERALL.MAX &&
@@ -176,7 +176,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
   const validateInputField = (
     id: string,
     value: string,
-    input: HTMLInputElement
+    input: HTMLInputElement,
   ) => {
     if (!["name", "overall"].includes(id)) {
       return;
@@ -196,7 +196,9 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
     } else if (id === "name") {
       if (value.length < PLAYERGLOBAL.NAME.MIN) {
         input.setCustomValidity(
-          GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(PLAYERGLOBAL.NAME.MIN)
+          GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(
+            PLAYERGLOBAL.NAME.MIN,
+          ),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -204,7 +206,9 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
         ]);
       } else if (value.length > PLAYERGLOBAL.NAME.MAX) {
         input.setCustomValidity(
-          GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(PLAYERGLOBAL.NAME.MAX)
+          GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(
+            PLAYERGLOBAL.NAME.MAX,
+          ),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -218,7 +222,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
 
       if (numericValue < PLAYERGLOBAL.OVERALL.MIN) {
         input.setCustomValidity(
-          GENERAL_FIELD_VALIDATION_MESSAGES.MIN(PLAYERGLOBAL.OVERALL.MIN)
+          GENERAL_FIELD_VALIDATION_MESSAGES.MIN(PLAYERGLOBAL.OVERALL.MIN),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -226,7 +230,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
         ]);
       } else if (numericValue > PLAYERGLOBAL.OVERALL.MAX) {
         input.setCustomValidity(
-          GENERAL_FIELD_VALIDATION_MESSAGES.MAX(PLAYERGLOBAL.OVERALL.MAX)
+          GENERAL_FIELD_VALIDATION_MESSAGES.MAX(PLAYERGLOBAL.OVERALL.MAX),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -246,7 +250,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
     if (id === "birthdate") {
       if (!value) {
         setBirthdateInputValidationMessage(
-          GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
+          GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED,
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -258,8 +262,8 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
         setBirthdateInputValidationMessage(
           GENERAL_FIELD_VALIDATION_MESSAGES.BIRTHDATE(
             PLAYERGLOBAL.AGE.MIN,
-            PLAYERGLOBAL.AGE.MAX
-          )
+            PLAYERGLOBAL.AGE.MAX,
+          ),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -268,7 +272,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
       } else {
         setBirthdateInputValidationMessage("");
         setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "birthdate")
+          prev.filter((item) => item.id !== "birthdate"),
         );
       }
     } else if (id === "imageUrl") {
@@ -281,7 +285,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
 
         if (!isValid) {
           input.setCustomValidity(
-            GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID
+            GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID,
           );
           setFieldsStatus((prev) => [
             ...prev,
@@ -290,7 +294,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
         } else {
           input.setCustomValidity("");
           setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl")
+            prev.filter((item) => item.id !== "imageUrl"),
           );
         }
 
@@ -298,7 +302,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
       } else {
         input.setCustomValidity("");
         setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl")
+          prev.filter((item) => item.id !== "imageUrl"),
         );
 
         setIsValidImage(true);
@@ -310,7 +314,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
 
   const handleChangeInput = async (
     e: React.ChangeEvent<HTMLInputElement>,
-    name: string
+    name: string,
   ) => {
     const input = e.target;
     const value = input.value;
@@ -326,7 +330,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
 
         if (!isValid) {
           input.setCustomValidity(
-            GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID
+            GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID,
           );
           setFieldsStatus((prev) => [
             ...prev,
@@ -335,7 +339,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
         } else {
           input.setCustomValidity("");
           setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl")
+            prev.filter((item) => item.id !== "imageUrl"),
           );
         }
 
@@ -343,7 +347,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
       } else {
         input.setCustomValidity("");
         setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl")
+          prev.filter((item) => item.id !== "imageUrl"),
         );
         setIsValidImage(true);
       }
@@ -364,7 +368,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
 
     if (!value) {
       setBirthdateInputValidationMessage(
-        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
+        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED,
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -376,8 +380,8 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
       setBirthdateInputValidationMessage(
         GENERAL_FIELD_VALIDATION_MESSAGES.BIRTHDATE(
           PLAYERGLOBAL.AGE.MIN,
-          PLAYERGLOBAL.AGE.MAX
-        )
+          PLAYERGLOBAL.AGE.MAX,
+        ),
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -399,7 +403,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
 
     if (!newValue) {
       setCountrySelectValidationMessage(
-        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
+        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED,
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -419,7 +423,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
 
     if (values.length === 0) {
       setPrimaryPositionSelectValidationMessage(
-        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
+        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED,
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -432,8 +436,8 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
       setPrimaryPositionSelectValidationMessage(
         PLAYERGLOBAL_MESSAGES.FIELD_VALIDATION.PRIMARY_POSITIONS(
           PLAYERGLOBAL.PRIMARY_POSITIONS.MIN,
-          PLAYERGLOBAL.PRIMARY_POSITIONS.MAX
-        )
+          PLAYERGLOBAL.PRIMARY_POSITIONS.MAX,
+        ),
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -442,7 +446,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
     } else {
       setPrimaryPositionSelectValidationMessage("");
       setFieldsStatus((prev) =>
-        prev.filter((item) => item.id !== "primaryPositionIds")
+        prev.filter((item) => item.id !== "primaryPositionIds"),
       );
     }
   };
@@ -455,7 +459,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
 
     if (values.length === 0 && PLAYERGLOBAL.SECONDARY_POSITIONS.MIN > 0) {
       setSecondaryPositionSelectValidationMessage(
-        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
+        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED,
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -468,8 +472,8 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
       setSecondaryPositionSelectValidationMessage(
         PLAYERGLOBAL_MESSAGES.FIELD_VALIDATION.SECONDARY_POSITIONS(
           PLAYERGLOBAL.SECONDARY_POSITIONS.MIN,
-          PLAYERGLOBAL.SECONDARY_POSITIONS.MAX
-        )
+          PLAYERGLOBAL.SECONDARY_POSITIONS.MAX,
+        ),
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -478,7 +482,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
     } else {
       setSecondaryPositionSelectValidationMessage("");
       setFieldsStatus((prev) =>
-        prev.filter((item) => item.id !== "secondaryPositionIds")
+        prev.filter((item) => item.id !== "secondaryPositionIds"),
       );
     }
   };

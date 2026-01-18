@@ -3,7 +3,7 @@ import { FormatDateEnum } from "../enums/FormatDate.enum";
 export function formatDateFromString(
   dateString: string,
   inputFormat: FormatDateEnum,
-  outputFormat: FormatDateEnum
+  outputFormat: FormatDateEnum,
 ): string {
   const date = parseDate(dateString, inputFormat);
 
@@ -25,7 +25,7 @@ export function formatDateFromString(
 
 export function parseDate(
   dateString: string,
-  inputFormat: FormatDateEnum
+  inputFormat: FormatDateEnum,
 ): Date {
   let year: number, month: number, day: number;
 

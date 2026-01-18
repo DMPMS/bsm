@@ -9,13 +9,13 @@ export class ReturnCompetitionglobalTeamglobalDto {
   teamglobal?: ReturnTeamglobalDto;
 
   constructor(
-    competitionglobalTeamglobalEntity: CompetitionglobalTeamglobalEntity
+    competitionglobalTeamglobalEntity: CompetitionglobalTeamglobalEntity,
   ) {
     this.id = competitionglobalTeamglobalEntity.id;
 
     this.competitionglobal = competitionglobalTeamglobalEntity.competitionglobal
       ? new ReturnCompetitionglobalDto(
-          competitionglobalTeamglobalEntity.competitionglobal
+          competitionglobalTeamglobalEntity.competitionglobal,
         )
       : undefined;
 

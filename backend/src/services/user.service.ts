@@ -19,8 +19,8 @@ export class UserService {
 
   constructor(
     private readonly userRepository: Repository<UserEntity> = AppDataSource.getRepository(
-      UserEntity
-    )
+      UserEntity,
+    ),
   ) {
     this.countryService = new CountryService();
   }
@@ -28,7 +28,7 @@ export class UserService {
   async getUsers(
     page: number,
     limit: number,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
   ): Promise<UserEntity[]> {
     const skip = (page - PAGINATION.INITIAL_PAGE) * limit;
 
@@ -45,7 +45,7 @@ export class UserService {
 
   async getUserInfo(
     userId: string,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
   ): Promise<UserEntity> {
     const user = await this.userRepository.findOne({
       where: { id: userId },
@@ -55,7 +55,7 @@ export class UserService {
     if (!user) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        USER_MESSAGES.ERROR.USER_ID_NOT_FOUND(userId)
+        USER_MESSAGES.ERROR.USER_ID_NOT_FOUND(userId),
       );
     }
 
@@ -64,7 +64,7 @@ export class UserService {
 
   async getUserById(
     userId: string,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
   ): Promise<UserEntity> {
     const user = await this.userRepository.findOne({
       where: { id: userId, type: UserTypeEnum.User },
@@ -74,7 +74,7 @@ export class UserService {
     if (!user) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        USER_MESSAGES.ERROR.USER_ID_NOT_FOUND(userId)
+        USER_MESSAGES.ERROR.USER_ID_NOT_FOUND(userId),
       );
     }
 
@@ -83,7 +83,7 @@ export class UserService {
 
   async getUserByEmail(
     email: string,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
   ): Promise<UserEntity> {
     const user = await this.userRepository.findOne({
       where: { email: email.toLowerCase() },
@@ -93,7 +93,7 @@ export class UserService {
     if (!user) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        USER_MESSAGES.ERROR.USER_EMAIL_NOT_FOUND(email.toLowerCase())
+        USER_MESSAGES.ERROR.USER_EMAIL_NOT_FOUND(email.toLowerCase()),
       );
     }
 
@@ -103,25 +103,25 @@ export class UserService {
   async createUser(
     createUserDto: CreateUserDto,
     userId?: string,
-    userType?: UserTypeEnum
+    userType?: UserTypeEnum,
   ): Promise<UserEntity> {
     await this.countryService.getCountryById(createUserDto.countryId);
 
     const existingUser = await this.getUserByEmail(createUserDto.email).catch(
-      () => undefined
+      () => undefined,
     );
 
     if (existingUser) {
       throw new HttpError(
         HttpStatusEnum.Conflict,
-        USER_MESSAGES.ERROR.EMAIL_ALREADY_EXISTS
+        USER_MESSAGES.ERROR.EMAIL_ALREADY_EXISTS,
       );
     }
 
     if (createUserDto.password !== createUserDto.confirmPassword) {
       throw new HttpError(
         HttpStatusEnum.BadRequest,
-        USER_MESSAGES.ERROR.PASSWORDS_DO_NOT_MATCH
+        USER_MESSAGES.ERROR.PASSWORDS_DO_NOT_MATCH,
       );
     }
 
@@ -138,7 +138,7 @@ export class UserService {
       if (!userRoot) {
         throw new HttpError(
           HttpStatusEnum.NotFound,
-          USER_MESSAGES.ERROR.USER_ROOT_ID_NOT_FOUND(userId)
+          USER_MESSAGES.ERROR.USER_ROOT_ID_NOT_FOUND(userId),
         );
       } else {
         savedUser = await this.userRepository.save({
@@ -164,7 +164,7 @@ export class UserService {
 
   async updateUser(
     updateUserDto: UpdateUserDto,
-    userId: string
+    userId: string,
   ): Promise<UserEntity> {
     const user = await this.userRepository.findOne({
       where: { id: userId },
@@ -175,7 +175,7 @@ export class UserService {
     if (!user) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        USER_MESSAGES.ERROR.USER_ID_NOT_FOUND(userId)
+        USER_MESSAGES.ERROR.USER_ID_NOT_FOUND(userId),
       );
     }
 
@@ -183,13 +183,13 @@ export class UserService {
 
     if (user.email !== updateUserDto.email) {
       const existingUser = await this.getUserByEmail(updateUserDto.email).catch(
-        () => undefined
+        () => undefined,
       );
 
       if (existingUser) {
         throw new HttpError(
           HttpStatusEnum.Conflict,
-          USER_MESSAGES.ERROR.EMAIL_ALREADY_EXISTS
+          USER_MESSAGES.ERROR.EMAIL_ALREADY_EXISTS,
         );
       }
     }
@@ -198,7 +198,7 @@ export class UserService {
       if (updateUserDto.newPassword !== updateUserDto.confirmNewPassword) {
         throw new HttpError(
           HttpStatusEnum.BadRequest,
-          USER_MESSAGES.ERROR.PASSWORDS_DO_NOT_MATCH
+          USER_MESSAGES.ERROR.PASSWORDS_DO_NOT_MATCH,
         );
       }
     }
@@ -209,13 +209,13 @@ export class UserService {
 
     const isMatch = await validatePassword(
       updateUserDto.password,
-      user.hashedPassword
+      user.hashedPassword,
     );
 
     if (!isMatch) {
       throw new HttpError(
         HttpStatusEnum.BadRequest,
-        USER_MESSAGES.ERROR.INVALID_USER_PASSWORD
+        USER_MESSAGES.ERROR.INVALID_USER_PASSWORD,
       );
     }
 
@@ -233,7 +233,7 @@ export class UserService {
 
   async deleteMyUser(
     deleteUserDto: DeleteUserDto,
-    userId: string
+    userId: string,
   ): Promise<DeleteResult> {
     const user = await this.userRepository.findOne({
       where: { id: userId },
@@ -242,19 +242,19 @@ export class UserService {
     if (!user) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        USER_MESSAGES.ERROR.USER_ID_NOT_FOUND(userId)
+        USER_MESSAGES.ERROR.USER_ID_NOT_FOUND(userId),
       );
     }
 
     const isMatch = await validatePassword(
       deleteUserDto.password,
-      user.hashedPassword
+      user.hashedPassword,
     );
 
     if (!isMatch) {
       throw new HttpError(
         HttpStatusEnum.BadRequest,
-        USER_MESSAGES.ERROR.INVALID_USER_PASSWORD
+        USER_MESSAGES.ERROR.INVALID_USER_PASSWORD,
       );
     }
 
@@ -275,7 +275,7 @@ export class UserService {
     if (!admin) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        USER_MESSAGES.ERROR.USER_ADMIN_ID_NOT_FOUND(adminDeleteId)
+        USER_MESSAGES.ERROR.USER_ADMIN_ID_NOT_FOUND(adminDeleteId),
       );
     }
 

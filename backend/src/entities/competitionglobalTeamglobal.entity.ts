@@ -37,14 +37,14 @@ export class CompetitionglobalTeamglobalEntity {
 
   @ManyToOne(
     () => CompetitionglobalEntity,
-    (competitionglobal) => competitionglobal.competitionglobalTeamglobals
+    (competitionglobal) => competitionglobal.competitionglobalTeamglobals,
   )
   @JoinColumn({ name: "competitionglobal_id", referencedColumnName: "id" })
   competitionglobal?: CompetitionglobalEntity;
 
   @ManyToOne(
     () => TeamglobalEntity,
-    (teamglobal) => teamglobal.competitionglobalTeamglobals
+    (teamglobal) => teamglobal.competitionglobalTeamglobals,
   )
   @JoinColumn({ name: "teamglobal_id", referencedColumnName: "id" })
   teamglobal?: TeamglobalEntity;

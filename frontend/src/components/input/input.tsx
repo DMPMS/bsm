@@ -17,8 +17,8 @@ const Input = ({
         fieldState === FieldStateEnum.Invalid
           ? styles.invalidInput
           : fieldState === FieldStateEnum.Warning
-          ? styles.warningInput
-          : ""
+            ? styles.warningInput
+            : ""
       } ${className}`}
       {...props}
     />

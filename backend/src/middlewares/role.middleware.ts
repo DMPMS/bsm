@@ -8,7 +8,7 @@ export const roleMiddleware = (allowedRoles: UserTypeEnum[]) => {
   return (
     req: AuthenticatedRequest,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ): void => {
     if (!req.user || !req.userType || !allowedRoles.includes(req.userType)) {
       res

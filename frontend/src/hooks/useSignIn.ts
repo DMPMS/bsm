@@ -47,7 +47,7 @@ export const useSignIn = () => {
   const validateInputField = (
     id: string,
     value: string,
-    input: HTMLInputElement
+    input: HTMLInputElement,
   ) => {
     if (!["email", "password"].includes(id)) {
       return;
@@ -67,7 +67,7 @@ export const useSignIn = () => {
     } else if (id === "email") {
       if (!isValidEmail(value)) {
         input.setCustomValidity(
-          SIGN_IN_MESSAGES.FIELD_VALIDATION.EMAIL_IS_INVALID
+          SIGN_IN_MESSAGES.FIELD_VALIDATION.EMAIL_IS_INVALID,
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -85,7 +85,7 @@ export const useSignIn = () => {
 
   const handleChangeInput = (
     e: React.ChangeEvent<HTMLInputElement>,
-    name: string
+    name: string,
   ) => {
     const input = e.target;
     const value = input.value;
@@ -118,7 +118,7 @@ export const useSignIn = () => {
 
         setNotification({
           message: SIGN_IN_MESSAGES.SUCCESS.WELCOME(
-            decodedToken.user.name.split(" ")[0]
+            decodedToken.user.name.split(" ")[0],
           ),
           type: NotificationEnum.Success,
         });

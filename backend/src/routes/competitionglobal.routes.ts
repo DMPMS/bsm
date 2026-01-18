@@ -9,42 +9,42 @@ const competitionglobalRoutes = Router();
 
 const competitionglobalService = new CompetitionglobalService();
 const competitionglobalController = new CompetitionglobalController(
-  competitionglobalService
+  competitionglobalService,
 );
 
 competitionglobalRoutes.get(
   "/competitionglobal",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin, UserTypeEnum.User]),
-  (req, res) => competitionglobalController.getCompetitionglobals(req, res)
+  (req, res) => competitionglobalController.getCompetitionglobals(req, res),
 );
 
 competitionglobalRoutes.get(
   "/competitionglobal/:competitionglobalId",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin]),
-  (req, res) => competitionglobalController.getCompetitionglobalById(req, res)
+  (req, res) => competitionglobalController.getCompetitionglobalById(req, res),
 );
 
 competitionglobalRoutes.post(
   "/competitionglobal",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin]),
-  (req, res) => competitionglobalController.createCompetitionglobal(req, res)
+  (req, res) => competitionglobalController.createCompetitionglobal(req, res),
 );
 
 competitionglobalRoutes.put(
   "/competitionglobal/:competitionglobalId",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin]),
-  (req, res) => competitionglobalController.updateCompetitionglobal(req, res)
+  (req, res) => competitionglobalController.updateCompetitionglobal(req, res),
 );
 
 competitionglobalRoutes.delete(
   "/competitionglobal/:competitionglobalId",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin]),
-  (req, res) => competitionglobalController.deleteCompetitionglobal(req, res)
+  (req, res) => competitionglobalController.deleteCompetitionglobal(req, res),
 );
 
 export default competitionglobalRoutes;

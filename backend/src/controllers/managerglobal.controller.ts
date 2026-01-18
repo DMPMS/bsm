@@ -30,15 +30,15 @@ export class ManagerglobalController {
       const managerglobals = await this.managerglobalService.getManagerglobals(
         Number(page),
         Number(limit),
-        relationsOptions
+        relationsOptions,
       );
 
       res
         .status(HttpStatusEnum.Ok)
         .json(
           managerglobals.map(
-            (managerglobal) => new ReturnManagerglobalDto(managerglobal)
-          )
+            (managerglobal) => new ReturnManagerglobalDto(managerglobal),
+          ),
         );
     } catch (error) {
       if (error instanceof HttpError) {
@@ -75,7 +75,7 @@ export class ManagerglobalController {
       const managerglobal =
         await this.managerglobalService.getManagerglobalById(
           managerglobalId,
-          relationsOptions
+          relationsOptions,
         );
 
       res
@@ -105,7 +105,7 @@ export class ManagerglobalController {
         req.body,
         {
           excludeExtraneousValues: true,
-        }
+        },
       );
 
       const isValid = await validateDto(createManagerglobalDto);
@@ -118,7 +118,7 @@ export class ManagerglobalController {
 
       const savedManagerglobal =
         await this.managerglobalService.createManagerglobal(
-          createManagerglobalDto
+          createManagerglobalDto,
         );
 
       res
@@ -148,7 +148,7 @@ export class ManagerglobalController {
         req.body,
         {
           excludeExtraneousValues: true,
-        }
+        },
       );
 
       const { managerglobalId } = req.params;
@@ -171,7 +171,7 @@ export class ManagerglobalController {
       const updatedManagerglobal =
         await this.managerglobalService.updateManagerglobal(
           updateManagerglobalDto,
-          managerglobalId
+          managerglobalId,
         );
 
       res
@@ -210,7 +210,7 @@ export class ManagerglobalController {
       res
         .status(HttpStatusEnum.Ok)
         .json(
-          MANAGERGLOBAL_MESSAGES.SUCCESS.MANAGERGLOBAL_DELETED_SUCCESSFULLY
+          MANAGERGLOBAL_MESSAGES.SUCCESS.MANAGERGLOBAL_DELETED_SUCCESSFULLY,
         );
     } catch (error) {
       if (error instanceof HttpError) {

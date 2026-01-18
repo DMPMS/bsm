@@ -33,16 +33,16 @@ const Notification = () => {
           prev.map((notification, index) =>
             index === prev.length - 1
               ? { ...notification, visible: true }
-              : notification
-          )
+              : notification,
+          ),
         );
       }, SHOW_NOTIFICATION_DELAY);
 
       setTimeout(() => {
         setNotifications((prev) =>
           prev.map((notification, index) =>
-            index === 0 ? { ...notification, visible: false } : notification
-          )
+            index === 0 ? { ...notification, visible: false } : notification,
+          ),
         );
       }, NOTIFICATION_TIMEOUT - TRANSITION_DURATION);
 

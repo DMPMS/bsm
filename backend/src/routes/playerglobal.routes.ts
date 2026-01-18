@@ -14,35 +14,35 @@ playerglobalRoutes.get(
   "/playerglobal",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin]),
-  (req, res) => playerglobalController.getPlayerglobals(req, res)
+  (req, res) => playerglobalController.getPlayerglobals(req, res),
 );
 
 playerglobalRoutes.get(
   "/playerglobal/:playerglobalId",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin]),
-  (req, res) => playerglobalController.getPlayerglobalById(req, res)
+  (req, res) => playerglobalController.getPlayerglobalById(req, res),
 );
 
 playerglobalRoutes.post(
   "/playerglobal",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin]),
-  (req, res) => playerglobalController.createPlayerglobal(req, res)
+  (req, res) => playerglobalController.createPlayerglobal(req, res),
 );
 
 playerglobalRoutes.put(
   "/playerglobal/:playerglobalId",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin]),
-  (req, res) => playerglobalController.updatePlayerglobal(req, res)
+  (req, res) => playerglobalController.updatePlayerglobal(req, res),
 );
 
 playerglobalRoutes.delete(
   "/playerglobal/:playerglobalId",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin]),
-  (req, res) => playerglobalController.deletePlayerglobal(req, res)
+  (req, res) => playerglobalController.deletePlayerglobal(req, res),
 );
 
 export default playerglobalRoutes;

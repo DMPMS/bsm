@@ -106,7 +106,7 @@ const UpsertPlayerglobalScreen = () => {
               required={true}
               tooltip={`A data atual no sistema é ${formatDateFromDate(
                 CURRENT_DATE,
-                FormatDateEnum.SLASH_DD_MM_YYYY
+                FormatDateEnum.SLASH_DD_MM_YYYY,
               )}.`}
             >
               <DatePicker
@@ -115,7 +115,7 @@ const UpsertPlayerglobalScreen = () => {
                   upsertPlayerglobal.birthdate
                     ? parseDate(
                         upsertPlayerglobal.birthdate,
-                        FormatDateEnum.DASH_YYYY_MM_DD
+                        FormatDateEnum.DASH_YYYY_MM_DD,
                       )
                     : undefined
                 }
@@ -141,7 +141,7 @@ const UpsertPlayerglobalScreen = () => {
               required={true}
               tooltip={PLAYERGLOBAL_MESSAGES.FIELD_VALIDATION.PRIMARY_POSITIONS(
                 PLAYERGLOBAL.PRIMARY_POSITIONS.MIN,
-                PLAYERGLOBAL.PRIMARY_POSITIONS.MAX
+                PLAYERGLOBAL.PRIMARY_POSITIONS.MAX,
               )}
               tooltipContent={
                 <div className={styles.tooltipContentPositions}>
@@ -161,7 +161,7 @@ const UpsertPlayerglobalScreen = () => {
                   value: position.id,
                   name: position.name,
                   disabled: upsertPlayerglobal.secondaryPositionIds.includes(
-                    position.id
+                    position.id,
                   ),
                   display: <PositionLabel position={position} />,
                 }))}
@@ -175,7 +175,7 @@ const UpsertPlayerglobalScreen = () => {
               label="Posições Secundárias"
               tooltip={PLAYERGLOBAL_MESSAGES.FIELD_VALIDATION.SECONDARY_POSITIONS(
                 PLAYERGLOBAL.SECONDARY_POSITIONS.MIN,
-                PLAYERGLOBAL.SECONDARY_POSITIONS.MAX
+                PLAYERGLOBAL.SECONDARY_POSITIONS.MAX,
               )}
               tooltipContent={
                 <div className={styles.tooltipContentPositions}>
@@ -194,7 +194,7 @@ const UpsertPlayerglobalScreen = () => {
                   value: position.id,
                   name: position.name,
                   disabled: upsertPlayerglobal.primaryPositionIds.includes(
-                    position.id
+                    position.id,
                   ),
                   display: <PositionLabel position={position} />,
                 }))}

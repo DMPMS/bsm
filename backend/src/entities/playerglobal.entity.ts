@@ -65,7 +65,7 @@ export class PlayerglobalEntity {
 
   @OneToMany(
     () => PlayerglobalPositionEntity,
-    (playerglobalPosition) => playerglobalPosition.playerglobal
+    (playerglobalPosition) => playerglobalPosition.playerglobal,
   )
   playerglobalPositions?: PlayerglobalPositionEntity[];
 

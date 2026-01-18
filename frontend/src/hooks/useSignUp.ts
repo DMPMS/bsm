@@ -76,7 +76,7 @@ export const useSignUp = () => {
   const validateInputField = (
     id: string,
     value: string,
-    input: HTMLInputElement
+    input: HTMLInputElement,
   ) => {
     if (!["name", "email", "password", "confirmPassword"].includes(id)) {
       return;
@@ -96,13 +96,13 @@ export const useSignUp = () => {
 
       if (id === "password") {
         const inputConfirmPassword = document.getElementById(
-          "confirmPassword"
+          "confirmPassword",
         ) as HTMLInputElement;
 
         if (value !== inputConfirmPassword.value) {
           inputConfirmPassword.setCustomValidity(
             USER_MESSAGES.FIELD_VALIDATION.CONFIRM_PASSWORD
-              .PASSWORDS_DO_NOT_MATCH
+              .PASSWORDS_DO_NOT_MATCH,
           );
           setFieldsStatus((prev) => [
             ...prev,
@@ -111,14 +111,14 @@ export const useSignUp = () => {
         } else {
           inputConfirmPassword.setCustomValidity("");
           setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "confirmPassword")
+            prev.filter((item) => item.id !== "confirmPassword"),
           );
         }
       }
     } else if (id === "name") {
       if (value.length < USER.NAME.MIN) {
         input.setCustomValidity(
-          GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.NAME.MIN)
+          GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.NAME.MIN),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -126,7 +126,7 @@ export const useSignUp = () => {
         ]);
       } else if (value.length > USER.NAME.MAX) {
         input.setCustomValidity(
-          GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(USER.NAME.MAX)
+          GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(USER.NAME.MAX),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -138,7 +138,7 @@ export const useSignUp = () => {
     } else if (id === "email") {
       if (value.length < USER.EMAIL.MIN) {
         input.setCustomValidity(
-          GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.EMAIL.MIN)
+          GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.EMAIL.MIN),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -146,7 +146,7 @@ export const useSignUp = () => {
         ]);
       } else if (value.length > USER.EMAIL.MAX) {
         input.setCustomValidity(
-          GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(USER.NAME.MAX)
+          GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(USER.NAME.MAX),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -154,7 +154,7 @@ export const useSignUp = () => {
         ]);
       } else if (!isValidEmail(value)) {
         input.setCustomValidity(
-          USER_MESSAGES.FIELD_VALIDATION.EMAIL.EMAIL_IS_INVALID
+          USER_MESSAGES.FIELD_VALIDATION.EMAIL.EMAIL_IS_INVALID,
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -166,7 +166,7 @@ export const useSignUp = () => {
     } else if (id === "password") {
       if (value.length < USER.PASSWORD.MIN) {
         input.setCustomValidity(
-          GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.PASSWORD.MIN)
+          GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.PASSWORD.MIN),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -174,7 +174,7 @@ export const useSignUp = () => {
         ]);
       } else if (value.length > USER.PASSWORD.MAX) {
         input.setCustomValidity(
-          GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.PASSWORD.MAX)
+          GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(USER.PASSWORD.MAX),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -185,12 +185,13 @@ export const useSignUp = () => {
       }
 
       const inputConfirmPassword = document.getElementById(
-        "confirmPassword"
+        "confirmPassword",
       ) as HTMLInputElement;
 
       if (value !== inputConfirmPassword.value) {
         inputConfirmPassword.setCustomValidity(
-          USER_MESSAGES.FIELD_VALIDATION.CONFIRM_PASSWORD.PASSWORDS_DO_NOT_MATCH
+          USER_MESSAGES.FIELD_VALIDATION.CONFIRM_PASSWORD
+            .PASSWORDS_DO_NOT_MATCH,
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -199,15 +200,15 @@ export const useSignUp = () => {
       } else {
         inputConfirmPassword.setCustomValidity("");
         setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "confirmPassword")
+          prev.filter((item) => item.id !== "confirmPassword"),
         );
       }
     } else if (id === "confirmPassword") {
       if (value.length < USER.CONFIRM_PASSWORD.MIN) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(
-            USER.CONFIRM_PASSWORD.MIN
-          )
+            USER.CONFIRM_PASSWORD.MIN,
+          ),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -216,8 +217,8 @@ export const useSignUp = () => {
       } else if (value.length > USER.CONFIRM_PASSWORD.MAX) {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(
-            USER.CONFIRM_PASSWORD.MAX
-          )
+            USER.CONFIRM_PASSWORD.MAX,
+          ),
         );
         setFieldsStatus((prev) => [
           ...prev,
@@ -225,13 +226,13 @@ export const useSignUp = () => {
         ]);
       } else {
         const inputPassword = document.getElementById(
-          "password"
+          "password",
         ) as HTMLInputElement;
 
         if (value !== inputPassword.value) {
           input.setCustomValidity(
             USER_MESSAGES.FIELD_VALIDATION.CONFIRM_PASSWORD
-              .PASSWORDS_DO_NOT_MATCH
+              .PASSWORDS_DO_NOT_MATCH,
           );
           setFieldsStatus((prev) => [
             ...prev,
@@ -250,7 +251,7 @@ export const useSignUp = () => {
 
   const handleChangeInput = async (
     e: React.ChangeEvent<HTMLInputElement>,
-    name: string
+    name: string,
   ) => {
     const input = e.target;
     const value = input.value;
@@ -266,7 +267,7 @@ export const useSignUp = () => {
 
         if (!isValid) {
           input.setCustomValidity(
-            GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID
+            GENERAL_FIELD_VALIDATION_MESSAGES.IMAGE_URL_IS_INVALID,
           );
           setFieldsStatus((prev) => [
             ...prev,
@@ -275,7 +276,7 @@ export const useSignUp = () => {
         } else {
           input.setCustomValidity("");
           setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl")
+            prev.filter((item) => item.id !== "imageUrl"),
           );
         }
 
@@ -283,7 +284,7 @@ export const useSignUp = () => {
       } else {
         input.setCustomValidity("");
         setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl")
+          prev.filter((item) => item.id !== "imageUrl"),
         );
         setIsValidImage(true);
       }
@@ -302,7 +303,7 @@ export const useSignUp = () => {
 
     if (!value) {
       setBirthdateInputValidationMessage(
-        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
+        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED,
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -310,7 +311,7 @@ export const useSignUp = () => {
       ]);
     } else if (!isWithinAgeRange(value, USER.AGE.MIN, USER.AGE.MAX)) {
       setBirthdateInputValidationMessage(
-        GENERAL_FIELD_VALIDATION_MESSAGES.BIRTHDATE(USER.AGE.MIN, USER.AGE.MAX)
+        GENERAL_FIELD_VALIDATION_MESSAGES.BIRTHDATE(USER.AGE.MIN, USER.AGE.MAX),
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -332,7 +333,7 @@ export const useSignUp = () => {
 
     if (!newValue) {
       setCountrySelectValidationMessage(
-        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED
+        GENERAL_FIELD_VALIDATION_MESSAGES.REQUIRED,
       );
       setFieldsStatus((prev) => [
         ...prev,
@@ -375,7 +376,7 @@ export const useSignUp = () => {
 
             setNotification({
               message: SIGN_UP_MESSAGES.SUCCESS.WELCOME(
-                decodedToken.user.name.split(" ")[0]
+                decodedToken.user.name.split(" ")[0],
               ),
               type: NotificationEnum.Success,
             });

@@ -65,20 +65,20 @@ export class TeamglobalEntity {
 
   @OneToOne(
     () => ManagerglobalEntity,
-    (managerglobal) => managerglobal.teamglobal
+    (managerglobal) => managerglobal.teamglobal,
   )
   @JoinColumn({ name: "managerglobal_id", referencedColumnName: "id" })
   managerglobal?: ManagerglobalEntity;
 
   @OneToMany(
     () => PlayerglobalEntity,
-    (playerglobal) => playerglobal.teamglobal
+    (playerglobal) => playerglobal.teamglobal,
   )
   playerglobals?: PlayerglobalEntity[];
 
   @OneToMany(
     () => CompetitionglobalTeamglobalEntity,
-    (competitionglobalTeamglobal) => competitionglobalTeamglobal.teamglobal
+    (competitionglobalTeamglobal) => competitionglobalTeamglobal.teamglobal,
   )
   competitionglobalTeamglobals?: CompetitionglobalTeamglobalEntity[];
 }

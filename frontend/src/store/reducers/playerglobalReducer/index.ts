@@ -17,13 +17,13 @@ export const counterSlice = createSlice({
   reducers: {
     setPlayerglobalAction: (
       state,
-      action: PayloadAction<PlayerglobalType | undefined>
+      action: PayloadAction<PlayerglobalType | undefined>,
     ) => {
       state.playerglobal = action.payload;
     },
     setPlayerglobalsAction: (
       state,
-      action: PayloadAction<PlayerglobalType[]>
+      action: PayloadAction<PlayerglobalType[]>,
     ) => {
       state.playerglobals = action.payload;
     },

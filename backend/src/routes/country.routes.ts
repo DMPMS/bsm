@@ -8,7 +8,7 @@ const countryService = new CountryService();
 const countryController = new CountryController(countryService);
 
 countryRoutes.get("/country", (req, res) =>
-  countryController.getCountries(req, res)
+  countryController.getCountries(req, res),
 );
 
 export default countryRoutes;

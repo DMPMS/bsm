@@ -14,8 +14,8 @@ import { ReturnUserDto } from "../dtos/returnUser.dto";
 export class AuthService {
   constructor(
     private readonly userRepository: Repository<UserEntity> = AppDataSource.getRepository(
-      UserEntity
-    )
+      UserEntity,
+    ),
   ) {}
 
   async signIn(signInDto: SignInDto): Promise<ReturnAuthDto> {
@@ -27,19 +27,19 @@ export class AuthService {
     if (!user) {
       throw new HttpError(
         HttpStatusEnum.Unauthorized,
-        AUTH_MESSAGES.ERROR.INVALID_CREDENTIALS
+        AUTH_MESSAGES.ERROR.INVALID_CREDENTIALS,
       );
     }
 
     const isMatch = await validatePassword(
       signInDto.password,
-      user.hashedPassword
+      user.hashedPassword,
     );
 
     if (!isMatch) {
       throw new HttpError(
         HttpStatusEnum.Unauthorized,
-        AUTH_MESSAGES.ERROR.INVALID_CREDENTIALS
+        AUTH_MESSAGES.ERROR.INVALID_CREDENTIALS,
       );
     }
 
@@ -48,7 +48,7 @@ export class AuthService {
     if (!jwtSecret) {
       throw new HttpError(
         HttpStatusEnum.InternalServerError,
-        ENV_MESSAGES.ERROR.MISSING_JWT_SECRET
+        ENV_MESSAGES.ERROR.MISSING_JWT_SECRET,
       );
     }
 
@@ -57,7 +57,7 @@ export class AuthService {
     if (!jwtExpiresIn) {
       throw new HttpError(
         HttpStatusEnum.InternalServerError,
-        ENV_MESSAGES.ERROR.MISSING_JWT_EXPIRES_IN
+        ENV_MESSAGES.ERROR.MISSING_JWT_EXPIRES_IN,
       );
     }
 
@@ -69,7 +69,7 @@ export class AuthService {
       jwtSecret,
       {
         expiresIn: jwtExpiresIn,
-      }
+      },
     );
 
     return new ReturnAuthDto({ token: `Bearer ${token}` });

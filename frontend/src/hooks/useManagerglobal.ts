@@ -28,7 +28,7 @@ export const useManagerglobal = () => {
   const [searchValue, setSearchValue] = useState<string>("");
 
   const managerglobalsFiltered = managerglobals.filter((managerglobal) =>
-    managerglobal.name.toLowerCase().includes(searchValue.toLowerCase())
+    managerglobal.name.toLowerCase().includes(searchValue.toLowerCase()),
   );
 
   const fetchManagerglobals = async (timeout?: number) => {
@@ -70,8 +70,8 @@ export const useManagerglobal = () => {
     navigate(
       ManagerglobalRoutesEnum.UpdateManagerglobal.replace(
         ":managerglobalId",
-        managerglobalId
-      )
+        managerglobalId,
+      ),
     );
   };
 
@@ -86,7 +86,7 @@ export const useManagerglobal = () => {
       method: MethodEnum.Delete,
       url: URL_MANAGERGLOBAL_ID.replace(
         ":managerglobalId",
-        `${managerglobalIdDelete}`
+        `${managerglobalIdDelete}`,
       ),
       timeout: 1000,
     })

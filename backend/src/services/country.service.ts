@@ -10,14 +10,14 @@ import { HttpStatusEnum } from "../enums/HttpStatus.enum";
 export class CountryService {
   constructor(
     private readonly countryRepository: Repository<CountryEntity> = AppDataSource.getRepository(
-      CountryEntity
-    )
+      CountryEntity,
+    ),
   ) {}
 
   async getCountries(
     page: number,
     limit: number,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
   ): Promise<CountryEntity[]> {
     const skip = (page - PAGINATION.INITIAL_PAGE) * limit;
 
@@ -33,7 +33,7 @@ export class CountryService {
 
   async getCountryById(
     countryId: string,
-    relationsOptions?: RelationsOptionsType
+    relationsOptions?: RelationsOptionsType,
   ): Promise<CountryEntity> {
     const country = await this.countryRepository.findOne({
       where: { id: countryId },
@@ -43,7 +43,7 @@ export class CountryService {
     if (!country) {
       throw new HttpError(
         HttpStatusEnum.NotFound,
-        COUNTRY_MESSAGES.ERROR.COUNTRY_ID_NOT_FOUND(countryId)
+        COUNTRY_MESSAGES.ERROR.COUNTRY_ID_NOT_FOUND(countryId),
       );
     }
 

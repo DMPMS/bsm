@@ -12,8 +12,8 @@ export class PlayerglobalPositionService {
 
   constructor(
     private readonly playerglobalPositionRepository: Repository<PlayerglobalPositionEntity> = AppDataSource.getRepository(
-      PlayerglobalPositionEntity
-    )
+      PlayerglobalPositionEntity,
+    ),
   ) {
     this.playerglobalService = new PlayerglobalService();
     this.positionService = new PositionService();
@@ -21,7 +21,7 @@ export class PlayerglobalPositionService {
 
   async createPlayerglobalPosition(
     createPlayerglobalPositionDto: CreatePlayerglobalPositionDto,
-    entityManager?: EntityManager
+    entityManager?: EntityManager,
   ): Promise<void> {
     const repository = entityManager
       ? entityManager.getRepository(PlayerglobalPositionEntity)
@@ -31,11 +31,11 @@ export class PlayerglobalPositionService {
       createPlayerglobalPositionDto.playerglobalId,
       undefined,
       undefined,
-      entityManager
+      entityManager,
     );
 
     await this.positionService.getPositionById(
-      createPlayerglobalPositionDto.positionId
+      createPlayerglobalPositionDto.positionId,
     );
 
     await repository.save({
@@ -46,7 +46,7 @@ export class PlayerglobalPositionService {
 
   async deletePlayerglobalPosition(
     playerglobalId: string,
-    entityManager?: EntityManager
+    entityManager?: EntityManager,
   ): Promise<DeleteResult> {
     const repository = entityManager
       ? entityManager.getRepository(PlayerglobalPositionEntity)
@@ -56,7 +56,7 @@ export class PlayerglobalPositionService {
       playerglobalId,
       undefined,
       undefined,
-      entityManager
+      entityManager,
     );
 
     return await repository.delete({

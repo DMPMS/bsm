@@ -78,7 +78,7 @@ export class RuleEntity {
 
   @OneToOne(
     () => CompetitionglobalEntity,
-    (competitionglobal) => competitionglobal.rule
+    (competitionglobal) => competitionglobal.rule,
   )
   competitionglobal?: CompetitionglobalEntity;
 }

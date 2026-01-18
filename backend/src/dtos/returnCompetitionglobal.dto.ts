@@ -26,8 +26,8 @@ export class ReturnCompetitionglobalDto {
         ? competitionglobalEntity.competitionglobalTeamglobals.map(
             (competitionglobalTeamglobal) =>
               new ReturnCompetitionglobalTeamglobalDto(
-                competitionglobalTeamglobal
-              )
+                competitionglobalTeamglobal,
+              ),
           )
         : undefined;
   }
