@@ -16,6 +16,7 @@
 }
 
 .midfield {
+  color: var(--color-black);
   background-color: var(--color-green-1);
 }
 
@@ -25,5 +26,6 @@
 }
 
 .goalkeeper {
+  color: var(--color-black);
   background-color: var(--color-yellow-1);
 }

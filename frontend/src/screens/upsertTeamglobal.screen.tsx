@@ -20,7 +20,7 @@ import { TableHideLevelEnum } from "../enums/TableHideLevel.enum";
 import Position from "../components/position/position";
 import SelectTable from "../components/selectTable/selectTable";
 import ButtonRadio from "../components/buttonRadio/buttonRadio";
-import { TEAMGLOBAL_MESSAGES } from "../utils/messages";
+import { GENERAL_FIELD_VALIDATION_MESSAGES } from "../utils/messages";
 import { SelectTableFilterEnum } from "../enums/SelectTableFilter.enum";
 import ImageLabel from "../components/imageLabel/imageLabel";
 
@@ -65,34 +65,38 @@ const UpsertTeamglobalScreen = () => {
     { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at700 },
   ];
 
-  const managerglobalsTableData = managerglobals.map((managerglobal) => ({
-    id: managerglobal.id,
-    name: (
-      <ImageLabel
-        imageUrl={managerglobal.imageUrl || DEFAULT_MANAGERGLOBAL_IMAGE_URL}
-        name={managerglobal.name}
-      />
-    ),
-    teamglobal: managerglobal.teamglobal ? (
-      <ImageLabel
-        imageUrl={
-          managerglobal.teamglobal.imageUrl || DEFAULT_TEAMGLOBAL_IMAGE_URL
-        }
-        name={managerglobal.teamglobal.name}
-      />
-    ) : null,
-    country: (
-      <Country
-        countryCode={managerglobal.country!.code}
-        name={managerglobal.country!.name}
-      />
-    ),
-    disabled: managerglobal.teamglobal
+  const managerglobalsTableData = managerglobals.map((managerglobal) => {
+    const isDisabled = managerglobal.teamglobal
       ? managerglobal.teamglobal.id === teamglobalId
         ? false
         : true
-      : false,
-  }));
+      : false;
+
+    return {
+      id: managerglobal.id,
+      name: (
+        <ImageLabel
+          imageUrl={managerglobal.imageUrl || DEFAULT_MANAGERGLOBAL_IMAGE_URL}
+          name={managerglobal.name}
+        />
+      ),
+      teamglobal: managerglobal.teamglobal ? (
+        <ImageLabel
+          imageUrl={
+            managerglobal.teamglobal.imageUrl || DEFAULT_TEAMGLOBAL_IMAGE_URL
+          }
+          name={managerglobal.teamglobal.name}
+        />
+      ) : null,
+      country: (
+        <Country
+          countryCode={managerglobal.country!.code}
+          name={managerglobal.country!.name}
+        />
+      ),
+      disabled: isDisabled,
+    };
+  });
 
   const playerglobalsTableHeaders: TableHeaderType[] = [
     { th: "Nome", td: "name" },
@@ -111,63 +115,67 @@ const UpsertTeamglobalScreen = () => {
     { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at700 },
   ];
 
-  const playerglobalsTableData = playerglobals.map((playerglobal) => ({
-    id: playerglobal.id,
-    name: (
-      <ImageLabel
-        imageUrl={playerglobal.imageUrl || DEFAULT_PLAYERGLOBAL_IMAGE_URL}
-        name={playerglobal.name}
-      />
-    ),
-    overall: playerglobal.overall,
-    primaryPositions: (
-      <div className={styles.positions}>
-        {playerglobal
-          .playerglobalPositions!.filter(
-            (playerglobalPosition) => playerglobalPosition.isPrimary,
-          )
-          .map((playerglobalPosition) => (
-            <Position
-              key={playerglobalPosition.id}
-              position={playerglobalPosition.position!}
-            />
-          ))}
-      </div>
-    ),
-    secondaryPositions: (
-      <div className={styles.positions}>
-        {playerglobal
-          .playerglobalPositions!.filter(
-            (playerglobalPosition) => !playerglobalPosition.isPrimary,
-          )
-          .map((playerglobalPosition) => (
-            <Position
-              key={playerglobalPosition.id}
-              position={playerglobalPosition.position!}
-            />
-          ))}
-      </div>
-    ),
-    teamglobal: playerglobal.teamglobal ? (
-      <ImageLabel
-        imageUrl={
-          playerglobal.teamglobal.imageUrl || DEFAULT_TEAMGLOBAL_IMAGE_URL
-        }
-        name={playerglobal.teamglobal.name}
-      />
-    ) : null,
-    country: (
-      <Country
-        countryCode={playerglobal.country!.code}
-        name={playerglobal.country!.name}
-      />
-    ),
-    disabled: playerglobal.teamglobal
+  const playerglobalsTableData = playerglobals.map((playerglobal) => {
+    const isDisabled = playerglobal.teamglobal
       ? playerglobal.teamglobal.id === teamglobalId
         ? false
         : true
-      : false,
-  }));
+      : false;
+
+    return {
+      id: playerglobal.id,
+      name: (
+        <ImageLabel
+          imageUrl={playerglobal.imageUrl || DEFAULT_PLAYERGLOBAL_IMAGE_URL}
+          name={playerglobal.name}
+        />
+      ),
+      overall: playerglobal.overall,
+      primaryPositions: (
+        <div className={styles.positions}>
+          {playerglobal
+            .playerglobalPositions!.filter(
+              (playerglobalPosition) => playerglobalPosition.isPrimary,
+            )
+            .map((playerglobalPosition) => (
+              <Position
+                key={playerglobalPosition.id}
+                position={playerglobalPosition.position!}
+              />
+            ))}
+        </div>
+      ),
+      secondaryPositions: (
+        <div className={styles.positions}>
+          {playerglobal
+            .playerglobalPositions!.filter(
+              (playerglobalPosition) => !playerglobalPosition.isPrimary,
+            )
+            .map((playerglobalPosition) => (
+              <Position
+                key={playerglobalPosition.id}
+                position={playerglobalPosition.position!}
+              />
+            ))}
+        </div>
+      ),
+      teamglobal: playerglobal.teamglobal ? (
+        <ImageLabel
+          imageUrl={
+            playerglobal.teamglobal.imageUrl || DEFAULT_TEAMGLOBAL_IMAGE_URL
+          }
+          name={playerglobal.teamglobal.name}
+        />
+      ) : null,
+      country: (
+        <Country
+          countryCode={playerglobal.country!.code}
+          name={playerglobal.country!.name}
+        />
+      ),
+      disabled: isDisabled,
+    };
+  });
 
   return loadingCountries ||
     loadingManagerglobals ||
@@ -325,7 +333,7 @@ const UpsertTeamglobalScreen = () => {
             <FormGroup
               label="Jogadores"
               required={true}
-              tooltip={TEAMGLOBAL_MESSAGES.FIELD_VALIDATION.PLAYERGLOBALS(
+              tooltip={GENERAL_FIELD_VALIDATION_MESSAGES.OPTIONS(
                 TEAMGLOBAL.PLAYERGLOBALS.MIN,
                 TEAMGLOBAL.PLAYERGLOBALS.MAX,
               )}

@@ -248,21 +248,17 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
           );
           setFieldsStatus((prev) => [
             ...prev,
-            { id: "imageUrl", state: FieldStateEnum.Invalid },
+            { id: id, state: FieldStateEnum.Invalid },
           ]);
         } else {
           input.setCustomValidity("");
-          setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl"),
-          );
+          setFieldsStatus((prev) => prev.filter((item) => item.id !== id));
         }
 
         setIsValidImage(isValid);
       } else {
         input.setCustomValidity("");
-        setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl"),
-        );
+        setFieldsStatus((prev) => prev.filter((item) => item.id !== id));
 
         setIsValidImage(true);
       }
@@ -293,21 +289,17 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
           );
           setFieldsStatus((prev) => [
             ...prev,
-            { id: "imageUrl", state: FieldStateEnum.Invalid },
+            { id: name, state: FieldStateEnum.Invalid },
           ]);
         } else {
           input.setCustomValidity("");
-          setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl"),
-          );
+          setFieldsStatus((prev) => prev.filter((item) => item.id !== name));
         }
 
         setIsValidImage(isValid);
       } else {
         input.setCustomValidity("");
-        setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl"),
-        );
+        setFieldsStatus((prev) => prev.filter((item) => item.id !== name));
         setIsValidImage(true);
       }
 
@@ -382,7 +374,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
       values.length > TEAMGLOBAL.PLAYERGLOBALS.MAX
     ) {
       setPlayerglobalsSelectValidationMessage(
-        TEAMGLOBAL_MESSAGES.FIELD_VALIDATION.PLAYERGLOBALS(
+        GENERAL_FIELD_VALIDATION_MESSAGES.OPTIONS(
           TEAMGLOBAL.PLAYERGLOBALS.MIN,
           TEAMGLOBAL.PLAYERGLOBALS.MAX,
         ),
@@ -424,6 +416,8 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
             message: TEAMGLOBAL_MESSAGES.SUCCESS.UPDATE,
             type: NotificationEnum.Success,
           });
+
+          navigate(TeamglobalRoutesEnum.Teamglobals);
         })
         .catch((error: AxiosError) => {
           const responseErrorMessage =
@@ -450,6 +444,8 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
             message: TEAMGLOBAL_MESSAGES.SUCCESS.CREATE,
             type: NotificationEnum.Success,
           });
+
+          navigate(TeamglobalRoutesEnum.Teamglobals);
         })
         .catch((error: AxiosError) => {
           const responseErrorMessage =
@@ -461,8 +457,6 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
           });
         });
     }
-
-    navigate(TeamglobalRoutesEnum.Teamglobals);
   };
 
   const handleReset = () => {

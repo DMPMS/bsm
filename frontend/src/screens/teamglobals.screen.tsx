@@ -21,11 +21,11 @@ const TeamglobalsScreen = () => {
     loadingRequest,
     loadingFetchs,
     teamglobals,
+    openModalDelete,
     handleCreate,
     handleSearch,
     handleUpdate,
     handleDelete,
-    openModalDelete,
     handleOpenModalDelete,
     handleCloseModalDelete,
   } = useTeamglobal();
@@ -64,9 +64,10 @@ const TeamglobalsScreen = () => {
     ),
     actions: [
       TableActionEnum.Update,
-      teamglobal.competitionglobalTeamglobals!.length === 0 &&
-        TableActionEnum.Delete,
-    ],
+      teamglobal.competitionglobalTeamglobals!.length === 0
+        ? TableActionEnum.Delete
+        : null,
+    ].filter(Boolean),
   }));
 
   return loadingTeamglobals ? (

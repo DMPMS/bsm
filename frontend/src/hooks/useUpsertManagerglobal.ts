@@ -201,7 +201,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
         );
         setFieldsStatus((prev) => [
           ...prev,
-          { id: "birthdate", state: FieldStateEnum.Invalid },
+          { id: id, state: FieldStateEnum.Invalid },
         ]);
       } else if (
         !isWithinAgeRange(value, MANAGERGLOBAL.AGE.MIN, MANAGERGLOBAL.AGE.MAX)
@@ -214,13 +214,11 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
         );
         setFieldsStatus((prev) => [
           ...prev,
-          { id: "birthdate", state: FieldStateEnum.Invalid },
+          { id: id, state: FieldStateEnum.Invalid },
         ]);
       } else {
         setBirthdateInputValidationMessage("");
-        setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "birthdate"),
-        );
+        setFieldsStatus((prev) => prev.filter((item) => item.id !== id));
       }
     } else if (id === "imageUrl") {
       const input = document.getElementById(id) as HTMLInputElement;
@@ -236,21 +234,17 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
           );
           setFieldsStatus((prev) => [
             ...prev,
-            { id: "imageUrl", state: FieldStateEnum.Invalid },
+            { id: id, state: FieldStateEnum.Invalid },
           ]);
         } else {
           input.setCustomValidity("");
-          setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl"),
-          );
+          setFieldsStatus((prev) => prev.filter((item) => item.id !== id));
         }
 
         setIsValidImage(isValid);
       } else {
         input.setCustomValidity("");
-        setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl"),
-        );
+        setFieldsStatus((prev) => prev.filter((item) => item.id !== id));
 
         setIsValidImage(true);
       }
@@ -281,21 +275,17 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
           );
           setFieldsStatus((prev) => [
             ...prev,
-            { id: "imageUrl", state: FieldStateEnum.Invalid },
+            { id: name, state: FieldStateEnum.Invalid },
           ]);
         } else {
           input.setCustomValidity("");
-          setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl"),
-          );
+          setFieldsStatus((prev) => prev.filter((item) => item.id !== name));
         }
 
         setIsValidImage(isValid);
       } else {
         input.setCustomValidity("");
-        setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl"),
-        );
+        setFieldsStatus((prev) => prev.filter((item) => item.id !== name));
         setIsValidImage(true);
       }
 
@@ -386,6 +376,8 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
             message: MANAGERGLOBAL_MESSAGES.SUCCESS.UPDATE,
             type: NotificationEnum.Success,
           });
+
+          navigate(ManagerglobalRoutesEnum.Managerglobals);
         })
         .catch((error: AxiosError) => {
           const responseErrorMessage =
@@ -410,6 +402,8 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
             message: MANAGERGLOBAL_MESSAGES.SUCCESS.CREATE,
             type: NotificationEnum.Success,
           });
+
+          navigate(ManagerglobalRoutesEnum.Managerglobals);
         })
         .catch((error: AxiosError) => {
           const responseErrorMessage =
@@ -421,8 +415,6 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
           });
         });
     }
-
-    navigate(ManagerglobalRoutesEnum.Managerglobals);
   };
 
   const handleReset = () => {

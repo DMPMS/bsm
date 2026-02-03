@@ -11,7 +11,7 @@ import Header from "../components/header/header";
 import Input from "../components/input/input";
 import Table from "../components/table/table";
 import Modal from "../components/modal/modal";
-import { hasRuleDependents } from "../utils/rulesRelations";
+import { hasRuleDependents } from "../utils/ruleRelations";
 import { RuleCodeEnum } from "../enums/RuleCode.enum";
 
 const CompetitionglobalsScreen = () => {
@@ -20,11 +20,11 @@ const CompetitionglobalsScreen = () => {
     loadingRequest,
     loadingFetchs,
     competitionglobals,
+    openModalDelete,
     handleCreate,
     handleSearch,
     handleUpdate,
     handleDelete,
-    openModalDelete,
     handleOpenModalDelete,
     handleCloseModalDelete,
   } = useCompetitionglobal();
@@ -40,34 +40,37 @@ const CompetitionglobalsScreen = () => {
     { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at400 },
   ];
 
-  const tableData = competitionglobals.map((competitionglobal) => ({
-    id: competitionglobal.id,
-    name: (
-      <ImageLabel
-        imageUrl={
-          competitionglobal.imageUrl || DEFAULT_COMPETITIONGLOBAL_IMAGE_URL
-        }
-        name={competitionglobal.name}
-      />
-    ),
-    season: competitionglobal.season,
-    rule: competitionglobal.rule!.name,
-    country: (
-      <Country
-        countryCode={competitionglobal.rule!.country!.code}
-        name={competitionglobal.rule!.country!.name}
-      />
-    ),
-    actions: [
-      TableActionEnum.Update,
+  const tableData = competitionglobals.map((competitionglobal) => {
+    const canDelete =
       !hasRuleDependents(
         competitionglobal.rule!.code,
         competitionglobals.map((cg) => cg.rule!.code),
-      ) && competitionglobal.rule!.code !== RuleCodeEnum.BrazilianLeagueA
-        ? TableActionEnum.Delete
-        : null,
-    ].filter(Boolean),
-  }));
+      ) && competitionglobal.rule!.code !== RuleCodeEnum.BrazilianLeagueA;
+
+    return {
+      id: competitionglobal.id,
+      name: (
+        <ImageLabel
+          imageUrl={
+            competitionglobal.imageUrl || DEFAULT_COMPETITIONGLOBAL_IMAGE_URL
+          }
+          name={competitionglobal.name}
+        />
+      ),
+      season: competitionglobal.season,
+      rule: competitionglobal.rule!.name,
+      country: (
+        <Country
+          countryCode={competitionglobal.rule!.country!.code}
+          name={competitionglobal.rule!.country!.name}
+        />
+      ),
+      actions: [
+        TableActionEnum.Update,
+        canDelete ? TableActionEnum.Delete : null,
+      ].filter(Boolean),
+    };
+  });
 
   return loadingCompetitionglobals ? (
     <div className={styles.container}>

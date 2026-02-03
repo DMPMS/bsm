@@ -40,8 +40,8 @@ export class RuleEntity {
   })
   numberOfTeams: number;
 
-  @Column({ type: "text", name: "description", nullable: true })
-  description: string | null;
+  @Column({ type: "text", name: "description", nullable: false })
+  description: string;
 
   @Column({
     type: "varchar",

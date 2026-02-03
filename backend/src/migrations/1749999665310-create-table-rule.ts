@@ -9,7 +9,7 @@ export class CreateTableRule1749999665310 implements MigrationInterface {
 
         name VARCHAR(30) NOT NULL,
         number_of_teams INTEGER NOT NULL,
-        description TEXT,
+        description TEXT NOT NULL,
         default_competition_name VARCHAR(30) NOT NULL,
         default_competition_image_url TEXT,
         code INTEGER UNIQUE NOT NULL,

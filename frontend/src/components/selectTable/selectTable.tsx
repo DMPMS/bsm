@@ -63,6 +63,37 @@ function SelectTable<T extends { id: string; [key: string]: any }>({
     (row: T) => Array.isArray(row.actions) && row.actions.length > 0,
   );
 
+  const pageRowsEnabled = data
+    .slice(
+      (currentPage - PAGINATION.INITIAL_PAGE) * PAGINATION.DEFAULT_LIMIT,
+      (currentPage - PAGINATION.INITIAL_PAGE) * PAGINATION.DEFAULT_LIMIT +
+        PAGINATION.DEFAULT_LIMIT,
+    )
+    .filter((row) => !row.disabled);
+
+  const isAllPageRowsSelected =
+    pageRowsEnabled.length > 0 &&
+    pageRowsEnabled.every((row) => values.includes(row.id));
+
+  const handleSelectAllPageRows = (checked: boolean) => {
+    const pageRowIds = data
+      .slice(
+        (currentPage - PAGINATION.INITIAL_PAGE) * PAGINATION.DEFAULT_LIMIT,
+        (currentPage - PAGINATION.INITIAL_PAGE) * PAGINATION.DEFAULT_LIMIT +
+          PAGINATION.DEFAULT_LIMIT,
+      )
+      .filter((row) => !row.disabled)
+      .map((row) => row.id);
+
+    if (checked) {
+      const newValues = Array.from(new Set([...values, ...pageRowIds]));
+      onChange(newValues);
+    } else {
+      const newValues = values.filter((id) => !pageRowIds.includes(id));
+      onChange(newValues);
+    }
+  };
+
   const handleSelectRow = (rowId: string) => {
     if (multiple) {
       if (values.includes(rowId)) {
@@ -71,11 +102,29 @@ function SelectTable<T extends { id: string; [key: string]: any }>({
         onChange([...values, rowId]);
       }
     } else {
-      if (values.includes(rowId)) {
-        onChange([]);
-      } else {
-        onChange([rowId]);
-      }
+      onChange([rowId]);
+    }
+  };
+
+  const handlePageClick = (e: React.MouseEvent, page: number) => {
+    e.preventDefault();
+
+    setCurrentPage(page);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent, rowId: string) => {
+    if (disabled) return;
+
+    switch (e.key) {
+      case KeyboardKeyEnum.Enter:
+      case KeyboardKeyEnum.Space:
+        e.preventDefault();
+
+        handleSelectRow(rowId);
+
+        break;
+      default:
+        return;
     }
   };
 
@@ -177,34 +226,26 @@ function SelectTable<T extends { id: string; [key: string]: any }>({
     ));
   };
 
-  const handlePageClick = (e: React.MouseEvent, page: number) => {
-    e.preventDefault();
-
-    setCurrentPage(page);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent, rowId: string) => {
-    if (disabled) return;
-
-    switch (e.key) {
-      case KeyboardKeyEnum.Enter:
-      case KeyboardKeyEnum.Space:
-        e.preventDefault();
-
-        handleSelectRow(rowId);
-
-        break;
-      default:
-        return;
-    }
-  };
-
   return (
     <div className={styles.containerTable}>
       <table className={styles.table}>
         <thead className={styles.thead}>
           <tr>
-            <th></th>
+            <th className={styles.thSelectInput}>
+              {multiple && (
+                <input
+                  className={styles.selectInput}
+                  type="checkbox"
+                  checked={isAllPageRowsSelected}
+                  onChange={(e) => handleSelectAllPageRows(e.target.checked)}
+                  disabled={
+                    disabled ||
+                    data.length === 0 ||
+                    pageRowsEnabled.length === 0
+                  }
+                />
+              )}
+            </th>
             {headers.map(
               (header, index) =>
                 (!header.hideAtWidth ||

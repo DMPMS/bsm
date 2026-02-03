@@ -19,8 +19,12 @@ import { getFieldState } from "../utils/getFieldState";
 import ButtonRadio from "../components/buttonRadio/buttonRadio";
 import { SelectTableFilterEnum } from "../enums/SelectTableFilter.enum";
 import SelectTable from "../components/selectTable/selectTable";
-import { COMPETITIONGLOBAL_MESSAGES } from "../utils/messages";
-import { hasRuleConflict, hasRuleRequirements } from "../utils/rulesRelations";
+import { GENERAL_FIELD_VALIDATION_MESSAGES } from "../utils/messages";
+import { hasRuleConflict, hasRuleRequirements } from "../utils/ruleRelations";
+import Modal from "../components/modal/modal";
+import { KeyboardKeyEnum } from "../enums/KeyboardKey.enum";
+import DocumentIcon from "../components/icons/document.icon";
+import { ModalSizeEnum } from "../enums/ModalSize.enum";
 
 const UpsertCompetitionglobalScreen = () => {
   const { competitionglobalId } = useParams<{ competitionglobalId: string }>();
@@ -42,6 +46,7 @@ const UpsertCompetitionglobalScreen = () => {
     rules,
     loadingTeamglobals,
     teamglobals,
+    ruleModalDescription,
     handleSearchRules,
     handleSearchTeamglobals,
     setRulesFilter,
@@ -53,6 +58,8 @@ const UpsertCompetitionglobalScreen = () => {
     handleReset,
     handleCancel,
     handlePreventSubmitOnEnter,
+    handleOpenRuleModalDescription,
+    handleCloseRuleModalDescription,
   } = useUpsertCompetitionglobal(competitionglobalId);
 
   const rulesTableHeaders: TableHeaderType[] = [
@@ -80,6 +87,10 @@ const UpsertCompetitionglobalScreen = () => {
     .map((rule) => rule.code);
 
   const rulesTableData = rules.map((rule) => {
+    const isDisabled = rule.competitionglobal
+      ? rule.competitionglobal.id !== competitionglobalId
+      : !hasRuleRequirements(rule.code, competitionglobalRuleCodes);
+
     return {
       id: rule.id,
       name: rule.name,
@@ -87,7 +98,32 @@ const UpsertCompetitionglobalScreen = () => {
       country: (
         <Country countryCode={rule.country!.code} name={rule.country!.name} />
       ),
-      description: rule.description,
+      description: (
+        <div className={styles.containerRuleDescription}>
+          <button
+            type="button"
+            className={styles.buttonRuleDescription}
+            onClick={() => handleOpenRuleModalDescription(rule.description)}
+            onKeyDown={(e) => {
+              if (
+                e.key === KeyboardKeyEnum.Enter ||
+                e.key === KeyboardKeyEnum.Space
+              ) {
+                e.preventDefault();
+                handleOpenRuleModalDescription(rule.description);
+              }
+            }}
+          >
+            <DocumentIcon
+              size={20}
+              circle={true}
+              color="var(--color-blue-1)"
+              colorHover="var(--color-blue-2)"
+              colorDisabled="var(--color-blue-1)"
+            />
+          </button>
+        </div>
+      ),
       competitionglobal: rule.competitionglobal ? (
         <ImageLabel
           imageUrl={
@@ -97,9 +133,7 @@ const UpsertCompetitionglobalScreen = () => {
           name={rule.competitionglobal.name}
         />
       ) : null,
-      disabled: rule.competitionglobal
-        ? rule.competitionglobal.id !== competitionglobalId
-        : !hasRuleRequirements(rule.code, competitionglobalRuleCodes),
+      disabled: isDisabled,
     };
   });
 
@@ -301,7 +335,8 @@ const UpsertCompetitionglobalScreen = () => {
               required={true}
               tooltip={
                 selectedRule
-                  ? COMPETITIONGLOBAL_MESSAGES.FIELD_VALIDATION.TEAMGLOBALS(
+                  ? GENERAL_FIELD_VALIDATION_MESSAGES.OPTIONS(
+                      selectedRule.numberOfTeams,
                       selectedRule.numberOfTeams,
                     )
                   : "Selecione a regra."
@@ -407,6 +442,15 @@ const UpsertCompetitionglobalScreen = () => {
           </div>
         </form>
       </div>
+
+      <Modal
+        title="Descrição"
+        size={ModalSizeEnum.VeryLarge}
+        children={<div>{ruleModalDescription}</div>}
+        isOpen={!!ruleModalDescription}
+        onCancel={handleCloseRuleModalDescription}
+        cancelText="Fechar"
+      />
     </div>
   );
 };

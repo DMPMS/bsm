@@ -271,21 +271,17 @@ export const useSignUp = () => {
           );
           setFieldsStatus((prev) => [
             ...prev,
-            { id: "imageUrl", state: FieldStateEnum.Invalid },
+            { id: name, state: FieldStateEnum.Invalid },
           ]);
         } else {
           input.setCustomValidity("");
-          setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl"),
-          );
+          setFieldsStatus((prev) => prev.filter((item) => item.id !== name));
         }
 
         setIsValidImage(isValid);
       } else {
         input.setCustomValidity("");
-        setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl"),
-        );
+        setFieldsStatus((prev) => prev.filter((item) => item.id !== name));
         setIsValidImage(true);
       }
 

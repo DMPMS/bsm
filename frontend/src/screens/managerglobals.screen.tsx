@@ -21,11 +21,11 @@ const ManagerglobalsScreen = () => {
     loadingRequest,
     loadingFetchs,
     managerglobals,
+    openModalDelete,
     handleCreate,
     handleSearch,
     handleUpdate,
     handleDelete,
-    openModalDelete,
     handleOpenModalDelete,
     handleCloseModalDelete,
   } = useManagerglobal();
@@ -58,9 +58,10 @@ const ManagerglobalsScreen = () => {
         name={managerglobal.country!.name}
       />
     ),
-    actions: managerglobal.teamglobal
-      ? [TableActionEnum.Update]
-      : [TableActionEnum.Update, TableActionEnum.Delete],
+    actions: [
+      TableActionEnum.Update,
+      managerglobal.teamglobal ? null : TableActionEnum.Delete,
+    ].filter(Boolean),
   }));
 
   return loadingManagerglobals ? (

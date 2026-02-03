@@ -79,6 +79,10 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
     setTeamglobalsSelectValidationMessage,
   ] = useState<string>("");
 
+  const [ruleModalDescription, setRuleModalDescription] = useState<
+    string | undefined
+  >(undefined);
+
   useEffect(() => {
     if (competitionglobalId) {
       const findAndSetCompetitionglobalReducer = async (
@@ -263,7 +267,7 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
         );
         setFieldsStatus((prev) => [
           ...prev,
-          { id: "name", state: FieldStateEnum.Invalid },
+          { id: id, state: FieldStateEnum.Invalid },
         ]);
       } else if (value.length > COMPETITIONGLOBAL.NAME.MAX) {
         input.setCustomValidity(
@@ -273,11 +277,11 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
         );
         setFieldsStatus((prev) => [
           ...prev,
-          { id: "name", state: FieldStateEnum.Invalid },
+          { id: id, state: FieldStateEnum.Invalid },
         ]);
       } else {
         input.setCustomValidity("");
-        setFieldsStatus((prev) => prev.filter((item) => item.id !== "name"));
+        setFieldsStatus((prev) => prev.filter((item) => item.id !== id));
       }
     } else if (id === "imageUrl") {
       const input = document.getElementById(id) as HTMLInputElement;
@@ -293,21 +297,17 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
           );
           setFieldsStatus((prev) => [
             ...prev,
-            { id: "imageUrl", state: FieldStateEnum.Invalid },
+            { id: id, state: FieldStateEnum.Invalid },
           ]);
         } else {
           input.setCustomValidity("");
-          setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl"),
-          );
+          setFieldsStatus((prev) => prev.filter((item) => item.id !== id));
         }
 
         setIsValidImage(isValid);
       } else {
         input.setCustomValidity("");
-        setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl"),
-        );
+        setFieldsStatus((prev) => prev.filter((item) => item.id !== id));
 
         setIsValidImage(true);
       }
@@ -338,21 +338,17 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
           );
           setFieldsStatus((prev) => [
             ...prev,
-            { id: "imageUrl", state: FieldStateEnum.Invalid },
+            { id: name, state: FieldStateEnum.Invalid },
           ]);
         } else {
           input.setCustomValidity("");
-          setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl"),
-          );
+          setFieldsStatus((prev) => prev.filter((item) => item.id !== name));
         }
 
         setIsValidImage(isValid);
       } else {
         input.setCustomValidity("");
-        setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl"),
-        );
+        setFieldsStatus((prev) => prev.filter((item) => item.id !== name));
         setIsValidImage(true);
       }
 
@@ -433,7 +429,8 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
       ]);
     } else if (selectedRule && values.length !== selectedRule.numberOfTeams) {
       setTeamglobalsSelectValidationMessage(
-        COMPETITIONGLOBAL_MESSAGES.FIELD_VALIDATION.TEAMGLOBALS(
+        GENERAL_FIELD_VALIDATION_MESSAGES.OPTIONS(
+          selectedRule.numberOfTeams,
           selectedRule.numberOfTeams,
         ),
       );
@@ -454,12 +451,12 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
 
     const body = {
       ...upsertCompetitionglobal,
+      ruleId: isUpdate ? undefined : upsertCompetitionglobal.ruleId,
       imageUrl:
         upsertCompetitionglobal.imageUrl === ""
           ? null
           : upsertCompetitionglobal.imageUrl,
     };
-    delete body.ruleId;
 
     if (competitionglobalId) {
       await request<CompetitionglobalType>({
@@ -480,6 +477,8 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
             message: COMPETITIONGLOBAL_MESSAGES.SUCCESS.UPDATE,
             type: NotificationEnum.Success,
           });
+
+          navigate(CompetitionglobalRoutesEnum.Competitionglobals);
         })
         .catch((error: AxiosError) => {
           const responseErrorMessage =
@@ -506,6 +505,8 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
             message: COMPETITIONGLOBAL_MESSAGES.SUCCESS.CREATE,
             type: NotificationEnum.Success,
           });
+
+          navigate(CompetitionglobalRoutesEnum.Competitionglobals);
         })
         .catch((error: AxiosError) => {
           const responseErrorMessage =
@@ -517,8 +518,6 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
           });
         });
     }
-
-    navigate(CompetitionglobalRoutesEnum.Competitionglobals);
   };
 
   const handleReset = () => {
@@ -544,6 +543,14 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
     }
   };
 
+  const handleCloseRuleModalDescription = () => {
+    setRuleModalDescription(undefined);
+  };
+
+  const handleOpenRuleModalDescription = (description: string) => {
+    setRuleModalDescription(description);
+  };
+
   return {
     competitionglobal,
     upsertCompetitionglobal,
@@ -561,6 +568,7 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
     rules,
     loadingTeamglobals,
     teamglobals,
+    ruleModalDescription,
     handleSearchRules,
     handleSearchTeamglobals,
     setRulesFilter,
@@ -572,5 +580,7 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
     handleReset,
     handleCancel,
     handlePreventSubmitOnEnter,
+    handleOpenRuleModalDescription,
+    handleCloseRuleModalDescription,
   };
 };

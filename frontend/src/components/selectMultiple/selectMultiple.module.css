@@ -178,12 +178,19 @@
 .modalSelectedOption {
   display: flex;
   padding: 4px;
+  background-color: var(--color-white-1);
   border: 1px solid var(--color-white-3);
   border-radius: 3px;
+  color: var(--color-black);
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s,
+    border-color 0.3s;
 }
 
 .modalSelectedOption:hover {
-  background-color: var(--color-white-2);
+  background-color: var(--color-red-2);
+  border-color: var(--color-red-3);
+  color: var(--color-white-1);
 }

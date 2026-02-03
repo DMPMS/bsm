@@ -36,7 +36,8 @@
   font-style: italic;
 }
 
-.table td.tdSelectInput {
+.table td.tdSelectInput,
+.table th.thSelectInput {
   text-align: center;
 }
 

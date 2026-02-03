@@ -29,6 +29,24 @@
   margin: 0 auto 20px auto;
 }
 
+.containerRuleDescription {
+  display: flex;
+  justify-content: center;
+}
+
+.buttonRuleDescription {
+  display: inline-flex;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.buttonRuleDescription:focus-visible {
+  border-radius: 50%;
+  outline: 2px solid var(--color-blue-3);
+  outline-offset: -2px;
+}
+
 .containerFormGroups {
   display: flex;
   flex-wrap: wrap;

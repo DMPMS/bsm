@@ -9,9 +9,9 @@ export const PAGINATION = {
 };
 
 export const DEFAULT_TEAMGLOBAL_IMAGE_URL =
-  "https://i.ibb.co/HTJXnqSW/default-team.png";
+  "https://i.ibb.co/7NV2N4zX/default-team.png";
 export const DEFAULT_USER_IMAGE_URL =
-  "https://i.ibb.co/Y4nfzFbB/default-user.png";
+  "https://i.ibb.co/7dRdBcbD/default-user.png";
 export const DEFAULT_PLAYERGLOBAL_IMAGE_URL =
   "https://i.ibb.co/RpRcyk1x/default-jogador.png";
 export const DEFAULT_MANAGERGLOBAL_IMAGE_URL =

@@ -381,11 +381,17 @@ const Select = ({
         />
 
         {selectedOption && allowClear ? (
-          <CloseIcon onClick={handleClickIcon} size={15} disabled={disabled} />
+          <CloseIcon
+            onClick={handleClickIcon}
+            size={15}
+            circle={true}
+            disabled={disabled}
+          />
         ) : (
           <TriangleDownIcon
             onClick={handleClickIcon}
             size={15}
+            circle={true}
             disabled={disabled}
           />
         )}

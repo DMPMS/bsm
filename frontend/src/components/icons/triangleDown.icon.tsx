@@ -4,6 +4,7 @@ import styles from "./icon.module.css";
 
 const TriangleDownIcon = ({
   size,
+  circle = false,
   disabled = false,
   color = "var(--color-gray-1)",
   colorHover = "var(--color-gray-2)",
@@ -14,7 +15,7 @@ const TriangleDownIcon = ({
 }: IconPropsType) => {
   return (
     <svg
-      viewBox="0 0 512 512"
+      viewBox="0 0 163.861 163.861"
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
@@ -31,12 +32,34 @@ const TriangleDownIcon = ({
       }
       {...props}
     >
-      <path
-        d="M256,0C114.51,0,0,114.497,0,256c0,141.49,114.497,256,256,256c141.488,0,256-114.497,256-256
-            C512,114.512,397.503,0,256,0z M380.306,218.209L269.456,360.298c-6.833,8.759-20.091,8.745-26.913,0L131.695,218.209
-            c-8.711-11.166-0.757-27.565,13.456-27.565h221.697C381.063,190.645,389.014,207.045,380.306,218.209z"
-        className={styles.path}
-      />
+      <g transform="rotate(90 81.9305 81.9305)">
+        {circle ? (
+          <>
+            <circle
+              r="81.9305"
+              cx="81.9305"
+              cy="81.9305"
+              className={styles.path}
+            />
+
+            <g transform="matrix(0.6,0,0,0.6,37.7722,32.7722)">
+              <path
+                d="M34.857,3.613C20.084-4.861,8.107,2.081,8.107,19.106v125.637c0,17.042,11.977,23.975,26.75,15.509L144.67,97.275
+		c14.778-8.477,14.778-22.211,0-30.686L34.857,3.613z"
+                className={styles.white}
+              />
+            </g>
+          </>
+        ) : (
+          <>
+            <path
+              d="M34.857,3.613C20.084-4.861,8.107,2.081,8.107,19.106v125.637c0,17.042,11.977,23.975,26.75,15.509L144.67,97.275
+		c14.778-8.477,14.778-22.211,0-30.686L34.857,3.613z"
+              className={styles.path}
+            />
+          </>
+        )}
+      </g>
     </svg>
   );
 };

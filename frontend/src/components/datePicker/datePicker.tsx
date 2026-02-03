@@ -396,7 +396,12 @@ const DatePicker = ({
         />
 
         {selectedDate && allowClear ? (
-          <CloseIcon onClick={handleClickIcon} size={15} disabled={disabled} />
+          <CloseIcon
+            onClick={handleClickIcon}
+            size={15}
+            circle={true}
+            disabled={disabled}
+          />
         ) : (
           <CalendarIcon
             onClick={handleClickIcon}
@@ -417,10 +422,16 @@ const DatePicker = ({
               <FastRewindIcon
                 onClick={prevYear}
                 size={20}
+                circle={true}
                 disabled={disabled}
               />
 
-              <PreviousIcon onClick={prevMonth} size={20} disabled={disabled} />
+              <PreviousIcon
+                onClick={prevMonth}
+                size={20}
+                circle={true}
+                disabled={disabled}
+              />
             </div>
 
             <div className={styles.calendarTitle}>
@@ -431,11 +442,17 @@ const DatePicker = ({
             </div>
 
             <div className={styles.calendarNextButtons}>
-              <NextIcon onClick={nextMonth} size={20} disabled={disabled} />
+              <NextIcon
+                onClick={nextMonth}
+                size={20}
+                circle={true}
+                disabled={disabled}
+              />
 
               <FastForwardIcon
                 onClick={nextYear}
                 size={20}
+                circle={true}
                 disabled={disabled}
               />
             </div>

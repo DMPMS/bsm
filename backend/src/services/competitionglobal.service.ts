@@ -12,10 +12,7 @@ import { CreateCompetitionglobalDto } from "../dtos/createCompetitionglobal.dto"
 import { UpdateCompetitionglobalDto } from "../dtos/updateCompetitionglobal.dto";
 import { TeamglobalService } from "./teamglobal.service";
 import { CompetitionglobalTeamglobalService } from "./competitionglobalTeamglobal.service";
-import {
-  hasRuleDependents,
-  hasRuleRequirements,
-} from "../utils/rulesRelations";
+import { hasRuleDependents, hasRuleRequirements } from "../utils/ruleRelations";
 import { RuleCodeEnum } from "../enums/RuleCode.enum";
 
 export class CompetitionglobalService {

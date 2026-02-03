@@ -254,7 +254,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
         );
         setFieldsStatus((prev) => [
           ...prev,
-          { id: "birthdate", state: FieldStateEnum.Invalid },
+          { id: id, state: FieldStateEnum.Invalid },
         ]);
       } else if (
         !isWithinAgeRange(value, PLAYERGLOBAL.AGE.MIN, PLAYERGLOBAL.AGE.MAX)
@@ -267,13 +267,11 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
         );
         setFieldsStatus((prev) => [
           ...prev,
-          { id: "birthdate", state: FieldStateEnum.Invalid },
+          { id: id, state: FieldStateEnum.Invalid },
         ]);
       } else {
         setBirthdateInputValidationMessage("");
-        setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "birthdate"),
-        );
+        setFieldsStatus((prev) => prev.filter((item) => item.id !== id));
       }
     } else if (id === "imageUrl") {
       const input = document.getElementById(id) as HTMLInputElement;
@@ -289,21 +287,17 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
           );
           setFieldsStatus((prev) => [
             ...prev,
-            { id: "imageUrl", state: FieldStateEnum.Invalid },
+            { id: id, state: FieldStateEnum.Invalid },
           ]);
         } else {
           input.setCustomValidity("");
-          setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl"),
-          );
+          setFieldsStatus((prev) => prev.filter((item) => item.id !== id));
         }
 
         setIsValidImage(isValid);
       } else {
         input.setCustomValidity("");
-        setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl"),
-        );
+        setFieldsStatus((prev) => prev.filter((item) => item.id !== id));
 
         setIsValidImage(true);
       }
@@ -334,21 +328,17 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
           );
           setFieldsStatus((prev) => [
             ...prev,
-            { id: "imageUrl", state: FieldStateEnum.Invalid },
+            { id: name, state: FieldStateEnum.Invalid },
           ]);
         } else {
           input.setCustomValidity("");
-          setFieldsStatus((prev) =>
-            prev.filter((item) => item.id !== "imageUrl"),
-          );
+          setFieldsStatus((prev) => prev.filter((item) => item.id !== name));
         }
 
         setIsValidImage(isValid);
       } else {
         input.setCustomValidity("");
-        setFieldsStatus((prev) =>
-          prev.filter((item) => item.id !== "imageUrl"),
-        );
+        setFieldsStatus((prev) => prev.filter((item) => item.id !== name));
         setIsValidImage(true);
       }
 
@@ -434,7 +424,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
       values.length > PLAYERGLOBAL.PRIMARY_POSITIONS.MAX
     ) {
       setPrimaryPositionSelectValidationMessage(
-        PLAYERGLOBAL_MESSAGES.FIELD_VALIDATION.PRIMARY_POSITIONS(
+        GENERAL_FIELD_VALIDATION_MESSAGES.OPTIONS(
           PLAYERGLOBAL.PRIMARY_POSITIONS.MIN,
           PLAYERGLOBAL.PRIMARY_POSITIONS.MAX,
         ),
@@ -470,7 +460,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
       values.length > PLAYERGLOBAL.SECONDARY_POSITIONS.MAX
     ) {
       setSecondaryPositionSelectValidationMessage(
-        PLAYERGLOBAL_MESSAGES.FIELD_VALIDATION.SECONDARY_POSITIONS(
+        GENERAL_FIELD_VALIDATION_MESSAGES.OPTIONS(
           PLAYERGLOBAL.SECONDARY_POSITIONS.MIN,
           PLAYERGLOBAL.SECONDARY_POSITIONS.MAX,
         ),
@@ -510,6 +500,8 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
             message: PLAYERGLOBAL_MESSAGES.SUCCESS.UPDATE,
             type: NotificationEnum.Success,
           });
+
+          navigate(PlayerglobalRoutesEnum.Playerglobals);
         })
         .catch((error: AxiosError) => {
           const responseErrorMessage =
@@ -534,6 +526,8 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
             message: PLAYERGLOBAL_MESSAGES.SUCCESS.CREATE,
             type: NotificationEnum.Success,
           });
+
+          navigate(PlayerglobalRoutesEnum.Playerglobals);
         })
         .catch((error: AxiosError) => {
           const responseErrorMessage =
@@ -545,8 +539,6 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
           });
         });
     }
-
-    navigate(PlayerglobalRoutesEnum.Playerglobals);
   };
 
   const handleReset = () => {

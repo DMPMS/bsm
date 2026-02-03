@@ -8,7 +8,7 @@ interface ModalProps {
   title: string;
   children?: ReactNode;
   isOpen: boolean;
-  loading: boolean;
+  loading?: boolean;
   size?: ModalSizeEnum;
   danger?: boolean;
   onConfirm?: () => void;
@@ -21,7 +21,7 @@ const Modal = ({
   title,
   children,
   isOpen,
-  loading,
+  loading = false,
   size = ModalSizeEnum.Small,
   danger = false,
   onConfirm,

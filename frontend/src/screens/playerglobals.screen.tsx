@@ -22,11 +22,11 @@ const PlayerglobalsScreen = () => {
     loadingRequest,
     loadingFetchs,
     playerglobals,
+    openModalDelete,
     handleCreate,
     handleSearch,
     handleUpdate,
     handleDelete,
-    openModalDelete,
     handleOpenModalDelete,
     handleCloseModalDelete,
   } = usePlayerglobal();
@@ -99,9 +99,10 @@ const PlayerglobalsScreen = () => {
         name={playerglobal.country!.name}
       />
     ),
-    actions: playerglobal.teamglobal
-      ? [TableActionEnum.Update]
-      : [TableActionEnum.Update, TableActionEnum.Delete],
+    actions: [
+      TableActionEnum.Update,
+      playerglobal.teamglobal ? null : TableActionEnum.Delete,
+    ].filter(Boolean),
   }));
 
   return loadingPlayerglobals ? (

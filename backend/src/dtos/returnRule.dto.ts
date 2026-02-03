@@ -7,7 +7,7 @@ export class ReturnRuleDto {
   id: string;
   name: string;
   numberOfTeams: number;
-  description: string | null;
+  description: string;
   defaultCompetitionName: string;
   defaultCompetitionImageUrl: string | null;
   code: RuleCodeEnum;

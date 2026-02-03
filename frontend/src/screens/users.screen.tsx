@@ -18,9 +18,9 @@ const UsersScreen = () => {
     loadingRequest,
     loadingFetchs,
     users,
+    openModalDelete,
     handleSearch,
     handleDelete,
-    openModalDelete,
     handleOpenModalDelete,
     handleCloseModalDelete,
   } = useUser();

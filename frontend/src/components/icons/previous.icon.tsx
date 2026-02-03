@@ -4,6 +4,7 @@ import styles from "./icon.module.css";
 
 const PreviousIcon = ({
   size,
+  circle = false,
   disabled = false,
   color = "var(--color-gray-1)",
   colorHover = "var(--color-gray-2)",
@@ -14,7 +15,7 @@ const PreviousIcon = ({
 }: IconPropsType) => {
   return (
     <svg
-      viewBox="0 0 512 512"
+      viewBox="0 0 163.861 163.861"
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
@@ -31,11 +32,33 @@ const PreviousIcon = ({
       }
       {...props}
     >
-      <g transform="matrix(-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,511.9999999999999,511.9999999999999)">
-        <path
-          d="M256 0C114.511 0 0 114.497 0 256c0 141.49 114.495 256 256 256 141.49 0 256-114.497 256-256C512 114.51 397.503 0 256 0zm92.238 284.418-120.294 69.507a32.823 32.823 0 0 1-49.241-28.417V186.493a32.82 32.82 0 0 1 49.241-28.419l120.295 69.507a32.82 32.82 0 0 1-.001 56.837z"
-          className={styles.path}
-        />
+      <g transform="matrix(-1,0,0,1,163.861,0)">
+        {circle ? (
+          <>
+            <circle
+              r="81.9305"
+              cx="81.9305"
+              cy="81.9305"
+              className={styles.path}
+            />
+
+            <g transform="matrix(0.6,0,0,0.6,42.7722,32.7722)">
+              <path
+                d="M34.857,3.613C20.084-4.861,8.107,2.081,8.107,19.106v125.637c0,17.042,11.977,23.975,26.75,15.509L144.67,97.275
+		c14.778-8.477,14.778-22.211,0-30.686L34.857,3.613z"
+                className={styles.white}
+              />
+            </g>
+          </>
+        ) : (
+          <>
+            <path
+              d="M34.857,3.613C20.084-4.861,8.107,2.081,8.107,19.106v125.637c0,17.042,11.977,23.975,26.75,15.509L144.67,97.275
+		c14.778-8.477,14.778-22.211,0-30.686L34.857,3.613z"
+              className={styles.path}
+            />
+          </>
+        )}
       </g>
     </svg>
   );

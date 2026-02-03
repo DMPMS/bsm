@@ -35,7 +35,9 @@ const FormGroup = ({
               } as React.CSSProperties
             }
           >
-            {tooltipContent || <InfoIcon size={15} cursor={tooltipCursor} />}
+            {tooltipContent || (
+              <InfoIcon size={15} circle={true} cursor={tooltipCursor} />
+            )}
           </div>
         )}
       </label>

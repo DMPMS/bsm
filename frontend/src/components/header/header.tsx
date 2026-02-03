@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./header.module.css";
 import UserIcon from "../icons/user.icon";
 import PlayerIcon from "../icons/player.icon";
@@ -21,6 +21,14 @@ const Header = ({ ...props }: HeaderProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
 
+  const [penultimateClicked, setPenultimateClicked] = useState<Element | null>(
+    null,
+  );
+  const [lastClicked, setLastClicked] = useState<Element | null>(null);
+
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+
   useEffect(() => {
     checkMenuVisibility();
 
@@ -31,6 +39,46 @@ const Header = ({ ...props }: HeaderProps) => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const menuButtonClicked =
+        menuButtonRef.current &&
+        menuButtonRef.current.contains(e.target as Node);
+
+      const navClicked =
+        navRef.current && navRef.current.contains(e.target as Node);
+
+      if (!menuButtonClicked && !navClicked) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    const updateHistory = (el: Element | null) => {
+      setPenultimateClicked(lastClicked);
+      setLastClicked(el);
+    };
+
+    const handleDocumentClick = (e: MouseEvent) => {
+      updateHistory(e.target as Element);
+    };
+    const handleDocumentFocus = (e: KeyboardEvent) => {
+      updateHistory(e.target as Element);
+    };
+
+    document.addEventListener("mousedown", handleDocumentClick);
+    document.addEventListener("keydown", handleDocumentFocus);
+
+    return () => {
+      document.removeEventListener("mousedown", handleDocumentClick);
+      document.removeEventListener("keydown", handleDocumentFocus);
+    };
+  }, [lastClicked]);
+
   const checkMenuVisibility = () => {
     const menuHideAtWith = 700;
     const currentWidth = window.innerWidth;
@@ -38,8 +86,17 @@ const Header = ({ ...props }: HeaderProps) => {
     setIsMenuVisible(currentWidth <= menuHideAtWith);
   };
 
+  const handleNavBlur = (e: React.FocusEvent<HTMLElement>) => {
+    const nav = e.currentTarget;
+    if (!nav.contains(e.relatedTarget as Node)) {
+      setIsOpen(false);
+    }
+  };
+
   const handleClickMenu = () => {
-    setIsOpen(!isOpen);
+    if (penultimateClicked !== navRef.current) {
+      setIsOpen(!isOpen);
+    }
   };
 
   const handleClickUsers = () => {
@@ -64,7 +121,12 @@ const Header = ({ ...props }: HeaderProps) => {
 
   return (
     <header className={styles.header} {...props}>
-      <button type="button" className={styles.menu} onClick={handleClickMenu}>
+      <button
+        ref={menuButtonRef}
+        type="button"
+        className={styles.menu}
+        onClick={handleClickMenu}
+      >
         <MenuIcon
           size={20}
           color="var(--color-blue-3)"
@@ -72,7 +134,12 @@ const Header = ({ ...props }: HeaderProps) => {
           colorDisabled="var(--color-blue-3)"
         />
       </button>
-      <nav className={`${styles.nav} ${isOpen ? styles.navVisible : ""}`}>
+      <nav
+        ref={navRef}
+        className={`${styles.nav} ${isOpen ? styles.navVisible : ""}`}
+        tabIndex={-1}
+        onBlur={isMenuVisible && isOpen ? handleNavBlur : undefined}
+      >
         <button
           tabIndex={!isMenuVisible ? 0 : isOpen ? 0 : -1}
           type="button"

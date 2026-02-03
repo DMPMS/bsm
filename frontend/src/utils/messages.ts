@@ -17,10 +17,6 @@ export const SIGN_UP_MESSAGES = {
 };
 
 export const TEAMGLOBAL_MESSAGES = {
-  FIELD_VALIDATION: {
-    PLAYERGLOBALS: (min: number, max: number) =>
-      `Selecione de ${min} a ${max} jogadores.`,
-  },
   SUCCESS: {
     CREATE: "Time criado",
     UPDATE: "Time atualizado",
@@ -29,16 +25,6 @@ export const TEAMGLOBAL_MESSAGES = {
 };
 
 export const PLAYERGLOBAL_MESSAGES = {
-  FIELD_VALIDATION: {
-    PRIMARY_POSITIONS: (min: number, max: number) =>
-      max === 1
-        ? "Selecione 1 posição primária."
-        : `Selecione de ${min} a ${max} posições primárias.`,
-    SECONDARY_POSITIONS: (min: number, max: number) =>
-      min === 0
-        ? `Selecione até ${max} posição(ões) secundária(s).`
-        : `Selecione de ${min} a ${max} posição(ões) secundária(s).`,
-  },
   SUCCESS: {
     CREATE: "Jogador criado",
     UPDATE: "Jogador atualizado",
@@ -55,9 +41,6 @@ export const MANAGERGLOBAL_MESSAGES = {
 };
 
 export const COMPETITIONGLOBAL_MESSAGES = {
-  FIELD_VALIDATION: {
-    TEAMGLOBALS: (numberOfTeams: number) => `Selecione ${numberOfTeams} times.`,
-  },
   SUCCESS: {
     CREATE: "Competição criada",
     UPDATE: "Competição atualizada",
@@ -88,6 +71,12 @@ export const ENV_MESSAGES = {
 export const GENERAL_FIELD_VALIDATION_MESSAGES = {
   REQUIRED: "Preencha este campo.",
   REQUIRED_CHECKBOX: "Selecione as opções.",
+  OPTIONS: (min: number, max: number) =>
+    max === min
+      ? `Selecione ${max} opção(ões).`
+      : min === 0
+        ? `Selecione até ${max} opção(ões).`
+        : `Selecione de ${min} a ${max} opções.`,
   MIN_CHARACTER: (min: number) => `Insira pelo menos ${min} caractere(s).`,
   MAX_CHARACTER: (max: number) => `Insira até ${max} caractere(s).`,
   MIN: (min: number) => `Insira um valor maior ou igual a ${min}.`,
@@ -98,5 +87,5 @@ export const GENERAL_FIELD_VALIDATION_MESSAGES = {
 };
 
 export const OTHER_MESSAGES = {
-  DEFAULT_ERROR: "Erro",
+  DEFAULT_ERROR: "Erro desconhecido",
 };

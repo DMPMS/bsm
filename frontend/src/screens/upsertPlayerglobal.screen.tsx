@@ -20,7 +20,7 @@ import Select from "../components/select/select";
 import Country from "../components/country/country";
 import InputNumber from "../components/inputNumber/inputNumber";
 import SelectMultiple from "../components/selectMultiple/selectMultiple";
-import { PLAYERGLOBAL_MESSAGES } from "../utils/messages";
+import { GENERAL_FIELD_VALIDATION_MESSAGES } from "../utils/messages";
 import PositionLabel from "../components/positionLabel/positionLabel";
 
 const UpsertPlayerglobalScreen = () => {
@@ -139,7 +139,7 @@ const UpsertPlayerglobalScreen = () => {
             <FormGroup
               label="Posições Primárias"
               required={true}
-              tooltip={PLAYERGLOBAL_MESSAGES.FIELD_VALIDATION.PRIMARY_POSITIONS(
+              tooltip={GENERAL_FIELD_VALIDATION_MESSAGES.OPTIONS(
                 PLAYERGLOBAL.PRIMARY_POSITIONS.MIN,
                 PLAYERGLOBAL.PRIMARY_POSITIONS.MAX,
               )}
@@ -173,7 +173,7 @@ const UpsertPlayerglobalScreen = () => {
 
             <FormGroup
               label="Posições Secundárias"
-              tooltip={PLAYERGLOBAL_MESSAGES.FIELD_VALIDATION.SECONDARY_POSITIONS(
+              tooltip={GENERAL_FIELD_VALIDATION_MESSAGES.OPTIONS(
                 PLAYERGLOBAL.SECONDARY_POSITIONS.MIN,
                 PLAYERGLOBAL.SECONDARY_POSITIONS.MAX,
               )}

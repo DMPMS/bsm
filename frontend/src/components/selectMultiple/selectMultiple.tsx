@@ -415,11 +415,17 @@ const SelectMultiple = ({
         />
 
         {selectedOptions.length > 0 && allowClear ? (
-          <CloseIcon onClick={handleClickIcon} size={15} disabled={disabled} />
+          <CloseIcon
+            onClick={handleClickIcon}
+            size={15}
+            circle={true}
+            disabled={disabled}
+          />
         ) : (
           <TriangleDownIcon
             onClick={handleClickIcon}
             size={15}
+            circle={true}
             disabled={disabled}
           />
         )}
@@ -519,7 +525,6 @@ const SelectMultiple = ({
           )
         }
         isOpen={isModalOpen}
-        loading={false}
         onCancel={handleCloseModal}
         cancelText="Fechar"
         danger={false}

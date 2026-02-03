@@ -132,6 +132,7 @@ function Table<T extends { id: string; [key: string]: any }>({
                 >
                   <PencilIcon
                     size={20}
+                    circle={true}
                     color="var(--color-yellow-1)"
                     colorHover="var(--color-yellow-2)"
                     colorDisabled="var(--color-yellow-1)"
@@ -161,6 +162,7 @@ function Table<T extends { id: string; [key: string]: any }>({
                 >
                   <TrashIcon
                     size={20}
+                    circle={true}
                     color="var(--color-red-1)"
                     colorHover="var(--color-red-2)"
                     colorDisabled="var(--color-red-1)"

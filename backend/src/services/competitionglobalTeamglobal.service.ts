@@ -5,7 +5,7 @@ import { CompetitionglobalService } from "./competitionglobal.service";
 import { TeamglobalService } from "./teamglobal.service";
 import { CompetitionglobalTeamglobalEntity } from "../entities/competitionglobalTeamglobal.entity";
 import { CreateCompetitionglobalTeamglobalDto } from "../dtos/createCompetitionglobalTeamglobal.dto";
-import { hasRuleConflict } from "../utils/rulesRelations";
+import { hasRuleConflict } from "../utils/ruleRelations";
 import { HttpError } from "../utils/httpError";
 import { HttpStatusEnum } from "../enums/HttpStatus.enum";
 import { COMPETITIONGLOBAL_MESSAGES } from "../utils/messages";
@@ -46,12 +46,10 @@ export class CompetitionglobalTeamglobalService {
       );
 
     const ruleCodes =
-      teamglobalWithCompetitionglobals.competitionglobalTeamglobals
-        ? teamglobalWithCompetitionglobals.competitionglobalTeamglobals.map(
-            (competitionglobalTeamglobal) =>
-              competitionglobalTeamglobal.competitionglobal!.rule!.code,
-          )
-        : [];
+      teamglobalWithCompetitionglobals.competitionglobalTeamglobals!.map(
+        (competitionglobalTeamglobal) =>
+          competitionglobalTeamglobal.competitionglobal!.rule!.code,
+      );
 
     if (
       hasRuleConflict(createCompetitionglobalTeamglobalDto.ruleCode, ruleCodes)
