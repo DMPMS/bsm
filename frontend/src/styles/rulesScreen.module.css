@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.cardRules {
+  display: flex;
+  flex-direction: column;
+  width: 1000px;
+  padding: 16px;
+  margin: calc((46.5 + 16) * 1px) 16px 16px 16px;
+  border-radius: 8px;
+  background-color: var(--color-white-1);
+}
+
+.h2 {
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.containerSearch {
+  display: flex;
+  margin: 0 0 10px 0;
+}
+
+.containerRuleDescription {
+  display: flex;
+  justify-content: center;
+}
+
+.buttonRuleDescription {
+  display: inline-flex;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.buttonRuleDescription:focus-visible {
+  border-radius: 50%;
+  outline: 2px solid var(--color-blue-3);
+  outline-offset: -2px;
+}
+
+@media (max-width: 400px) {
+  .input {
+    flex: 1;
+  }
+}

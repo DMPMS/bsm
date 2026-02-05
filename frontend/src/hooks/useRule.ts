@@ -21,6 +21,10 @@ export const useRule = () => {
   const [loadingRules, setLoadingRules] = useState<boolean>(true);
   const [searchValue, setSearchValue] = useState<string>("");
 
+  const [modalDescription, setModalDescription] = useState<string | undefined>(
+    undefined,
+  );
+
   const rulesFiltered = rules.filter((rule) =>
     rule.name.toLowerCase().includes(searchValue.toLowerCase()),
   );
@@ -60,10 +64,21 @@ export const useRule = () => {
     setSearchValue(value);
   };
 
+  const handleCloseModalDescription = () => {
+    setModalDescription(undefined);
+  };
+
+  const handleOpenModalDescription = (description: string) => {
+    setModalDescription(description);
+  };
+
   return {
     loadingRules,
     rules: rulesFiltered,
+    modalDescription,
     handleSearch,
     fetchRules,
+    handleCloseModalDescription,
+    handleOpenModalDescription,
   };
 };

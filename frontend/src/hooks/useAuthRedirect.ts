@@ -11,9 +11,9 @@ import { jwtDecode } from "jwt-decode";
 import type { TokenType } from "../types/Token.type";
 import { MILLISECONDS_TO_SECONDS } from "../config/constants";
 import { UserTypeEnum } from "../enums/UserType.enum";
-import { UserRoutesEnum } from "../routes/user.routes";
 import { SIGN_IN_MESSAGES } from "../utils/messages";
 import { NotificationEnum } from "../enums/Notification.enum";
+import { OtherRoutesEnum } from "../routes/other.routes";
 
 export const useAuthRedirect = () => {
   const { user, setNotification } = useGlobalReducer();
@@ -36,7 +36,7 @@ export const useAuthRedirect = () => {
         // } else if (decodedToken.userType === UserTypeEnum.User) {
         //   navigate(SaveRoutesEnum.Saves);
       } else if (decodedToken.userType === UserTypeEnum.Admin) {
-        navigate(UserRoutesEnum.Users);
+        navigate(OtherRoutesEnum.HomeAdmin);
       } else {
         unsetAuthorizationToken();
         setNotification({

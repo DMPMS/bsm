@@ -1,17 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./header.module.css";
-import UserIcon from "../icons/user.icon";
 import PlayerIcon from "../icons/player.icon";
 import TeamIcon from "../icons/team.icon";
 import ManagerIcon from "../icons/manager.icon";
 import CompetitionIcon from "../icons/competition.icon";
 import MenuIcon from "../icons/menu.icon";
 import { useNavigate } from "react-router-dom";
-import { UserRoutesEnum } from "../../routes/user.routes";
 import { PlayerglobalRoutesEnum } from "../../routes/playerglobal.routes";
 import { TeamglobalRoutesEnum } from "../../routes/teamglobal.routes";
 import { ManagerglobalRoutesEnum } from "../../routes/managerglobal.routes";
 import { CompetitionglobalRoutesEnum } from "../../routes/competitionglobal.routes";
+import ExitIcon from "../icons/exit.icon";
+import HomeIcon from "../icons/home.icon";
+import { OtherRoutesEnum } from "../../routes/other.routes";
+import Modal from "../modal/modal";
+import { logout } from "../../utils/auth";
 
 interface HeaderProps extends React.HTMLAttributes<HTMLElement> {}
 
@@ -25,6 +28,8 @@ const Header = ({ ...props }: HeaderProps) => {
     null,
   );
   const [lastClicked, setLastClicked] = useState<Element | null>(null);
+
+  const [isOpenLogoutModal, setIsOpenLogoutModal] = useState<boolean>(false);
 
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const navRef = useRef<HTMLElement>(null);
@@ -99,8 +104,8 @@ const Header = ({ ...props }: HeaderProps) => {
     }
   };
 
-  const handleClickUsers = () => {
-    navigate(UserRoutesEnum.Users);
+  const handleClickHome = () => {
+    navigate(OtherRoutesEnum.HomeAdmin);
   };
 
   const handleClickPlayerglobals = () => {
@@ -117,6 +122,18 @@ const Header = ({ ...props }: HeaderProps) => {
 
   const handleClickCompetitions = () => {
     navigate(CompetitionglobalRoutesEnum.Competitionglobals);
+  };
+
+  const handleClickLogout = () => {
+    setIsOpenLogoutModal(true);
+  };
+
+  const handleConfirmLogout = () => {
+    logout(navigate);
+  };
+
+  const handleCancelLogout = () => {
+    setIsOpenLogoutModal(false);
   };
 
   return (
@@ -144,15 +161,15 @@ const Header = ({ ...props }: HeaderProps) => {
           tabIndex={!isMenuVisible ? 0 : isOpen ? 0 : -1}
           type="button"
           className={styles.navItem}
-          onClick={handleClickUsers}
+          onClick={handleClickHome}
         >
-          <UserIcon
+          <HomeIcon
             size={20}
             color="var(--color-blue-3)"
             colorHover="var(--color-blue-3)"
             colorDisabled="var(--color-blue-3)"
           />
-          Usuários
+          Início
         </button>
         <button
           tabIndex={!isMenuVisible ? 0 : isOpen ? 0 : -1}
@@ -210,7 +227,32 @@ const Header = ({ ...props }: HeaderProps) => {
           />
           Competições
         </button>
+        <button
+          tabIndex={!isMenuVisible ? 0 : isOpen ? 0 : -1}
+          type="button"
+          className={styles.navItem}
+          onClick={handleClickLogout}
+        >
+          <ExitIcon
+            size={20}
+            color="var(--color-blue-3)"
+            colorHover="var(--color-blue-3)"
+            colorDisabled="var(--color-blue-3)"
+          />
+          Sair
+        </button>
       </nav>
+
+      <Modal
+        title="Sair"
+        children={
+          <div>Deseja realmente sair? Todas as alterações serão mantidas.</div>
+        }
+        isOpen={isOpenLogoutModal}
+        onConfirm={handleConfirmLogout}
+        onCancel={handleCancelLogout}
+        danger={true}
+      />
     </header>
   );
 };

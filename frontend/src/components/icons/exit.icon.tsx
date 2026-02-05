@@ -1,0 +1,98 @@
+import { MouseCursorEnum } from "../../enums/MouseCursor.enum";
+import type { IconPropsType } from "../../types/IconProps.type";
+import styles from "./icon.module.css";
+
+const ExitIcon = ({
+  size,
+  circle = false,
+  disabled = false,
+  color = "var(--color-gray-1)",
+  colorHover = "var(--color-gray-2)",
+  colorDisabled = "var(--color-gray-1)",
+  cursor = MouseCursorEnum.Pointer,
+  className = "",
+  ...props
+}: IconPropsType) => {
+  return (
+    <svg
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      className={`${styles.svg} ${
+        disabled ? styles.svgDisabled : styles.svgEnabled
+      } ${className}`}
+      style={
+        {
+          "--color": color,
+          "--color-hover": colorHover,
+          "--color-disabled": colorDisabled,
+          "--cursor": disabled ? MouseCursorEnum.NotAllowed : cursor,
+        } as React.CSSProperties
+      }
+      {...props}
+    >
+      {circle ? (
+        <>
+          <circle r="256" cx="256" cy="256" className={styles.path} />
+
+          <g transform={"matrix(0.6,0,0,0.6,112.4,112.4)"}>
+            <path
+              d="M182.701,81.9L26.701,0c-13.619,5.099-26.7,21.81-26.7,41.1v349.699c0,15.3,7.5,29.101,20.099,37.5l120,76.133
+			c28.691,19.506,69.901-0.718,69.901-37.5V123.6C210.001,105.899,200.1,90.599,182.701,81.9z M150.001,286c0,8.291-6.709,15-15,15
+			s-15-6.709-15-15v-60c0-8.291,6.709-15,15-15s15,6.709,15,15V286z"
+              className={styles.white}
+            />
+
+            <path
+              d="M506.068,244.05l-105.46-73.626c-9.45-9.45-25.607-2.758-25.607,10.605V226h-120c-8.284,0-15,6.714-15,15v30
+			c0,8.284,6.716,15,15,15h120v44.969c0,13.363,16.155,20.056,25.605,10.607l105.462-73.629
+			C513.977,261.945,513.977,250.052,506.068,244.05z"
+              className={styles.white}
+            />
+
+            <path
+              d="M240.001,316v136h45c24.814,0,45-20.186,45-45v-91C277.396,316,292.703,316,240.001,316z"
+              className={styles.white}
+            />
+
+            <path
+              d="M285,0H91.237l104.821,55.034l0.057,0.029c0.004,0.002,0.005,0.005,0.005,0.005l0.522,0.273
+			c26.953,13.463,43.359,39.083,43.359,68.263V196c52.702,0,37.395,0,90,0V45C330,20.186,309.815,0,285,0z"
+              className={styles.white}
+            />
+          </g>
+        </>
+      ) : (
+        <>
+          <path
+            d="M182.701,81.9L26.701,0c-13.619,5.099-26.7,21.81-26.7,41.1v349.699c0,15.3,7.5,29.101,20.099,37.5l120,76.133
+			c28.691,19.506,69.901-0.718,69.901-37.5V123.6C210.001,105.899,200.1,90.599,182.701,81.9z M150.001,286c0,8.291-6.709,15-15,15
+			s-15-6.709-15-15v-60c0-8.291,6.709-15,15-15s15,6.709,15,15V286z"
+            className={styles.path}
+          />
+
+          <path
+            d="M506.068,244.05l-105.46-73.626c-9.45-9.45-25.607-2.758-25.607,10.605V226h-120c-8.284,0-15,6.714-15,15v30
+			c0,8.284,6.716,15,15,15h120v44.969c0,13.363,16.155,20.056,25.605,10.607l105.462-73.629
+			C513.977,261.945,513.977,250.052,506.068,244.05z"
+            className={styles.path}
+          />
+
+          <path
+            d="M240.001,316v136h45c24.814,0,45-20.186,45-45v-91C277.396,316,292.703,316,240.001,316z"
+            className={styles.path}
+          />
+
+          <path
+            d="M285,0H91.237l104.821,55.034l0.057,0.029c0.004,0.002,0.005,0.005,0.005,0.005l0.522,0.273
+			c26.953,13.463,43.359,39.083,43.359,68.263V196c52.702,0,37.395,0,90,0V45C330,20.186,309.815,0,285,0z"
+            className={styles.path}
+          />
+        </>
+      )}
+    </svg>
+  );
+};
+
+export default ExitIcon;
