@@ -16,6 +16,7 @@ import { NotificationEnum } from "../enums/Notification.enum";
 import { logout } from "../utils/auth";
 import { CompetitionglobalRoutesEnum } from "../routes/competitionglobal.routes";
 import { useRule } from "./useRule";
+import { useSettingsglobal } from "./useSettingsglobal";
 
 export const useCompetitionglobal = () => {
   const { setNotification } = useGlobalReducer();
@@ -24,6 +25,7 @@ export const useCompetitionglobal = () => {
 
   const { fetchRules } = useRule();
   const { fetchTeamglobals } = useTeamglobal();
+  const { loadingSettingsglobal, settingsglobal } = useSettingsglobal();
 
   const { request, loadingRequest } = useRequest();
   const navigate = useNavigate();
@@ -137,6 +139,8 @@ export const useCompetitionglobal = () => {
     loadingRequest,
     loadingFetchs,
     competitionglobals: competitionglobalsFiltered,
+    loadingSettingsglobal,
+    settingsglobal,
     openModalDelete: !!competitionglobalIdDelete,
     handleCreate,
     handleUpdate,

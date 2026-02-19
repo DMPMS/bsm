@@ -35,14 +35,6 @@ export class CompetitionglobalEntity {
   @Column({ type: "text", name: "image_url", nullable: true })
   imageUrl: string | null;
 
-  @Column({
-    type: "varchar",
-    name: "season",
-    length: COMPETITIONGLOBAL.SEASON.MAX,
-    nullable: false,
-  })
-  season: string;
-
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
 

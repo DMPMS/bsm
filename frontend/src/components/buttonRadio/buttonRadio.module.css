@@ -47,3 +47,13 @@
   outline: 2px solid var(--color-blue-3);
   outline-offset: -2px;
 }
+
+.button:disabled.selected {
+  background-color: var(--color-blue-3);
+  border-color: var(--color-blue-3);
+}
+
+.button:disabled:not(.selected) {
+  background-color: var(--color-white-3);
+  border-color: var(--color-white-3);
+}

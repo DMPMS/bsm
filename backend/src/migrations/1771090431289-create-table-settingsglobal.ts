@@ -1,27 +1,24 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class CreateTableCompetitionglobal1750003760531 implements MigrationInterface {
+export class CreateTableSettingsglobal1771090431289 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      CREATE TABLE public.competitionglobal (
+      CREATE TABLE public.settingsglobal (
         id UUID,
-        rule_id UUID NOT NULL,
 
-        name VARCHAR(30) NOT NULL,
-        image_url TEXT,
+        season_offset INTEGER NOT NULL,
 
         created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
         updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
 
-        PRIMARY KEY (id),
-        FOREIGN KEY (rule_id) REFERENCES public.rule(id) ON DELETE CASCADE ON UPDATE CASCADE
+        PRIMARY KEY (id)
       );
     `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      DROP TABLE public.competitionglobal;
+      DROP TABLE public.settingsglobal;
     `);
   }
 }

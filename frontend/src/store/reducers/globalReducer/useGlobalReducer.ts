@@ -1,15 +1,26 @@
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../hooks";
-import { setNotificationAction, setUserAction } from ".";
+import {
+  setSettingsglobalAction,
+  setNotificationAction,
+  setUserAction,
+} from ".";
 import type { UserType } from "../../../types/User.type";
 import type { NotificationType } from "../../../types/Notification.type";
+import type { SettingsglobalType } from "../../../types/Settingsglobal.type";
 
 export const useGlobalReducer = () => {
   const dispatch = useDispatch();
-  const { user, notification } = useAppSelector((state) => state.globalReducer);
+  const { user, settingsglobal, notification } = useAppSelector(
+    (state) => state.globalReducer,
+  );
 
   const setUser = (user: UserType) => {
     dispatch(setUserAction(user));
+  };
+
+  const setSettingsglobal = (settingsglobal: SettingsglobalType) => {
+    dispatch(setSettingsglobalAction(settingsglobal));
   };
 
   const setNotification = (notification: NotificationType) => {
@@ -18,8 +29,10 @@ export const useGlobalReducer = () => {
 
   return {
     user,
+    settingsglobal,
     notification,
     setUser,
+    setSettingsglobal,
     setNotification,
   };
 };

@@ -48,6 +48,12 @@ export const COMPETITIONGLOBAL_MESSAGES = {
   },
 };
 
+export const SETTINGSGLOBAL_MESSAGES = {
+  SUCCESS: {
+    UPDATE: "Configurações atualizadas",
+  },
+};
+
 export const USER_MESSAGES = {
   FIELD_VALIDATION: {
     EMAIL: {

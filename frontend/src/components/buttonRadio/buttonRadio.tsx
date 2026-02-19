@@ -10,6 +10,7 @@ interface ButtonRadioProps {
   value: string;
   className?: string;
   onChange: (value: string) => void;
+  disabled?: boolean;
 }
 
 const ButtonRadio = ({
@@ -17,6 +18,7 @@ const ButtonRadio = ({
   value,
   className = "",
   onChange,
+  disabled = false,
 }: ButtonRadioProps) => {
   return (
     <div className={`${styles.container} ${className}`}>
@@ -30,6 +32,7 @@ const ButtonRadio = ({
               className={`${styles.button}
                 ${isSelected ? styles.selected : ""}`}
               onClick={() => onChange(option.value)}
+              disabled={disabled}
             >
               {option.label}
             </button>

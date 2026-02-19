@@ -5,6 +5,7 @@ import { TableHideLevelEnum } from "../enums/TableHideLevel.enum";
 import Country from "../components/country/country";
 import ImageLabel from "../components/imageLabel/imageLabel";
 import {
+  CURRENT_DATE,
   DEFAULT_COMPETITIONGLOBAL_IMAGE_URL,
   DEFAULT_MANAGERGLOBAL_IMAGE_URL,
   DEFAULT_TEAMGLOBAL_IMAGE_URL,
@@ -46,6 +47,8 @@ const UpsertCompetitionglobalScreen = () => {
     rules,
     loadingTeamglobals,
     teamglobals,
+    loadingSettingsglobal,
+    settingsglobal,
     ruleModalDescription,
     handleSearchRules,
     handleSearchTeamglobals,
@@ -183,7 +186,10 @@ const UpsertCompetitionglobalScreen = () => {
     };
   });
 
-  return loadingRules || loadingTeamglobals || loadingCompetitionglobal ? (
+  return loadingSettingsglobal ||
+    loadingRules ||
+    loadingTeamglobals ||
+    loadingCompetitionglobal ? (
     <div className={styles.container}>
       <Spinner size={50} />
     </div>
@@ -300,14 +306,11 @@ const UpsertCompetitionglobalScreen = () => {
 
             <FormGroup label="Temporada" required={true}>
               <Input
-                id="season"
                 type="text"
-                className={styles.season}
-                placeholder="Temporada"
-                value={upsertCompetitionglobal.season}
-                onChange={(e) => handleChangeInput(e, "season")}
-                disabled={loadingRequest}
-                fieldState={getFieldState("season", fieldsStatus)}
+                value={
+                  CURRENT_DATE.getFullYear() + settingsglobal!.seasonOffset
+                }
+                disabled={true}
               />
             </FormGroup>
 
@@ -329,80 +332,78 @@ const UpsertCompetitionglobalScreen = () => {
             </FormGroup>
           </div>
 
-          <div className={styles.containerSelectTableTeamglobals}>
-            <FormGroup
-              label="Times"
-              required={true}
-              tooltip={
-                selectedRule
-                  ? GENERAL_FIELD_VALIDATION_MESSAGES.OPTIONS(
-                      selectedRule.numberOfTeams,
-                      selectedRule.numberOfTeams,
-                    )
-                  : "Selecione a regra."
-              }
-              tooltipContent={
-                selectedRule && (
-                  <div className={styles.tooltipContentTeamglobals}>
-                    {upsertCompetitionglobal.teamglobalIds.length} /{" "}
-                    {selectedRule.numberOfTeams}{" "}
-                    {`(mín. ${selectedRule.numberOfTeams})`}
-                  </div>
-                )
-              }
-            >
-              <div className={styles.containerSearchTeamglobals}>
-                <Input
-                  className={styles.input}
-                  type="text"
-                  placeholder="Buscar por nome"
-                  onChange={(e) => handleSearchTeamglobals(e.target.value)}
-                  onKeyDown={(e) => handlePreventSubmitOnEnter(e)}
-                />
-
-                <ButtonRadio
-                  className={styles.buttonRadio}
-                  options={[
-                    { value: SelectTableFilterEnum.All, label: "Todos" },
-                    {
-                      value: SelectTableFilterEnum.Available,
-                      label: "Disponíveis",
-                    },
-                    {
-                      value: SelectTableFilterEnum.Selected,
-                      label: "Selecionados",
-                    },
-                  ]}
-                  value={teamglobalsFilter}
-                  onChange={(value) =>
-                    setTeamglobalsFilter(value as SelectTableFilterEnum)
-                  }
-                />
-              </div>
-
-              <SelectTable
-                data={
-                  teamglobalsFilter === SelectTableFilterEnum.Selected
-                    ? teamglobalsTableData.filter((teamglobal) =>
-                        upsertCompetitionglobal.teamglobalIds.includes(
-                          teamglobal.id,
-                        ),
-                      )
-                    : teamglobalsFilter === SelectTableFilterEnum.Available
-                      ? teamglobalsTableData.filter(
-                          (teamglobal) => teamglobal.disabled === false,
-                        )
-                      : teamglobalsTableData
-                }
-                headers={teamglobalsTableHeaders}
-                values={upsertCompetitionglobal.teamglobalIds}
-                onChange={handleChangeTeamglobalsSelect}
-                disabled={loadingRequest}
-                validationMessage={teamglobalsSelectValidationMessage}
-                fieldState={getFieldState("teamglobalIds", fieldsStatus)}
+          <FormGroup
+            label="Times"
+            required={true}
+            tooltip={
+              selectedRule
+                ? GENERAL_FIELD_VALIDATION_MESSAGES.OPTIONS(
+                    selectedRule.numberOfTeams,
+                    selectedRule.numberOfTeams,
+                  )
+                : "Selecione a regra."
+            }
+            tooltipContent={
+              selectedRule && (
+                <div className={styles.tooltipContentTeamglobals}>
+                  {upsertCompetitionglobal.teamglobalIds.length} /{" "}
+                  {selectedRule.numberOfTeams}{" "}
+                  {`(mín. ${selectedRule.numberOfTeams})`}
+                </div>
+              )
+            }
+          >
+            <div className={styles.containerSearchTeamglobals}>
+              <Input
+                className={styles.input}
+                type="text"
+                placeholder="Buscar por nome"
+                onChange={(e) => handleSearchTeamglobals(e.target.value)}
+                onKeyDown={(e) => handlePreventSubmitOnEnter(e)}
               />
-            </FormGroup>
-          </div>
+
+              <ButtonRadio
+                className={styles.buttonRadio}
+                options={[
+                  { value: SelectTableFilterEnum.All, label: "Todos" },
+                  {
+                    value: SelectTableFilterEnum.Available,
+                    label: "Disponíveis",
+                  },
+                  {
+                    value: SelectTableFilterEnum.Selected,
+                    label: "Selecionados",
+                  },
+                ]}
+                value={teamglobalsFilter}
+                onChange={(value) =>
+                  setTeamglobalsFilter(value as SelectTableFilterEnum)
+                }
+              />
+            </div>
+
+            <SelectTable
+              data={
+                teamglobalsFilter === SelectTableFilterEnum.Selected
+                  ? teamglobalsTableData.filter((teamglobal) =>
+                      upsertCompetitionglobal.teamglobalIds.includes(
+                        teamglobal.id,
+                      ),
+                    )
+                  : teamglobalsFilter === SelectTableFilterEnum.Available
+                    ? teamglobalsTableData.filter(
+                        (teamglobal) => teamglobal.disabled === false,
+                      )
+                    : teamglobalsTableData
+              }
+              headers={teamglobalsTableHeaders}
+              values={upsertCompetitionglobal.teamglobalIds}
+              onChange={handleChangeTeamglobalsSelect}
+              disabled={loadingRequest}
+              validationMessage={teamglobalsSelectValidationMessage}
+              fieldState={getFieldState("teamglobalIds", fieldsStatus)}
+            />
+          </FormGroup>
 
           <div className={styles.actions}>
             <button

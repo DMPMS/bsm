@@ -5,8 +5,8 @@
   min-height: 100vh;
 }
 
-.cardUpsertCompetitionglobal {
-  width: 1000px;
+.cardSettingsglobal {
+  width: 600px;
   padding: 16px;
   margin: 16px;
   margin: calc((46.5 + 16) * 1px) 16px 16px 16px;
@@ -24,64 +24,15 @@
   flex-direction: column;
 }
 
-.containerImagePreview {
-  display: block;
-  margin: 0 auto 20px auto;
-}
-
-.containerRuleDescription {
-  display: flex;
-  justify-content: center;
-}
-
-.buttonRuleDescription {
-  display: inline-flex;
-  padding: 0;
-  border: none;
-  background: none;
-}
-
-.buttonRuleDescription:focus-visible {
-  border-radius: 50%;
-  outline: 2px solid var(--color-blue-3);
-  outline-offset: -2px;
-}
-
 .containerFormGroups {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 0 10px 0;
   gap: 10px;
 }
 
 .containerFormGroups > * {
   flex: 1;
   min-width: 257.6px;
-}
-
-.containerSelectTableRules {
-  margin: 0 0 10px 0;
-}
-
-.containerSearchRules {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 10px;
-  margin: 0 0 10px 0;
-}
-
-.containerSearchTeamglobals {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 10px;
-  margin: 0 0 10px 0;
-}
-
-.tooltipContentTeamglobals {
-  font-size: smaller;
-  color: var(--color-gray-1);
 }
 
 .actions {
@@ -157,11 +108,4 @@
 
 .spinner {
   margin: 0 0 0 1px;
-}
-
-@media (max-width: 511px) {
-  .input,
-  .buttonRadio {
-    flex: 1;
-  }
 }

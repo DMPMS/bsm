@@ -96,8 +96,4 @@ export const COMPETITIONGLOBAL = {
     MIN: 4,
     MAX: 30,
   },
-  SEASON: {
-    MIN: 1,
-    MAX: 4,
-  },
 };

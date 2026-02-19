@@ -1,6 +1,9 @@
 import Country from "../components/country/country";
 import ImageLabel from "../components/imageLabel/imageLabel";
-import { DEFAULT_COMPETITIONGLOBAL_IMAGE_URL } from "../config/constants";
+import {
+  CURRENT_DATE,
+  DEFAULT_COMPETITIONGLOBAL_IMAGE_URL,
+} from "../config/constants";
 import { TableActionEnum } from "../enums/TableAction.enum";
 import { TableHideLevelEnum } from "../enums/TableHideLevel.enum";
 import { useCompetitionglobal } from "../hooks/useCompetitionglobal";
@@ -13,6 +16,7 @@ import Table from "../components/table/table";
 import Modal from "../components/modal/modal";
 import { hasRuleDependents } from "../utils/ruleRelations";
 import { RuleCodeEnum } from "../enums/RuleCode.enum";
+import { SeasonOffsetEnum } from "../enums/SeasonOffset.enum";
 
 const CompetitionglobalsScreen = () => {
   const {
@@ -20,6 +24,8 @@ const CompetitionglobalsScreen = () => {
     loadingRequest,
     loadingFetchs,
     competitionglobals,
+    loadingSettingsglobal,
+    settingsglobal,
     openModalDelete,
     handleCreate,
     handleSearch,
@@ -57,7 +63,9 @@ const CompetitionglobalsScreen = () => {
           name={competitionglobal.name}
         />
       ),
-      season: competitionglobal.season,
+      season:
+        CURRENT_DATE.getFullYear() +
+        (settingsglobal?.seasonOffset || SeasonOffsetEnum.CurrentYear),
       rule: competitionglobal.rule!.name,
       country: (
         <Country
@@ -72,7 +80,7 @@ const CompetitionglobalsScreen = () => {
     };
   });
 
-  return loadingCompetitionglobals ? (
+  return loadingSettingsglobal || loadingCompetitionglobals ? (
     <div className={styles.container}>
       <Spinner size={50} />
     </div>

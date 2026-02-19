@@ -16,8 +16,9 @@ import { teamglobalRoutes } from "./routes/teamglobal.routes";
 import { playerglobalRoutes } from "./routes/playerglobal.routes";
 import { managerglobalRoutes } from "./routes/managerglobal.routes";
 import { competitionglobalRoutes } from "./routes/competitionglobal.routes";
-import { otherRoutes, OtherRoutesEnum } from "./routes/other.routes";
+import { otherRoutes } from "./routes/other.routes";
 import { rulesRoutes } from "./routes/rules.routes";
+import { settingsglobalRoutes } from "./routes/settingsglobal.routes";
 
 const routesNotLoggedIn: RouteObject[] = [...signInRoutes, ...signUpRoutes];
 
@@ -33,7 +34,8 @@ const routesAdminLoggedIn: RouteObject[] = [
   ...managerglobalRoutes,
   ...competitionglobalRoutes,
   ...rulesRoutes,
-  ...otherRoutes.filter((route) => route.path !== OtherRoutesEnum.HomeUser),
+  ...otherRoutes,
+  ...settingsglobalRoutes,
 ].map((route) => ({
   ...route,
   loader: verifyLoggedIn(UserTypeEnum.Admin),

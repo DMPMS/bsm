@@ -27,12 +27,6 @@ export class UpdateCompetitionglobalDto {
   imageUrl?: string | null;
 
   @Expose()
-  @IsString()
-  @Length(COMPETITIONGLOBAL.SEASON.MIN, COMPETITIONGLOBAL.SEASON.MAX)
-  @Transform(({ value }) => (typeof value === "string" ? value.trim() : value))
-  season: string;
-
-  @Expose()
   @IsArray()
   @IsUUID(UUID_VERSION, { each: true })
   @ArrayNotEmpty()

@@ -5,7 +5,6 @@ export interface CompetitionglobalType {
   id: string;
   name: string;
   imageUrl: string | null;
-  season: string;
 
   rule?: RuleType;
   competitionglobalTeamglobals?: CompetitionglobalTeamglobalType[];

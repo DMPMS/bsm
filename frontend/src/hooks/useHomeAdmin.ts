@@ -7,6 +7,7 @@ import { CompetitionglobalRoutesEnum } from "../routes/competitionglobal.routes"
 import { useState } from "react";
 import { logout } from "../utils/auth";
 import { RulesRoutesEnum } from "../routes/rules.routes";
+import { SettingsglobalRoutesEnum } from "../routes/settingsglobal.routes";
 
 export const useHomeAdmin = () => {
   const navigate = useNavigate();
@@ -37,6 +38,10 @@ export const useHomeAdmin = () => {
     navigate(RulesRoutesEnum.Rules);
   };
 
+  const handleClickSettingsglobal = () => {
+    navigate(SettingsglobalRoutesEnum.Settingsglobal);
+  };
+
   const handleClickLogout = () => {
     setIsOpenLogoutModal(true);
   };
@@ -57,6 +62,7 @@ export const useHomeAdmin = () => {
     handleClickTeamglobals,
     handleClickCompetitions,
     handleClickRules,
+    handleClickSettingsglobal,
     handleClickLogout,
     handleConfirmLogout,
     handleCancelLogout,

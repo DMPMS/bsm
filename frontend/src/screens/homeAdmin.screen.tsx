@@ -3,6 +3,7 @@ import CompetitionIcon from "../components/icons/competition.icon";
 import ExitIcon from "../components/icons/exit.icon";
 import ManagerIcon from "../components/icons/manager.icon";
 import PlayerIcon from "../components/icons/player.icon";
+import SettingsIcon from "../components/icons/settings.icon";
 import TeamIcon from "../components/icons/team.icon";
 import ToDoListIcon from "../components/icons/toDoList.icon";
 import UserIcon from "../components/icons/user.icon";
@@ -19,6 +20,7 @@ const HomeAdminScreen = () => {
     handleClickTeamglobals,
     handleClickCompetitions,
     handleClickRules,
+    handleClickSettingsglobal,
     handleClickLogout,
     handleConfirmLogout,
     handleCancelLogout,
@@ -107,6 +109,19 @@ const HomeAdminScreen = () => {
               colorDisabled="var(--color-blue-1)"
             />
             Regras
+          </button>
+          <button
+            type="button"
+            className={styles.buttonOption}
+            onClick={handleClickSettingsglobal}
+          >
+            <SettingsIcon
+              size={30}
+              color="var(--color-blue-1)"
+              colorHover="var(--color-blue-1)"
+              colorDisabled="var(--color-blue-1)"
+            />
+            Configurações
           </button>
           <button
             type="button"

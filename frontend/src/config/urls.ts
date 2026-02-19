@@ -28,3 +28,5 @@ export const URL_MANAGERGLOBAL_ID = `http://localhost:${BACKEND_API_PORT}/api/ma
 
 export const URL_COMPETITIONGLOBAL = `http://localhost:${BACKEND_API_PORT}/api/competitionglobal`;
 export const URL_COMPETITIONGLOBAL_ID = `http://localhost:${BACKEND_API_PORT}/api/competitionglobal/:competitionglobalId`;
+
+export const URL_SETTINGSGLOBAL = `http://localhost:${BACKEND_API_PORT}/api/settingsglobal`;

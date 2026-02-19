@@ -1,5 +1,6 @@
 import type { SignInDto } from "../dtos/signIn.dto";
 import type { SignUpDto } from "../dtos/signUp.dto";
+import type { UpdateSettingsglobalDto } from "../dtos/updateSettingsglobal.dto";
 import type { UpsertCompetitionglobalDto } from "../dtos/upsertCompetitionglobal.dto";
 import type { UpsertManagerglobalDto } from "../dtos/upsertManagerglobal.dto";
 import type { UpsertPlayerglobalDto } from "../dtos/upsertPlayerglobal.dto";
@@ -54,8 +55,11 @@ export const INITIAL_UPSERT_COMPETITIONGLOBAL_DTO: UpsertCompetitionglobalDto =
   {
     name: "",
     imageUrl: "",
-    season: "",
 
     ruleId: undefined,
     teamglobalIds: [],
   };
+
+export const INITIAL_UPDATE_SETTINGSGLOBAL_DTO: UpdateSettingsglobalDto = {
+  seasonOffset: 0,
+};

@@ -160,6 +160,13 @@ export const PLAYERGLOBAL_MESSAGES = {
   },
 };
 
+export const SETTINGSGLOBAL_MESSAGES = {
+  ERROR: {
+    UPDATE_SETTINGSGLOBAL_ERROR: "Erro ao atualizar configurações",
+    SELECT_SETTINGSGLOBAL_ERROR: "Erro ao buscar configurações",
+  },
+};
+
 export const ENV_MESSAGES = {
   ERROR: {
     MISSING_DB_HOST: "DB_HOST não definido no arquivo .env",

@@ -9,6 +9,7 @@ import playerglobalRoutes from "./routes/playerglobal.routes";
 import teamglobalRoutes from "./routes/teamglobal.routes";
 import ruleRoutes from "./routes/rule.routes";
 import competitionglobalRoutes from "./routes/competitionglobal.routes";
+import settingsglobalRoutes from "./routes/settingsglobal.routes";
 
 const app = express();
 
@@ -23,5 +24,6 @@ app.use("/api", playerglobalRoutes);
 app.use("/api", teamglobalRoutes);
 app.use("/api", ruleRoutes);
 app.use("/api", competitionglobalRoutes);
+app.use("/api", settingsglobalRoutes);
 
 export default app;

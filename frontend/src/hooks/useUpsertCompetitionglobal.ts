@@ -30,6 +30,7 @@ import { FieldStateEnum } from "../enums/FieldState.enum";
 import { validateImage } from "../utils/validateImage";
 import { KeyboardKeyEnum } from "../enums/KeyboardKey.enum";
 import type { RuleType } from "../types/Rule.type";
+import { useSettingsglobal } from "./useSettingsglobal";
 
 export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
   const { setNotification } = useGlobalReducer();
@@ -50,6 +51,7 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
     loadingTeamglobals,
     teamglobals,
   } = useTeamglobal();
+  const { loadingSettingsglobal, settingsglobal } = useSettingsglobal();
 
   const { request, loadingRequest } = useRequest();
   const navigate = useNavigate();
@@ -127,7 +129,6 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
       setUpsertCompetitionglobal({
         name: competitionglobal.name,
         imageUrl: competitionglobal.imageUrl || "",
-        season: competitionglobal.season,
         ruleId: competitionglobal.rule!.id,
         teamglobalIds: competitionglobal.competitionglobalTeamglobals!.map(
           (competitionglobalTeamglobal) =>
@@ -164,8 +165,6 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
     if (
       upsertCompetitionglobal.name.length >= COMPETITIONGLOBAL.NAME.MIN &&
       upsertCompetitionglobal.name.length <= COMPETITIONGLOBAL.NAME.MAX &&
-      upsertCompetitionglobal.season.length >= COMPETITIONGLOBAL.SEASON.MIN &&
-      upsertCompetitionglobal.season.length <= COMPETITIONGLOBAL.SEASON.MAX &&
       isValidImage &&
       upsertCompetitionglobal.ruleId &&
       selectedRule &&
@@ -183,7 +182,7 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
     value: string,
     input: HTMLInputElement,
   ) => {
-    if (!["name", "season"].includes(id)) {
+    if (!["name"].includes(id)) {
       return;
     }
 
@@ -213,30 +212,6 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
         input.setCustomValidity(
           GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(
             COMPETITIONGLOBAL.NAME.MAX,
-          ),
-        );
-        setFieldsStatus((prev) => [
-          ...prev,
-          { id: id, state: FieldStateEnum.Invalid },
-        ]);
-      } else {
-        isValid();
-      }
-    } else if (id === "season") {
-      if (value.length < COMPETITIONGLOBAL.SEASON.MIN) {
-        input.setCustomValidity(
-          GENERAL_FIELD_VALIDATION_MESSAGES.MIN_CHARACTER(
-            COMPETITIONGLOBAL.SEASON.MIN,
-          ),
-        );
-        setFieldsStatus((prev) => [
-          ...prev,
-          { id: id, state: FieldStateEnum.Invalid },
-        ]);
-      } else if (value.length > COMPETITIONGLOBAL.SEASON.MAX) {
-        input.setCustomValidity(
-          GENERAL_FIELD_VALIDATION_MESSAGES.MAX_CHARACTER(
-            COMPETITIONGLOBAL.SEASON.MAX,
           ),
         );
         setFieldsStatus((prev) => [
@@ -568,6 +543,8 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
     rules,
     loadingTeamglobals,
     teamglobals,
+    loadingSettingsglobal,
+    settingsglobal,
     ruleModalDescription,
     handleSearchRules,
     handleSearchTeamglobals,
