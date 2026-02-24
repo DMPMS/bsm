@@ -23,7 +23,7 @@ const CompetitionglobalsScreen = () => {
     loadingCompetitionglobals,
     loadingRequest,
     loadingFetchs,
-    competitionglobals,
+    competitionglobalsFiltered,
     loadingSettingsglobal,
     settingsglobal,
     openModalDelete,
@@ -46,11 +46,11 @@ const CompetitionglobalsScreen = () => {
     { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at400 },
   ];
 
-  const tableData = competitionglobals.map((competitionglobal) => {
+  const tableData = competitionglobalsFiltered.map((competitionglobal) => {
     const canDelete =
       !hasRuleDependents(
         competitionglobal.rule!.code,
-        competitionglobals.map((cg) => cg.rule!.code),
+        competitionglobalsFiltered.map((cg) => cg.rule!.code),
       ) && competitionglobal.rule!.code !== RuleCodeEnum.BrazilianLeagueA;
 
     return {
@@ -86,7 +86,7 @@ const CompetitionglobalsScreen = () => {
     </div>
   ) : (
     <div className={styles.container}>
-      <Header />
+      <Header loading={loadingRequest} />
       <div className={styles.cardCompetitionglobals}>
         <h2 className={styles.h2}>Competições</h2>
         <div className={styles.containerSearchAndCreate}>

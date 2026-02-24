@@ -16,9 +16,11 @@ import { OtherRoutesEnum } from "../../routes/other.routes";
 import Modal from "../modal/modal";
 import { logout } from "../../utils/auth";
 
-interface HeaderProps extends React.HTMLAttributes<HTMLElement> {}
+interface HeaderProps extends React.HTMLAttributes<HTMLElement> {
+  loading?: boolean;
+}
 
-const Header = ({ ...props }: HeaderProps) => {
+const Header = ({ loading = false, ...props }: HeaderProps) => {
   const navigate = useNavigate();
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -162,12 +164,14 @@ const Header = ({ ...props }: HeaderProps) => {
           type="button"
           className={styles.navItem}
           onClick={handleClickHome}
+          disabled={loading}
         >
           <HomeIcon
             size={20}
             color="var(--color-blue-3)"
             colorHover="var(--color-blue-3)"
             colorDisabled="var(--color-blue-3)"
+            disabled={loading}
           />
           Início
         </button>
@@ -176,12 +180,14 @@ const Header = ({ ...props }: HeaderProps) => {
           type="button"
           className={styles.navItem}
           onClick={handleClickPlayerglobals}
+          disabled={loading}
         >
           <PlayerIcon
             size={20}
             color="var(--color-blue-3)"
             colorHover="var(--color-blue-3)"
             colorDisabled="var(--color-blue-3)"
+            disabled={loading}
           />
           Jogadores
         </button>
@@ -190,12 +196,14 @@ const Header = ({ ...props }: HeaderProps) => {
           type="button"
           className={styles.navItem}
           onClick={handleClickManagerglobals}
+          disabled={loading}
         >
           <ManagerIcon
             size={20}
             color="var(--color-blue-3)"
             colorHover="var(--color-blue-3)"
             colorDisabled="var(--color-blue-3)"
+            disabled={loading}
           />
           Treinadores
         </button>
@@ -204,12 +212,14 @@ const Header = ({ ...props }: HeaderProps) => {
           type="button"
           className={styles.navItem}
           onClick={handleClickTeamglobals}
+          disabled={loading}
         >
           <TeamIcon
             size={20}
             color="var(--color-blue-3)"
             colorHover="var(--color-blue-3)"
             colorDisabled="var(--color-blue-3)"
+            disabled={loading}
           />
           Times
         </button>
@@ -218,12 +228,14 @@ const Header = ({ ...props }: HeaderProps) => {
           type="button"
           className={styles.navItem}
           onClick={handleClickCompetitions}
+          disabled={loading}
         >
           <CompetitionIcon
             size={20}
             color="var(--color-blue-3)"
             colorHover="var(--color-blue-3)"
             colorDisabled="var(--color-blue-3)"
+            disabled={loading}
           />
           Competições
         </button>
@@ -232,12 +244,14 @@ const Header = ({ ...props }: HeaderProps) => {
           type="button"
           className={styles.navItem}
           onClick={handleClickLogout}
+          disabled={loading}
         >
           <ExitIcon
             size={20}
             color="var(--color-blue-3)"
             colorHover="var(--color-blue-3)"
             colorDisabled="var(--color-blue-3)"
+            disabled={loading}
           />
           Sair
         </button>

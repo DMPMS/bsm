@@ -42,9 +42,9 @@ const UpsertTeamglobalScreen = () => {
     loadingCountries,
     countries,
     loadingManagerglobals,
-    managerglobals,
+    managerglobalsFiltered,
     loadingPlayerglobals,
-    playerglobals,
+    playerglobalsFiltered,
     handleSearchManagerglobals,
     handleSearchPlayerglobals,
     setManagerglobalsFilter,
@@ -65,38 +65,40 @@ const UpsertTeamglobalScreen = () => {
     { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at700 },
   ];
 
-  const managerglobalsTableData = managerglobals.map((managerglobal) => {
-    const isDisabled = managerglobal.teamglobal
-      ? managerglobal.teamglobal.id === teamglobalId
-        ? false
-        : true
-      : false;
+  const managerglobalsTableData = managerglobalsFiltered.map(
+    (managerglobal) => {
+      const isDisabled = managerglobal.teamglobal
+        ? managerglobal.teamglobal.id === teamglobalId
+          ? false
+          : true
+        : false;
 
-    return {
-      id: managerglobal.id,
-      name: (
-        <ImageLabel
-          imageUrl={managerglobal.imageUrl || DEFAULT_MANAGERGLOBAL_IMAGE_URL}
-          name={managerglobal.name}
-        />
-      ),
-      teamglobal: managerglobal.teamglobal ? (
-        <ImageLabel
-          imageUrl={
-            managerglobal.teamglobal.imageUrl || DEFAULT_TEAMGLOBAL_IMAGE_URL
-          }
-          name={managerglobal.teamglobal.name}
-        />
-      ) : null,
-      country: (
-        <Country
-          countryCode={managerglobal.country!.code}
-          name={managerglobal.country!.name}
-        />
-      ),
-      disabled: isDisabled,
-    };
-  });
+      return {
+        id: managerglobal.id,
+        name: (
+          <ImageLabel
+            imageUrl={managerglobal.imageUrl || DEFAULT_MANAGERGLOBAL_IMAGE_URL}
+            name={managerglobal.name}
+          />
+        ),
+        teamglobal: managerglobal.teamglobal ? (
+          <ImageLabel
+            imageUrl={
+              managerglobal.teamglobal.imageUrl || DEFAULT_TEAMGLOBAL_IMAGE_URL
+            }
+            name={managerglobal.teamglobal.name}
+          />
+        ) : null,
+        country: (
+          <Country
+            countryCode={managerglobal.country!.code}
+            name={managerglobal.country!.name}
+          />
+        ),
+        disabled: isDisabled,
+      };
+    },
+  );
 
   const playerglobalsTableHeaders: TableHeaderType[] = [
     { th: "Nome", td: "name" },
@@ -115,7 +117,7 @@ const UpsertTeamglobalScreen = () => {
     { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at700 },
   ];
 
-  const playerglobalsTableData = playerglobals.map((playerglobal) => {
+  const playerglobalsTableData = playerglobalsFiltered.map((playerglobal) => {
     const isDisabled = playerglobal.teamglobal
       ? playerglobal.teamglobal.id === teamglobalId
         ? false
@@ -186,7 +188,7 @@ const UpsertTeamglobalScreen = () => {
     </div>
   ) : (
     <div className={styles.container}>
-      <Header />
+      <Header loading={loadingRequest} />
       <div className={styles.cardUpsertTeamglobal}>
         <h2 className={styles.h2}>
           {isUpdate ? "Atualizar Time" : "Criar Time"}

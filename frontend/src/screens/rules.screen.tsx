@@ -17,7 +17,7 @@ import { ModalSizeEnum } from "../enums/ModalSize.enum";
 const RulesScreen = () => {
   const {
     loadingRules,
-    rules,
+    rulesFiltered,
     modalDescription,
     handleSearch,
     handleOpenModalDescription,
@@ -29,7 +29,7 @@ const RulesScreen = () => {
     {
       th: "Número de Times",
       td: "numberOfTeams",
-      hideAtWidth: TableHideLevelEnum.at600,
+      hideAtWidth: TableHideLevelEnum.at800,
     },
     { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at700 },
     {
@@ -40,11 +40,11 @@ const RulesScreen = () => {
     {
       th: "Competição",
       td: "competitionglobal",
-      hideAtWidth: TableHideLevelEnum.at800,
+      hideAtWidth: TableHideLevelEnum.at600,
     },
   ];
 
-  const tableData = rules.map((rule) => ({
+  const tableData = rulesFiltered.map((rule) => ({
     id: rule.id,
     name: rule.name,
     numberOfTeams: rule.numberOfTeams,

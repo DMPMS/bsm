@@ -12,6 +12,7 @@ export class CreateCompetitionglobalTeamglobalDto {
   @IsUUID(UUID_VERSION)
   teamglobalId: string;
 
+  @Expose()
   @IsEnum(RuleCodeEnum)
   ruleCode: RuleCodeEnum;
 }

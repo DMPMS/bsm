@@ -7,9 +7,8 @@ import type { RuleType } from "../types/Rule.type";
 import { MethodEnum } from "../enums/Method.enum";
 import { URL_RULE } from "../config/urls";
 import type { AxiosError } from "axios";
-import { OTHER_MESSAGES } from "../utils/messages";
-import { NotificationEnum } from "../enums/Notification.enum";
 import { logout } from "../utils/auth";
+import { defaultErrorNotification } from "../utils/defaultErrorNotification";
 
 export const useRule = () => {
   const { setNotification } = useGlobalReducer();
@@ -40,13 +39,7 @@ export const useRule = () => {
         setLoadingRules(false);
       })
       .catch((error: AxiosError) => {
-        const responseErrorMessage =
-          (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-        setNotification({
-          message: responseErrorMessage,
-          type: NotificationEnum.Error,
-        });
+        defaultErrorNotification(error, setNotification);
 
         logout(navigate);
       });
@@ -74,7 +67,8 @@ export const useRule = () => {
 
   return {
     loadingRules,
-    rules: rulesFiltered,
+    rules,
+    rulesFiltered,
     modalDescription,
     handleSearch,
     fetchRules,

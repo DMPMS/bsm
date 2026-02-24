@@ -4,7 +4,7 @@ import { RelationsOptionsType } from "../types/RelationsOptions.type";
 import { PAGINATION } from "../config/constants";
 import { HttpError } from "../utils/httpError";
 import { HttpStatusEnum } from "../enums/HttpStatus.enum";
-import { PLAYERGLOBAL_MESSAGES, TEAMGLOBAL_MESSAGES } from "../utils/messages";
+import { PLAYERGLOBAL_MESSAGES } from "../utils/messages";
 import { CountryService } from "./country.service";
 import { generateUuid } from "../utils/uuid";
 import { PlayerglobalEntity } from "../entities/playerglobal.entity";

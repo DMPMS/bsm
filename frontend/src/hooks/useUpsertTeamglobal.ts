@@ -15,7 +15,6 @@ import { URL_TEAMGLOBAL, URL_TEAMGLOBAL_ID } from "../config/urls";
 import type { AxiosError } from "axios";
 import {
   GENERAL_FIELD_VALIDATION_MESSAGES,
-  OTHER_MESSAGES,
   TEAMGLOBAL_MESSAGES,
 } from "../utils/messages";
 import { NotificationEnum } from "../enums/Notification.enum";
@@ -27,6 +26,7 @@ import { FieldStateEnum } from "../enums/FieldState.enum";
 import { validateImage } from "../utils/validateImage";
 import { SelectTableFilterEnum } from "../enums/SelectTableFilter.enum";
 import { KeyboardKeyEnum } from "../enums/KeyboardKey.enum";
+import { defaultErrorNotification } from "../utils/defaultErrorNotification";
 
 export const useUpsertTeamglobal = (teamglobalId?: string) => {
   const { setNotification } = useGlobalReducer();
@@ -38,13 +38,13 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
     fetchManagerglobals,
     handleSearch: handleSearchManagerglobals,
     loadingManagerglobals,
-    managerglobals,
+    managerglobalsFiltered,
   } = useManagerglobal();
   const {
     fetchPlayerglobals,
     handleSearch: handleSearchPlayerglobals,
     loadingPlayerglobals,
-    playerglobals,
+    playerglobalsFiltered,
   } = usePlayerglobal();
   const { loadingCountries, countries } = useCountry();
 
@@ -89,13 +89,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
             setLoadingTeamglobal(false);
           })
           .catch((error: AxiosError) => {
-            const responseErrorMessage =
-              (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-            setNotification({
-              message: responseErrorMessage,
-              type: NotificationEnum.Error,
-            });
+            defaultErrorNotification(error, setNotification);
 
             navigate(TeamglobalRoutesEnum.Teamglobals);
           });
@@ -420,13 +414,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
           navigate(TeamglobalRoutesEnum.Teamglobals);
         })
         .catch((error: AxiosError) => {
-          const responseErrorMessage =
-            (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-          setNotification({
-            message: responseErrorMessage,
-            type: NotificationEnum.Error,
-          });
+          defaultErrorNotification(error, setNotification);
         });
     } else {
       await request<TeamglobalType>({
@@ -448,13 +436,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
           navigate(TeamglobalRoutesEnum.Teamglobals);
         })
         .catch((error: AxiosError) => {
-          const responseErrorMessage =
-            (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-          setNotification({
-            message: responseErrorMessage,
-            type: NotificationEnum.Error,
-          });
+          defaultErrorNotification(error, setNotification);
         });
     }
   };
@@ -497,9 +479,9 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
     loadingCountries,
     countries,
     loadingManagerglobals,
-    managerglobals,
+    managerglobalsFiltered,
     loadingPlayerglobals,
-    playerglobals,
+    playerglobalsFiltered,
     handleSearchManagerglobals,
     handleSearchPlayerglobals,
     setManagerglobalsFilter,

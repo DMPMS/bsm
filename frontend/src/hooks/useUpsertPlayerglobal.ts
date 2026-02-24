@@ -14,7 +14,6 @@ import type { PlayerglobalType } from "../types/Playerglobal.type";
 import type { AxiosError } from "axios";
 import {
   GENERAL_FIELD_VALIDATION_MESSAGES,
-  OTHER_MESSAGES,
   PLAYERGLOBAL_MESSAGES,
 } from "../utils/messages";
 import { NotificationEnum } from "../enums/Notification.enum";
@@ -25,6 +24,7 @@ import { PLAYERGLOBAL } from "../config/constants";
 import { FieldStateEnum } from "../enums/FieldState.enum";
 import { validateImage } from "../utils/validateImage";
 import { usePosition } from "./usePosition";
+import { defaultErrorNotification } from "../utils/defaultErrorNotification";
 
 export const useUpsertPlayerglobal = (playerglobalId?: string) => {
   const { setNotification } = useGlobalReducer();
@@ -73,13 +73,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
             setLoadingPlayerglobal(false);
           })
           .catch((error: AxiosError) => {
-            const responseErrorMessage =
-              (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-            setNotification({
-              message: responseErrorMessage,
-              type: NotificationEnum.Error,
-            });
+            defaultErrorNotification(error, setNotification);
 
             navigate(PlayerglobalRoutesEnum.Playerglobals);
           });
@@ -504,13 +498,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
           navigate(PlayerglobalRoutesEnum.Playerglobals);
         })
         .catch((error: AxiosError) => {
-          const responseErrorMessage =
-            (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-          setNotification({
-            message: responseErrorMessage,
-            type: NotificationEnum.Error,
-          });
+          defaultErrorNotification(error, setNotification);
         });
     } else {
       await request<PlayerglobalType>({
@@ -530,13 +518,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
           navigate(PlayerglobalRoutesEnum.Playerglobals);
         })
         .catch((error: AxiosError) => {
-          const responseErrorMessage =
-            (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-          setNotification({
-            message: responseErrorMessage,
-            type: NotificationEnum.Error,
-          });
+          defaultErrorNotification(error, setNotification);
         });
     }
   };

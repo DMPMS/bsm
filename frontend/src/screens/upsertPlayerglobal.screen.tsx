@@ -57,7 +57,7 @@ const UpsertPlayerglobalScreen = () => {
     </div>
   ) : (
     <div className={styles.container}>
-      <Header />
+      <Header loading={loadingRequest} />
       <div className={styles.cardUpsertPlayerglobal}>
         <h2 className={styles.h2}>
           {isUpdate ? "Atualizar Jogador" : "Criar Jogador"}

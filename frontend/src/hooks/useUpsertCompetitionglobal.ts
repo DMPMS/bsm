@@ -20,7 +20,6 @@ import type { AxiosError } from "axios";
 import {
   COMPETITIONGLOBAL_MESSAGES,
   GENERAL_FIELD_VALIDATION_MESSAGES,
-  OTHER_MESSAGES,
 } from "../utils/messages";
 import { NotificationEnum } from "../enums/Notification.enum";
 import { CompetitionglobalRoutesEnum } from "../routes/competitionglobal.routes";
@@ -31,6 +30,7 @@ import { validateImage } from "../utils/validateImage";
 import { KeyboardKeyEnum } from "../enums/KeyboardKey.enum";
 import type { RuleType } from "../types/Rule.type";
 import { useSettingsglobal } from "./useSettingsglobal";
+import { defaultErrorNotification } from "../utils/defaultErrorNotification";
 
 export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
   const { setNotification } = useGlobalReducer();
@@ -43,13 +43,13 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
     fetchRules,
     handleSearch: handleSearchRules,
     loadingRules,
-    rules,
+    rulesFiltered,
   } = useRule();
   const {
     fetchTeamglobals,
     handleSearch: handleSearchTeamglobals,
     loadingTeamglobals,
-    teamglobals,
+    teamglobalsFiltered,
   } = useTeamglobal();
   const { loadingSettingsglobal, settingsglobal } = useSettingsglobal();
 
@@ -103,13 +103,7 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
             setLoadingCompetitionglobal(false);
           })
           .catch((error: AxiosError) => {
-            const responseErrorMessage =
-              (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-            setNotification({
-              message: responseErrorMessage,
-              type: NotificationEnum.Error,
-            });
+            defaultErrorNotification(error, setNotification);
 
             navigate(CompetitionglobalRoutesEnum.Competitionglobals);
           });
@@ -137,7 +131,7 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
       });
 
       setSelectedRule(
-        rules.find((rule) => rule.id === competitionglobal.rule!.id),
+        rulesFiltered.find((rule) => rule.id === competitionglobal.rule!.id),
       );
 
       const fieldsToValidate: FieldValidationType[] = [
@@ -337,7 +331,7 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
     const newValue = value ? value : undefined;
 
     const rule = newValue
-      ? rules.find((rule) => rule.id === newValue)
+      ? rulesFiltered.find((rule) => rule.id === newValue)
       : undefined;
 
     setUpsertCompetitionglobal({
@@ -456,13 +450,7 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
           navigate(CompetitionglobalRoutesEnum.Competitionglobals);
         })
         .catch((error: AxiosError) => {
-          const responseErrorMessage =
-            (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-          setNotification({
-            message: responseErrorMessage,
-            type: NotificationEnum.Error,
-          });
+          defaultErrorNotification(error, setNotification);
         });
     } else {
       await request<CompetitionglobalType>({
@@ -484,13 +472,7 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
           navigate(CompetitionglobalRoutesEnum.Competitionglobals);
         })
         .catch((error: AxiosError) => {
-          const responseErrorMessage =
-            (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-          setNotification({
-            message: responseErrorMessage,
-            type: NotificationEnum.Error,
-          });
+          defaultErrorNotification(error, setNotification);
         });
     }
   };
@@ -540,9 +522,9 @@ export const useUpsertCompetitionglobal = (competitionglobalId?: string) => {
     ruleSelectValidationMessage,
     teamglobalsSelectValidationMessage,
     loadingRules,
-    rules,
+    rulesFiltered,
     loadingTeamglobals,
-    teamglobals,
+    teamglobalsFiltered,
     loadingSettingsglobal,
     settingsglobal,
     ruleModalDescription,

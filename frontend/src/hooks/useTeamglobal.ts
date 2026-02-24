@@ -7,12 +7,13 @@ import type { TeamglobalType } from "../types/Teamglobal.type";
 import { MethodEnum } from "../enums/Method.enum";
 import { URL_TEAMGLOBAL, URL_TEAMGLOBAL_ID } from "../config/urls";
 import type { AxiosError } from "axios";
-import { OTHER_MESSAGES, TEAMGLOBAL_MESSAGES } from "../utils/messages";
+import { TEAMGLOBAL_MESSAGES } from "../utils/messages";
 import { NotificationEnum } from "../enums/Notification.enum";
 import { logout } from "../utils/auth";
 import { TeamglobalRoutesEnum } from "../routes/teamglobal.routes";
 import { usePlayerglobal } from "./usePlayerglobal";
 import { useManagerglobal } from "./useManagerglobal";
+import { defaultErrorNotification } from "../utils/defaultErrorNotification";
 
 export const useTeamglobal = () => {
   const { setNotification } = useGlobalReducer();
@@ -46,13 +47,7 @@ export const useTeamglobal = () => {
         setLoadingTeamglobals(false);
       })
       .catch((error: AxiosError) => {
-        const responseErrorMessage =
-          (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-        setNotification({
-          message: responseErrorMessage,
-          type: NotificationEnum.Error,
-        });
+        defaultErrorNotification(error, setNotification);
 
         logout(navigate);
       });
@@ -102,13 +97,7 @@ export const useTeamglobal = () => {
         });
       })
       .catch((error: AxiosError) => {
-        const responseErrorMessage =
-          (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-        setNotification({
-          message: responseErrorMessage,
-          type: NotificationEnum.Error,
-        });
+        defaultErrorNotification(error, setNotification);
       });
 
     setLoadingFetchs(false);
@@ -127,7 +116,8 @@ export const useTeamglobal = () => {
     loadingTeamglobals,
     loadingRequest,
     loadingFetchs,
-    teamglobals: teamglobalsFiltered,
+    teamglobals,
+    teamglobalsFiltered,
     openModalDelete: !!teamglobalIdDelete,
     handleCreate,
     handleUpdate,

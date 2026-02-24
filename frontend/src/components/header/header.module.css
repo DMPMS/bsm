@@ -41,6 +41,11 @@
   background-color: var(--color-white-3);
 }
 
+.navItem:disabled {
+  background-color: var(--color-gray-1);
+  cursor: not-allowed;
+}
+
 @media (max-width: 700px) {
   .nav {
     flex-direction: column;

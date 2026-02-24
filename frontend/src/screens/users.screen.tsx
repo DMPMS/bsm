@@ -17,7 +17,7 @@ const UsersScreen = () => {
     loadingUsers,
     loadingRequest,
     loadingFetchs,
-    users,
+    usersFiltered,
     openModalDelete,
     handleSearch,
     handleDelete,
@@ -30,7 +30,7 @@ const UsersScreen = () => {
     { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at500 },
   ];
 
-  const tableData = users.map((user) => ({
+  const tableData = usersFiltered.map((user) => ({
     id: user.id,
     name: (
       <ImageLabel

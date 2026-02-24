@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 import { MethodEnum } from "../enums/Method.enum";
 import { URL_PLAYERGLOBAL, URL_PLAYERGLOBAL_ID } from "../config/urls";
 import type { AxiosError } from "axios";
-import { OTHER_MESSAGES, PLAYERGLOBAL_MESSAGES } from "../utils/messages";
+import { PLAYERGLOBAL_MESSAGES } from "../utils/messages";
 import { NotificationEnum } from "../enums/Notification.enum";
 import { logout } from "../utils/auth";
 import { PlayerglobalRoutesEnum } from "../routes/playerglobal.routes";
 import type { PlayerglobalType } from "../types/Playerglobal.type";
+import { defaultErrorNotification } from "../utils/defaultErrorNotification";
 
 export const usePlayerglobal = () => {
   const { setNotification } = useGlobalReducer();
@@ -42,13 +43,7 @@ export const usePlayerglobal = () => {
         setLoadingPlayerglobals(false);
       })
       .catch((error: AxiosError) => {
-        const responseErrorMessage =
-          (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-        setNotification({
-          message: responseErrorMessage,
-          type: NotificationEnum.Error,
-        });
+        defaultErrorNotification(error, setNotification);
 
         logout(navigate);
       });
@@ -99,13 +94,7 @@ export const usePlayerglobal = () => {
         });
       })
       .catch((error: AxiosError) => {
-        const responseErrorMessage =
-          (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-        setNotification({
-          message: responseErrorMessage,
-          type: NotificationEnum.Error,
-        });
+        defaultErrorNotification(error, setNotification);
       });
 
     setLoadingFetchs(false);
@@ -124,7 +113,8 @@ export const usePlayerglobal = () => {
     loadingPlayerglobals,
     loadingRequest,
     loadingFetchs,
-    playerglobals: playerglobalsFiltered,
+    playerglobals,
+    playerglobalsFiltered,
     openModalDelete: !!playerglobalIdDelete,
     handleCreate,
     handleUpdate,

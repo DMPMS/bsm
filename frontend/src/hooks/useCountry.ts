@@ -7,9 +7,8 @@ import { useRequest } from "../utils/request";
 import { URL_COUNTRY } from "../config/urls";
 import type { CountryType } from "../types/Country.type";
 import { MethodEnum } from "../enums/Method.enum";
-import { OTHER_MESSAGES } from "../utils/messages";
-import { NotificationEnum } from "../enums/Notification.enum";
 import { logout } from "../utils/auth";
+import { defaultErrorNotification } from "../utils/defaultErrorNotification";
 
 export const useCountry = () => {
   const { setNotification } = useGlobalReducer();
@@ -31,13 +30,7 @@ export const useCountry = () => {
         setLoadingCountries(false);
       })
       .catch((error: AxiosError) => {
-        const responseErrorMessage =
-          (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-        setNotification({
-          message: responseErrorMessage,
-          type: NotificationEnum.Error,
-        });
+        defaultErrorNotification(error, setNotification);
 
         logout(navigate);
       });

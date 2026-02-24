@@ -20,7 +20,7 @@ const ManagerglobalsScreen = () => {
     loadingManagerglobals,
     loadingRequest,
     loadingFetchs,
-    managerglobals,
+    managerglobalsFiltered,
     openModalDelete,
     handleCreate,
     handleSearch,
@@ -36,7 +36,7 @@ const ManagerglobalsScreen = () => {
     { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at700 },
   ];
 
-  const tableData = managerglobals.map((managerglobal) => ({
+  const tableData = managerglobalsFiltered.map((managerglobal) => ({
     id: managerglobal.id,
     name: (
       <ImageLabel
@@ -70,7 +70,7 @@ const ManagerglobalsScreen = () => {
     </div>
   ) : (
     <div className={styles.container}>
-      <Header />
+      <Header loading={loadingRequest} />
       <div className={styles.cardManagerglobals}>
         <h2 className={styles.h2}>Treinadores</h2>
         <div className={styles.containerSearchAndCreate}>

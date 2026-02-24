@@ -46,7 +46,7 @@ const UpsertManagerglobalScreen = () => {
     </div>
   ) : (
     <div className={styles.container}>
-      <Header />
+      <Header loading={loadingRequest} />
       <div className={styles.cardUpsertManagerglobal}>
         <h2 className={styles.h2}>
           {isUpdate ? "Atualizar Treinador" : "Criar Treinador"}

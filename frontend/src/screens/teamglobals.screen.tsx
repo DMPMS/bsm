@@ -20,7 +20,7 @@ const TeamglobalsScreen = () => {
     loadingTeamglobals,
     loadingRequest,
     loadingFetchs,
-    teamglobals,
+    teamglobalsFiltered,
     openModalDelete,
     handleCreate,
     handleSearch,
@@ -40,7 +40,7 @@ const TeamglobalsScreen = () => {
     { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at500 },
   ];
 
-  const tableData = teamglobals.map((teamglobal) => ({
+  const tableData = teamglobalsFiltered.map((teamglobal) => ({
     id: teamglobal.id,
     name: (
       <ImageLabel
@@ -76,7 +76,7 @@ const TeamglobalsScreen = () => {
     </div>
   ) : (
     <div className={styles.container}>
-      <Header />
+      <Header loading={loadingRequest} />
       <div className={styles.cardTeamglobals}>
         <h2 className={styles.h2}>Times</h2>
         <div className={styles.containerSearchAndCreate}>

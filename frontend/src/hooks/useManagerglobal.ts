@@ -7,10 +7,11 @@ import type { ManagerglobalType } from "../types/Managerglobal.type";
 import { MethodEnum } from "../enums/Method.enum";
 import { URL_MANAGERGLOBAL, URL_MANAGERGLOBAL_ID } from "../config/urls";
 import type { AxiosError } from "axios";
-import { MANAGERGLOBAL_MESSAGES, OTHER_MESSAGES } from "../utils/messages";
+import { MANAGERGLOBAL_MESSAGES } from "../utils/messages";
 import { NotificationEnum } from "../enums/Notification.enum";
 import { logout } from "../utils/auth";
 import { ManagerglobalRoutesEnum } from "../routes/managerglobal.routes";
+import { defaultErrorNotification } from "../utils/defaultErrorNotification";
 
 export const useManagerglobal = () => {
   const { setNotification } = useGlobalReducer();
@@ -42,13 +43,7 @@ export const useManagerglobal = () => {
         setLoadingManagerglobals(false);
       })
       .catch((error: AxiosError) => {
-        const responseErrorMessage =
-          (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-        setNotification({
-          message: responseErrorMessage,
-          type: NotificationEnum.Error,
-        });
+        defaultErrorNotification(error, setNotification);
 
         logout(navigate);
       });
@@ -99,13 +94,7 @@ export const useManagerglobal = () => {
         });
       })
       .catch((error: AxiosError) => {
-        const responseErrorMessage =
-          (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-        setNotification({
-          message: responseErrorMessage,
-          type: NotificationEnum.Error,
-        });
+        defaultErrorNotification(error, setNotification);
       });
 
     setLoadingFetchs(false);
@@ -124,7 +113,8 @@ export const useManagerglobal = () => {
     loadingManagerglobals,
     loadingRequest,
     loadingFetchs,
-    managerglobals: managerglobalsFiltered,
+    managerglobals,
+    managerglobalsFiltered,
     openModalDelete: !!managerglobalIdDelete,
     handleCreate,
     handleUpdate,

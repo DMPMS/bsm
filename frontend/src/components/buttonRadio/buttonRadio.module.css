@@ -55,5 +55,5 @@
 
 .button:disabled:not(.selected) {
   background-color: var(--color-white-3);
-  border-color: var(--color-white-3);
+  border-color: var(--color-gray-1);
 }

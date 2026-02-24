@@ -8,11 +8,12 @@ import type { SettingsglobalType } from "../types/Settingsglobal.type";
 import { MethodEnum } from "../enums/Method.enum";
 import { URL_SETTINGSGLOBAL } from "../config/urls";
 import type { AxiosError } from "axios";
-import { SETTINGSGLOBAL_MESSAGES, OTHER_MESSAGES } from "../utils/messages";
+import { SETTINGSGLOBAL_MESSAGES } from "../utils/messages";
 import { NotificationEnum } from "../enums/Notification.enum";
 import { logout } from "../utils/auth";
 import type { SeasonOffsetEnum } from "../enums/SeasonOffset.enum";
 import { OtherRoutesEnum } from "../routes/other.routes";
+import { defaultErrorNotification } from "../utils/defaultErrorNotification";
 
 export const useSettingsglobal = () => {
   const { settingsglobal, setSettingsglobal, setNotification } =
@@ -38,13 +39,7 @@ export const useSettingsglobal = () => {
         setLoadingSettingsglobal(false);
       })
       .catch((error: AxiosError) => {
-        const responseErrorMessage =
-          (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-        setNotification({
-          message: responseErrorMessage,
-          type: NotificationEnum.Error,
-        });
+        defaultErrorNotification(error, setNotification);
 
         logout(navigate);
       });
@@ -105,13 +100,7 @@ export const useSettingsglobal = () => {
         });
       })
       .catch((error: AxiosError) => {
-        const responseErrorMessage =
-          (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-        setNotification({
-          message: responseErrorMessage,
-          type: NotificationEnum.Error,
-        });
+        defaultErrorNotification(error, setNotification);
       });
   };
 

@@ -112,7 +112,7 @@ function SelectTable<T extends { id: string; [key: string]: any }>({
     setCurrentPage(page);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent, rowId: string) => {
+  const handleKeyDownRow = (e: React.KeyboardEvent, rowId: string) => {
     if (disabled) return;
 
     switch (e.key) {
@@ -121,6 +121,22 @@ function SelectTable<T extends { id: string; [key: string]: any }>({
         e.preventDefault();
 
         handleSelectRow(rowId);
+
+        break;
+      default:
+        return;
+    }
+  };
+
+  const handleKeyDownAllPageRows = (e: React.KeyboardEvent) => {
+    if (disabled) return;
+
+    switch (e.key) {
+      case KeyboardKeyEnum.Enter:
+      case KeyboardKeyEnum.Space:
+        e.preventDefault();
+
+        handleSelectAllPageRows(!isAllPageRowsSelected);
 
         break;
       default:
@@ -156,7 +172,7 @@ function SelectTable<T extends { id: string; [key: string]: any }>({
             type={multiple ? "checkbox" : "radio"}
             checked={values.includes(row.id)}
             onChange={() => handleSelectRow(row.id)}
-            onKeyDown={(e) => handleKeyDown(e, row.id)}
+            onKeyDown={(e) => handleKeyDownRow(e, row.id)}
             disabled={disabled || row.disabled}
           />
         </td>
@@ -238,6 +254,7 @@ function SelectTable<T extends { id: string; [key: string]: any }>({
                   type="checkbox"
                   checked={isAllPageRowsSelected}
                   onChange={(e) => handleSelectAllPageRows(e.target.checked)}
+                  onKeyDown={(e) => handleKeyDownAllPageRows(e)}
                   disabled={
                     disabled ||
                     data.length === 0 ||

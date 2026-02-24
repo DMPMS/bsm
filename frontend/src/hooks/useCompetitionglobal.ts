@@ -11,12 +11,13 @@ import {
   URL_COMPETITIONGLOBAL_ID,
 } from "../config/urls";
 import type { AxiosError } from "axios";
-import { COMPETITIONGLOBAL_MESSAGES, OTHER_MESSAGES } from "../utils/messages";
+import { COMPETITIONGLOBAL_MESSAGES } from "../utils/messages";
 import { NotificationEnum } from "../enums/Notification.enum";
 import { logout } from "../utils/auth";
 import { CompetitionglobalRoutesEnum } from "../routes/competitionglobal.routes";
 import { useRule } from "./useRule";
 import { useSettingsglobal } from "./useSettingsglobal";
+import { defaultErrorNotification } from "../utils/defaultErrorNotification";
 
 export const useCompetitionglobal = () => {
   const { setNotification } = useGlobalReducer();
@@ -54,13 +55,7 @@ export const useCompetitionglobal = () => {
         setLoadingCompetitionglobals(false);
       })
       .catch((error: AxiosError) => {
-        const responseErrorMessage =
-          (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-        setNotification({
-          message: responseErrorMessage,
-          type: NotificationEnum.Error,
-        });
+        defaultErrorNotification(error, setNotification);
 
         logout(navigate);
       });
@@ -113,13 +108,7 @@ export const useCompetitionglobal = () => {
         });
       })
       .catch((error: AxiosError) => {
-        const responseErrorMessage =
-          (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-        setNotification({
-          message: responseErrorMessage,
-          type: NotificationEnum.Error,
-        });
+        defaultErrorNotification(error, setNotification);
       });
 
     setLoadingFetchs(false);
@@ -138,7 +127,8 @@ export const useCompetitionglobal = () => {
     loadingCompetitionglobals,
     loadingRequest,
     loadingFetchs,
-    competitionglobals: competitionglobalsFiltered,
+    competitionglobals,
+    competitionglobalsFiltered,
     loadingSettingsglobal,
     settingsglobal,
     openModalDelete: !!competitionglobalIdDelete,

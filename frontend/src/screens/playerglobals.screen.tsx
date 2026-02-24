@@ -21,7 +21,7 @@ const PlayerglobalsScreen = () => {
     loadingPlayerglobals,
     loadingRequest,
     loadingFetchs,
-    playerglobals,
+    playerglobalsFiltered,
     openModalDelete,
     handleCreate,
     handleSearch,
@@ -48,7 +48,7 @@ const PlayerglobalsScreen = () => {
     { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at700 },
   ];
 
-  const tableData = playerglobals.map((playerglobal) => ({
+  const tableData = playerglobalsFiltered.map((playerglobal) => ({
     id: playerglobal.id,
     name: (
       <ImageLabel
@@ -111,7 +111,7 @@ const PlayerglobalsScreen = () => {
     </div>
   ) : (
     <div className={styles.container}>
-      <Header />
+      <Header loading={loadingRequest} />
       <div className={styles.cardPlayerglobals}>
         <h2 className={styles.h2}>Jogadores</h2>
         <div className={styles.containerSearchAndCreate}>

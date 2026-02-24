@@ -7,9 +7,10 @@ import { URL_USER, URL_USER_ID } from "../config/urls";
 import type { UserType } from "../types/User.type";
 import { MethodEnum } from "../enums/Method.enum";
 import type { AxiosError } from "axios";
-import { OTHER_MESSAGES, USER_MESSAGES } from "../utils/messages";
+import { USER_MESSAGES } from "../utils/messages";
 import { NotificationEnum } from "../enums/Notification.enum";
 import { logout } from "../utils/auth";
+import { defaultErrorNotification } from "../utils/defaultErrorNotification";
 
 export const useUser = () => {
   const { setNotification } = useGlobalReducer();
@@ -40,13 +41,7 @@ export const useUser = () => {
         setLoadingUsers(false);
       })
       .catch((error: AxiosError) => {
-        const responseErrorMessage =
-          (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-        setNotification({
-          message: responseErrorMessage,
-          type: NotificationEnum.Error,
-        });
+        defaultErrorNotification(error, setNotification);
 
         logout(navigate);
       });
@@ -81,13 +76,7 @@ export const useUser = () => {
         });
       })
       .catch((error: AxiosError) => {
-        const responseErrorMessage =
-          (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-        setNotification({
-          message: responseErrorMessage,
-          type: NotificationEnum.Error,
-        });
+        defaultErrorNotification(error, setNotification);
       });
 
     setLoadingFetchs(false);
@@ -106,7 +95,8 @@ export const useUser = () => {
     loadingUsers,
     loadingRequest,
     loadingFetchs,
-    users: usersFiltered,
+    users,
+    usersFiltered,
     openModalDelete: !!userIdDelete,
     handleSearch,
     handleDelete,

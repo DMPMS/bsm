@@ -15,7 +15,6 @@ import type { AxiosError } from "axios";
 import {
   GENERAL_FIELD_VALIDATION_MESSAGES,
   MANAGERGLOBAL_MESSAGES,
-  OTHER_MESSAGES,
 } from "../utils/messages";
 import { NotificationEnum } from "../enums/Notification.enum";
 import { ManagerglobalRoutesEnum } from "../routes/managerglobal.routes";
@@ -25,6 +24,7 @@ import { validateImage } from "../utils/validateImage";
 import { useManagerglobalReducer } from "../store/reducers/managerglobalReducer/useManagerglobalReducer";
 import type { FieldStatusType } from "../types/FieldStatus.type";
 import { FieldStateEnum } from "../enums/FieldState.enum";
+import { defaultErrorNotification } from "../utils/defaultErrorNotification";
 
 export const useUpsertManagerGlobal = (managerglobalId?: string) => {
   const { setNotification } = useGlobalReducer();
@@ -71,13 +71,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
             setLoadingManagerglobal(false);
           })
           .catch((error: AxiosError) => {
-            const responseErrorMessage =
-              (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-            setNotification({
-              message: responseErrorMessage,
-              type: NotificationEnum.Error,
-            });
+            defaultErrorNotification(error, setNotification);
 
             navigate(ManagerglobalRoutesEnum.Managerglobals);
           });
@@ -380,13 +374,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
           navigate(ManagerglobalRoutesEnum.Managerglobals);
         })
         .catch((error: AxiosError) => {
-          const responseErrorMessage =
-            (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-          setNotification({
-            message: responseErrorMessage,
-            type: NotificationEnum.Error,
-          });
+          defaultErrorNotification(error, setNotification);
         });
     } else {
       await request<ManagerglobalType>({
@@ -406,13 +394,7 @@ export const useUpsertManagerGlobal = (managerglobalId?: string) => {
           navigate(ManagerglobalRoutesEnum.Managerglobals);
         })
         .catch((error: AxiosError) => {
-          const responseErrorMessage =
-            (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-          setNotification({
-            message: responseErrorMessage,
-            type: NotificationEnum.Error,
-          });
+          defaultErrorNotification(error, setNotification);
         });
     }
   };

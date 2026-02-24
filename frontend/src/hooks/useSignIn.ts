@@ -9,7 +9,6 @@ import { INITIAL_SIGN_IN_DTO } from "../utils/initialDtos";
 import { isValidEmail } from "../utils/isValidEmail";
 import {
   GENERAL_FIELD_VALIDATION_MESSAGES,
-  OTHER_MESSAGES,
   SIGN_IN_MESSAGES,
 } from "../utils/messages";
 import type { AuthType } from "../types/Auth.type";
@@ -23,6 +22,7 @@ import type { AxiosError } from "axios";
 import { SignUpRoutesEnum } from "../routes/signUp.routes";
 import type { FieldStatusType } from "../types/FieldStatus.type";
 import { FieldStateEnum } from "../enums/FieldState.enum";
+import { defaultErrorNotification } from "../utils/defaultErrorNotification";
 
 export const useSignIn = () => {
   const { setUser, setNotification } = useGlobalReducer();
@@ -126,13 +126,7 @@ export const useSignIn = () => {
         navigate(AuthRedirectRoutesEnum.AuthRedirect);
       })
       .catch((error: AxiosError) => {
-        const responseErrorMessage =
-          (error.response?.data as string) || OTHER_MESSAGES.DEFAULT_ERROR;
-
-        setNotification({
-          message: responseErrorMessage,
-          type: NotificationEnum.Error,
-        });
+        defaultErrorNotification(error, setNotification);
       });
   };
 

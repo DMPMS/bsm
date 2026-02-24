@@ -119,10 +119,3 @@ export const COMPETITIONGLOBAL = {
     MAX: 30,
   },
 };
-
-export const SETTINGSGLOBAL = {
-  SEASON_OFFSET: {
-    MIN: -1,
-    MAX: 1,
-  },
-};

@@ -5,6 +5,7 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { SeasonOffsetEnum } from "../enums/SeasonOffset.enum";
 
 @Entity("settingsglobal")
 export class SettingsglobalEntity {
@@ -16,7 +17,7 @@ export class SettingsglobalEntity {
     name: "season_offset",
     nullable: false,
   })
-  seasonOffset: number;
+  seasonOffset: SeasonOffsetEnum;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;

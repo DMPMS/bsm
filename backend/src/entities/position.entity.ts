@@ -9,6 +9,7 @@ import {
 import { POSITION } from "../config/constants";
 import { PositionAreaEnum } from "../enums/PositionArea.enum";
 import { PlayerglobalPositionEntity } from "./playerglobalPosition.entity";
+import { PositionCodeEnum } from "../enums/PositionCode.enum";
 
 @Entity("position")
 export class PositionEntity {
@@ -44,7 +45,7 @@ export class PositionEntity {
     nullable: false,
     unique: true,
   })
-  code: number;
+  code: PositionCodeEnum;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;

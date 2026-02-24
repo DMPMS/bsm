@@ -1,0 +1,15 @@
+export enum PositionCodeEnum {
+  Goalkeeper = 1,
+  CenterBack = 2,
+  LeftBack = 3,
+  RightBack = 4,
+  DefensiveMidfielder = 5,
+  CentralMidfielder = 6,
+  LeftMidfielder = 7,
+  RightMidfielder = 8,
+  AttackingMidfielder = 9,
+  LeftWinger = 10,
+  RightWinger = 11,
+  SecondStriker = 12,
+  Striker = 13,
+}

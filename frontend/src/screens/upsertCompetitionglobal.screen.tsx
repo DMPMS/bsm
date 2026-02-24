@@ -44,9 +44,9 @@ const UpsertCompetitionglobalScreen = () => {
     ruleSelectValidationMessage,
     teamglobalsSelectValidationMessage,
     loadingRules,
-    rules,
+    rulesFiltered,
     loadingTeamglobals,
-    teamglobals,
+    teamglobalsFiltered,
     loadingSettingsglobal,
     settingsglobal,
     ruleModalDescription,
@@ -70,7 +70,7 @@ const UpsertCompetitionglobalScreen = () => {
     {
       th: "Número de Times",
       td: "numberOfTeams",
-      hideAtWidth: TableHideLevelEnum.at600,
+      hideAtWidth: TableHideLevelEnum.at800,
     },
     { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at700 },
     {
@@ -81,15 +81,15 @@ const UpsertCompetitionglobalScreen = () => {
     {
       th: "Competição",
       td: "competitionglobal",
-      hideAtWidth: TableHideLevelEnum.at800,
+      hideAtWidth: TableHideLevelEnum.at600,
     },
   ];
 
-  const competitionglobalRuleCodes = rules
+  const competitionglobalRuleCodes = rulesFiltered
     .filter((rule) => rule.competitionglobal)
     .map((rule) => rule.code);
 
-  const rulesTableData = rules.map((rule) => {
+  const rulesTableData = rulesFiltered.map((rule) => {
     const isDisabled = rule.competitionglobal
       ? rule.competitionglobal.id !== competitionglobalId
       : !hasRuleRequirements(rule.code, competitionglobalRuleCodes);
@@ -150,7 +150,7 @@ const UpsertCompetitionglobalScreen = () => {
     { th: "País", td: "country", hideAtWidth: TableHideLevelEnum.at500 },
   ];
 
-  const teamglobalsTableData = teamglobals.map((teamglobal) => {
+  const teamglobalsTableData = teamglobalsFiltered.map((teamglobal) => {
     const teamglobalRuleCodes = teamglobal.competitionglobalTeamglobals!.map(
       (competitionglobalTeamglobal) =>
         competitionglobalTeamglobal.competitionglobal!.rule!.code,
@@ -195,7 +195,7 @@ const UpsertCompetitionglobalScreen = () => {
     </div>
   ) : (
     <div className={styles.container}>
-      <Header />
+      <Header loading={loadingRequest} />
       <div className={styles.cardUpsertCompetitionglobal}>
         <h2 className={styles.h2}>
           {isUpdate ? "Atualizar Competição" : "Criar Competição"}

@@ -25,7 +25,7 @@ const UpdateSettingsglobalScreen = () => {
     </div>
   ) : (
     <div className={styles.container}>
-      <Header />
+      <Header loading={loadingRequest} />
       <div className={styles.cardSettingsglobal}>
         <h2 className={styles.h2}>Configurações</h2>
         <form className={styles.form} onSubmit={handleUpdateSettingsglobal}>
