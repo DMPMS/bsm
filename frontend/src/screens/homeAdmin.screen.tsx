@@ -7,6 +7,7 @@ import SettingsIcon from "../components/icons/settings.icon";
 import TeamIcon from "../components/icons/team.icon";
 import ToDoListIcon from "../components/icons/toDoList.icon";
 import UserIcon from "../components/icons/user.icon";
+import UserPencilIcon from "../components/icons/userPencil.icon";
 import Modal from "../components/modal/modal";
 import { useHomeAdmin } from "../hooks/useHomeAdmin";
 import styles from "../styles/homeAdminScreen.module.css";
@@ -20,6 +21,7 @@ const HomeAdminScreen = () => {
     handleClickTeamglobals,
     handleClickCompetitions,
     handleClickRules,
+    handleClickUpdateUser,
     handleClickSettingsglobal,
     handleClickLogout,
     handleConfirmLogout,
@@ -109,6 +111,19 @@ const HomeAdminScreen = () => {
               colorDisabled="var(--color-blue-1)"
             />
             Regras
+          </button>
+          <button
+            type="button"
+            className={styles.buttonOption}
+            onClick={handleClickUpdateUser}
+          >
+            <UserPencilIcon
+              size={30}
+              color="var(--color-blue-1)"
+              colorHover="var(--color-blue-1)"
+              colorDisabled="var(--color-blue-1)"
+            />
+            Atualizar Usuário
           </button>
           <button
             type="button"

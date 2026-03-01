@@ -36,7 +36,7 @@ const ToDoListIcon = ({
         <>
           <circle r="256" cx="256" cy="256" className={styles.path} />
 
-          <g transform={"matrix(0.6,0,0,0.6,112.4,112.4)"}>
+          <g transform={"matrix(0.6,0,0,0.6,102.4,102.4)"}>
             <rect
               x="329.698"
               y="238.3"

@@ -38,6 +38,8 @@ export const useHomeAdmin = () => {
     navigate(RulesRoutesEnum.Rules);
   };
 
+  const handleClickUpdateUser = () => {};
+
   const handleClickSettingsglobal = () => {
     navigate(SettingsglobalRoutesEnum.Settingsglobal);
   };
@@ -62,6 +64,7 @@ export const useHomeAdmin = () => {
     handleClickTeamglobals,
     handleClickCompetitions,
     handleClickRules,
+    handleClickUpdateUser,
     handleClickSettingsglobal,
     handleClickLogout,
     handleConfirmLogout,
