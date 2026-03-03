@@ -5,11 +5,10 @@ import Country from "../components/country/country";
 import Spinner from "../components/spinner/spinner";
 import FormGroup from "../components/formGroup/formGroup";
 import Input from "../components/input/input";
-import { formatDateFromDate } from "../utils/formatDateFromDate";
 import { CURRENT_DATE, DEFAULT_USER_IMAGE_URL } from "../config/constants";
 import { FormatDateEnum } from "../enums/FormatDate.enum";
 import DatePicker from "../components/datePicker/datePicker";
-import { parseDate } from "../utils/formatDateFromString";
+import { formatDateFromDate, parseDate } from "../utils/formatDate";
 import ImagePreview from "../components/imagePreview/imagePreview";
 import { getFieldState } from "../utils/getFieldState";
 

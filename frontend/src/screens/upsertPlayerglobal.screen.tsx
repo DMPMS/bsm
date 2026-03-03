@@ -12,16 +12,17 @@ import {
 import FormGroup from "../components/formGroup/formGroup";
 import Input from "../components/input/input";
 import { getFieldState } from "../utils/getFieldState";
-import { formatDateFromDate } from "../utils/formatDateFromDate";
 import { FormatDateEnum } from "../enums/FormatDate.enum";
 import DatePicker from "../components/datePicker/datePicker";
-import { parseDate } from "../utils/formatDateFromString";
+import { formatDateFromDate, parseDate } from "../utils/formatDate";
 import Select from "../components/select/select";
 import Country from "../components/country/country";
 import InputNumber from "../components/inputNumber/inputNumber";
 import SelectMultiple from "../components/selectMultiple/selectMultiple";
 import { GENERAL_FIELD_VALIDATION_MESSAGES } from "../utils/messages";
 import PositionLabel from "../components/positionLabel/positionLabel";
+import OverallByPositionGrid from "../components/playerPositionGrid/playerPositionGrid";
+import Modal from "../components/modal/modal";
 
 const UpsertPlayerglobalScreen = () => {
   const { playerglobalId } = useParams<{ playerglobalId: string }>();
@@ -41,6 +42,7 @@ const UpsertPlayerglobalScreen = () => {
     countries,
     loadingPositions,
     positions,
+    isOpenPositionGridModal,
     handleChangeInput,
     handleChangeBirthdateInput,
     handleChangeCountrySelect,
@@ -49,6 +51,8 @@ const UpsertPlayerglobalScreen = () => {
     handleUpsertPlayerglobal,
     handleReset,
     handleCancel,
+    handleClosePositionGridModal,
+    handleOpenPositionGridModal,
   } = useUpsertPlayerglobal(playerglobalId);
 
   return loadingCountries || loadingPositions || loadingPlayerglobal ? (
@@ -125,14 +129,23 @@ const UpsertPlayerglobalScreen = () => {
               />
             </FormGroup>
 
-            <FormGroup label="Geral" required={true}>
-              <InputNumber
-                id="overall"
-                value={upsertPlayerglobal.overall}
-                onChange={(e) => handleChangeInput(e, "overall")}
+            <FormGroup label="País" required={true}>
+              <Select
+                placeholder="Selecione o país"
+                value={upsertPlayerglobal.countryId}
+                onChange={(value: string | number) =>
+                  handleChangeCountrySelect(String(value))
+                }
+                options={countries.map((country) => ({
+                  value: country.id,
+                  name: country.name,
+                  display: (
+                    <Country countryCode={country.code} name={country.name} />
+                  ),
+                }))}
                 disabled={loadingRequest}
-                fieldState={getFieldState("overall", fieldsStatus)}
-                decimalPrecision={0}
+                validationMessage={countrySelectValidationMessage}
+                fieldState={getFieldState("countryId", fieldsStatus)}
               />
             </FormGroup>
 
@@ -204,24 +217,29 @@ const UpsertPlayerglobalScreen = () => {
               />
             </FormGroup>
 
-            <FormGroup label="País" required={true}>
-              <Select
-                placeholder="Selecione o país"
-                value={upsertPlayerglobal.countryId}
-                onChange={(value: string | number) =>
-                  handleChangeCountrySelect(String(value))
-                }
-                options={countries.map((country) => ({
-                  value: country.id,
-                  name: country.name,
-                  display: (
-                    <Country countryCode={country.code} name={country.name} />
-                  ),
-                }))}
+            <FormGroup label="Geral" required={true}>
+              <InputNumber
+                id="overall"
+                value={upsertPlayerglobal.overall}
+                onChange={(e) => handleChangeInput(e, "overall")}
                 disabled={loadingRequest}
-                validationMessage={countrySelectValidationMessage}
-                fieldState={getFieldState("countryId", fieldsStatus)}
+                fieldState={getFieldState("overall", fieldsStatus)}
+                decimalPrecision={0}
               />
+            </FormGroup>
+
+            <FormGroup label="Geral por Posição">
+              <button
+                type="button"
+                className={`${styles.button} ${styles.playerPositionGridButton}`}
+                disabled={
+                  upsertPlayerglobal.overall < PLAYERGLOBAL.OVERALL.MIN ||
+                  upsertPlayerglobal.overall > PLAYERGLOBAL.OVERALL.MAX
+                }
+                onClick={handleOpenPositionGridModal}
+              >
+                Visualizar
+              </button>
             </FormGroup>
           </div>
 
@@ -263,6 +281,23 @@ const UpsertPlayerglobalScreen = () => {
           </div>
         </form>
       </div>
+
+      <Modal
+        title="Geral por Posição"
+        children={
+          <div>
+            <OverallByPositionGrid
+              overall={upsertPlayerglobal.overall}
+              positions={positions}
+              primaryPositionIds={upsertPlayerglobal.primaryPositionIds}
+              secondaryPositionIds={upsertPlayerglobal.secondaryPositionIds}
+            />
+          </div>
+        }
+        isOpen={isOpenPositionGridModal}
+        onCancel={handleClosePositionGridModal}
+        cancelText="Fechar"
+      />
     </div>
   );
 };

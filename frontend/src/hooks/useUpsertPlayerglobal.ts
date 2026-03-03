@@ -60,6 +60,9 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
     setSecondaryPositionSelectValidationMessage,
   ] = useState<string>("");
 
+  const [isOpenPositionGridModal, setIsOpenPositionGridModal] =
+    useState<boolean>(false);
+
   useEffect(() => {
     if (playerglobalId) {
       const findAndSetPlayerglobalReducer = async (playerglobalId: string) => {
@@ -537,6 +540,14 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
     navigate(PlayerglobalRoutesEnum.Playerglobals);
   };
 
+  const handleClosePositionGridModal = () => {
+    setIsOpenPositionGridModal(false);
+  };
+
+  const handleOpenPositionGridModal = () => {
+    setIsOpenPositionGridModal(true);
+  };
+
   return {
     upsertPlayerglobal,
     loadingPlayerglobal,
@@ -552,6 +563,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
     countries,
     loadingPositions,
     positions,
+    isOpenPositionGridModal,
     handleChangeInput,
     handleChangeBirthdateInput,
     handleChangeCountrySelect,
@@ -560,5 +572,7 @@ export const useUpsertPlayerglobal = (playerglobalId?: string) => {
     handleUpsertPlayerglobal,
     handleReset,
     handleCancel,
+    handleClosePositionGridModal,
+    handleOpenPositionGridModal,
   };
 };

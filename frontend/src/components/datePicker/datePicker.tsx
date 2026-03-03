@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import styles from "./datePicker.module.css";
-import { formatDateFromDate } from "../../utils/formatDateFromDate";
 import { FormatDateEnum } from "../../enums/FormatDate.enum";
 import { CURRENT_DATE } from "../../config/constants";
 import CloseIcon from "../icons/close.icon";
@@ -11,6 +10,7 @@ import FastForwardIcon from "../icons/fastFoward.icon";
 import NextIcon from "../icons/next.icon";
 import { FieldStateEnum } from "../../enums/FieldState.enum";
 import { KeyboardKeyEnum } from "../../enums/KeyboardKey.enum";
+import { formatDateFromDate } from "../../utils/formatDate";
 
 const WEEKDAYS = ["D", "S", "T", "Q", "Q", "S", "S"];
 const TOTAL_CANLENDAR_CELLS = 42;

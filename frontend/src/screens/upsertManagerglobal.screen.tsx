@@ -14,8 +14,7 @@ import {
 import { FormatDateEnum } from "../enums/FormatDate.enum";
 import { useUpsertManagerGlobal } from "../hooks/useUpsertManagerglobal";
 import styles from "../styles/upsertManagerglobalScreen.module.css";
-import { formatDateFromDate } from "../utils/formatDateFromDate";
-import { parseDate } from "../utils/formatDateFromString";
+import { formatDateFromDate, parseDate } from "../utils/formatDate";
 import { getFieldState } from "../utils/getFieldState";
 
 const UpsertManagerglobalScreen = () => {

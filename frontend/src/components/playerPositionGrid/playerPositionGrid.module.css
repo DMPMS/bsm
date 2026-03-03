@@ -1,0 +1,39 @@
+.area {
+  display: flex;
+}
+
+.lateralPosition {
+  width: 100%;
+}
+
+.centerPositions {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.position {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 100%;
+  padding: 3px;
+  border: 1px solid var(--color-black);
+}
+
+.attackPosition {
+  background-color: var(--color-red-0);
+}
+
+.midfieldPosition {
+  background-color: var(--color-green-0);
+}
+
+.defensePosition {
+  background-color: var(--color-blue-0);
+}
+
+.goalkeeperPosition {
+  background-color: var(--color-yellow-0);
+}
