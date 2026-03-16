@@ -11,6 +11,7 @@ import { CreateTeamglobalDto } from "../dtos/createTeamglobal.dto";
 import { UpdateTeamglobalDto } from "../dtos/updateTeamglobal.dto";
 import { ReturnTeamglobalDto } from "../dtos/returnTeamglobal.dto";
 import { isUuid } from "../utils/uuid";
+import { UpdateTeamglobalActiveLineupglobalDto } from "../dtos/updateTeamglobalActiveLineupglobal.dto";
 
 export class TeamglobalController {
   constructor(private readonly teamglobalService: TeamglobalService) {}
@@ -189,6 +190,65 @@ export class TeamglobalController {
         res
           .status(HttpStatusEnum.InternalServerError)
           .json(TEAMGLOBAL_MESSAGES.ERROR.UPDATE_TEAMGLOBAL_ERROR);
+      }
+    }
+  }
+
+  async updateTeamglobalActiveLineupglobal(
+    req: Request,
+    res: Response,
+  ): Promise<void> {
+    try {
+      const updateTeamglobalActiveLineupglobalDto = plainToInstance(
+        UpdateTeamglobalActiveLineupglobalDto,
+        req.body,
+        {
+          excludeExtraneousValues: true,
+        },
+      );
+
+      const { teamglobalId } = req.params;
+
+      const isValid = await validateDto(updateTeamglobalActiveLineupglobalDto);
+      if (!isValid) {
+        res
+          .status(HttpStatusEnum.BadRequest)
+          .json(DTO_MESSAGES.ERROR.INVALID_DATA);
+        return;
+      }
+
+      if (!teamglobalId || !isUuid(teamglobalId)) {
+        res
+          .status(HttpStatusEnum.BadRequest)
+          .json(TEAMGLOBAL_MESSAGES.ERROR.TEAMGLOBAL_ID_IS_INVALID);
+        return;
+      }
+
+      const updatedTeamglobal =
+        await this.teamglobalService.updateTeamglobalActiveLineupglobal(
+          updateTeamglobalActiveLineupglobalDto,
+          teamglobalId,
+        );
+
+      res
+        .status(HttpStatusEnum.Ok)
+        .json(new ReturnTeamglobalDto(updatedTeamglobal));
+    } catch (error) {
+      if (error instanceof HttpError) {
+        res.status(error.status).json(error.message);
+      } else {
+        if (error instanceof Error) {
+          console.error(error.message);
+        } else {
+          console.error(error);
+        }
+
+        res
+          .status(HttpStatusEnum.InternalServerError)
+          .json(
+            TEAMGLOBAL_MESSAGES.ERROR
+              .UPDATE_TEAMGLOBAL_ACTIVE_LINEUPGLOBAL_ERROR,
+          );
       }
     }
   }

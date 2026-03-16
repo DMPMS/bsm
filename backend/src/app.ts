@@ -10,6 +10,7 @@ import teamglobalRoutes from "./routes/teamglobal.routes";
 import ruleRoutes from "./routes/rule.routes";
 import competitionglobalRoutes from "./routes/competitionglobal.routes";
 import settingsglobalRoutes from "./routes/settingsglobal.routes";
+import lineupglobalRoutes from "./routes/lineupglobal.routes";
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use("/api", managerglobalRoutes);
 app.use("/api", positionRoutes);
 app.use("/api", playerglobalRoutes);
 app.use("/api", teamglobalRoutes);
+app.use("/api", lineupglobalRoutes);
 app.use("/api", ruleRoutes);
 app.use("/api", competitionglobalRoutes);
 app.use("/api", settingsglobalRoutes);

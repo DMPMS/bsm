@@ -14,6 +14,8 @@ import { TEAMGLOBAL } from "../config/constants";
 import { ManagerglobalEntity } from "./managerglobal.entity";
 import { PlayerglobalEntity } from "./playerglobal.entity";
 import { CompetitionglobalTeamglobalEntity } from "./competitionglobalTeamglobal.entity";
+import { LineupglobalEntity } from "./lineupglobal.entity";
+import { LineupPresetEnum } from "../enums/LineupPreset.enum";
 
 @Entity("teamglobal")
 export class TeamglobalEntity {
@@ -33,6 +35,13 @@ export class TeamglobalEntity {
     nullable: false,
   })
   managerglobalId: string;
+
+  @Column({
+    type: "integer",
+    name: "active_lineupglobal_preset",
+    nullable: true,
+  })
+  activeLineupglobalPreset: LineupPresetEnum;
 
   @Column({
     type: "varchar",
@@ -81,4 +90,10 @@ export class TeamglobalEntity {
     (competitionglobalTeamglobal) => competitionglobalTeamglobal.teamglobal,
   )
   competitionglobalTeamglobals?: CompetitionglobalTeamglobalEntity[];
+
+  @OneToMany(
+    () => LineupglobalEntity,
+    (lineupglobal) => lineupglobal.teamglobal,
+  )
+  lineupglobals?: LineupglobalEntity[];
 }

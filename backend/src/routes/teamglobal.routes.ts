@@ -38,6 +38,14 @@ teamglobalRoutes.put(
   (req, res) => teamglobalController.updateTeamglobal(req, res),
 );
 
+teamglobalRoutes.patch(
+  "/teamglobal/:teamglobalId/lineupglobal",
+  authMiddleware,
+  roleMiddleware([UserTypeEnum.Admin]),
+  (req, res) =>
+    teamglobalController.updateTeamglobalActiveLineupglobal(req, res),
+);
+
 teamglobalRoutes.delete(
   "/teamglobal/:teamglobalId",
   authMiddleware,

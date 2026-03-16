@@ -122,6 +122,8 @@ export const TEAMGLOBAL_MESSAGES = {
   ERROR: {
     CREATE_TEAMGLOBAL_ERROR: "Erro ao criar time",
     UPDATE_TEAMGLOBAL_ERROR: "Erro ao atualizar time",
+    UPDATE_TEAMGLOBAL_ACTIVE_LINEUPGLOBAL_ERROR:
+      "Erro ao atualizar escalação ativa do time",
     SELECT_TEAMGLOBAL_ERROR: "Erro ao buscar times",
     SELECT_TEAMGLOBAL_BY_ID_ERROR: "Erro ao buscar time",
     DELETE_TEAMGLOBAL_ERROR: "Erro ao deletar time",
@@ -131,9 +133,27 @@ export const TEAMGLOBAL_MESSAGES = {
       `O time com identificador ${teamglobalId} não foi encontrado`,
     TEAMGLOBAL_WITH_COMPETITIONGLOBAL: (teamglobalId: string) =>
       `O time com identificador ${teamglobalId} possui uma competição associada`,
+    ALL_LINEUPGLOBALS_PLAYERGLOBALS_MUST_REMAIN: (playerglobalIds: string[]) =>
+      `Os seguintes identificadores de jogadores em escalações devem permanecer: ${playerglobalIds.join(
+        ", ",
+      )}`,
   },
   SUCCESS: {
     TEAMGLOBAL_DELETED_SUCCESSFULLY: "Time deletado",
+  },
+};
+
+export const LINEUPGLOBAL_MESSAGES = {
+  ERROR: {
+    UPDATE_LINEUPGLOBAL_ERROR: "Erro ao atualizar escalação",
+    SELECT_LINEUPGLOBAL_ERROR: "Erro ao buscar escalações",
+    SELECT_LINEUPGLOBAL_BY_ID_ERROR: "Erro ao buscar escalação",
+    LINEUPGLOBAL_ID_IS_INVALID:
+      "O identificador da escalação é obrigatório e precisa ser um UUID",
+    LINEUPGLOBAL_ID_NOT_FOUND: (lineupglobalId: string) =>
+      `A escalação com identificador ${lineupglobalId} não foi encontrada`,
+    INVALID_ROLE_PLAYERGLOBAL_IDS: (playerglobalIds: string[]) =>
+      `Os seguintes identificadores de jogadores atribuídos a funções especiais não estão entre os da escalação: ${playerglobalIds.join(", ")}`,
   },
 };
 

@@ -12,11 +12,20 @@ import { CreateTeamglobalDto } from "../dtos/createTeamglobal.dto";
 import { ManagerglobalService } from "./managerglobal.service";
 import { UpdateTeamglobalDto } from "../dtos/updateTeamglobal.dto";
 import { PlayerglobalService } from "./playerglobal.service";
-
+import { LineupglobalService } from "./lineupglobal.service";
+import { LineupPresetEnum } from "../enums/LineupPreset.enum";
+import { LineupFormationEnum } from "../enums/LineupFormation.enum";
+import { LineupPlayStyleEnum } from "../enums/LineupPlayStyle.enum";
+import { LineupMarkingStyleEnum } from "../enums/LineupMarkingStyle.enum";
+import { LineupDefenseLineEnum } from "../enums/LineupDefenseLine.enum";
+import { LineupIntensityEnum } from "../enums/LineupIntensity.enum";
+import { LineupSpotEnum } from "../enums/LineupSpot.enum";
+import { UpdateTeamglobalActiveLineupglobalDto } from "../dtos/updateTeamglobalActiveLineupglobal.dto";
 export class TeamglobalService {
   private readonly countryService: CountryService;
   private readonly managerglobalService: ManagerglobalService;
   private readonly playerglobalService: PlayerglobalService;
+  private readonly lineupglobalService: LineupglobalService;
 
   constructor(
     private readonly teamglobalRepository: Repository<TeamglobalEntity> = AppDataSource.getRepository(
@@ -26,6 +35,7 @@ export class TeamglobalService {
     this.countryService = new CountryService();
     this.managerglobalService = new ManagerglobalService();
     this.playerglobalService = new PlayerglobalService();
+    this.lineupglobalService = new LineupglobalService();
   }
 
   async getTeamglobals(
@@ -121,6 +131,7 @@ export class TeamglobalService {
             ? createTeamglobalDto.imageUrl
             : null,
           abbreviation: createTeamglobalDto.abbreviation.toUpperCase(),
+          activeLineupglobalPreset: LineupPresetEnum.Alpha,
         });
 
         for (const playerglobalId of createTeamglobalDto.playerglobalIds) {
@@ -131,6 +142,33 @@ export class TeamglobalService {
           );
         }
 
+        const createLineupData = (preset: LineupPresetEnum) => ({
+          teamglobalId: savedTeamglobal.id,
+          preset: preset,
+          formation: LineupFormationEnum.F433,
+          playStyle: LineupPlayStyleEnum.Balanced,
+          markingStyle: LineupMarkingStyleEnum.Zonal,
+          defenseLine: LineupDefenseLineEnum.Medium,
+          intensity: LineupIntensityEnum.Medium,
+          spotPlayerglobals: Object.values(LineupSpotEnum)
+            .filter((value): value is number => typeof value === "number")
+            .map((spot, index) => ({
+              spot: spot,
+              playerId: createTeamglobalDto.playerglobalIds[index],
+            })),
+        });
+
+        await Promise.all(
+          Object.values(LineupPresetEnum)
+            .filter((value): value is number => typeof value === "number")
+            .map(async (preset) => {
+              await this.lineupglobalService.createLineupglobal(
+                createLineupData(preset),
+                entityManager,
+              );
+            }),
+        );
+
         return savedTeamglobal;
       },
     );
@@ -140,7 +178,45 @@ export class TeamglobalService {
     updateTeamglobalDto: UpdateTeamglobalDto,
     teamglobalId: string,
   ): Promise<TeamglobalEntity> {
-    const teamglobal = await this.getTeamglobalById(teamglobalId);
+    const teamglobal = await this.getTeamglobalById(teamglobalId, {
+      lineupglobals: {
+        lineupglobalPlayerglobals: true,
+      },
+    });
+
+    const lineupglobalsAllPlayerglobalIds = Array.from(
+      new Set(
+        teamglobal
+          .lineupglobals!.flatMap(
+            (lineupglobal) => lineupglobal.lineupglobalPlayerglobals!,
+          )
+          .map(
+            (lineupglobalPlayerglobal) =>
+              lineupglobalPlayerglobal.playerglobalId,
+          ),
+      ),
+    );
+
+    const allLineupglobalPlayerglobalsRemain =
+      lineupglobalsAllPlayerglobalIds.every((playerglobalId) =>
+        updateTeamglobalDto.playerglobalIds.includes(playerglobalId),
+      );
+
+    if (!allLineupglobalPlayerglobalsRemain) {
+      const removedPlayerglobalIds = lineupglobalsAllPlayerglobalIds.filter(
+        (playerglobalId) =>
+          !updateTeamglobalDto.playerglobalIds.includes(playerglobalId),
+      );
+
+      throw new HttpError(
+        HttpStatusEnum.UnprocessableEntity,
+        TEAMGLOBAL_MESSAGES.ERROR.ALL_LINEUPGLOBALS_PLAYERGLOBALS_MUST_REMAIN(
+          removedPlayerglobalIds,
+        ),
+      );
+    }
+
+    delete teamglobal.lineupglobals; // Remove after changing the save method to update.
 
     await this.countryService.getCountryById(updateTeamglobalDto.countryId);
 
@@ -201,6 +277,21 @@ export class TeamglobalService {
         return updatedTeamglobal;
       },
     );
+  }
+
+  async updateTeamglobalActiveLineupglobal(
+    updateTeamglobalActiveLineupglobalDto: UpdateTeamglobalActiveLineupglobalDto,
+    teamglobalId: string,
+  ): Promise<TeamglobalEntity> {
+    const teamglobal = await this.getTeamglobalById(teamglobalId);
+
+    const updatedTeamglobal = await this.teamglobalRepository.save({
+      ...teamglobal,
+      activeLineupglobalPreset:
+        updateTeamglobalActiveLineupglobalDto.lineupglobalPreset,
+    });
+
+    return updatedTeamglobal;
   }
 
   async deleteTeamglobal(teamglobalId: string): Promise<DeleteResult> {

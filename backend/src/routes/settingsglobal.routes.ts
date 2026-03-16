@@ -20,7 +20,7 @@ settingsglobalRoutes.get(
 );
 
 settingsglobalRoutes.put(
-  "/settingsglobal/",
+  "/settingsglobal",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin]),
   (req, res) => settingsglobalController.updateSettingsglobal(req, res),

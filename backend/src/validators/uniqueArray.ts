@@ -7,7 +7,11 @@ import {
 @ValidatorConstraint({ name: "uniqueArray", async: false })
 export class UniqueArray implements ValidatorConstraintInterface {
   validate(array: any[]) {
-    if (!array || array.length === 0) {
+    if (!Array.isArray(array)) {
+      return false;
+    }
+
+    if (array.length === 0) {
       return true;
     }
 

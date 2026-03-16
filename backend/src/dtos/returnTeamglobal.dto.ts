@@ -1,6 +1,8 @@
 import { TeamglobalEntity } from "../entities/teamglobal.entity";
+import { LineupPresetEnum } from "../enums/LineupPreset.enum";
 import { ReturnCompetitionglobalTeamglobalDto } from "./returnCompetitionglobalTeamglobal.dto";
 import { ReturnCountryDto } from "./returnCountry.dto";
+import { ReturnLineupglobalDto } from "./returnLineupglobal.dto";
 import { ReturnManagerglobalDto } from "./returnManagerglobal.dto";
 import { ReturnPlayerglobalDto } from "./returnPlayerglobal.dto";
 
@@ -9,10 +11,12 @@ export class ReturnTeamglobalDto {
   name: string;
   abbreviation: string;
   imageUrl: string | null;
+  activeLineupglobalPreset: LineupPresetEnum;
 
   country?: ReturnCountryDto;
   managerglobal?: ReturnManagerglobalDto;
   playerglobals?: ReturnPlayerglobalDto[];
+  lineupglobals?: ReturnLineupglobalDto[];
   competitionglobalTeamglobals?: ReturnCompetitionglobalTeamglobalDto[];
 
   constructor(teamglobalEntity: TeamglobalEntity) {
@@ -20,6 +24,7 @@ export class ReturnTeamglobalDto {
     this.name = teamglobalEntity.name;
     this.abbreviation = teamglobalEntity.abbreviation;
     this.imageUrl = teamglobalEntity.imageUrl;
+    this.activeLineupglobalPreset = teamglobalEntity.activeLineupglobalPreset;
 
     this.country = teamglobalEntity.country
       ? new ReturnCountryDto(teamglobalEntity.country)
@@ -32,6 +37,12 @@ export class ReturnTeamglobalDto {
     this.playerglobals = teamglobalEntity.playerglobals
       ? teamglobalEntity.playerglobals.map(
           (playerglobal) => new ReturnPlayerglobalDto(playerglobal),
+        )
+      : undefined;
+
+    this.lineupglobals = teamglobalEntity.lineupglobals
+      ? teamglobalEntity.lineupglobals.map(
+          (lineupglobal) => new ReturnLineupglobalDto(lineupglobal),
         )
       : undefined;
 

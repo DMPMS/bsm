@@ -111,6 +111,11 @@ export const TEAMGLOBAL = {
     MIN: 16,
     MAX: 33,
   },
+  LINEUPGLOBALS: 4,
+};
+
+export const LINEUPGLOBAL = {
+  PLAYERGLOBALS: 11,
 };
 
 export const COMPETITIONGLOBAL = {

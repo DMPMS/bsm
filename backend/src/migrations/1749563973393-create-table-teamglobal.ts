@@ -11,6 +11,7 @@ export class CreateTableTeamglobal1749563973393 implements MigrationInterface {
         name VARCHAR(30) NOT NULL,
         abbreviation VARCHAR(3) NOT NULL,
         image_url TEXT,
+        active_lineupglobal_preset INTEGER NOT NULL,
 
         created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
         updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,

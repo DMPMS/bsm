@@ -12,6 +12,7 @@ import { CountryEntity } from "./country.entity";
 import { PLAYERGLOBAL } from "../config/constants";
 import { PlayerglobalPositionEntity } from "./playerglobalPosition.entity";
 import { TeamglobalEntity } from "./teamglobal.entity";
+import { LineupglobalPlayerglobalEntity } from "./lineupglobalPlayerglobal.entity";
 
 @Entity("playerglobal")
 export class PlayerglobalEntity {
@@ -72,4 +73,10 @@ export class PlayerglobalEntity {
   @ManyToOne(() => TeamglobalEntity, (teamglobal) => teamglobal.playerglobals)
   @JoinColumn({ name: "teamglobal_id", referencedColumnName: "id" })
   teamglobal?: TeamglobalEntity;
+
+  @OneToMany(
+    () => LineupglobalPlayerglobalEntity,
+    (lineupglobalPlayerglobal) => lineupglobalPlayerglobal.playerglobal,
+  )
+  lineupglobalPlayerglobals?: LineupglobalPlayerglobalEntity[];
 }
