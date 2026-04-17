@@ -39,8 +39,10 @@ export class PlayerglobalPositionService {
     );
 
     await repository.save({
-      ...createPlayerglobalPositionDto,
       id: generateUuid(),
+      playerglobalId: createPlayerglobalPositionDto.playerglobalId,
+      positionId: createPlayerglobalPositionDto.positionId,
+      isPrimary: createPlayerglobalPositionDto.isPrimary,
     });
   }
 

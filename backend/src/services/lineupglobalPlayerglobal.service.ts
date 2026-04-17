@@ -41,8 +41,14 @@ export class LineupglobalPlayerglobalService {
     );
 
     await repository.save({
-      ...createLineupglobalPlayerglobalDto,
       id: generateUuid(),
+      lineupglobalId: createLineupglobalPlayerglobalDto.lineupglobalId,
+      playerglobalId: createLineupglobalPlayerglobalDto.playerglobalId,
+      spot: createLineupglobalPlayerglobalDto.spot,
+      isCaptain: createLineupglobalPlayerglobalDto.isCaptain,
+      isFreeKickTaker: createLineupglobalPlayerglobalDto.isFreeKickTaker,
+      isLeftCornerTaker: createLineupglobalPlayerglobalDto.isLeftCornerTaker,
+      isRightCornerTaker: createLineupglobalPlayerglobalDto.isRightCornerTaker,
     });
   }
 

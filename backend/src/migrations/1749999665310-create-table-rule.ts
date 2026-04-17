@@ -18,7 +18,7 @@ export class CreateTableRule1749999665310 implements MigrationInterface {
         updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
 
         PRIMARY KEY (id),
-        FOREIGN KEY (country_id) REFERENCES public.country(id) ON DELETE CASCADE ON UPDATE CASCADE
+        FOREIGN KEY (country_id) REFERENCES public.country(id) ON DELETE RESTRICT ON UPDATE CASCADE
       );
     `);
   }

@@ -15,7 +15,7 @@ export class CreateTablePlayerglobalPosition1749604199951 implements MigrationIn
 
         PRIMARY KEY (id),
         FOREIGN KEY (playerglobal_id) REFERENCES public.playerglobal(id) ON DELETE CASCADE ON UPDATE CASCADE,
-        FOREIGN KEY (position_id) REFERENCES public.position(id) ON DELETE CASCADE ON UPDATE CASCADE
+        FOREIGN KEY (position_id) REFERENCES public.position(id) ON DELETE RESTRICT ON UPDATE CASCADE
       );
     `);
   }

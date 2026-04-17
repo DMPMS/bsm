@@ -142,19 +142,25 @@ export class UserService {
         );
       } else {
         savedUser = await this.userRepository.save({
-          ...createUserDto,
           id: generateUuid(),
+          countryId: createUserDto.countryId,
+          name: createUserDto.name,
           imageUrl: createUserDto.imageUrl ? createUserDto.imageUrl : null,
+          birthdate: createUserDto.birthdate,
           type: UserTypeEnum.Admin,
+          email: createUserDto.email,
           hashedPassword: hashedPassword,
         });
       }
     } else {
       savedUser = await this.userRepository.save({
-        ...createUserDto,
         id: generateUuid(),
+        countryId: createUserDto.countryId,
+        name: createUserDto.name,
         imageUrl: createUserDto.imageUrl ? createUserDto.imageUrl : null,
+        birthdate: createUserDto.birthdate,
         type: UserTypeEnum.User,
+        email: createUserDto.email,
         hashedPassword: hashedPassword,
       });
     }
@@ -220,9 +226,13 @@ export class UserService {
     }
 
     const updatedUser = await this.userRepository.save({
-      ...user,
-      ...updateUserDto,
+      id: user.id,
+      countryId: updateUserDto.countryId,
+      name: updateUserDto.name,
       imageUrl: updateUserDto.imageUrl ? updateUserDto.imageUrl : null,
+      birthdate: updateUserDto.birthdate,
+      type: user.type,
+      email: updateUserDto.email,
       hashedPassword: newHashedPassword
         ? newHashedPassword
         : user.hashedPassword,

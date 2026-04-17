@@ -34,8 +34,8 @@ export class SettingsglobalService {
     const settingsglobal = await this.getSettingsglobal();
 
     const updatedSettingsglobal = await this.settingsglobalRepository.save({
-      ...settingsglobal,
-      ...updateSettingsglobalDto,
+      id: settingsglobal.id,
+      seasonOffset: updateSettingsglobalDto.seasonOffset,
     });
 
     return updatedSettingsglobal;

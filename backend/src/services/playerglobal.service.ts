@@ -133,11 +133,15 @@ export class PlayerglobalService {
         const repository = entityManager.getRepository(PlayerglobalEntity);
 
         const savedPlayerglobal = await repository.save({
-          ...createPlayerglobalDto,
           id: generateUuid(),
+          countryId: createPlayerglobalDto.countryId,
+          teamglobalId: null,
+          name: createPlayerglobalDto.name,
           imageUrl: createPlayerglobalDto.imageUrl
             ? createPlayerglobalDto.imageUrl
             : null,
+          birthdate: createPlayerglobalDto.birthdate,
+          overall: createPlayerglobalDto.overall,
         });
 
         for (const positionId of createPlayerglobalDto.primaryPositionIds) {
@@ -202,11 +206,15 @@ export class PlayerglobalService {
         const repository = entityManager.getRepository(PlayerglobalEntity);
 
         const updatedPlayerglobal = await repository.save({
-          ...playerglobal,
-          ...updatePlayerglobalDto,
+          id: playerglobal.id,
+          countryId: updatePlayerglobalDto.countryId,
+          teamglobalId: playerglobal.teamglobalId,
+          name: updatePlayerglobalDto.name,
           imageUrl: updatePlayerglobalDto.imageUrl
             ? updatePlayerglobalDto.imageUrl
             : null,
+          birthdate: updatePlayerglobalDto.birthdate,
+          overall: updatePlayerglobalDto.overall,
         });
 
         await this.playerglobalPositionService.deletePlayerglobalPosition(
@@ -285,8 +293,14 @@ export class PlayerglobalService {
       );
 
       await repository.save({
-        ...playerglobal,
         teamglobalId: null,
+
+        id: playerglobal.id,
+        countryId: playerglobal.countryId,
+        name: playerglobal.name,
+        imageUrl: playerglobal.imageUrl,
+        birthdate: playerglobal.birthdate,
+        overall: playerglobal.overall,
       });
     }
   }
@@ -317,8 +331,14 @@ export class PlayerglobalService {
     }
 
     await repository.save({
-      ...playerglobal,
       teamglobalId: teamglobalId,
+
+      id: playerglobal.id,
+      countryId: playerglobal.countryId,
+      name: playerglobal.name,
+      imageUrl: playerglobal.imageUrl,
+      birthdate: playerglobal.birthdate,
+      overall: playerglobal.overall,
     });
   }
 

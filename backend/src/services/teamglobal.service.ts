@@ -125,13 +125,15 @@ export class TeamglobalService {
         const repository = entityManager.getRepository(TeamglobalEntity);
 
         const savedTeamglobal = await repository.save({
-          ...createTeamglobalDto,
           id: generateUuid(),
+          countryId: createTeamglobalDto.countryId,
+          managerglobalId: createTeamglobalDto.managerglobalId,
+          activeLineupglobalPreset: LineupPresetEnum.Alpha,
+          name: createTeamglobalDto.name,
+          abbreviation: createTeamglobalDto.abbreviation.toUpperCase(),
           imageUrl: createTeamglobalDto.imageUrl
             ? createTeamglobalDto.imageUrl
             : null,
-          abbreviation: createTeamglobalDto.abbreviation.toUpperCase(),
-          activeLineupglobalPreset: LineupPresetEnum.Alpha,
         });
 
         for (const playerglobalId of createTeamglobalDto.playerglobalIds) {
@@ -216,8 +218,6 @@ export class TeamglobalService {
       );
     }
 
-    delete teamglobal.lineupglobals; // Remove after changing the save method to update.
-
     await this.countryService.getCountryById(updateTeamglobalDto.countryId);
 
     if (updateTeamglobalDto.managerglobalId !== teamglobal.managerglobalId) {
@@ -252,12 +252,15 @@ export class TeamglobalService {
         const repository = entityManager.getRepository(TeamglobalEntity);
 
         const updatedTeamglobal = await repository.save({
-          ...teamglobal,
-          ...updateTeamglobalDto,
+          id: teamglobal.id,
+          countryId: updateTeamglobalDto.countryId,
+          managerglobalId: updateTeamglobalDto.managerglobalId,
+          activeLineupglobalPreset: teamglobal.activeLineupglobalPreset,
+          name: updateTeamglobalDto.name,
+          abbreviation: updateTeamglobalDto.abbreviation.toUpperCase(),
           imageUrl: updateTeamglobalDto.imageUrl
             ? updateTeamglobalDto.imageUrl
             : null,
-          abbreviation: updateTeamglobalDto.abbreviation.toUpperCase(),
         });
 
         await this.playerglobalService.clearPlayerglobalTeamglobalId(
@@ -286,9 +289,15 @@ export class TeamglobalService {
     const teamglobal = await this.getTeamglobalById(teamglobalId);
 
     const updatedTeamglobal = await this.teamglobalRepository.save({
-      ...teamglobal,
       activeLineupglobalPreset:
         updateTeamglobalActiveLineupglobalDto.lineupglobalPreset,
+
+      id: teamglobal.id,
+      countryId: teamglobal.countryId,
+      managerglobalId: teamglobal.managerglobalId,
+      name: teamglobal.name,
+      abbreviation: teamglobal.abbreviation,
+      imageUrl: teamglobal.imageUrl,
     });
 
     return updatedTeamglobal;

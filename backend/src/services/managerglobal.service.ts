@@ -83,11 +83,13 @@ export class ManagerglobalService {
     await this.countryService.getCountryById(createManagerglobalDto.countryId);
 
     const savedManagerglobal = await this.managerglobalRepository.save({
-      ...createManagerglobalDto,
       id: generateUuid(),
+      countryId: createManagerglobalDto.countryId,
+      name: createManagerglobalDto.name,
       imageUrl: createManagerglobalDto.imageUrl
         ? createManagerglobalDto.imageUrl
         : null,
+      birthdate: createManagerglobalDto.birthdate,
     });
 
     return savedManagerglobal;
@@ -102,11 +104,13 @@ export class ManagerglobalService {
     await this.countryService.getCountryById(updateManagerglobalDto.countryId);
 
     const updatedManagerglobal = await this.managerglobalRepository.save({
-      ...managerglobal,
-      ...updateManagerglobalDto,
+      id: managerglobal.id,
+      countryId: updateManagerglobalDto.countryId,
+      name: updateManagerglobalDto.name,
       imageUrl: updateManagerglobalDto.imageUrl
         ? updateManagerglobalDto.imageUrl
         : null,
+      birthdate: updateManagerglobalDto.birthdate,
     });
 
     return updatedManagerglobal;

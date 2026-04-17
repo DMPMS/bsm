@@ -19,7 +19,7 @@ export class CreateTableLineupglobalPlayerglobal1773655872893 implements Migrati
 
         PRIMARY KEY (id),
         FOREIGN KEY (lineupglobal_id) REFERENCES public.lineupglobal(id) ON DELETE CASCADE ON UPDATE CASCADE,
-        FOREIGN KEY (playerglobal_id) REFERENCES public.playerglobal(id) ON DELETE CASCADE ON UPDATE CASCADE
+        FOREIGN KEY (playerglobal_id) REFERENCES public.playerglobal(id) ON DELETE RESTRICT ON UPDATE CASCADE
       );
     `);
   }

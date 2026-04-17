@@ -14,7 +14,7 @@ export class CreateTableCompetitionglobal1750003760531 implements MigrationInter
         updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
 
         PRIMARY KEY (id),
-        FOREIGN KEY (rule_id) REFERENCES public.rule(id) ON DELETE CASCADE ON UPDATE CASCADE
+        FOREIGN KEY (rule_id) REFERENCES public.rule(id) ON DELETE RESTRICT ON UPDATE CASCADE
       );
     `);
   }

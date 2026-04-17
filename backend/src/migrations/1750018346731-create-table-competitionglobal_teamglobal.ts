@@ -13,7 +13,7 @@ export class CreateTableCompetitionglobalTeamglobal1750018346731 implements Migr
 
         PRIMARY KEY (id),
         FOREIGN KEY (competitionglobal_id) REFERENCES public.competitionglobal(id) ON DELETE CASCADE ON UPDATE CASCADE,
-        FOREIGN KEY (teamglobal_id) REFERENCES public.teamglobal(id) ON DELETE CASCADE ON UPDATE CASCADE
+        FOREIGN KEY (teamglobal_id) REFERENCES public.teamglobal(id) ON DELETE RESTRICT ON UPDATE CASCADE
       );
     `);
   }

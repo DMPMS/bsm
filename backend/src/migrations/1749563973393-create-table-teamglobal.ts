@@ -17,8 +17,8 @@ export class CreateTableTeamglobal1749563973393 implements MigrationInterface {
         updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
 
         PRIMARY KEY (id),
-        FOREIGN KEY (country_id) REFERENCES public.country(id) ON DELETE CASCADE ON UPDATE CASCADE,
-        FOREIGN KEY (managerglobal_id) REFERENCES public.managerglobal(id) ON DELETE CASCADE ON UPDATE CASCADE
+        FOREIGN KEY (country_id) REFERENCES public.country(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+        FOREIGN KEY (managerglobal_id) REFERENCES public.managerglobal(id) ON DELETE RESTRICT ON UPDATE CASCADE
       );
     `);
   }

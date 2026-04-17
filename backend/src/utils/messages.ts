@@ -154,6 +154,8 @@ export const LINEUPGLOBAL_MESSAGES = {
       `A escalação com identificador ${lineupglobalId} não foi encontrada`,
     INVALID_ROLE_PLAYERGLOBAL_IDS: (playerglobalIds: string[]) =>
       `Os seguintes identificadores de jogadores atribuídos a funções especiais não estão entre os da escalação: ${playerglobalIds.join(", ")}`,
+    PLAYERGLOBAL_NOT_IN_TEAMGLOBAL: (playerglobalId: string) =>
+      `O jogador com identificador ${playerglobalId} não pertence ao time da escalação`,
   },
 };
 

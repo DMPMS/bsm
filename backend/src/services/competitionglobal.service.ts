@@ -137,8 +137,9 @@ export class CompetitionglobalService {
         const repository = entityManager.getRepository(CompetitionglobalEntity);
 
         const savedCompetitionglobal = await repository.save({
-          ...createCompetitionglobalDto,
           id: generateUuid(),
+          ruleId: createCompetitionglobalDto.ruleId,
+          name: createCompetitionglobalDto.name,
           imageUrl: createCompetitionglobalDto.imageUrl
             ? createCompetitionglobalDto.imageUrl
             : null,
@@ -192,9 +193,9 @@ export class CompetitionglobalService {
         const repository = entityManager.getRepository(CompetitionglobalEntity);
 
         const updatedCompetitionglobal = await repository.save({
-          ...competitionglobal,
-          ...updateCompetitionglobalDto,
+          id: competitionglobal.id,
           ruleId: competitionglobal.ruleId,
+          name: updateCompetitionglobalDto.name,
           imageUrl: updateCompetitionglobalDto.imageUrl
             ? updateCompetitionglobalDto.imageUrl
             : null,

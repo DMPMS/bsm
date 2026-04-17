@@ -63,8 +63,10 @@ export class CompetitionglobalTeamglobalService {
     }
 
     await repository.save({
-      ...createCompetitionglobalTeamglobalDto,
       id: generateUuid(),
+      competitionglobalId:
+        createCompetitionglobalTeamglobalDto.competitionglobalId,
+      teamglobalId: createCompetitionglobalTeamglobalDto.teamglobalId,
     });
   }
 

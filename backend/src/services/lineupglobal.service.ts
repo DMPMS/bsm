@@ -43,20 +43,14 @@ export class LineupglobalService {
   async getLineupglobalsByTeamglobalId(
     teamglobalId: string,
     relationsOptions?: RelationsOptionsType,
-    entityManager?: EntityManager,
   ): Promise<LineupglobalEntity[]> {
-    const repository = entityManager
-      ? entityManager.getRepository(LineupglobalEntity)
-      : this.lineupglobalRepository;
-
     await this.teamglobalService.getTeamglobalById(
       teamglobalId,
       undefined,
       false,
-      entityManager,
     );
 
-    const lineupglobals = await repository.find({
+    const lineupglobals = await this.lineupglobalRepository.find({
       where: { teamglobalId: teamglobalId },
       relations: relationsOptions,
       order: { preset: "ASC" },
@@ -106,13 +100,24 @@ export class LineupglobalService {
 
     await Promise.all([
       ...createLineupglobalDto.spotPlayerglobals.map((spot) =>
-        this.playerglobalService.getPlayerglobalById(spot.playerId),
+        this.playerglobalService.getPlayerglobalById(
+          spot.playerId,
+          undefined,
+          undefined,
+          entityManager,
+        ),
       ),
     ]);
 
     const savedLineupglobal = await repository.save({
-      ...createLineupglobalDto,
       id: generateUuid(),
+      teamglobalId: createLineupglobalDto.teamglobalId,
+      preset: createLineupglobalDto.preset,
+      formation: createLineupglobalDto.formation,
+      playStyle: createLineupglobalDto.playStyle,
+      markingStyle: createLineupglobalDto.markingStyle,
+      defenseLine: createLineupglobalDto.defenseLine,
+      intensity: createLineupglobalDto.intensity,
     });
 
     for (const [
@@ -170,9 +175,20 @@ export class LineupglobalService {
     }
 
     await Promise.all([
-      ...updateLineupglobalDto.spotPlayerglobals.map((spot) =>
-        this.playerglobalService.getPlayerglobalById(spot.playerId),
-      ),
+      ...updateLineupglobalDto.spotPlayerglobals.map(async (spot) => {
+        const playerglobal = await this.playerglobalService.getPlayerglobalById(
+          spot.playerId,
+        );
+
+        if (lineupglobal.teamglobalId !== playerglobal.teamglobalId) {
+          throw new HttpError(
+            HttpStatusEnum.Conflict,
+            LINEUPGLOBAL_MESSAGES.ERROR.PLAYERGLOBAL_NOT_IN_TEAMGLOBAL(
+              spot.playerId,
+            ),
+          );
+        }
+      }),
     ]);
 
     return await AppDataSource.transaction(
@@ -180,8 +196,14 @@ export class LineupglobalService {
         const repository = entityManager.getRepository(LineupglobalEntity);
 
         const updatedLineupglobal = await repository.save({
-          ...lineupglobal,
-          ...updateLineupglobalDto,
+          id: lineupglobal.id,
+          teamglobalId: lineupglobal.teamglobalId,
+          preset: lineupglobal.preset,
+          formation: updateLineupglobalDto.formation,
+          playStyle: updateLineupglobalDto.playStyle,
+          markingStyle: updateLineupglobalDto.markingStyle,
+          defenseLine: updateLineupglobalDto.defenseLine,
+          intensity: updateLineupglobalDto.intensity,
         });
 
         await this.lineupglobalPlayerglobalService.deleteLineupglobalPlayerglobal(
