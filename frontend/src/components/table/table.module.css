@@ -65,6 +65,12 @@
   outline-offset: -2px;
 }
 
+.buttonIconLineupglobals:focus-visible {
+  border-radius: 50%;
+  outline: 2px solid var(--color-blue-3);
+  outline-offset: -2px;
+}
+
 .pagination {
   display: flex;
   flex-wrap: wrap;

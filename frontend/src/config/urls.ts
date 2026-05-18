@@ -20,6 +20,9 @@ export const URL_RULE = `http://localhost:${BACKEND_API_PORT}/api/rule`;
 export const URL_TEAMGLOBAL = `http://localhost:${BACKEND_API_PORT}/api/teamglobal`;
 export const URL_TEAMGLOBAL_ID = `http://localhost:${BACKEND_API_PORT}/api/teamglobal/:teamglobalId`;
 
+export const URL_LINEUPGLOBAL = `http://localhost:${BACKEND_API_PORT}/api/teamglobal/:teamglobalId/lineupglobal`;
+export const URL_LINEUPGLOBAL_ID = `http://localhost:${BACKEND_API_PORT}/api/teamglobal/lineupglobal/:lineupglobalId`;
+
 export const URL_PLAYERGLOBAL = `http://localhost:${BACKEND_API_PORT}/api/playerglobal`;
 export const URL_PLAYERGLOBAL_ID = `http://localhost:${BACKEND_API_PORT}/api/playerglobal/:playerglobalId`;
 

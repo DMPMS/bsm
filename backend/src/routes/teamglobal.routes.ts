@@ -42,8 +42,7 @@ teamglobalRoutes.patch(
   "/teamglobal/:teamglobalId/lineupglobal",
   authMiddleware,
   roleMiddleware([UserTypeEnum.Admin]),
-  (req, res) =>
-    teamglobalController.updateTeamglobalActiveLineupglobal(req, res),
+  (req, res) => teamglobalController.updateActiveLineupglobal(req, res),
 );
 
 teamglobalRoutes.delete(

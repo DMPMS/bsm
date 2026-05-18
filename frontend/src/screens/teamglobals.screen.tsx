@@ -26,6 +26,7 @@ const TeamglobalsScreen = () => {
     handleSearch,
     handleUpdate,
     handleDelete,
+    handleLineupglobals,
     handleOpenModalDelete,
     handleCloseModalDelete,
   } = useTeamglobal();
@@ -63,6 +64,7 @@ const TeamglobalsScreen = () => {
       />
     ),
     actions: [
+      TableActionEnum.Lineupglobals,
       TableActionEnum.Update,
       teamglobal.competitionglobalTeamglobals!.length === 0
         ? TableActionEnum.Delete
@@ -99,6 +101,7 @@ const TeamglobalsScreen = () => {
           headers={tableHeaders}
           handleUpdate={handleUpdate}
           handleOpenModalDelete={handleOpenModalDelete}
+          handleLineupglobals={handleLineupglobals}
         />
       </div>
 

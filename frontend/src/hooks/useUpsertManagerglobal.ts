@@ -26,7 +26,7 @@ import type { FieldStatusType } from "../types/FieldStatus.type";
 import { FieldStateEnum } from "../enums/FieldState.enum";
 import { defaultErrorNotification } from "../utils/defaultErrorNotification";
 
-export const useUpsertManagerGlobal = (managerglobalId?: string) => {
+export const useUpsertManagerglobal = (managerglobalId?: string) => {
   const { setNotification } = useGlobalReducer();
 
   const { managerglobal, setManagerglobal } = useManagerglobalReducer();

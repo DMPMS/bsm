@@ -76,6 +76,9 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
     setPlayerglobalsSelectValidationMessage,
   ] = useState<string>("");
 
+  const [openModalLineupglobals, setOpenModalLineupglobals] =
+    useState<boolean>(false);
+
   useEffect(() => {
     if (teamglobalId) {
       const findAndSetTeamglobalReducer = async (teamglobalId: string) => {
@@ -456,6 +459,20 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
     navigate(TeamglobalRoutesEnum.Teamglobals);
   };
 
+  const handleLineupglobals = (teamglobalId: string) => {
+    navigate(
+      TeamglobalRoutesEnum.Lineupglobals.replace(":teamglobalId", teamglobalId),
+    );
+  };
+
+  const handleCloseModalLineupglobals = () => {
+    setOpenModalLineupglobals(false);
+  };
+
+  const handleOpenModalLineupglobals = () => {
+    setOpenModalLineupglobals(true);
+  };
+
   const handlePreventSubmitOnEnter = (
     e: React.KeyboardEvent<HTMLInputElement>,
   ) => {
@@ -482,6 +499,7 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
     managerglobalsFiltered,
     loadingPlayerglobals,
     playerglobalsFiltered,
+    openModalLineupglobals,
     handleSearchManagerglobals,
     handleSearchPlayerglobals,
     setManagerglobalsFilter,
@@ -493,6 +511,9 @@ export const useUpsertTeamglobal = (teamglobalId?: string) => {
     handleUpsertTeamglobal,
     handleReset,
     handleCancel,
+    handleLineupglobals,
+    handleOpenModalLineupglobals,
+    handleCloseModalLineupglobals,
     handlePreventSubmitOnEnter,
   };
 };

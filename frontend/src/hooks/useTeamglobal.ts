@@ -112,6 +112,12 @@ export const useTeamglobal = () => {
     setTeamglobalIdDelete(teamglobalId);
   };
 
+  const handleLineupglobals = (teamglobalId: string) => {
+    navigate(
+      TeamglobalRoutesEnum.Lineupglobals.replace(":teamglobalId", teamglobalId),
+    );
+  };
+
   return {
     loadingTeamglobals,
     loadingRequest,
@@ -125,6 +131,7 @@ export const useTeamglobal = () => {
     handleDelete,
     handleOpenModalDelete,
     handleCloseModalDelete,
+    handleLineupglobals,
     fetchTeamglobals,
   };
 };

@@ -23,6 +23,7 @@ import ButtonRadio from "../components/buttonRadio/buttonRadio";
 import { GENERAL_FIELD_VALIDATION_MESSAGES } from "../utils/messages";
 import { SelectTableFilterEnum } from "../enums/SelectTableFilter.enum";
 import ImageLabel from "../components/imageLabel/imageLabel";
+import Modal from "../components/modal/modal";
 
 const UpsertTeamglobalScreen = () => {
   const { teamglobalId } = useParams<{ teamglobalId: string }>();
@@ -45,6 +46,7 @@ const UpsertTeamglobalScreen = () => {
     managerglobalsFiltered,
     loadingPlayerglobals,
     playerglobalsFiltered,
+    openModalLineupglobals,
     handleSearchManagerglobals,
     handleSearchPlayerglobals,
     setManagerglobalsFilter,
@@ -56,6 +58,9 @@ const UpsertTeamglobalScreen = () => {
     handleUpsertTeamglobal,
     handleReset,
     handleCancel,
+    handleLineupglobals,
+    handleOpenModalLineupglobals,
+    handleCloseModalLineupglobals,
     handlePreventSubmitOnEnter,
   } = useUpsertTeamglobal(teamglobalId);
 
@@ -400,7 +405,22 @@ const UpsertTeamglobalScreen = () => {
             </FormGroup>
           </div>
 
-          <div className={styles.actions}>
+          {isUpdate && (
+            <div className={styles.secondaryActions}>
+              <button
+                type="button"
+                className={`${styles.button} ${styles.lineupglobalsButton}`}
+                disabled={loadingRequest}
+                onClick={handleOpenModalLineupglobals}
+              >
+                Escalações
+              </button>
+            </div>
+          )}
+
+          <div
+            className={`${styles.actions} ${isUpdate && styles.actionsLowMargin}`}
+          >
             <button
               type="button"
               className={`${styles.button} ${styles.cancelButton}`}
@@ -438,6 +458,20 @@ const UpsertTeamglobalScreen = () => {
           </div>
         </form>
       </div>
+
+      <Modal
+        title="Ir para Escalações"
+        children={
+          <div>
+            Deseja realmente ir para as escalações? As atualizações não salvas
+            serão perdidas.
+          </div>
+        }
+        isOpen={openModalLineupglobals}
+        onConfirm={() => handleLineupglobals(teamglobalId!)}
+        onCancel={handleCloseModalLineupglobals}
+        danger={true}
+      />
     </div>
   );
 };

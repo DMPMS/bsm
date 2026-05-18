@@ -20,7 +20,7 @@ import { LineupMarkingStyleEnum } from "../enums/LineupMarkingStyle.enum";
 import { LineupDefenseLineEnum } from "../enums/LineupDefenseLine.enum";
 import { LineupIntensityEnum } from "../enums/LineupIntensity.enum";
 import { LineupSpotEnum } from "../enums/LineupSpot.enum";
-import { UpdateTeamglobalActiveLineupglobalDto } from "../dtos/updateTeamglobalActiveLineupglobal.dto";
+import { UpdateActiveLineupglobalDto } from "../dtos/updateActiveLineupglobal.dto";
 export class TeamglobalService {
   private readonly countryService: CountryService;
   private readonly managerglobalService: ManagerglobalService;
@@ -282,15 +282,14 @@ export class TeamglobalService {
     );
   }
 
-  async updateTeamglobalActiveLineupglobal(
-    updateTeamglobalActiveLineupglobalDto: UpdateTeamglobalActiveLineupglobalDto,
+  async updateActiveLineupglobal(
+    updateActiveLineupglobalDto: UpdateActiveLineupglobalDto,
     teamglobalId: string,
   ): Promise<TeamglobalEntity> {
     const teamglobal = await this.getTeamglobalById(teamglobalId);
 
     const updatedTeamglobal = await this.teamglobalRepository.save({
-      activeLineupglobalPreset:
-        updateTeamglobalActiveLineupglobalDto.lineupglobalPreset,
+      activeLineupglobalPreset: updateActiveLineupglobalDto.lineupglobalPreset,
 
       id: teamglobal.id,
       countryId: teamglobal.countryId,

@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.cardLineupglobals {
+  width: 1000px;
+  padding: 16px;
+  margin: 16px;
+  margin: calc((46.5 + 16) * 1px) 16px 16px 16px;
+  background-color: var(--color-white-1);
+  border-radius: 8px;
+}
+
+.h2 {
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.containerButtonsAndLabel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 10px 0;
+}
+
+.containerButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.button {
+  height: 36px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: var(--color-blue-1);
+  color: var(--color-white-1);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-blue-3);
+  outline-offset: -2px;
+}
+
+.button:hover {
+  background-color: var(--color-blue-2);
+}
+
+.button:disabled {
+  background-color: var(--color-blue-3);
+  cursor: not-allowed;
+}
+
+.buttonTeamglobals {
+  min-width: 60px;
+}
+
+.buttonUpdateTeamglobal {
+  min-width: 105px;
+}
+
+.containerLineups {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media (max-width: 559px) {
+  .lineupCard {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .containerButtonsAndLabel {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .containerButtons,
+  .button {
+    flex: 1;
+    width: 100%;
+  }
+}

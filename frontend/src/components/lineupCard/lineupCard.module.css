@@ -1,0 +1,94 @@
+.container {
+  min-width: 208.9px;
+  padding: 16px;
+  background-color: var(--color-white-1);
+  border: 1px solid var(--color-white-3);
+  border-radius: 8px;
+}
+
+.h3 {
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 20px 0;
+}
+
+.formation {
+  text-align: center;
+}
+
+.playStyle {
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 20px 0 0 0;
+}
+
+.button {
+  flex: 1;
+  height: 36px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  color: var(--color-white-1);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.updateLineupButton {
+  background-color: var(--color-blue-1);
+}
+
+.updateLineupButton:focus-visible {
+  outline: 2px solid var(--color-blue-3);
+  outline-offset: -2px;
+}
+
+.updateLineupButton:hover {
+  background-color: var(--color-blue-2);
+}
+
+.updateLineupButton:disabled {
+  background-color: var(--color-blue-3);
+  cursor: not-allowed;
+}
+
+.updateActiveLineupButton {
+  display: flex;
+  justify-content: center;
+  max-width: 36px;
+  background-color: var(--color-blue-1);
+}
+
+.updateActiveLineupButton:focus-visible {
+  outline: 2px solid var(--color-blue-3);
+  outline-offset: -2px;
+}
+
+.updateActiveLineupButton:hover {
+  background-color: var(--color-blue-2);
+}
+
+.updateActiveLineupButton:disabled {
+  background-color: var(--color-blue-3);
+  cursor: not-allowed;
+}
+
+.buttonContent {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 400px) {
+  .container {
+    min-width: 150px;
+  }
+}

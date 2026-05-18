@@ -24,6 +24,12 @@ export const TEAMGLOBAL_MESSAGES = {
   },
 };
 
+export const LINEUPGLOBAL_MESSAGES = {
+  SUCCESS: {
+    UPDATE_ACTIVE_LINEUPGLOBAL: "Escalação ativa atualizada",
+  },
+};
+
 export const PLAYERGLOBAL_MESSAGES = {
   SUCCESS: {
     CREATE: "Jogador criado",

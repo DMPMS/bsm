@@ -12,7 +12,7 @@ import {
   DEFAULT_MANAGERGLOBAL_IMAGE_URL,
 } from "../config/constants";
 import { FormatDateEnum } from "../enums/FormatDate.enum";
-import { useUpsertManagerGlobal } from "../hooks/useUpsertManagerglobal";
+import { useUpsertManagerglobal } from "../hooks/useUpsertManagerglobal";
 import styles from "../styles/upsertManagerglobalScreen.module.css";
 import { formatDateFromDate, parseDate } from "../utils/formatDate";
 import { getFieldState } from "../utils/getFieldState";
@@ -37,7 +37,7 @@ const UpsertManagerglobalScreen = () => {
     handleUpsertManagerglobal,
     handleReset,
     handleCancel,
-  } = useUpsertManagerGlobal(managerglobalId);
+  } = useUpsertManagerglobal(managerglobalId);
 
   return loadingCountries || loadingManagerglobal ? (
     <div className={styles.container}>

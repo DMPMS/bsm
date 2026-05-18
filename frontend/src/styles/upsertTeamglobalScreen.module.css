@@ -48,6 +48,7 @@
 .containerSelectTables {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .containerSearchManagerglobals {
@@ -76,11 +77,22 @@
   color: var(--color-gray-1);
 }
 
+.secondaryActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 20px 0 0 0;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
   margin: 20px 0 0 0;
+}
+
+.actionsLowMargin {
+  margin: 5px 0 0 0;
 }
 
 .button {
@@ -132,6 +144,24 @@
 .cancelButton:disabled,
 .resetButton:disabled {
   background-color: var(--color-gray-3);
+  cursor: not-allowed;
+}
+
+.lineupglobalsButton {
+  background-color: var(--color-blue-1);
+}
+
+.lineupglobalsButton:focus-visible {
+  outline: 2px solid var(--color-blue-3);
+  outline-offset: -2px;
+}
+
+.lineupglobalsButton:hover {
+  background-color: var(--color-blue-2);
+}
+
+.lineupglobalsButton:disabled {
+  background-color: var(--color-blue-3);
   cursor: not-allowed;
 }
 

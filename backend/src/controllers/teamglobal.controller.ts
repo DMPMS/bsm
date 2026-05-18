@@ -11,7 +11,7 @@ import { CreateTeamglobalDto } from "../dtos/createTeamglobal.dto";
 import { UpdateTeamglobalDto } from "../dtos/updateTeamglobal.dto";
 import { ReturnTeamglobalDto } from "../dtos/returnTeamglobal.dto";
 import { isUuid } from "../utils/uuid";
-import { UpdateTeamglobalActiveLineupglobalDto } from "../dtos/updateTeamglobalActiveLineupglobal.dto";
+import { UpdateActiveLineupglobalDto } from "../dtos/updateActiveLineupglobal.dto";
 
 export class TeamglobalController {
   constructor(private readonly teamglobalService: TeamglobalService) {}
@@ -194,13 +194,10 @@ export class TeamglobalController {
     }
   }
 
-  async updateTeamglobalActiveLineupglobal(
-    req: Request,
-    res: Response,
-  ): Promise<void> {
+  async updateActiveLineupglobal(req: Request, res: Response): Promise<void> {
     try {
-      const updateTeamglobalActiveLineupglobalDto = plainToInstance(
-        UpdateTeamglobalActiveLineupglobalDto,
+      const updateActiveLineupglobalDto = plainToInstance(
+        UpdateActiveLineupglobalDto,
         req.body,
         {
           excludeExtraneousValues: true,
@@ -209,7 +206,7 @@ export class TeamglobalController {
 
       const { teamglobalId } = req.params;
 
-      const isValid = await validateDto(updateTeamglobalActiveLineupglobalDto);
+      const isValid = await validateDto(updateActiveLineupglobalDto);
       if (!isValid) {
         res
           .status(HttpStatusEnum.BadRequest)
@@ -225,8 +222,8 @@ export class TeamglobalController {
       }
 
       const updatedTeamglobal =
-        await this.teamglobalService.updateTeamglobalActiveLineupglobal(
-          updateTeamglobalActiveLineupglobalDto,
+        await this.teamglobalService.updateActiveLineupglobal(
+          updateActiveLineupglobalDto,
           teamglobalId,
         );
 

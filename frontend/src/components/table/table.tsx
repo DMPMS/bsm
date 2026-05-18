@@ -7,12 +7,14 @@ import { TableHideLevelEnum } from "../../enums/TableHideLevel.enum";
 import PencilIcon from "../icons/pencil.icon";
 import TrashIcon from "../icons/trash.icon";
 import { KeyboardKeyEnum } from "../../enums/KeyboardKey.enum";
+import SoccerFieldIcon from "../icons/soccerField.icon";
 
 interface TableProps<T> {
   data: T[];
   headers: TableHeaderType[];
   handleUpdate?: (id: string) => void;
   handleOpenModalDelete?: (id: string) => void;
+  handleLineupglobals?: (teamglobalId: string) => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -21,6 +23,7 @@ function Table<T extends { id: string; [key: string]: any }>({
   headers,
   handleUpdate,
   handleOpenModalDelete,
+  handleLineupglobals,
 }: TableProps<T>) {
   const [currentPage, setCurrentPage] = useState<number>(
     PAGINATION.DEFAULT_PAGE,
@@ -111,6 +114,36 @@ function Table<T extends { id: string; [key: string]: any }>({
         {hasActionsColumn && row.actions.length > 0 && (
           <td>
             <div className={styles.contentTdActions}>
+              {row.actions.includes(TableActionEnum.Lineupglobals) && (
+                <button
+                  type="button"
+                  className={`${styles.buttonIcon} ${styles.buttonIconLineupglobals}`}
+                  onClick={() =>
+                    handleLineupglobals
+                      ? handleLineupglobals(row.id)
+                      : undefined
+                  }
+                  onKeyDown={(e) => {
+                    if (
+                      e.key === KeyboardKeyEnum.Enter ||
+                      e.key === KeyboardKeyEnum.Space
+                    ) {
+                      e.preventDefault();
+                      if (handleLineupglobals) {
+                        handleLineupglobals(row.id);
+                      }
+                    }
+                  }}
+                >
+                  <SoccerFieldIcon
+                    size={20}
+                    circle={true}
+                    color="var(--color-blue-1)"
+                    colorHover="var(--color-blue-2)"
+                    colorDisabled="var(--color-blue-1)"
+                  />
+                </button>
+              )}
               {row.actions.includes(TableActionEnum.Update) && (
                 <button
                   type="button"
